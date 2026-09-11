@@ -109,13 +109,6 @@
       color: var(--text-muted);
     }
 
-    .social-auth-btns {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
     .btn-social {
       width: 100%;
       display: flex;
@@ -1590,7 +1583,7 @@
         </div>
         <div class="header-branding">
           <div style="display: flex; align-items: center; gap: 6px; justify-content: flex-end;">
-            <span id="admin-badge" class="admin-badge">👑 لوحة المشرف</span>
+            <span id="admin-badge" class="admin-badge" onclick="switchTab('admin')">👑 لوحة المشرف</span>
             <h1 class="brand-title">جدولي</h1>
           </div>
           <span id="user-greeting" class="brand-subtitle">كلية علوم وهندسة الحاسب</span>
@@ -1622,7 +1615,7 @@
           <span>تجميعات وملخصات بانتظار الاعتماد:</span>
           <strong id="notif-res-count" style="color:#D97706;">0</strong>
         </div>
-        <button class="btn-primary" style="background:#854D0E; font-size:11.5px; padding:6px; margin-top:8px;" onclick="document.getElementById('admin-badge').click();">
+        <button class="btn-primary" style="background:#854D0E; font-size:11.5px; padding:6px; margin-top:8px;" onclick="switchTab('admin')">
           الانتقال إلى لوحة الإشراف للمراجعة 👑
         </button>
       </div>
@@ -1679,7 +1672,7 @@
             <span>📝</span>
             <span>المهام والتكاليف القريبة</span>
           </div>
-          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target=\'tasks\']').click();">عرض الكل ↗</span>
+          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('tasks')">عرض الكل ↗</span>
         </div>
         <div id="home-urgent-tasks-list">
           <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد مهام معلقة حالياً 🎉</p>
@@ -1692,7 +1685,7 @@
             <span>✨</span>
             <span>الجديد في التجميعات</span>
           </div>
-          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target=\'resources\']').click();">تصفح ↗</span>
+          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('resources')">تصفح ↗</span>
         </div>
         <div id="home-latest-resources-list">
           <p style="font-size:12px; color:var(--text-muted); text-align:center;">جلب أحدث الملخصات...</p>
@@ -1797,7 +1790,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات -->
+    <!-- تبويب التجميعات والملخصات (الافتراضي فارغ، روابط فقط) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -2690,7 +2683,7 @@
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // دالة الانتقال بين التبويبات العامة لضمان عمل كافة الأزرار
+    // دالة موحدة لتبديل التبويبات مع ضمان عمل جميع الأزرار
     window.switchTab = function(target) {
       document.querySelectorAll(".nav-item").forEach(n => {
         if (n.getAttribute("data-target") === target) n.classList.add("active");
@@ -2709,11 +2702,11 @@
 
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
-        const target = item.getAttribute("data-target");
-        switchTab(target);
+        switchTab(item.getAttribute("data-target"));
       });
     });
 
+    // إغلاق النوافذ بالخارج أو Esc أو زر ×
     document.querySelectorAll(".modal-overlay").forEach(overlay => {
       overlay.addEventListener("click", (e) => {
         if (e.target === overlay) overlay.classList.remove("open");
@@ -2723,6 +2716,12 @@
       if (e.key === "Escape") {
         document.querySelectorAll(".modal-overlay.open").forEach(o => o.classList.remove("open"));
       }
+    });
+
+    document.querySelectorAll(".close-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".modal-overlay.open").forEach(o => o.classList.remove("open"));
+      });
     });
 
     function initTheme() {
@@ -3783,24 +3782,6 @@
         resourcesGlobalContainer.appendChild(groupDiv);
       });
     }
-
-    // التنقل السفلي الفعال والمضمون
-    document.querySelectorAll(".nav-item").forEach(item => {
-      item.addEventListener("click", () => {
-        document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
-        item.classList.add("active");
-        const target = item.getAttribute("data-target");
-        
-        document.getElementById("tab-content-home").style.display = target === "home" ? "block" : "none";
-        document.getElementById("tab-content-courses").style.display = target === "courses" ? "block" : "none";
-        document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
-        document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
-        document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
-        document.getElementById("tab-content-admin").style.display = "none";
-
-        if (target === "home") renderHomeDashboardUI();
-      });
-    });
 
     btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
     btnCloseCourseModal.addEventListener("click", () => courseModal.classList.remove("open"));
