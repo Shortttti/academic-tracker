@@ -66,7 +66,6 @@
       position: relative;
     }
 
-    /* Auth Screen */
     .auth-wrapper {
       justify-content: center;
       padding: 24px;
@@ -226,7 +225,6 @@
       text-align: center;
     }
 
-    /* Header */
     .app-header {
       background-color: var(--primary-dark);
       color: white;
@@ -289,7 +287,6 @@
       color: rgba(255, 255, 255, 0.85);
     }
 
-    /* Main Content */
     .main-content {
       padding: 16px;
       flex: 1;
@@ -314,7 +311,6 @@
       margin-top: 2px;
     }
 
-    /* Sorting Bar */
     .sort-bar {
       display: flex;
       align-items: center;
@@ -349,7 +345,6 @@
       border-color: var(--primary-teal);
     }
 
-    /* Summary Card */
     .summary-card {
       background: var(--card-bg);
       border: 1px solid #FECACA;
@@ -444,7 +439,6 @@
       margin-bottom: 14px;
     }
 
-    /* Course Cards */
     .course-card {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
@@ -504,25 +498,26 @@
       display: block;
     }
 
-    /* حاسبة الغياب والحرمان */
+    /* صندوق نظام الحرمان بجامعة طيبة */
     .dn-calculator-box {
       background: var(--subtle-bg);
-      border-radius: 10px;
-      padding: 10px 12px;
+      border-radius: 12px;
+      padding: 12px 14px;
       margin: 10px 0 12px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border: 1px solid var(--border-subtle);
     }
 
     .dn-info {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .dn-title {
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
       color: var(--text-muted);
     }
@@ -532,9 +527,24 @@
       font-weight: 800;
     }
 
-    .dn-badge-safe { color: #10B981; }
-    .dn-badge-warn { color: #F59E0B; }
-    .dn-badge-danger { color: #EF4444; }
+    .dn-percentage-pill {
+      font-size: 11px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
+      margin-top: 2px;
+    }
+
+    .dn-safe { color: #10B981; }
+    .dn-safe-pill { background: rgba(16, 185, 129, 0.15); color: #059669; }
+
+    .dn-warn { color: #D97706; }
+    .dn-warn-pill { background: #FEF3C7; color: #B45309; }
+
+    .dn-danger { color: #DC2626; }
+    .dn-danger-pill { background: #FEE2E2; color: #B91C1C; }
 
     .stepper-row {
       display: flex;
@@ -634,7 +644,6 @@
       cursor: pointer;
     }
 
-    /* أسفل صفحة المقررات */
     .bottom-level-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border-subtle);
@@ -686,9 +695,7 @@
       display: block;
     }
 
-    /* ============================================================ */
-    /* صفحة التجميعات والملخصات المخصصة المنفصلة (Resources Tab) */
-    /* ============================================================ */
+    /* صفحة التجميعات والملخصات */
     .admin-controls-card {
       background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(8, 95, 86, 0.15));
       border: 1.5px dashed var(--primary-teal);
@@ -934,7 +941,6 @@
       font-size: 17px;
     }
 
-    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -1165,7 +1171,7 @@
         </div>
       </div>
 
-      <!-- بطاقة تحكم الأدمن (تظهر فقط لكِ بصفتك المشرف) -->
+      <!-- بطاقة تحكم الأدمن -->
       <div id="admin-resources-panel" class="admin-controls-card">
         <h3>👑 لوحة تحكم المشرف (إدارة التجميعات)</h3>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
@@ -1177,9 +1183,7 @@
       </div>
 
       <!-- قائمة التجميعات والملخصات لجميع المقررات -->
-      <div id="resources-global-container">
-        <!-- يتم توليدها ديناميكياً من Firestore -->
-      </div>
+      <div id="resources-global-container"></div>
     </main>
 
     <!-- تبويب 3: المهام ومؤقت غرس الإنجاز -->
@@ -1241,7 +1245,7 @@
       <div id="gpa-calc-container" style="margin-top: 16px;"></div>
     </main>
 
-    <!-- شريط التنقل السفلي المطور (4 تابات مع خانة التجميعات المنفصلة) -->
+    <!-- شريط التنقل السفلي -->
     <nav class="bottom-nav">
       <div class="nav-item active" data-target="courses">
         <span class="icon">📊</span>
@@ -1346,7 +1350,7 @@
           <div class="form-row">
             <div class="form-group">
               <label>المحاضرات المقررة</label>
-              <input type="number" id="course-lectures-input" required min="1" value="24">
+              <input type="number" id="course-lectures-input" required min="1" value="30">
             </div>
             <div class="form-group">
               <label>عدد الشباتر</label>
@@ -1405,7 +1409,7 @@
       </div>
     </div>
 
-    <!-- مودال الاقتراحات ومشاركة الملخصات المربوط بـ Formspree -->
+    <!-- مودال الاقتراحات ومشاركة الملخصات -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1448,7 +1452,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق مع Firebase و صلاحيات الأدمن -->
+  <!-- منطق التطبيق الكامل مع Firebase Firestore و معادلة حرمان جامعة طيبة -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -1491,57 +1495,56 @@
     const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
 
-    // ==========================================
-    // المعرف الخاص بالأدمن (له كامل الصلاحيات)
-    // ==========================================
     const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
-
-    // تاريخ فتح الانتقال للمستوى السادس (7 يناير 2027)
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
 
-    // الساعات الصحيحة الرسمية للمستوى الخامس
-    const OFFICIAL_LEVEL_5_CREDITS = {
-      "COE 225": 3,
-      "COE 295": 2,
-      "CS 226": 4,
-      "EE 201": 4,
-      "GS 311": 2,
-      "STAT 301": 3
+    // ============================================================
+    // جدول ساعات ومحاضرات جامعة طيبة المعتمد:
+    // 4 ساعات = 45 محاضرة (11 غياب مسموح، 12 حرمان)
+    // 3 ساعات = 30 محاضرة (7 غيابات مسموحة، 8 حرمان)
+    // 2 ساعات = 15 محاضرة (3 غيابات مسموحة، 4 حرمان)
+    // ============================================================
+    const OFFICIAL_LEVEL_5_DATA = {
+      "COE 225": { credits: 3, totalLectures: 30 },
+      "COE 295": { credits: 2, totalLectures: 15 },
+      "CS 226":  { credits: 4, totalLectures: 45 },
+      "EE 201":  { credits: 4, totalLectures: 45 },
+      "GS 311":  { credits: 2, totalLectures: 15 },
+      "STAT 301":{ credits: 3, totalLectures: 30 }
     };
 
-    // الخطة الرسمية لباقي المستويات
     const CURRICULUM_PLAN = {
       6: [
-        { name: "مقرر متطلب جامعة اختياري (2)", code: "GSE 2", credits: 2, totalLectures: 14, color: "#8B5CF6" },
-        { name: "شبكات الحاسب", code: "COE 236", credits: 4, totalLectures: 28, color: "#0EA5E9" },
-        { name: "إلكترونيات (1)", code: "EE 222", credits: 4, totalLectures: 28, color: "#10B981" },
-        { name: "التصميم الهندسي", code: "COE 286", credits: 3, totalLectures: 24, color: "#F59E0B" },
-        { name: "النظم المضمنة (1)", code: "COE 246", credits: 4, totalLectures: 28, color: "#6366F1" }
+        { name: "مقرر متطلب جامعة اختياري (2)", code: "GSE 2", credits: 2, totalLectures: 15, color: "#8B5CF6" },
+        { name: "شبكات الحاسب", code: "COE 236", credits: 4, totalLectures: 45, color: "#0EA5E9" },
+        { name: "إلكترونيات (1)", code: "EE 222", credits: 4, totalLectures: 45, color: "#10B981" },
+        { name: "التصميم الهندسي", code: "COE 286", credits: 3, totalLectures: 30, color: "#F59E0B" },
+        { name: "النظم المضمنة (1)", code: "COE 246", credits: 4, totalLectures: 45, color: "#6366F1" }
       ],
       7: [
-        { name: "مقرر متطلب جامعة اختياري (3)", code: "GSE 3", credits: 2, totalLectures: 14, color: "#F43F5E" },
-        { name: "النظم المضمنة (2)", code: "COE 347", credits: 4, totalLectures: 28, color: "#6366F1" },
-        { name: "اساسيات انترنت الاشياء", code: "COE 337", credits: 4, totalLectures: 28, color: "#0D9488" },
-        { name: "تصميم النظم الرقمية", code: "COE 317", credits: 4, totalLectures: 28, color: "#8B5CF6" },
-        { name: "الطرق العددية في هندسة الحاسب", code: "COE 377", credits: 3, totalLectures: 24, color: "#0284C7" }
+        { name: "مقرر متطلب جامعة اختياري (3)", code: "GSE 3", credits: 2, totalLectures: 15, color: "#F43F5E" },
+        { name: "النظم المضمنة (2)", code: "COE 347", credits: 4, totalLectures: 45, color: "#6366F1" },
+        { name: "اساسيات انترنت الاشياء", code: "COE 337", credits: 4, totalLectures: 45, color: "#0D9488" },
+        { name: "تصميم النظم الرقمية", code: "COE 317", credits: 4, totalLectures: 45, color: "#8B5CF6" },
+        { name: "الطرق العددية في هندسة الحاسب", code: "COE 377", credits: 3, totalLectures: 30, color: "#0284C7" }
       ],
       8: [
-        { name: "البصريات", code: "PHYS 246", credits: 3, totalLectures: 24, color: "#D97706" },
-        { name: "مقرر اختياري برنامج (1)", code: "COE 1", credits: 3, totalLectures: 24, color: "#2563EB" },
-        { name: "أمن الحاسب والشبكات", code: "COE 368", credits: 4, totalLectures: 28, color: "#DC2626" },
-        { name: "معالجة الإشارات الرقمية", code: "COE 358", credits: 4, totalLectures: 28, color: "#059669" },
-        { name: "مشروع التخرج (1)", code: "COE 398", credits: 2, totalLectures: 14, color: "#7C3AED" }
+        { name: "البصريات", code: "PHYS 246", credits: 3, totalLectures: 30, color: "#D97706" },
+        { name: "مقرر اختياري برنامج (1)", code: "COE 1", credits: 3, totalLectures: 30, color: "#2563EB" },
+        { name: "أمن الحاسب والشبكات", code: "COE 368", credits: 4, totalLectures: 45, color: "#DC2626" },
+        { name: "معالجة الإشارات الرقمية", code: "COE 358", credits: 4, totalLectures: 45, color: "#059669" },
+        { name: "مشروع التخرج (1)", code: "COE 398", credits: 2, totalLectures: 15, color: "#7C3AED" }
       ],
       9: [
-        { name: "الحوسبة و أخلاقيات المهنة والمجتمع", code: "IS 275", credits: 2, totalLectures: 14, color: "#059669" },
-        { name: "الابتكار وريادة الاعمال في مجال الحوسبة", code: "IS 377", credits: 2, totalLectures: 14, color: "#D97706" },
-        { name: "الشبكات المعرفة بالبرمجيات", code: "COE 439", credits: 3, totalLectures: 24, color: "#0284C7" },
-        { name: "مقرر اختياري برنامج (3)", code: "COE 3", credits: 3, totalLectures: 24, color: "#4F46E5" },
-        { name: "مقرر اختياري برنامج (2)", code: "COE 2", credits: 3, totalLectures: 24, color: "#2563EB" },
-        { name: "مشروع التخرج (2)", code: "COE 499", credits: 3, totalLectures: 24, color: "#7C3AED" }
+        { name: "الحوسبة و أخلاقيات المهنة والمجتمع", code: "IS 275", credits: 2, totalLectures: 15, color: "#059669" },
+        { name: "الابتكار وريادة الاعمال في مجال الحوسبة", code: "IS 377", credits: 2, totalLectures: 15, color: "#D97706" },
+        { name: "الشبكات المعرفة بالبرمجيات", code: "COE 439", credits: 3, totalLectures: 30, color: "#0284C7" },
+        { name: "مقرر اختياري برنامج (3)", code: "COE 3", credits: 3, totalLectures: 30, color: "#4F46E5" },
+        { name: "مقرر اختياري برنامج (2)", code: "COE 2", credits: 3, totalLectures: 30, color: "#2563EB" },
+        { name: "مشروع التخرج (2)", code: "COE 499", credits: 3, totalLectures: 30, color: "#7C3AED" }
       ],
       10: [
-        { name: "التدريب التعاوني", code: "COE 490", credits: 6, totalLectures: 30, color: "#0F766E" }
+        { name: "التدريب التعاوني", code: "COE 490", credits: 6, totalLectures: 60, color: "#0F766E" }
       ]
     };
 
@@ -1622,7 +1625,6 @@
       btnToggleTheme.textContent = next === "dark" ? "☀️" : "🌙";
     });
 
-    // تعبئة المواد المتقدمة
     function populateQuickPresets() {
       quickCoursePreset.innerHTML = `<option value="">-- كتابة مادة مخصصة يدوياً --</option>`;
       [6, 7, 8, 9, 10].forEach(lvl => {
@@ -1631,7 +1633,7 @@
         CURRICULUM_PLAN[lvl].forEach(c => {
           const opt = document.createElement("option");
           opt.value = JSON.stringify({ ...c, originLevel: `المستوى ${lvl}` });
-          opt.textContent = `${c.code} - ${c.name} (${c.credits} وحدات معتمدة)`;
+          opt.textContent = `${c.code} - ${c.name} (${c.credits} وحدات معتمدة - ${c.totalLectures} محاضرة)`;
           grp.appendChild(opt);
         });
         quickCoursePreset.appendChild(grp);
@@ -1646,7 +1648,7 @@
       document.getElementById("course-code-input").value = data.code;
       document.getElementById("course-credits-input").value = data.credits;
       document.getElementById("course-origin-level-input").value = data.originLevel;
-      document.getElementById("course-lectures-input").value = data.totalLectures || 24;
+      document.getElementById("course-lectures-input").value = data.totalLectures || 30;
     });
 
     tabLogin.addEventListener("click", () => {
@@ -1747,32 +1749,41 @@
     btnLogout.addEventListener("click", () => signOut(auth));
 
     // ============================================================
-    // دالة المزامنة وتصحيح ساعات المستوى الخامس قسراً في قاعدة البيانات
+    // مزامنة الساعات والمحاضرات الصحيحة لنظام جامعة طيبة قسراً
     // ============================================================
-    async function syncLevel5CourseCredits(userId, coursesList) {
+    async function syncTaibahCourseRules(userId, coursesList) {
       for (const c of coursesList) {
-        const correctCredit = OFFICIAL_LEVEL_5_CREDITS[c.code];
-        if (correctCredit !== undefined && c.credits !== correctCredit) {
-          try {
-            await updateDoc(doc(db, "users", userId, "courses", c.id), {
-              credits: correctCredit
-            });
-            c.credits = correctCredit; // تحديث فوري في الذاكرة
-          } catch (e) {
-            console.error("Auto sync credit error:", e);
+        const official = OFFICIAL_LEVEL_5_DATA[c.code];
+        if (official) {
+          let needsUpdate = false;
+          const updates = {};
+          if (c.credits !== official.credits) {
+            updates.credits = official.credits;
+            c.credits = official.credits;
+            needsUpdate = true;
+          }
+          if (c.totalLectures !== official.totalLectures) {
+            updates.totalLectures = official.totalLectures;
+            c.totalLectures = official.totalLectures;
+            needsUpdate = true;
+          }
+          if (needsUpdate) {
+            try {
+              await updateDoc(doc(db, "users", userId, "courses", c.id), updates);
+            } catch (e) {
+              console.error("Auto sync error:", e);
+            }
           }
         }
       }
     }
 
-    // مراقبة الجلسة والتحقق من صلاحية الأدمن
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
         authScreen.style.display = "none";
         mainApp.style.display = "flex";
 
-        // التحقق من الأدمن
         isAdmin = (user.uid === ADMIN_UID);
         if (isAdmin) {
           adminBadge.style.display = "flex";
@@ -1794,13 +1805,11 @@
 
         userGreeting.textContent = user.displayName ? `${user.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
 
-        // مراقبة المواد وتصحيح الساعات تلقائياً
         onSnapshot(collection(db, "users", user.uid, "courses"), async (snapshot) => {
           currentCourses = [];
           snapshot.forEach(d => currentCourses.push({ id: d.id, ...d.data() }));
           
-          // تصحيح الساعات قسراً في حساب المستخدم لضمان عدم بقاء أي رقم قديم
-          await syncLevel5CourseCredits(user.uid, currentCourses);
+          await syncTaibahCourseRules(user.uid, currentCourses);
 
           renderCoursesUI();
           updateTaskSelectOptions();
@@ -1813,7 +1822,6 @@
           renderTasksUI();
         });
 
-        // الاستماع للتجميعات والملخصات العامة المشتركة لكل الطلاب
         onSnapshot(collection(db, "public_resources"), (snapshot) => {
           publicResources = [];
           snapshot.forEach(d => publicResources.push({ id: d.id, ...d.data() }));
@@ -1855,7 +1863,6 @@
       }
     }
 
-    // الانتقال للمستوى السادس
     btnTransitionLevel.addEventListener("click", async () => {
       if (confirm("هل أنت متأكد من الانتقال للمستوى السادس؟ سيتم مسح مواد المستوى الخامس وبدء مرحلة جديدة من الصفر.")) {
         btnTransitionLevel.disabled = true;
@@ -1892,15 +1899,8 @@
       }
     });
 
-    // ============================================================
-    // إدارة التجميعات والملخصات العامة (صلاحية الأدمن والطلاب)
-    // ============================================================
-    btnAdminAddResource.addEventListener("click", () => {
-      adminResourceModal.classList.add("open");
-    });
-    btnCloseAdminResModal.addEventListener("click", () => {
-      adminResourceModal.classList.remove("open");
-    });
+    btnAdminAddResource.addEventListener("click", () => adminResourceModal.classList.add("open"));
+    btnCloseAdminResModal.addEventListener("click", () => adminResourceModal.classList.remove("open"));
 
     adminResourceForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -1987,7 +1987,6 @@
       });
     }
 
-    // فرز المقررات
     document.querySelectorAll(".sort-pill").forEach(pill => {
       pill.addEventListener("click", () => {
         document.querySelectorAll(".sort-pill").forEach(p => p.classList.remove("active"));
@@ -1997,7 +1996,9 @@
       });
     });
 
-    // رسم واجهة المواد مع الساعات الصحيحة
+    // ============================================================
+    // رسم واجهة المواد وتطبيق معادلة حرمان جامعة طيبة بدقة متناهية
+    // ============================================================
     function renderCoursesUI() {
       coursesContainer.innerHTML = "";
       let totalLecAll = 0;
@@ -2024,20 +2025,33 @@
         const completedChapters = (course.chapters || []).filter(c => c.done).length;
         const totalChapters = (course.chapters || []).length;
 
-        // حساب الحرمان (25%)
-        const totalLec = course.totalLectures || 24;
-        const maxAbsence = Math.floor(totalLec * 0.25);
+        // تطبيق معادلة جامعة طيبة:
+        // عدد المحاضرات ÷ 4 = عدد الغيابات المسموح فيها (بدون فواصل)
+        const totalLec = course.totalLectures || (course.credits === 4 ? 45 : (course.credits === 3 ? 30 : 15));
+        const maxAllowedAbsences = Math.floor(totalLec / 4); // 45/4=11, 30/4=7, 15/4=3
+        const dnAbsenceThreshold = maxAllowedAbsences + 1;  // 12 حرمان، 8 حرمان، 4 حرمان
         const absences = course.absences || 0;
-        const remainingAbsences = maxAbsence - absences;
 
-        let dnBadgeClass = "dn-badge-safe";
-        let dnStatusText = `باقي لك ${remainingAbsences} غيابات قبل الحرمان`;
-        if (remainingAbsences <= 0) {
-          dnBadgeClass = "dn-badge-danger";
-          dnStatusText = "⚠️ بلغت حد الحرمان (DN)! راجع أستاذ المادة";
-        } else if (remainingAbsences <= 2) {
-          dnBadgeClass = "dn-badge-warn";
-          dnStatusText = `انتبه! باقي لك ${remainingAbsences} فقط قبل الحرمان`;
+        // حساب النسبة المئوية: (عدد الغيابات ÷ عدد المحاضرات) × 100
+        const absencePercentage = totalLec === 0 ? 0 : ((absences / totalLec) * 100).toFixed(1);
+        const remainingAbsences = maxAllowedAbsences - absences;
+
+        let statusTextClass = "dn-safe";
+        let statusPillClass = "dn-safe-pill";
+        let statusMessage = `المسموح: ${maxAllowedAbsences} غيابات (باقي لك ${remainingAbsences} قبل الحرمان)`;
+
+        if (absences >= dnAbsenceThreshold) {
+          statusTextClass = "dn-danger";
+          statusPillClass = "dn-danger-pill";
+          statusMessage = `🚨 تم تجاوز نسبة 25%! وقع الحرمان (DN) برصيد ${absences} غياب`;
+        } else if (absences === maxAllowedAbsences) {
+          statusTextClass = "dn-warn";
+          statusPillClass = "dn-warn-pill";
+          statusMessage = `⚠️ تحذير شديد! بلغت الحد الأقصى (${absences}/${maxAllowedAbsences}). الغياب القادم هو الحرمان!`;
+        } else if (remainingAbsences === 1) {
+          statusTextClass = "dn-warn";
+          statusPillClass = "dn-warn-pill";
+          statusMessage = `انتبه! باقي لك غياب واحد فقط قبل بلوغ الحد الأقصى`;
         }
 
         const originTagHtml = course.originLevel 
@@ -2061,13 +2075,18 @@
           </div>
           <div class="course-card-body">
             
+            <!-- نظام الحرمان حسب لائحة جامعة طيبة -->
             <div class="dn-calculator-box">
               <div class="dn-info">
-                <span class="dn-title">متابعة الحرمان والغياب (حد الحرمان 25% = ${maxAbsence} محاضرات):</span>
-                <span class="dn-status ${dnBadgeClass}">الغياب: ${absences} / ${maxAbsence} • ${dnStatusText}</span>
+                <span class="dn-title">نظام الحرمان بجامعة طيبة (إجمالي المحاضرات: ${totalLec} • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
+                <span class="dn-status ${statusTextClass}">${statusMessage}</span>
+                <div class="dn-percentage-pill ${statusPillClass}">
+                  نسبة الغياب الحالية: ${absencePercentage}% (${absences} غيابات من ${totalLec})
+                </div>
               </div>
               <div class="stepper-controls">
                 <button class="step-btn btn-dec-abs" title="إنقاص غياب">-</button>
+                <span style="font-size:14px; font-weight:800;">${absences}</span>
                 <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--primary-red); font-weight:900;">+</button>
               </div>
             </div>
@@ -2126,6 +2145,7 @@
           }
         });
 
+        // رصد وإنقاص الغياب
         card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
           e.stopPropagation();
           await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
@@ -2303,7 +2323,6 @@
       renderTreeStage(TOTAL_FOCUS_TIME);
     });
 
-    // التنقل السفلي المحدث ليشمل تاب التجميعات المستقل
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -2362,7 +2381,10 @@
       const code = document.getElementById("course-code-input").value.trim();
       const credits = parseInt(document.getElementById("course-credits-input").value) || 3;
       const originLevel = document.getElementById("course-origin-level-input").value.trim();
-      const totalLectures = parseInt(document.getElementById("course-lectures-input").value) || 24;
+      
+      // التعيين التلقائي حسب ساعات جامعة طيبة
+      const defaultLec = credits === 4 ? 45 : (credits === 3 ? 30 : 15);
+      const totalLectures = parseInt(document.getElementById("course-lectures-input").value) || defaultLec;
       const chapterCount = parseInt(document.getElementById("course-chapters-input").value) || 5;
 
       const chapters = [];
@@ -2472,7 +2494,6 @@
       });
     }
 
-    // حاسبة المعدل بسلم 5.00
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
       gpaBox.innerHTML = `
@@ -2548,15 +2569,15 @@
       }
     }
 
-    // بذر مواد المستوى الخامس الصحيحة تماماً والمطابقة لجدولك
+    // بذر مواد المستوى الخامس الصحيحة بمحاضرات نظام جامعة طيبة
     async function seedInitialLevel5(userId, isAllCompleted) {
       const courses = [
-        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, absences: 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
-        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 20, attendedLectures: isAllCompleted ? 20 : 0, absences: 0, color: "#0D9488", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted }, { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted }] },
-        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, absences: 0, color: "#F43F5E", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted }, { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted }] },
-        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, absences: 0, color: "#10B981", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Nodal & Mesh", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Superposition", done: isAllCompleted }] },
-        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 14, attendedLectures: isAllCompleted ? 14 : 0, absences: 0, color: "#0284C7", originLevel: "", chapters: [{ id: "c1", title: "الوحدة 1: السيرة الذاتية المهنية", done: isAllCompleted }] },
-        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, absences: 0, color: "#F59E0B", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: isAllCompleted }] }
+        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, attendedLectures: isAllCompleted ? 30 : 0, absences: 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
+        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 15, attendedLectures: isAllCompleted ? 15 : 0, absences: 0, color: "#0D9488", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted }, { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted }] },
+        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 45, attendedLectures: isAllCompleted ? 45 : 0, absences: 0, color: "#F43F5E", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted }, { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted }] },
+        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 45, attendedLectures: isAllCompleted ? 45 : 0, absences: 0, color: "#10B981", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Nodal & Mesh", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Superposition", done: isAllCompleted }] },
+        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 15, attendedLectures: isAllCompleted ? 15 : 0, absences: 0, color: "#0284C7", originLevel: "", chapters: [{ id: "c1", title: "الوحدة 1: السيرة الذاتية المهنية", done: isAllCompleted }] },
+        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 30, attendedLectures: isAllCompleted ? 30 : 0, absences: 0, color: "#F59E0B", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: isAllCompleted }] }
       ];
 
       for (const c of courses) {
