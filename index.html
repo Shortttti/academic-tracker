@@ -1321,7 +1321,7 @@
     }
 
     /* ========================================== */
-    /* شريط التنقل السفلي المطور (الرئيسية بالنص مع فوكس فخم) */
+    /* شريط التنقل السفلي الاحترافي (الرئيسية بالنص مع فوكس فخم) */
     /* ========================================== */
     .bottom-nav {
       position: fixed;
@@ -1350,18 +1350,19 @@
       gap: 3px;
       flex: 1;
       padding: 8px 0;
-      opacity: 0.65;
+      opacity: 0.55;
     }
 
     .nav-item.active {
       color: var(--primary-teal);
       opacity: 1;
-      font-weight: 800;
+      font-weight: 900;
       transform: translateY(-2px);
     }
 
     .nav-item.active span.icon {
-      filter: drop-shadow(0 2px 4px rgba(13, 148, 136, 0.3));
+      filter: drop-shadow(0 2px 6px rgba(13, 148, 136, 0.4));
+      transform: scale(1.1);
     }
 
     .nav-item span.icon {
@@ -1475,7 +1476,7 @@
 </head>
 <body>
 
-  <!-- شاشة الدخول والتسجيل (محدثة مع خانة حفظ كلمة المرور، الطالب/الطالبة، والشعبة) -->
+  <!-- شاشة الدخول والتسجيل -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -1615,7 +1616,7 @@
 
       <div id="new-user-welcome-box" class="poll-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
         <strong>مرحباً بك في منصة جدولي الأكاديمي!</strong>
-        <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</span>
+        <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتبدأ متابعة حضورك، جدولك، وتجميعات موادك بكل سهولة.</span>
       </div>
 
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
@@ -1775,7 +1776,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات (الافتراضي فارغ تماماً بدون مواد حتى يتم إضافتها في المقررات) -->
+    <!-- تبويب التجميعات (الافتراضي فارغ تماماً بدون مواد حتى يتم إضافتها) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1834,7 +1835,7 @@
       </footer>
     </main>
 
-    <!-- تبويب المهام والمؤقت -->
+    <!-- تبويب المهام ومؤقت غرس الإنجاز -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
       <div class="cram-planner-card">
         <div class="cram-planner-header">
@@ -1942,7 +1943,7 @@
     </main>
 
     <!-- ============================================================ -->
-    <!-- شريط التنقل السفلي المطور (الرئيسية في المنتصف مع فوكس واشح نقي) -->
+    <!-- شريط التنقل السفلي الاحترافي (الرئيسية في المنتصف مع فوكس نقي) -->
     <!-- ============================================================ -->
     <nav class="bottom-nav">
       <div class="nav-item" data-target="courses">
@@ -1954,7 +1955,7 @@
         <span>الجدول</span>
       </div>
       
-      <!-- الرئيسية في المنتصف وبفوكس واضح -->
+      <!-- الرئيسية في المنتصف -->
       <div class="nav-item active" data-target="home">
         <span class="icon">🏠</span>
         <span>الرئيسية</span>
@@ -1999,7 +2000,7 @@
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي (مع قفل الاسم والتصنيف والشعبة للمشرف) -->
+    <!-- مودال الملف الشخصي (الاسم، التصنيف، الشعبة مقفلة ولا تُعدل إلا عبر المشرف) -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2028,7 +2029,7 @@
             </div>
           </div>
           <p style="font-size:11px; color:#D97706; margin-bottom:12px; font-weight:700;">
-            ℹ️ ملاحظة: لتغيير الاسم أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
+            ℹ️ ملاحظة: لتغيير الاسم، التصنيف، أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
           </p>
 
           <div class="form-group">
@@ -2423,7 +2424,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق الكامل مع دعم Apple Auth والتحكم بأذونات المشرف -->
+  <!-- منطق التطبيق البرمجي المتكامل بدون أي نقصان -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -2482,6 +2483,49 @@
       "EE 201":  { credits: 4, totalLectures: 45 },
       "GS 311":  { credits: 2, totalLectures: 15 },
       "STAT 301":{ credits: 3, totalLectures: 30 }
+    };
+
+    const CURRICULUM_PLAN = {
+      5: [
+        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, color: "#8B5CF6" },
+        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 15, color: "#0D9488" },
+        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 45, color: "#F43F5E" },
+        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 45, color: "#10B981" },
+        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 15, color: "#0284C7" },
+        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 30, color: "#F59E0B" }
+      ],
+      6: [
+        { name: "مقرر متطلب جامعة اختياري (2)", code: "GSE 2", credits: 2, totalLectures: 15, color: "#8B5CF6" },
+        { name: "شبكات الحاسب", code: "COE 236", credits: 4, totalLectures: 45, color: "#0EA5E9" },
+        { name: "إلكترونيات (1)", code: "EE 222", credits: 4, totalLectures: 45, color: "#10B981" },
+        { name: "التصميم الهندسي", code: "COE 286", credits: 3, totalLectures: 30, color: "#F59E0B" },
+        { name: "النظم المضمنة (1)", code: "COE 246", credits: 4, totalLectures: 45, color: "#6366F1" }
+      ],
+      7: [
+        { name: "مقرر متطلب جامعة اختياري (3)", code: "GSE 3", credits: 2, totalLectures: 15, color: "#F43F5E" },
+        { name: "النظم المضمنة (2)", code: "COE 347", credits: 4, totalLectures: 45, color: "#6366F1" },
+        { name: "اساسيات انترنت الاشياء", code: "COE 337", credits: 4, totalLectures: 45, color: "#0D9488" },
+        { name: "تصميم النظم الرقمية", code: "COE 317", credits: 4, totalLectures: 45, color: "#8B5CF6" },
+        { name: "الطرق العددية في هندسة الحاسب", code: "COE 377", credits: 3, totalLectures: 30, color: "#0284C7" }
+      ],
+      8: [
+        { name: "البصريات", code: "PHYS 246", credits: 3, totalLectures: 30, color: "#D97706" },
+        { name: "مقرر اختياري برنامج (1)", code: "COE 1", credits: 3, totalLectures: 30, color: "#2563EB" },
+        { name: "أمن الحاسب والشبكات", code: "COE 368", credits: 4, totalLectures: 45, color: "#DC2626" },
+        { name: "معالجة الإشارات الرقمية", code: "COE 358", credits: 4, totalLectures: 45, color: "#059669" },
+        { name: "مشروع التخرج (1)", code: "COE 398", credits: 2, totalLectures: 15, color: "#7C3AED" }
+      ],
+      9: [
+        { name: "الحوسبة و أخلاقيات المهنة والمجتمع", code: "IS 275", credits: 2, totalLectures: 15, color: "#059669" },
+        { name: "الابتكار وريادة الاعمال في مجال الحوسبة", code: "IS 377", credits: 2, totalLectures: 15, color: "#D97706" },
+        { name: "الشبكات المعرفة بالبرمجيات", code: "COE 439", credits: 3, totalLectures: 30, color: "#0284C7" },
+        { name: "مقرر اختياري برنامج (3)", code: "COE 3", credits: 3, totalLectures: 30, color: "#4F46E5" },
+        { name: "مقرر اختياري برنامج (2)", code: "COE 2", credits: 3, totalLectures: 30, color: "#2563EB" },
+        { name: "مشروع التخرج (2)", code: "COE 499", credits: 3, totalLectures: 30, color: "#7C3AED" }
+      ],
+      10: [
+        { name: "التدريب التعاوني", code: "COE 490", credits: 6, totalLectures: 60, color: "#0F766E" }
+      ]
     };
 
     let currentUser = null;
@@ -2718,7 +2762,6 @@
       authError.textContent = "";
     });
 
-    // تسجيل الدخول عبر Apple ID
     btnAppleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
@@ -2754,7 +2797,6 @@
       }
     });
 
-    // تسجيل الدخول عبر Google
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
@@ -3040,11 +3082,11 @@
       alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
-    // تصدير تقرير الطلاب التفصيلي إلى Excel (CSV)
+    // تصدير تقرير الطلاب التفصيلي إلى Excel مرتب
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف (طالب/طالبة),رقم الشعبة,المستوى الحالي,رصيد النقاط,تاريخ التسجيل,آخر تسجيل دخول\n";
+      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الشعبة,المستوى الحالي,رصيد النقاط,تاريخ التسجيل,آخر تسجيل دخول\n";
       
       snap.forEach(d => {
         const u = d.data();
@@ -3213,7 +3255,7 @@
       }
     });
 
-    // حفظ التعديلات المسموحة للملف الشخصي (الاسم والتصنيف والشعبة مقفولة)
+    // حفظ التعديلات في الملف الشخصي (الاسم والتصنيف والشعبة مقفولة للمستخدم)
     profileEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const newBio = profileBioInput.value.trim();
@@ -3237,7 +3279,7 @@
         userWidgetPrefs = newPrefs;
         applyUserWidgetPrefsUI();
         profileModal.classList.remove("open");
-        alert("تم حفظ وتحديث ملفك الشخصي وتفضيلاتك بنجاح! 🎉");
+        alert("تم حفظ وتحديث ملفك الشخصي بنجاح! 🎉");
       } catch (err) {
         alert("حدث خطأ أثناء الحفظ: " + err.message);
       }
@@ -3622,7 +3664,7 @@
       if (currentCourses.length === 0) {
         resourcesGlobalContainer.innerHTML = `
           <div style="text-align:center; padding:30px 16px; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle);">
-            <p style="font-size:13px; font-weight:700; color:var(--text-muted);">لا توجد مقررات مضافة في جدولك حالياً 📚</p>
+            <p style="font-size:13px; font-weight:700; color:var(--text-muted);">لا توجد مقررات في جدولك حالياً 📚</p>
             <p style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">أضف موادك في صفحة "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</p>
           </div>
         `;
@@ -4232,7 +4274,7 @@
       renderTreeStage(totalFocusSeconds);
     });
 
-    // التنقل السفلي الكلاسيكي مع تركيز واشح نقي
+    // التنقل السفلي مع فوكس واضح ونقي للصفحة النشطة وتخفيف إضاءة الباقين
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -4408,8 +4450,79 @@
       });
     }
 
-    async function seedInitialLevel5(userId, isAllCompleted) {
-      // جدول نظيف يبدأ باختيار المواد
+    function renderGPACalculator() {
+      const gpaBox = document.getElementById("gpa-calc-container");
+      gpaBox.innerHTML = `
+        <div style="background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
+          <div style="background:var(--subtle-bg); padding:12px; border-radius:10px; margin-bottom:14px;">
+            <span style="font-size:12px; font-weight:700; color:var(--primary-teal);">حساب المعدل التراكمي الجديد (اختياري):</span>
+            <div style="display:flex; gap:10px; margin-top:6px;">
+              <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
+              <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
+            </div>
+          </div>
+
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">الدرجات التقديرية (الحساب بالوزن الفعلي لساعات كل مادة مسجلة):</p>
+          <div id="gpa-rows">
+            ${currentCourses.map(c => `
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div>
+                  <span style="font-size:13px; font-weight:700;">${c.code}</span>
+                  <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits} وحدات معتمدة)</span>
+                </div>
+                <select class="grade-input" data-credits="${c.credits}" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12.5px;">
+                  <option value="5.0">A+ (5.00)</option>
+                  <option value="4.75">A (4.75)</option>
+                  <option value="4.5">B+ (4.50)</option>
+                  <option value="4.0">B (4.00)</option>
+                  <option value="3.5">C+ (3.50)</option>
+                  <option value="3.0">C (3.00)</option>
+                  <option value="2.5">D+ (2.50)</option>
+                  <option value="2.0">D (2.00)</option>
+                  <option value="1.0">F (1.00)</option>
+                </select>
+              </div>
+            `).join('')}
+          </div>
+          <button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل الفصلي والتراكمي</button>
+          <div id="gpa-result" style="text-align:center; margin-top:14px; font-weight:800;"></div>
+        </div>
+      `;
+
+      const btnCalc = document.getElementById("btn-calc-gpa");
+      if (btnCalc) {
+        btnCalc.addEventListener("click", () => {
+          const rows = document.querySelectorAll(".grade-input");
+          if (rows.length === 0) return;
+
+          let totalQualityPoints = 0;
+          let currentSemesterHours = 0;
+
+          rows.forEach(select => {
+            const points = parseFloat(select.value);
+            const credits = parseFloat(select.getAttribute("data-credits")) || 3;
+            totalQualityPoints += (points * credits);
+            currentSemesterHours += credits;
+          });
+
+          const semesterGPA = (totalQualityPoints / currentSemesterHours).toFixed(2);
+
+          const prevGPA = parseFloat(document.getElementById("prev-gpa").value);
+          const prevHours = parseFloat(document.getElementById("prev-hours").value);
+
+          let cumulativeText = "";
+          if (!isNaN(prevGPA) && !isNaN(prevHours) && prevHours > 0) {
+            const prevTotalPoints = prevGPA * prevHours;
+            const newCumulative = ((prevTotalPoints + totalQualityPoints) / (prevHours + currentSemesterHours)).toFixed(2);
+            cumulativeText = `<br><span style="color:#10B981; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
+          }
+
+          document.getElementById("gpa-result").innerHTML = `
+            <span style="color:var(--primary-teal); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
+            ${cumulativeText}
+          `;
+        });
+      }
     }
   </script>
 
