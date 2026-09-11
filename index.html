@@ -8,7 +8,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="جدولي">
-  <meta name="theme-color" content="#0F766E">
+  <meta name="theme-color" content="#4338CA">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,9 +18,9 @@
   <style>
     /* لوحة الألوان المحدثة والأنيقة للفاتح والداكن */
     :root {
-      --primary-dark: #0F766E;
-      --primary-teal: #14B8A6;
-      --primary-accent: #0D9488;
+      --primary-dark: #4338CA;
+      --primary-teal: #6366F1;
+      --primary-accent: #7C3AED;
       --primary-red: #E11D48;
       --red-soft: #FFF1F2;
       --bg-page: #F8FAFC;
@@ -28,23 +29,23 @@
       --text-main: #0F172A;
       --text-muted: #64748B;
       --subtle-bg: #F1F5F9;
-      --body-outer: #94A3B8;
+      --body-outer: #CBD5E1;
       --font-family: 'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     [data-theme="dark"] {
-      --primary-dark: #042F2E;
-      --primary-teal: #2DD4BF;
-      --primary-accent: #14B8A6;
-      --primary-red: #F43F5E;
-      --red-soft: #4C0519;
-      --bg-page: #090D16;
+      --primary-dark: #4F46E5;
+      --primary-teal: #818CF8;
+      --primary-accent: #A78BFA;
+      --primary-red: #FB7185;
+      --red-soft: #3B0D18;
+      --bg-page: #0B1020;
       --card-bg: #111827;
-      --border-subtle: #1F2937;
-      --text-main: #F9FAFB;
-      --text-muted: #9CA3AF;
-      --subtle-bg: #1F2937;
-      --body-outer: #030712;
+      --border-subtle: #273449;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --subtle-bg: #1A2233;
+      --body-outer: #070B14;
     }
 
     * {
@@ -284,7 +285,7 @@
       height: 28px;
       border-radius: 50%;
       object-fit: cover;
-      background: #0F766E;
+      background:var(--primary-dark);
       border: 1.5px solid white;
     }
 
@@ -410,7 +411,7 @@
       height: 52px;
       border-radius: 50%;
       border: 2px solid var(--primary-teal);
-      background: #0F766E;
+      background:var(--primary-dark);
     }
 
     .home-hero-info h3 {
@@ -878,7 +879,7 @@
     }
 
     .btn-transition-stage.unlocked {
-      background: #0F766E;
+      background:var(--primary-dark);
       color: white;
     }
 
@@ -1325,35 +1326,58 @@
       bottom: 0;
       width: 100%;
       max-width: 480px;
-      height: 64px;
-      background: var(--card-bg);
+      height: 70px;
+      background: color-mix(in srgb, var(--card-bg) 94%, transparent);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-around;
       align-items: center;
       z-index: 30;
-      padding-bottom: 2px;
+      padding: 5px 8px calc(5px + env(safe-area-inset-bottom));
+      box-shadow: 0 -8px 24px rgba(15,23,42,.06);
     }
 
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
-      gap: 2px;
+      gap: 3px;
       flex: 1;
-      padding: 8px 0;
+      height: 58px;
+      max-width: 82px;
+      border-radius: 16px;
+      padding: 5px 4px;
+      opacity: .82;
     }
 
     .nav-item.active {
-      color: var(--primary-teal);
+      color: white;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-accent));
+      box-shadow: 0 7px 18px rgba(79,70,229,.24);
+      opacity: 1;
+      transform: translateY(-4px);
+    }
+
+    .nav-item:not(.active):hover {
+      background: var(--subtle-bg);
+      color: var(--text-main);
+      opacity: 1;
     }
 
     .nav-item span.icon {
       font-size: 19px;
+      line-height: 1;
+    }
+
+    .nav-item.active span.icon {
+      filter: brightness(1.08);
     }
 
     .modal-overlay {
@@ -1482,6 +1506,11 @@
         <span>الدخول السريع بحساب Google</span>
       </button>
 
+      <button id="btn-apple-login" type="button" class="btn-google" style="margin-top:8px;">
+        <span style="font-size:20px; line-height:1;"></span>
+        <span>المتابعة بحساب Apple</span>
+      </button>
+
       <div class="auth-divider">أو عبر البريد الجامعي</div>
 
       <div class="auth-tabs">
@@ -1533,9 +1562,14 @@
         </div>
 
         <div class="form-group">
-          <label>كلمة المرور (حفظ كلمة المرور)</label>
+          <label>كلمة المرور</label>
           <input type="password" id="auth-pass" required autocomplete="current-password" placeholder="••••••••">
         </div>
+
+        <label style="display:flex; align-items:center; gap:8px; font-size:12px; font-weight:700; color:var(--text-muted); margin:2px 0 10px; cursor:pointer;">
+          <input type="checkbox" id="auth-remember-me" checked>
+          <span>تذكرني على هذا الجهاز</span>
+        </label>
 
         <button type="submit" id="auth-submit-btn" class="btn-primary">دخول</button>
       </form>
@@ -1737,7 +1771,7 @@
         <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 12.5px; padding: 10px;">
           ➕ إضافة محاضرة للجدول
         </button>
-        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 12.5px; padding: 10px;">
+        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background:var(--primary-dark); font-size: 12.5px; padding: 10px;">
           📥 تحميل الجدول الدراسي
         </button>
       </div>
@@ -1764,7 +1798,7 @@
           إدارة التجميعات، اعتماد ملخصات الطلاب، وضبط الإعلانات والاستطلاعات.
         </p>
         <div class="admin-action-btn-row">
-          <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12px; padding:8px; flex:1;">
+          <button id="btn-admin-add-resource" class="btn-primary" style="background:var(--primary-dark); font-size:12px; padding:8px; flex:1;">
             ➕ إضافة رابط تجميعة
           </button>
           <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:12px; padding:8px; flex:1;">
@@ -1863,7 +1897,7 @@
         <p class="tree-status-text" id="tree-status-text">ازرع شجرة إنجازك أثناء تركيزك في المذاكرة</p>
 
         <div class="timer-controls">
-          <button id="btn-timer-start" class="btn-timer" style="background:#0F766E; color:white;">غرس وبدء 🌱</button>
+          <button id="btn-timer-start" class="btn-timer" style="background:var(--primary-dark); color:white;">غرس وبدء 🌱</button>
           <button id="btn-timer-pause" class="btn-timer" style="background:var(--subtle-bg); color:var(--text-main);">إيقاف ⏸️</button>
           <button id="btn-timer-reset" class="btn-timer" style="background:#FEE2E2; color:#DC2626;">تراجع 🔄</button>
         </div>
@@ -1919,10 +1953,6 @@
     <!-- شريط التنقل السفلي الكلاسيكي مع فوكس نقي وواضح -->
     <!-- ============================================================ -->
     <nav class="bottom-nav">
-      <div class="nav-item active" data-target="home">
-        <span class="icon">🏠</span>
-        <span>الرئيسية</span>
-      </div>
       <div class="nav-item" data-target="courses">
         <span class="icon">📊</span>
         <span>المقررات</span>
@@ -1930,6 +1960,10 @@
       <div class="nav-item" data-target="schedule">
         <span class="icon">🗓️</span>
         <span>الجدول</span>
+      </div>
+      <div class="nav-item active" data-target="home">
+        <span class="icon">⌂</span>
+        <span>الرئيسية</span>
       </div>
       <div class="nav-item" data-target="resources">
         <span class="icon">📚</span>
@@ -1964,13 +1998,25 @@
           <button class="option-btn" id="btn-opt-light">☀️ فاتح نقي (Light)</button>
         </div>
 
-        <button id="btn-execute-download" class="btn-primary" style="background:#0F766E;">
+        <button id="btn-execute-download" class="btn-primary" style="background:var(--primary-dark);">
           📥 تنزيل صورة الجدول الفخمة بجودة HD
         </button>
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي (المعلومات مقفلة ولا تُعدل إلا بطلب عبر الاقتراحات) -->
+    <div id="admin-profile-requests-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>👤 طلبات تعديل بيانات الطلاب</h3>
+          <button id="btn-close-admin-profile-requests" class="close-btn">&times;</button>
+        </div>
+        <div id="admin-profile-requests-list">
+          <p style="font-size:12px;color:var(--text-muted);text-align:center;padding:20px;">جاري تحميل الطلبات...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- مودال الملف الشخصي -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1979,13 +2025,13 @@
         </div>
         <form id="profile-edit-form">
           <div style="text-align:center; margin-bottom:14px;">
-            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:68px; height:68px; border-radius:50%; object-fit:cover; border:3px solid var(--primary-teal); background:#0F766E; margin-bottom:6px;" alt="Avatar">
+            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:68px; height:68px; border-radius:50%; object-fit:cover; border:3px solid var(--primary-teal); background:var(--primary-dark); margin-bottom:6px;" alt="Avatar">
             <span style="font-size:11px; color:var(--text-muted); display:block;">تخصيص الصورة الشخصية والأفتار</span>
           </div>
 
           <div class="form-group">
-            <label>الاسم الكامل (محمي - للتعديل يرجى مراسلة المشرف)</label>
-            <input type="text" id="profile-name-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
+            <label>الاسم الكامل</label>
+            <input type="text" id="profile-name-input" required style="font-weight:bold;">
           </div>
 
           <div class="form-row">
@@ -1999,7 +2045,7 @@
             </div>
           </div>
           <p style="font-size:11px; color:#D97706; margin-bottom:12px; font-weight:700;">
-            ℹ️ ملاحظة: لتغيير الاسم، التصنيف، أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
+            ℹ️ الاسم قابل للتعديل مباشرة. أما التصنيف والشعبة فمقفلة للمستخدم، ويمكن طلب تغييرهما من الإدارة مع ذكر السبب عبر زر "📩".
           </p>
 
           <div class="form-group">
@@ -2378,6 +2424,22 @@
               <option value="استفسار عام">استفسار عام 💬</option>
             </select>
           </div>
+          <div id="profile-change-fields" style="display:none; background:var(--subtle-bg); padding:10px; border-radius:12px; margin-bottom:12px;">
+            <p style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:8px;">بيانات التعديل المطلوبة (التصنيف والشعبة فقط):</p>
+            <div class="form-row">
+              <div class="form-group" style="margin:0;">
+                <label>التصنيف المطلوب</label>
+                <select id="fb-requested-gender">
+                  <option value="طالبة">طالبة 👩‍🎓</option>
+                  <option value="طالب">طالب 👨‍🎓</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label>الشعبة المطلوبة</label>
+                <input type="text" id="fb-requested-section" placeholder="مثال: شعبة 1">
+              </div>
+            </div>
+          </div>
           <div class="form-group">
             <label>الموضوع</label>
             <input type="text" id="fb-subject" name="subject" required placeholder="مثال: طلب تعديل رقم الشعبة" data-fs-field>
@@ -2407,7 +2469,9 @@
       onAuthStateChanged, 
       updateProfile, 
       setPersistence, 
-      browserLocalPersistence 
+      browserLocalPersistence,
+      browserSessionPersistence,
+      OAuthProvider 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
     import { 
       getFirestore, 
@@ -2439,6 +2503,9 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
+    const appleProvider = new OAuthProvider("apple.com");
+    appleProvider.addScope("email");
+    appleProvider.addScope("name");
 
     const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
@@ -2543,6 +2610,8 @@
     const btnLogout = document.getElementById("btn-logout");
     const userGreeting = document.getElementById("user-greeting");
     const btnGoogleLogin = document.getElementById("btn-google-login");
+    const btnAppleLogin = document.getElementById("btn-apple-login");
+    const authRememberMe = document.getElementById("auth-remember-me");
     const btnToggleTheme = document.getElementById("btn-toggle-theme");
     const adminBadge = document.getElementById("admin-badge");
 
@@ -2607,6 +2676,10 @@
     const btnAdminCreatePoll = document.getElementById("btn-admin-create-poll");
     const btnClosePollModal = document.getElementById("btn-close-poll-modal");
     const btnAdminExportExcel = document.getElementById("btn-admin-export-excel");
+    const btnAdminProfileRequests = document.getElementById("btn-admin-profile-requests");
+    const adminProfileRequestsModal = document.getElementById("admin-profile-requests-modal");
+    const btnCloseAdminProfileRequests = document.getElementById("btn-close-admin-profile-requests");
+    const adminProfileRequestsList = document.getElementById("admin-profile-requests-list");
 
     // الجدول وتصدير الصورة
     const scheduleDaysContainer = document.getElementById("schedule-days-container");
@@ -2660,6 +2733,10 @@
     const addCourseForm = document.getElementById("add-course-form");
     const addTaskForm = document.getElementById("add-task-form");
     const feedbackForm = document.getElementById("feedback-form");
+    const profileChangeFields = document.getElementById("profile-change-fields");
+    const fbType = document.getElementById("fb-type");
+    const fbRequestedGender = document.getElementById("fb-requested-gender");
+    const fbRequestedSection = document.getElementById("fb-requested-section");
     const taskCourseSelect = document.getElementById("task-course-select");
     const quickCoursePreset = document.getElementById("quick-course-preset");
 
@@ -2734,10 +2811,27 @@
       authError.textContent = "";
     });
 
+    async function applyAuthPersistence() {
+      await setPersistence(auth, authRememberMe?.checked ? browserLocalPersistence : browserSessionPersistence);
+    }
+
+    async function recordLogin(user, method = "email") {
+      const now = new Date().toISOString();
+      const userRef = doc(db, "users", user.uid);
+      await setDoc(userRef, { lastLoginAt: now, lastLoginMethod: method }, { merge: true });
+      await addDoc(collection(db, "users", user.uid, "loginHistory"), {
+        loginAt: now,
+        method,
+        email: user.email || "",
+        displayName: user.displayName || "",
+        userAgent: navigator.userAgent || ""
+      });
+    }
+
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
-        await setPersistence(auth, browserLocalPersistence);
+        await applyAuthPersistence();
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
 
@@ -2760,11 +2854,48 @@
             widgetPrefs: userWidgetPrefs,
             isNewUser: true,
             createdAt: new Date().toISOString(),
-            lastLoginAt: new Date().toISOString()
+            lastLoginAt: new Date().toISOString(),
+            signupMethod: "google"
           });
         }
+        await recordLogin(user, "google");
       } catch (err) {
         authError.textContent = err.message || "تعذر تسجيل الدخول بحساب Google.";
+      }
+    });
+
+    btnAppleLogin.addEventListener("click", async () => {
+      authError.textContent = "";
+      try {
+        await applyAuthPersistence();
+        if (isRegisterMode) {
+          const name = authName.value.trim();
+          const gender = authGender.value;
+          const section = authSection.value.trim() || "عامة";
+          if (!name) throw new Error("في التسجيل لأول مرة عبر Apple، أدخلي الاسم الكامل أولاً.");
+          const result = await signInWithPopup(auth, appleProvider);
+          const user = result.user;
+          const userDocRef = doc(db, "users", user.uid);
+          const userDoc = await getDoc(userDocRef);
+          if (!userDoc.exists()) {
+            const displayName = name;
+            await updateProfile(user, { displayName });
+            await setDoc(userDocRef, {
+              displayName, email: user.email || "", gender, section,
+              photoURL: user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`,
+              bio: `${gender === "طالبة" ? "مهندسة" : "مهندس"} حاسب آلي - جامعة طيبة`,
+              university: "جامعة طيبة", major: "هندسة الحاسب", currentLevel: 5,
+              points: 0, treesGrown: 0, widgetPrefs: userWidgetPrefs, isNewUser: true,
+              createdAt: new Date().toISOString(), lastLoginAt: new Date().toISOString(), signupMethod: "apple"
+            });
+          }
+          await recordLogin(user, "apple");
+        } else {
+          const result = await signInWithPopup(auth, appleProvider);
+          await recordLogin(result.user, "apple");
+        }
+      } catch (err) {
+        authError.textContent = err.message || "تعذر تسجيل الدخول بحساب Apple.";
       }
     });
 
@@ -2777,7 +2908,7 @@
       const pass = authPass.value;
 
       try {
-        await setPersistence(auth, browserLocalPersistence);
+        await applyAuthPersistence();
 
         if (isRegisterMode) {
           const name = authName.value.trim();
@@ -2804,11 +2935,12 @@
             widgetPrefs: userWidgetPrefs,
             isNewUser: true,
             createdAt: new Date().toISOString(),
-            lastLoginAt: new Date().toISOString()
+            lastLoginAt: new Date().toISOString(),
+            signupMethod: "email"
           });
         } else {
           const cred = await signInWithEmailAndPassword(auth, email, pass);
-          await updateDoc(doc(db, "users", cred.user.uid), { lastLoginAt: new Date().toISOString() });
+          await recordLogin(cred.user, "email");
         }
       } catch (err) {
         authError.textContent = err.message || "حدث خطأ في التسجيل";
@@ -3024,24 +3156,118 @@
     // ==========================================
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
-      const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الشعبة,المستوى الحالي,نقاط التركيز,تاريخ التسجيل,آخر تسجيل دخول\n";
-      
-      snap.forEach(d => {
-        const u = d.data();
-        const regDate = u.createdAt ? new Date(u.createdAt).toLocaleString('ar-SA') : 'غير متوفر';
-        const loginDate = u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString('ar-SA') : 'غير متوفر';
-        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${regDate}","${loginDate}"\n`;
-      });
+      if (typeof XLSX === "undefined") {
+        alert("تعذر تحميل مكتبة Excel. تأكدي من اتصال الإنترنت ثم أعيدي المحاولة.");
+        return;
+      }
 
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.setAttribute("href", url);
-      link.setAttribute("download", `تقرير_طلاب_هندسة_الحاسب_${new Date().toISOString().slice(0,10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      btnAdminExportExcel.disabled = true;
+      btnAdminExportExcel.textContent = "⏳ جاري تجهيز ملف Excel...";
+      try {
+        const usersSnap = await getDocs(collection(db, "users"));
+        const users = [];
+        const loginRows = [];
+        const courseRows = [];
+        const taskRows = [];
+        const scheduleRows = [];
+
+        const clean = (v) => v === undefined || v === null ? "" : String(v);
+        const dateText = (v) => v ? new Date(v).toLocaleString("ar-SA") : "";
+
+        for (const userDoc of usersSnap.docs) {
+          const u = userDoc.data();
+          const uid = userDoc.id;
+          const [coursesSnap, tasksSnap, scheduleSnap, loginsSnap] = await Promise.all([
+            getDocs(collection(db, "users", uid, "courses")),
+            getDocs(collection(db, "users", uid, "tasks")),
+            getDocs(collection(db, "users", uid, "schedule")),
+            getDocs(collection(db, "users", uid, "loginHistory"))
+          ]);
+
+          users.push({
+            "UID": uid,
+            "الاسم الكامل": clean(u.displayName),
+            "البريد الإلكتروني": clean(u.email),
+            "التصنيف": clean(u.gender),
+            "رقم الشعبة": clean(u.section),
+            "الجامعة": clean(u.university),
+            "التخصص": clean(u.major),
+            "المستوى الحالي": u.currentLevel || 5,
+            "نقاط التركيز": u.points || 0,
+            "عدد الأشجار": u.treesGrown || 0,
+            "تاريخ التسجيل": dateText(u.createdAt),
+            "آخر تسجيل دخول": dateText(u.lastLoginAt),
+            "طريقة التسجيل": clean(u.signupMethod),
+            "آخر طريقة دخول": clean(u.lastLoginMethod),
+            "عدد مرات الدخول": loginsSnap.size,
+            "النبذة": clean(u.bio),
+            "حالة الحساب": u.isNewUser ? "مستخدم جديد" : "مستخدم حالي"
+          });
+
+          loginsSnap.forEach(ld => {
+            const l = ld.data();
+            loginRows.push({
+              "UID": uid, "الاسم": clean(u.displayName), "البريد": clean(u.email),
+              "التصنيف": clean(u.gender), "الشعبة": clean(u.section),
+              "تاريخ ووقت الدخول": dateText(l.loginAt), "الطريقة": clean(l.method),
+              "User Agent": clean(l.userAgent)
+            });
+          });
+
+          coursesSnap.forEach(cd => {
+            const c = cd.data();
+            const total = Number(c.totalLectures || 0);
+            const attended = Number(c.attendedLectures || 0);
+            const chapters = Array.isArray(c.chapters) ? c.chapters : [];
+            courseRows.push({
+              "UID": uid, "الاسم": clean(u.displayName), "البريد": clean(u.email),
+              "المادة": clean(c.name), "الرمز": clean(c.code), "الساعات": c.credits || 0,
+              "المستوى": clean(c.originLevel), "المحاضرات": total, "الحضور": attended,
+              "الغياب": c.absences || 0, "نسبة المواكبة": total ? Math.round(attended / total * 100) + "%" : "0%",
+              "عدد الشباتر": chapters.length, "الشباتر المنجزة": chapters.filter(x => x.done).length
+            });
+          });
+
+          tasksSnap.forEach(td => {
+            const t = td.data();
+            taskRows.push({
+              "UID": uid, "الاسم": clean(u.displayName), "البريد": clean(u.email),
+              "المهمة": clean(t.title), "المادة": clean(t.courseCode), "النوع": clean(t.type),
+              "تاريخ التسليم": clean(t.dueDate), "الحالة": t.completed ? "مكتملة" : "متبقية",
+              "تاريخ الإضافة": dateText(t.createdAt)
+            });
+          });
+
+          scheduleSnap.forEach(sd => {
+            const x = sd.data();
+            scheduleRows.push({
+              "UID": uid, "الاسم": clean(u.displayName), "البريد": clean(u.email),
+              "المادة": clean(x.courseName), "الرمز": clean(x.courseCode), "اليوم": clean(x.day),
+              "البداية": clean(x.startTime), "النهاية": clean(x.endTime),
+              "القاعة": clean(x.room), "المبنى": clean(x.building)
+            });
+          });
+        }
+
+        const wb = XLSX.utils.book_new();
+        const addSheet = (name, rows, widths=[]) => {
+          const ws = XLSX.utils.json_to_sheet(rows);
+          if (widths.length) ws["!cols"] = widths.map(w => ({ wch: w }));
+          XLSX.utils.book_append_sheet(wb, ws, name);
+        };
+        addSheet("المستخدمون", users, [30,24,18,14,12,18,22,14,14,14,22,22,16,16,14,35,18]);
+        addSheet("سجل الدخول", loginRows, [30,24,22,14,12,22,16,55]);
+        addSheet("مقررات الطلاب", courseRows, [30,24,22,30,14,10,16,14,14,12,16,14,18]);
+        addSheet("المهام", taskRows, [30,24,22,32,16,16,16,14,22]);
+        addSheet("الجدول الدراسي", scheduleRows, [30,24,22,30,14,14,14,14,16,20]);
+        XLSX.writeFile(wb, `جدولي_بيانات_المستخدمين_${new Date().toISOString().slice(0,10)}.xlsx`);
+      } catch (err) {
+        console.error(err);
+        alert("حدث خطأ أثناء تصدير البيانات: " + err.message);
+      } finally {
+        btnAdminExportExcel.disabled = false;
+        btnAdminExportExcel.textContent = "📥 تصدير بيانات الطلاب (Excel)";
+      }
     });
 
     function renderHomeDashboardUI() {
@@ -3194,11 +3420,13 @@
       }
     });
 
-    // حفظ التعديلات المسموحة فقط في الملف الشخصي (النبذة والأفتار والتفضيلات) مع قفل الاسم والتصنيف والشعبة
+    // حفظ الاسم والنبذة والأفتار والتفضيلات؛ التصنيف والشعبة لا يقبلهما نموذج المستخدم
     profileEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const newName = profileNameInput.value.trim();
       const newBio = profileBioInput.value.trim();
       const newPhoto = profileAvatarUrl.value.trim() || profileAvatarPreview.src;
+      if (!newName) { alert("الرجاء إدخال الاسم الكامل."); return; }
 
       const newPrefs = {
         showStats: prefShowStats.checked,
@@ -3208,8 +3436,9 @@
       };
 
       try {
-        await updateProfile(auth.currentUser, { photoURL: newPhoto });
+        await updateProfile(auth.currentUser, { displayName: newName, photoURL: newPhoto });
         await updateDoc(doc(db, "users", currentUser.uid), {
+          displayName: newName,
           bio: newBio,
           photoURL: newPhoto,
           widgetPrefs: newPrefs
@@ -3599,7 +3828,6 @@
       const queryText = searchResourcesInput.value.trim().toLowerCase();
 
       const mySubjects = currentCourses.map(c => ({ code: c.code, name: c.name }));
-      mySubjects.push({ code: "عام", name: "روابط وتجميعات عامة" });
 
       if (currentCourses.length === 0) {
         resourcesGlobalContainer.innerHTML = `
@@ -4054,6 +4282,7 @@
         card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
           e.stopPropagation();
           if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
+            // حذف المقرر من حساب الطالب فقط. الموارد العامة لا تُحذف؛ ستختفي تلقائياً من واجهة هذا الطالب.
             await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
           }
         });
@@ -4247,6 +4476,15 @@
     });
     btnCloseFeedbackModal.addEventListener("click", () => feedbackModal.classList.remove("open"));
 
+    fbType?.addEventListener("change", () => {
+      const isProfileRequest = fbType.value === "طلب تعديل بيانات الملف الشخصي";
+      if (profileChangeFields) profileChangeFields.style.display = isProfileRequest ? "block" : "none";
+      if (isProfileRequest && currentUser) {
+        fbRequestedGender.value = currentUser.gender || "طالبة";
+        fbRequestedSection.value = currentUser.section || "";
+      }
+    });
+
     feedbackForm.addEventListener("submit", async () => {
       if (currentUser) {
         try {
@@ -4256,13 +4494,85 @@
             category: document.getElementById("fb-type").value,
             subject: document.getElementById("fb-subject").value,
             message: document.getElementById("fb-content").value,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            uid: currentUser.uid,
+            requestedGender: document.getElementById("fb-type").value === "طلب تعديل بيانات الملف الشخصي" ? (fbRequestedGender?.value || "") : "",
+            requestedSection: document.getElementById("fb-type").value === "طلب تعديل بيانات الملف الشخصي" ? (fbRequestedSection?.value.trim() || "") : "",
+            status: document.getElementById("fb-type").value === "طلب تعديل بيانات الملف الشخصي" ? "pending" : "info"
           });
         } catch (e) {
           console.error("Backup feedback error:", e);
         }
       }
     });
+
+    async function loadAdminProfileRequests() {
+      if (!isAdmin) return;
+      adminProfileRequestsList.innerHTML = `<p style="font-size:12px;color:var(--text-muted);text-align:center;padding:20px;">جاري تحميل الطلبات...</p>`;
+      try {
+        const snap = await getDocs(collection(db, "feedbacks"));
+        const requests = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+          .filter(x => x.category === "طلب تعديل بيانات الملف الشخصي" && (x.status || "pending") === "pending")
+          .sort((a,b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+        if (!requests.length) {
+          adminProfileRequestsList.innerHTML = `<p style="font-size:12px;color:var(--text-muted);text-align:center;padding:25px;">لا توجد طلبات معلقة حالياً ✅</p>`;
+          return;
+        }
+        adminProfileRequestsList.innerHTML = requests.map(r => `
+          <div class="home-widget-box" style="margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;">
+              <strong style="font-size:13px;">${r.name || "طالب/ـة"}</strong>
+              <span style="font-size:10px;color:var(--text-muted);">${r.createdAt ? new Date(r.createdAt).toLocaleString("ar-SA") : ""}</span>
+            </div>
+            <p style="font-size:11.5px;color:var(--text-muted);margin-top:5px;">${r.email || ""}</p>
+            <p style="font-size:12px;margin-top:8px;"><b>الموضوع:</b> ${r.subject || ""}</p>
+            <p style="font-size:12px;margin-top:5px;line-height:1.6;"><b>السبب/التفاصيل:</b> ${r.message || ""}</p>
+            <div style="display:flex;gap:8px;margin-top:10px;">
+              <button class="btn-primary admin-approve-request" data-id="${r.id}" data-uid="${r.uid || ""}" style="background:#16A34A;padding:9px;font-size:12px;">اعتماد</button>
+              <button class="btn-primary admin-reject-request" data-id="${r.id}" style="background:#DC2626;padding:9px;font-size:12px;">رفض</button>
+            </div>
+          </div>`).join("");
+
+        adminProfileRequestsList.querySelectorAll(".admin-approve-request").forEach(btn => btn.addEventListener("click", async () => {
+          const req = requests.find(x => x.id === btn.dataset.id);
+          if (!req || !req.uid) return alert("الطلب لا يحتوي UID صالحاً.");
+          const userRef = doc(db, "users", req.uid);
+          const userSnap = await getDoc(userRef);
+          if (!userSnap.exists()) return alert("تعذر العثور على حساب الطالب.");
+          const current = userSnap.data();
+          let newGender = req.requestedGender || current.gender;
+          let newSection = req.requestedSection || current.section;
+          const msg = String(req.message || "");
+          const genderMatch = msg.match(/(?:التصنيف|الجنس)\s*[:：]\s*(طالبة|طالب)/i);
+          const sectionMatch = msg.match(/(?:الشعبة|رقم الشعبة)\s*[:：]\s*([^\n,،]+)/i);
+          if (genderMatch) newGender = genderMatch[1];
+          if (sectionMatch) newSection = sectionMatch[1].trim();
+          const manual = prompt(`اعتماد الطلب؟\n\nالتصنيف الحالي: ${current.gender || ""}\nالشعبة الحالية: ${current.section || ""}\n\nاكتبي التحديث بصيغة:\nالتصنيف: طالبة\nالشعبة: شعبة 1`, `التصنيف: ${newGender || ""}\nالشعبة: ${newSection || ""}`);
+          if (manual === null) return;
+          const gm = manual.match(/(?:التصنيف|الجنس)\s*[:：]\s*(طالبة|طالب)/i);
+          const sm = manual.match(/(?:الشعبة|رقم الشعبة)\s*[:：]\s*([^\n,،]+)/i);
+          if (gm) newGender = gm[1];
+          if (sm) newSection = sm[1].trim();
+          await updateDoc(userRef, { gender: newGender, section: newSection });
+          await updateDoc(doc(db, "feedbacks", req.id), { status: "approved", processedAt: new Date().toISOString(), processedBy: currentUser.uid });
+          await loadAdminProfileRequests();
+        }));
+        adminProfileRequestsList.querySelectorAll(".admin-reject-request").forEach(btn => btn.addEventListener("click", async () => {
+          const reason = prompt("سبب الرفض (اختياري):", "");
+          await updateDoc(doc(db, "feedbacks", btn.dataset.id), { status: "rejected", rejectionReason: reason || "", processedAt: new Date().toISOString(), processedBy: currentUser.uid });
+          await loadAdminProfileRequests();
+        }));
+      } catch (err) {
+        adminProfileRequestsList.innerHTML = `<p style="font-size:12px;color:var(--primary-red);text-align:center;padding:20px;">تعذر تحميل الطلبات: ${err.message}</p>`;
+      }
+    }
+
+    btnAdminProfileRequests?.addEventListener("click", async () => {
+      if (!isAdmin) return;
+      adminProfileRequestsModal.classList.add("open");
+      await loadAdminProfileRequests();
+    });
+    btnCloseAdminProfileRequests?.addEventListener("click", () => adminProfileRequestsModal.classList.remove("open"));
 
     document.querySelectorAll(".color-dot").forEach(dot => {
       dot.addEventListener("click", () => {
