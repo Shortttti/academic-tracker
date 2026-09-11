@@ -1749,7 +1749,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات -->
+    <!-- تبويب التجميعات (الافتراضي فارغ بدون مواد حتى يتم إضافتها) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1915,7 +1915,9 @@
       </footer>
     </main>
 
-    <!-- شريط التنقل السفلي -->
+    <!-- ============================================================ -->
+    <!-- شريط التنقل السفلي الكلاسيكي مع فوكس نقي وواضح -->
+    <!-- ============================================================ -->
     <nav class="bottom-nav">
       <div class="nav-item active" data-target="home">
         <span class="icon">🏠</span>
@@ -1968,7 +1970,7 @@
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي -->
+    <!-- مودال الملف الشخصي (المعلومات مقفلة ولا تُعدل إلا بطلب عبر الاقتراحات) -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1982,8 +1984,8 @@
           </div>
 
           <div class="form-group">
-            <label>الاسم الكامل</label>
-            <input type="text" id="profile-name-input" placeholder="الاسم الكامل">
+            <label>الاسم الكامل (محمي - للتعديل يرجى مراسلة المشرف)</label>
+            <input type="text" id="profile-name-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
           </div>
 
           <div class="form-row">
@@ -1997,7 +1999,7 @@
             </div>
           </div>
           <p style="font-size:11px; color:#D97706; margin-bottom:12px; font-weight:700;">
-            ℹ️ ملاحظة: لتغيير التصنيف أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
+            ℹ️ ملاحظة: لتغيير الاسم، التصنيف، أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
           </p>
 
           <div class="form-group">
@@ -2052,7 +2054,7 @@
       </div>
     </div>
 
-    <!-- مودال إنشاء استطلاع رأي للأدمن -->
+    <!-- مودال إنشاء استطلاع رأي للأدمن (مع اختيار المستهدفين) -->
     <div id="admin-poll-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2169,7 +2171,7 @@
       </div>
     </div>
 
-    <!-- مودال إضافة رابط تجميعة مباشر للأدمن -->
+    <!-- مودال إضافة رابط تجميعة مباشر للأدمن مع خيار التثبيت -->
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2248,7 +2250,7 @@
       </div>
     </div>
 
-    <!-- مودال إضافة مادة -->
+    <!-- مودال إضافة مادة (يشمل المستوى الخامس فما فوق) -->
     <div id="course-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2357,7 +2359,7 @@
           <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-          رأي وملاحظاتك تساهم في تطوير التطبيق، أو طلب تعديل بيانات ملفك الشخصي.
+          رأيك وملاحظاتك تساهم في تطوير التطبيق، أو طلب تعديل بيانات ملفك الشخصي.
         </p>
         <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:13px; margin-bottom:10px;">
           تم استلام رسالتك بنجاح ووصلت للإدارة! شكراً لك ❤️
@@ -2439,6 +2441,16 @@
     const googleProvider = new GoogleAuthProvider();
 
     const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
+    const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
+
+    const OFFICIAL_LEVEL_5_DATA = {
+      "COE 225": { credits: 3, totalLectures: 30 },
+      "COE 295": { credits: 2, totalLectures: 15 },
+      "CS 226":  { credits: 4, totalLectures: 45 },
+      "EE 201":  { credits: 4, totalLectures: 45 },
+      "GS 311":  { credits: 2, totalLectures: 15 },
+      "STAT 301":{ credits: 3, totalLectures: 30 }
+    };
 
     const CURRICULUM_PLAN = {
       5: [
@@ -2518,12 +2530,14 @@
     const groupName = document.getElementById("group-name");
     const groupAcademic = document.getElementById("group-academic");
     const groupLevel = document.getElementById("group-level");
+    const groupDefaultState = document.getElementById("group-default-state");
     const groupGenderSection = document.getElementById("group-gender-section");
     const authName = document.getElementById("auth-name");
     const authGender = document.getElementById("auth-gender");
     const authSection = document.getElementById("auth-section");
     const authEmail = document.getElementById("auth-email");
     const authPass = document.getElementById("auth-pass");
+    const authDefaultStatus = document.getElementById("auth-default-status");
     const authSubmitBtn = document.getElementById("auth-submit-btn");
     const authError = document.getElementById("auth-error");
     const btnLogout = document.getElementById("btn-logout");
@@ -2649,6 +2663,8 @@
     const taskCourseSelect = document.getElementById("task-course-select");
     const quickCoursePreset = document.getElementById("quick-course-preset");
 
+    const btnTransitionLevel = document.getElementById("btn-transition-level");
+    const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
     function initTheme() {
@@ -2699,6 +2715,7 @@
       groupName.style.display = "none";
       groupAcademic.style.display = "none";
       groupLevel.style.display = "none";
+      groupDefaultState.style.display = "none";
       groupGenderSection.style.display = "none";
       authSubmitBtn.textContent = "دخول";
       authError.textContent = "";
@@ -2711,6 +2728,7 @@
       groupName.style.display = "flex";
       groupAcademic.style.display = "flex";
       groupLevel.style.display = "flex";
+      groupDefaultState.style.display = "flex";
       groupGenderSection.style.display = "flex";
       authSubmitBtn.textContent = "إنشاء الحساب وبدء الفصل";
       authError.textContent = "";
@@ -2859,6 +2877,7 @@
           snapshot.forEach(d => currentCourses.push({ id: d.id, ...d.data() }));
           renderCoursesUI();
           updateAllCourseDropdowns();
+          renderGPACalculator();
           renderPublicResourcesUI();
           renderHomeDashboardUI();
         });
@@ -2918,6 +2937,9 @@
       }
     });
 
+    // ==========================================
+    // إدارة استطلاع الرأي (تصفية حسب الفئة المستهدفة)
+    // ==========================================
     async function renderPollUI() {
       if (!activePoll || !activePoll.active) {
         homeActivePollBox.style.display = "none";
@@ -2997,6 +3019,9 @@
       alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
+    // ==========================================
+    // تصدير بيانات الطلاب كملف Excel (CSV) مرتب واحترافي
+    // ==========================================
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
@@ -3169,17 +3194,11 @@
       }
     });
 
-    // معالجة تعديل الملف الشخصي (الاسم مسموح تعديله، التصنيف والشعبة مقفلة)
+    // حفظ التعديلات المسموحة فقط في الملف الشخصي (النبذة والأفتار والتفضيلات) مع قفل الاسم والتصنيف والشعبة
     profileEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const newName = profileNameInput.value.trim();
       const newBio = profileBioInput.value.trim();
       const newPhoto = profileAvatarUrl.value.trim() || profileAvatarPreview.src;
-
-      if (!newName) {
-        alert("الرجاء إدخال الاسم الكامل.");
-        return;
-      }
 
       const newPrefs = {
         showStats: prefShowStats.checked,
@@ -3189,9 +3208,8 @@
       };
 
       try {
-        await updateProfile(auth.currentUser, { displayName: newName, photoURL: newPhoto });
+        await updateProfile(auth.currentUser, { photoURL: newPhoto });
         await updateDoc(doc(db, "users", currentUser.uid), {
-          displayName: newName,
           bio: newBio,
           photoURL: newPhoto,
           widgetPrefs: newPrefs
@@ -3534,7 +3552,7 @@
         <p>• الأيام المتبقية حتى الاختبار: <strong>${daysRemaining} يوم</strong></p>
         <p>• الشباتر المتبقية للمذاكرة: <strong>${unstudiedChapters} من أصل ${totalCh} شباتر</strong></p>
         <p style="color:var(--primary-teal); font-weight:800; margin-top:4px;">
-          🎯 معدل الإنجاز المطلوب: مذاكرة <strong>${dailyChapters} شابتر يومياً</strong> لختم المنهج قبل موعد الاختبار بكل راحة!
+          🎯 معدل الإنجاز المطلوب: مذاكرة <strong>${dailyChapters} شابتر يومياً</strong> لختم المادة قبل موعد الاختبار بكل راحة!
         </p>
       `;
     });
@@ -3575,6 +3593,7 @@
       });
     });
 
+    // عرض التجميعات مقتصرة فقط على مواد الطالب الحالية (الافتراضي فارغ إذا لم يضف مواد)
     function renderPublicResourcesUI() {
       resourcesGlobalContainer.innerHTML = "";
       const queryText = searchResourcesInput.value.trim().toLowerCase();
@@ -4032,10 +4051,9 @@
           }
         });
 
-        // تم فك الارتباط: حذف المادة يحذفها من جدول الطالب فقط دون المساس بقسم التجميعات العامة
         card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
           e.stopPropagation();
-          if (confirm(`هل ترغب بحذف مادة ${course.name} من جدولك؟ (ستظل التجميعات العامة متاحة)`)) {
+          if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
             await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
           }
         });
@@ -4196,6 +4214,7 @@
       renderTreeStage(totalFocusSeconds);
     });
 
+    // التنقل السفلي الكلاسيكي المريح
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -4356,6 +4375,20 @@
         renderTasksUI();
       });
     });
+
+    function updateTaskSelectOptions() {
+      taskCourseSelect.innerHTML = "";
+      if (currentCourses.length === 0) {
+        taskCourseSelect.innerHTML = `<option value="عام">عام</option>`;
+        return;
+      }
+      currentCourses.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = `${c.code}`;
+        opt.textContent = `${c.code} - ${c.name}`;
+        taskCourseSelect.appendChild(opt);
+      });
+    }
   </script>
 
   <!-- Formspree Ajax SDK -->
