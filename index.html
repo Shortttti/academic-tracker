@@ -2,13 +2,15 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>جدولي الأكاديمي - كلية علوم وهندسة الحاسب</title>
   
+  <!-- إعدادات التثبيت كأيقونة تطبيق آيفون/أندرويد فخمة بدون أشرطة متصفح -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="جدولي">
+  <meta name="apple-mobile-web-app-title" content="جدولي COE">
   <meta name="theme-color" content="#0F766E">
+  <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/bottts/svg?seed=COE&backgroundColor=0f766e">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -300,6 +302,7 @@
       display: none;
       align-items: center;
       gap: 3px;
+      cursor: pointer;
     }
 
     .header-branding {
@@ -899,47 +902,6 @@
     }
 
     /* صفحة التجميعات */
-    .admin-controls-card {
-      background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(8, 95, 86, 0.15));
-      border: 1.5px dashed var(--primary-teal);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 18px;
-      display: none;
-    }
-
-    .admin-controls-card h3 {
-      font-size: 14px;
-      font-weight: 900;
-      color: var(--primary-teal);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
-    }
-
-    .admin-action-btn-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .pending-approval-box {
-      background: #FFFBEB;
-      border: 1.5px solid #FCD34D;
-      border-radius: 14px;
-      padding: 12px;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .pending-approval-box h4 {
-      font-size: 13px;
-      font-weight: 800;
-      color: #92400E;
-      margin-bottom: 8px;
-    }
-
     .search-resources-bar {
       margin-bottom: 14px;
       display: flex;
@@ -1023,6 +985,39 @@
       font-weight: 800;
       display: block;
       margin-top: 2px;
+    }
+
+    /* صفحة الإشراف المستقلة (Dedicated Admin Panel) */
+    .admin-dashboard-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .admin-section-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+
+    .admin-section-box h3 {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--primary-teal);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .request-item-card {
+      background: var(--subtle-bg);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 8px;
+      border: 1px solid var(--border-subtle);
     }
 
     /* صفحة الجدول الدراسي */
@@ -1319,9 +1314,6 @@
       letter-spacing: 1px;
     }
 
-    /* ========================================== */
-    /* شريط التنقل السفلي الكلاسيكي مع فوكس نقي وواضح */
-    /* ========================================== */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1525,8 +1517,8 @@
             </select>
           </div>
           <div class="form-group">
-            <label>رقم الشعبة</label>
-            <input type="text" id="auth-section" placeholder="مثال: شعبة 1">
+            <label>رقم الدفعة</label>
+            <input type="text" id="auth-section" placeholder="مثال: دفعة 22">
           </div>
         </div>
 
@@ -1558,11 +1550,6 @@
           <input type="password" id="auth-pass" required autocomplete="current-password" placeholder="••••••••">
         </div>
 
-        <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px; margin-bottom: 12px;">
-          <input type="checkbox" id="auth-remember" style="width: 16px; height: 16px; cursor: pointer;">
-          <label for="auth-remember" style="margin: 0; cursor: pointer; font-size: 12px;">حفظ كلمة المرور وتذكرني</label>
-        </div>
-
         <button type="submit" id="auth-submit-btn" class="btn-primary">دخول</button>
       </form>
       <div id="auth-error" class="error-msg"></div>
@@ -1590,7 +1577,7 @@
         </div>
         <div class="header-branding">
           <div style="display: flex; align-items: center; gap: 6px; justify-content: flex-end;">
-            <span id="admin-badge" class="admin-badge">👑 مشرف النظام</span>
+            <span id="admin-badge" class="admin-badge">👑 لوحة المشرف</span>
             <h1 class="brand-title">جدولي</h1>
           </div>
           <span id="user-greeting" class="brand-subtitle">كلية علوم وهندسة الحاسب</span>
@@ -1598,7 +1585,7 @@
       </div>
     </header>
 
-    <!-- تبويب الصفحة الرئيسية (Home) في المنتصف -->
+    <!-- تبويب الصفحة الرئيسية (Home) -->
     <main class="main-content" id="tab-content-home">
       <div id="inapp-reminder-banner" class="reminder-banner">
         <span id="reminder-banner-text">🔔 المحاضرة القادمة قريباً</span>
@@ -1784,34 +1771,6 @@
         </div>
       </div>
 
-      <div id="admin-resources-panel" class="admin-controls-card">
-        <h3>👑 لوحة تحكم المشرف</h3>
-        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
-          إدارة التجميعات، اعتماد ملخصات الطلاب، وضبط الإعلانات والاستطلاعات.
-        </p>
-        <div class="admin-action-btn-row">
-          <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12px; padding:8px; flex:1;">
-            ➕ إضافة رابط تجميعة
-          </button>
-          <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:12px; padding:8px; flex:1;">
-            ⚙️ إعلانات وعدّاد
-          </button>
-          <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:12px; padding:8px; flex:1;">
-            📊 استطلاع رأي
-          </button>
-        </div>
-        <div style="margin-top:10px;">
-          <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:12.5px; padding:9px;">
-            📥 تصدير تقرير الطلاب التفصيلي (Excel / CSV)
-          </button>
-        </div>
-      </div>
-
-      <div id="admin-pending-approval-box" class="pending-approval-box">
-        <h4>⏳ ملخصات أرسلها الطلاب بانتظار اعتمادك للنشر:</h4>
-        <div id="pending-items-list"></div>
-      </div>
-
       <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:12px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
         📤 مشاركة ملخص أو تجميعة مع زملائك في الدفعة
       </button>
@@ -1926,24 +1885,65 @@
       </footer>
     </main>
 
-    <!-- تبويب حاسبة المعدل -->
-    <main class="main-content" id="tab-content-gpa" style="display: none;">
+    <!-- ============================================================ -->
+    <!-- صفحة الإشراف المستقلة تماماً (Dedicated Admin Panel) -->
+    <!-- ============================================================ -->
+    <main class="main-content" id="tab-content-admin" style="display: none;">
       <div class="content-header">
         <div>
-          <h2>حاسبة المعدل المعتمدة</h2>
-          <p>حساب المعدل الفصلي والتراكمي الفعلي بسلم 5.00 وفق الساعات المعتمدة في خطتك</p>
+          <h2>👑 لوحة الإشراف وإدارة النظام</h2>
+          <p>إدارة الطلبات، التجميعات، الطلاب، وإضافة مشرفين جدد</p>
         </div>
       </div>
-      <div id="gpa-calc-container" style="margin-top: 16px;"></div>
+
+      <div class="admin-dashboard-panel">
+        
+        <!-- قسم إضافة مشرف جديد بالـ UID -->
+        <div class="admin-section-box">
+          <h3>👥 إضافة مشرف جديد للنظام</h3>
+          <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">أدخلي User ID (UID) الخاص بالطالب لمنحه صلاحيات المشرف تلقائياً:</p>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="new-admin-uid-input" placeholder="ألصقي الـ UID هنا..." style="flex:1;">
+            <button id="btn-add-admin-submit" class="btn-primary" style="width:auto; padding:10px 16px; margin:0;">إضافة مشرف ➕</button>
+          </div>
+        </div>
+
+        <!-- قسم طلبات تعديل البيانات (التصنيف والدفعة) مباشرة بدون إيميل -->
+        <div class="admin-section-box">
+          <h3>📝 طلبات تعديل البيانات (الدفعة والتصنيف)</h3>
+          <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">طلبات التعديل المرفوعة من الطلاب للموافقة والتطبيق الفوري:</p>
+          <div id="admin-profile-requests-list">
+            <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>
+          </div>
+        </div>
+
+        <!-- قسم اعتماد ملخصات وتجميعات الطلاب -->
+        <div class="admin-section-box">
+          <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة)</h3>
+          <div id="admin-pending-resources-list">
+            <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>
+          </div>
+        </div>
+
+        <!-- قسم الإجراءات السريعة (تصدير إكسل، إضافة رابط مباشر، إعلان، استطلاع) -->
+        <div class="admin-section-box">
+          <h3>⚡ الإجراءات والأدوات السريعة</h3>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+            <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12px; padding:10px; margin:0;">➕ إضافة تجميعة</button>
+            <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:12px; padding:10px; margin:0;">⚙️ إعلانات وعدّاد</button>
+            <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:12px; padding:10px; margin:0;">📊 استطلاع رأي</button>
+            <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:12px; padding:10px; margin:0;">📥 تصدير Excel</button>
+          </div>
+        </div>
+
+      </div>
 
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
       </footer>
     </main>
 
-    <!-- ============================================================ -->
-    <!-- شريط التنقل السفلي الاحترافي (الرئيسية في المنتصف مع فوكس واشح نقي) -->
-    <!-- ============================================================ -->
+    <!-- شريط التنقل السفلي -->
     <nav class="bottom-nav">
       <div class="nav-item" data-target="courses">
         <span class="icon">📊</span>
@@ -1954,7 +1954,6 @@
         <span>الجدول</span>
       </div>
       
-      <!-- الرئيسية في المنتصف -->
       <div class="nav-item active" data-target="home">
         <span class="icon">🏠</span>
         <span>الرئيسية</span>
@@ -1999,7 +1998,7 @@
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي (إمكانية تعديل الاسم، قفل التصنيف والشعبة) -->
+    <!-- مودال الملف الشخصي (الاسم متاح للتعديل، التصنيف ورقم الدفعة محميان بطلب للمشرف) -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2013,7 +2012,7 @@
           </div>
 
           <div class="form-group">
-            <label>الاسم الكامل</label>
+            <label>الاسم الكامل (متاح للتعديل)</label>
             <input type="text" id="profile-name-input" required placeholder="اسمك الكريم">
           </div>
 
@@ -2023,13 +2022,14 @@
               <input type="text" id="profile-gender-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
             </div>
             <div class="form-group">
-              <label>رقم الشعبة (محمي)</label>
+              <label>رقم الدفعة (محمي)</label>
               <input type="text" id="profile-section-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
             </div>
           </div>
-          <p style="font-size:11px; color:#D97706; margin-bottom:12px; font-weight:700;">
-            ℹ️ ملاحظة: لتغيير التصنيف أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
-          </p>
+          
+          <button type="button" id="btn-open-request-change" class="btn-primary" style="background:#D97706; padding:8px; font-size:12px; margin-bottom:14px;">
+            📝 رفع طلب تعديل التصنيف أو الدفعة للمشرف
+          </button>
 
           <div class="form-group">
             <label>النبذة التعريفية (Bio)</label>
@@ -2044,17 +2044,6 @@
           <div class="form-group">
             <label>أو رفع صورة من جهازك:</label>
             <input type="file" id="profile-avatar-file" accept="image/*" style="font-size:11.5px; padding:6px;">
-          </div>
-
-          <div style="margin-bottom:14px;">
-            <span style="font-size:11px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:6px;">أفتارات هندسية سريعة:</span>
-            <div style="display:flex; gap:8px; justify-content:center;">
-              <img class="quick-avatar-choice" data-seed="tech" src="https://api.dicebear.com/7.x/bottts/svg?seed=tech" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-              <img class="quick-avatar-choice" data-seed="cyber" src="https://api.dicebear.com/7.x/bottts/svg?seed=cyber" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-              <img class="quick-avatar-choice" data-seed="coder" src="https://api.dicebear.com/7.x/bottts/svg?seed=coder" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-              <img class="quick-avatar-choice" data-seed="engineer" src="https://api.dicebear.com/7.x/bottts/svg?seed=engineer" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-              <img class="quick-avatar-choice" data-seed="robot" src="https://api.dicebear.com/7.x/bottts/svg?seed=robot" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-            </div>
           </div>
 
           <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
@@ -2078,7 +2067,35 @@
             </div>
           </div>
 
-          <button type="submit" class="btn-primary">حفظ وتطبيق التفضيلات ✅</button>
+          <button type="submit" class="btn-primary">حفظ وتطبيق التحديثات ✅</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- مودال رفع طلب تعديل التصنيف والدفعة للمشرف مباشرة -->
+    <div id="request-change-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>📝 طلب تعديل التصنيف أو الدفعة</h3>
+          <button id="btn-close-request-modal" class="close-btn">&times;</button>
+        </div>
+        <form id="request-change-form">
+          <div class="form-group">
+            <label>التصنيف المطلوب:</label>
+            <select id="req-gender-select">
+              <option value="طالبة">طالبة 👩‍🎓</option>
+              <option value="طالب">طالب 👨‍🎓</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>رقم الدفعة المطلوب:</label>
+            <input type="text" id="req-section-input" required placeholder="مثال: دفعة 23">
+          </div>
+          <div class="form-group">
+            <label>سبب طلب التغيير:</label>
+            <textarea id="req-reason-input" rows="3" required placeholder="يرجى توضيح سبب التعديل للمشرف..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary">إرسال الطلب للمشرف مباشرة 🚀</button>
         </form>
       </div>
     </div>
@@ -2171,7 +2188,7 @@
           <button id="btn-close-submit-res-modal" class="close-btn">&times;</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-          سيتم إرسال الملف لمشرف النظام ليعتمده، وسينزل باسمك في قائمة التجميعات للدفعة ❤️
+          سيتم إرسال الملف لمشرف النظام ليعتمده، وسينزل باسمك في قائمة التجميعات للدفعة مع +15 نقطة مساهمة ❤️
         </p>
         <form id="student-resource-form">
           <div class="form-group">
@@ -2388,7 +2405,7 @@
           <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-          رأيك وملاحظاتك تساهم في تطوير التطبيق، أو طلب تعديل بيانات ملفك الشخصي.
+          رأيك وملاحظاتك تساهم في تطوير التطبيق.
         </p>
         <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:13px; margin-bottom:10px;">
           تم استلام رسالتك بنجاح ووصلت للإدارة! شكراً لك ❤️
@@ -2401,7 +2418,6 @@
           <div class="form-group">
             <label>نوع الرسالة</label>
             <select name="category" id="fb-type" data-fs-field>
-              <option value="طلب تعديل بيانات الملف الشخصي">طلب تعديل بيانات الملف الشخصي 👤</option>
               <option value="اقتراح ميزة جديدة">اقتراح ميزة جديدة 💡</option>
               <option value="إبلاغ عن خلل أو مشكلة">إبلاغ عن خلل أو مشكلة 🐛</option>
               <option value="استفسار عام">استفسار عام 💬</option>
@@ -2409,12 +2425,12 @@
           </div>
           <div class="form-group">
             <label>الموضوع</label>
-            <input type="text" id="fb-subject" name="subject" required placeholder="مثال: طلب تعديل رقم الشعبة" data-fs-field>
+            <input type="text" id="fb-subject" name="subject" required placeholder="عنوان مختصر" data-fs-field>
             <span data-fs-error="subject" style="color:red; font-size:11px;"></span>
           </div>
           <div class="form-group">
-            <label>الرسالة مع ذكر السبب</label>
-            <textarea id="fb-content" name="message" rows="4" required placeholder="اكتب التفاصيل والسبب..." data-fs-field></textarea>
+            <label>الرسالة</label>
+            <textarea id="fb-content" name="message" rows="4" required placeholder="اكتب التفاصيل..." data-fs-field></textarea>
             <span data-fs-error="message" style="color:red; font-size:11px;"></span>
           </div>
           <button type="submit" class="btn-primary" data-fs-submit-btn>إرسال للإدارة فوراً 🚀</button>
@@ -2423,7 +2439,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق الكامل بدون أي نقصان -->
+  <!-- منطق التطبيق الكامل -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -2437,8 +2453,7 @@
       onAuthStateChanged, 
       updateProfile, 
       setPersistence, 
-      browserLocalPersistence,
-      browserSessionPersistence
+      browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
     import { 
       getFirestore, 
@@ -2471,8 +2486,13 @@
     const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
     const appleProvider = new OAuthProvider('apple.com');
+    appleProvider.addScope('email');
+    appleProvider.addScope('name');
 
-    const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
+    // المشرف الأساسي + قائمة المشرفين الإضافيين
+    const INITIAL_ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
+    let adminUIDs = [INITIAL_ADMIN_UID];
+
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
 
     const OFFICIAL_LEVEL_5_DATA = {
@@ -2533,6 +2553,7 @@
     let currentScheduleSlots = [];
     let publicResources = [];
     let pendingResources = [];
+    let profileChangeRequests = [];
     let activePoll = null;
     let selectedColor = "#8B5CF6";
     let isRegisterMode = false;
@@ -2569,7 +2590,6 @@
     const authSection = document.getElementById("auth-section");
     const authEmail = document.getElementById("auth-email");
     const authPass = document.getElementById("auth-pass");
-    const authRemember = document.getElementById("auth-remember");
     const authSubmitBtn = document.getElementById("auth-submit-btn");
     const authError = document.getElementById("auth-error");
     const btnLogout = document.getElementById("btn-logout");
@@ -2579,6 +2599,7 @@
     const btnToggleTheme = document.getElementById("btn-toggle-theme");
     const adminBadge = document.getElementById("admin-badge");
 
+    // الملف الشخصي وطلب التعديل
     const btnOpenProfile = document.getElementById("btn-open-profile");
     const profileModal = document.getElementById("profile-modal");
     const btnCloseProfileModal = document.getElementById("btn-close-profile-modal");
@@ -2592,12 +2613,17 @@
     const profileBioInput = document.getElementById("profile-bio-input");
     const profileAvatarUrl = document.getElementById("profile-avatar-url");
     const profileAvatarFile = document.getElementById("profile-avatar-file");
+    const btnOpenRequestChange = document.getElementById("btn-open-request-change");
+    const requestChangeModal = document.getElementById("request-change-modal");
+    const btnCloseRequestModal = document.getElementById("btn-close-request-modal");
+    const requestChangeForm = document.getElementById("request-change-form");
 
     const prefShowStats = document.getElementById("pref-show-stats");
     const prefShowTasks = document.getElementById("pref-show-tasks");
     const prefShowNews = document.getElementById("pref-show-news");
     const prefShowReminder = document.getElementById("pref-show-reminder");
 
+    // الرئيسية
     const homeHeroAvatarImg = document.getElementById("home-hero-avatar-img");
     const homeGreetingName = document.getElementById("home-greeting-name");
     const homeTodayDateText = document.getElementById("home-today-date-text");
@@ -2626,18 +2652,23 @@
     const feedbackModal = document.getElementById("feedback-modal");
     const adminResourceModal = document.getElementById("admin-resource-modal");
     const adminResourceForm = document.getElementById("admin-resource-form");
-    const adminResourcesPanel = document.getElementById("admin-resources-panel");
     const btnAdminAddResource = document.getElementById("btn-admin-add-resource");
     const btnCloseAdminResModal = document.getElementById("btn-close-admin-res-modal");
     const resourcesGlobalContainer = document.getElementById("resources-global-container");
     const searchResourcesInput = document.getElementById("search-resources-input");
 
+    // عناصر صفحة الإشراف المستقلة
+    const newAdminUidInput = document.getElementById("new-admin-uid-input");
+    const btnAddAdminSubmit = document.getElementById("btn-add-admin-submit");
+    const adminProfileRequestsList = document.getElementById("admin-profile-requests-list");
+    const adminPendingResourcesList = document.getElementById("admin-pending-resources-list");
     const adminPollModal = document.getElementById("admin-poll-modal");
     const adminPollForm = document.getElementById("admin-poll-form");
     const btnAdminCreatePoll = document.getElementById("btn-admin-create-poll");
     const btnClosePollModal = document.getElementById("btn-close-poll-modal");
     const btnAdminExportExcel = document.getElementById("btn-admin-export-excel");
 
+    // الجدول
     const scheduleDaysContainer = document.getElementById("schedule-days-container");
     const slotModal = document.getElementById("slot-modal");
     const slotForm = document.getElementById("slot-form");
@@ -2670,8 +2701,6 @@
     const btnCloseSubmitResModal = document.getElementById("btn-close-submit-res-modal");
     const subResCourse = document.getElementById("sub-res-course");
     const adminResCourse = document.getElementById("admin-res-course");
-    const adminPendingApprovalBox = document.getElementById("admin-pending-approval-box");
-    const pendingItemsList = document.getElementById("pending-items-list");
 
     const cramCourseSelect = document.getElementById("cram-course-select");
     const cramExamDate = document.getElementById("cram-exam-date");
@@ -2693,6 +2722,18 @@
     const btnTransitionLevel = document.getElementById("btn-transition-level");
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
+
+    // مرونة إغلاق النوافذ (بالنقر بالخارج أو زر Esc)
+    document.querySelectorAll(".modal-overlay").forEach(overlay => {
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) overlay.classList.remove("open");
+      });
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        document.querySelectorAll(".modal-overlay.open").forEach(o => o.classList.remove("open"));
+      }
+    });
 
     function initTheme() {
       const savedTheme = localStorage.getItem("app_theme") || "light";
@@ -2761,12 +2802,11 @@
       authError.textContent = "";
     });
 
-    // تسجيل الدخول عبر Apple ID
+    // تسجيل الدخول عبر Apple ID مع التحقق والحفظ الدائم
     btnAppleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
-        const persistence = authRemember.checked ? browserLocalPersistence : browserSessionPersistence;
-        await setPersistence(auth, persistence);
+        await setPersistence(auth, browserLocalPersistence);
         const result = await signInWithPopup(auth, appleProvider);
         const user = result.user;
 
@@ -2778,7 +2818,7 @@
             displayName: user.displayName || "مهندس/ـة",
             email: user.email,
             gender: "طالبة",
-            section: "شعبة 1",
+            section: "دفعة 22",
             photoURL: user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`,
             bio: "مهندسة حاسب آلي - جامعة طيبة",
             university: "جامعة طيبة",
@@ -2801,8 +2841,7 @@
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
-        const persistence = authRemember.checked ? browserLocalPersistence : browserSessionPersistence;
-        await setPersistence(auth, persistence);
+        await setPersistence(auth, browserLocalPersistence);
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
 
@@ -2814,7 +2853,7 @@
             displayName: user.displayName || "طالب/ـة",
             email: user.email,
             gender: "طالبة",
-            section: "شعبة 1",
+            section: "دفعة 22",
             photoURL: user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`,
             bio: "مهندسة حاسب آلي - جامعة طيبة",
             university: "جامعة طيبة",
@@ -2842,13 +2881,12 @@
       const pass = authPass.value;
 
       try {
-        const persistence = authRemember.checked ? browserLocalPersistence : browserSessionPersistence;
-        await setPersistence(auth, persistence);
+        await setPersistence(auth, browserLocalPersistence);
 
         if (isRegisterMode) {
           const name = authName.value.trim();
           const gender = authGender.value;
-          const section = authSection.value.trim() || "عامة";
+          const section = authSection.value.trim() || "دفعة عامة";
           if (!name) throw new Error("الرجاء إدخال الاسم.");
           
           const defaultAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${Date.now()}`;
@@ -2885,19 +2923,50 @@
 
     btnLogout.addEventListener("click", () => signOut(auth));
 
+    async function syncTaibahCourseRules(userId, coursesList) {
+      for (const c of coursesList) {
+        const official = OFFICIAL_LEVEL_5_DATA[c.code];
+        if (official) {
+          let needsUpdate = false;
+          const updates = {};
+          if (c.credits !== official.credits) {
+            updates.credits = official.credits;
+            c.credits = official.credits;
+            needsUpdate = true;
+          }
+          if (c.totalLectures !== official.totalLectures) {
+            updates.totalLectures = official.totalLectures;
+            c.totalLectures = official.totalLectures;
+            needsUpdate = true;
+          }
+          if (needsUpdate) {
+            try {
+              await updateDoc(doc(db, "users", userId, "courses", c.id), updates);
+            } catch (e) {
+              console.error("Auto sync error:", e);
+            }
+          }
+        }
+      }
+    }
+
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
         authScreen.style.display = "none";
         mainApp.style.display = "flex";
 
-        isAdmin = (user.uid === ADMIN_UID);
+        // التحقق من قائمة المشرفين الديناميكية من Firestore
+        const adminDoc = await getDoc(doc(db, "system_configs", "admins"));
+        if (adminDoc.exists() && adminDoc.data().uids) {
+          adminUIDs = [...new Set([...adminUIDs, ...adminDoc.data().uids])];
+        }
+
+        isAdmin = adminUIDs.includes(user.uid);
         if (isAdmin) {
           adminBadge.style.display = "flex";
-          adminResourcesPanel.style.display = "block";
         } else {
           adminBadge.style.display = "none";
-          adminResourcesPanel.style.display = "none";
         }
 
         onSnapshot(doc(db, "users", user.uid), (snap) => {
@@ -2974,7 +3043,7 @@
             }
           });
           renderPublicResourcesUI();
-          if (isAdmin) renderPendingApprovalsUI();
+          if (isAdmin) renderAdminPendingResourcesUI();
           renderHomeDashboardUI();
         });
 
@@ -2995,12 +3064,165 @@
           }
         });
 
+        // الاستماع لطلبات تعديل الدفعة والتصنيف الخاصة بالمشرف
+        if (isAdmin) {
+          onSnapshot(collection(db, "profile_change_requests"), (snapshot) => {
+            profileChangeRequests = [];
+            snapshot.forEach(d => {
+              if (d.data().status === "pending") {
+                profileChangeRequests.push({ id: d.id, ...d.data() });
+              }
+            });
+            renderAdminProfileRequestsUI();
+          });
+        }
+
         listenToLeaderboard();
 
       } else {
         mainApp.style.display = "none";
         authScreen.style.display = "flex";
       }
+    });
+
+    // ==========================================
+    // لوحة تحكم المشرف: إضافة مشرف، اعتماد الملخصات، وطلبات التعديل
+    // ==========================================
+    adminBadge.addEventListener("click", () => {
+      document.querySelectorAll(".main-content").forEach(c => c.style.display = "none");
+      document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+      document.getElementById("tab-content-admin").style.display = "block";
+    });
+
+    // إضافة مشرف جديد بالـ UID
+    btnAddAdminSubmit.addEventListener("click", async () => {
+      const newUid = newAdminUidInput.value.trim();
+      if (!newUid) {
+        alert("الرجاء إدخال UID المشرف أولاً.");
+        return;
+      }
+      try {
+        const adminDocRef = doc(db, "system_configs", "admins");
+        const adminDoc = await getDoc(adminDocRef);
+        let uids = [INITIAL_ADMIN_UID];
+        if (adminDoc.exists() && adminDoc.data().uids) {
+          uids = adminDoc.data().uids;
+        }
+        if (!uids.includes(newUid)) {
+          uids.push(newUid);
+          await setDoc(adminDocRef, { uids }, { merge: true });
+          adminUIDs = uids;
+          newAdminUidInput.value = "";
+          alert("تمت إضافة المشرف الجديد بنجاح! 👑");
+        } else {
+          alert("هذا المستخدم مضاف مسبقاً كمشرف.");
+        }
+      } catch (err) {
+        alert("حدث خطأ أثناء إضافة المشرف: " + err.message);
+      }
+    });
+
+    // عرض واعتماد طلبات تعديل البيانات (التصنيف والدفعة) مباشرة في لوحة المشرف
+    function renderAdminProfileRequestsUI() {
+      if (profileChangeRequests.length === 0) {
+        adminProfileRequestsList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>`;
+        return;
+      }
+      adminProfileRequestsList.innerHTML = "";
+      profileChangeRequests.forEach(req => {
+        const row = document.createElement("div");
+        row.className = "request-item-card";
+        row.innerHTML = `
+          <div style="font-size:12px; margin-bottom:6px;">
+            <strong>الطالب:</strong> ${req.studentName} (${req.studentEmail})<br>
+            <strong>التعديل المطلوب:</strong> تصنيف [${req.requestedGender}] • [${req.requestedSection}]<br>
+            <span style="color:var(--text-muted);">السبب: ${req.reason}</span>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn-approve-req" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">قبول وتعديل ✅</button>
+            <button class="btn-reject-req" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض ❌</button>
+          </div>
+        `;
+        row.querySelector(".btn-approve-req").addEventListener("click", async () => {
+          await updateDoc(doc(db, "users", req.uid), {
+            gender: req.requestedGender,
+            section: req.requestedSection
+          });
+          await updateDoc(doc(db, "profile_change_requests", req.id), { status: "approved" });
+          alert(`تم قبول الطلب وتحديث بيانات ${req.studentName} بنجاح!`);
+        });
+        row.querySelector(".btn-reject-req").addEventListener("click", async () => {
+          await updateDoc(doc(db, "profile_change_requests", req.id), { status: "rejected" });
+          alert("تم رفض طلب التعديل.");
+        });
+        adminProfileRequestsList.appendChild(row);
+      });
+    }
+
+    // عرض واعتماد تجميعات وملخصات الطلاب
+    function renderAdminPendingResourcesUI() {
+      if (pendingResources.length === 0) {
+        adminPendingResourcesList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>`;
+        return;
+      }
+      adminPendingResourcesList.innerHTML = "";
+      pendingResources.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "request-item-card";
+        row.innerHTML = `
+          <div style="font-size:12px; margin-bottom:6px;">
+            <strong style="color:var(--text-main);">${item.title}</strong>
+            <span style="display:block; font-size:11px; color:#92400E;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
+            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط ↗</a>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn-approve-res" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">اعتماد ونشر (+15 نقطة) ✅</button>
+            <button class="btn-reject-res" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض وحذف ❌</button>
+          </div>
+        `;
+        row.querySelector(".btn-approve-res").addEventListener("click", async () => {
+          await updateDoc(doc(db, "public_resources", item.id), { status: "approved" });
+          if (item.contributorUid) {
+            const authorRef = doc(db, "users", item.contributorUid);
+            const authorSnap = await getDoc(authorRef);
+            if (authorSnap.exists()) {
+              const currentPts = authorSnap.data().points || 0;
+              await updateDoc(authorRef, { points: currentPts + 15 });
+            }
+          }
+          alert("تم اعتماد الملخص بنجاح وإضافة +15 نقطة لرصيد الطالب المساهم ⭐");
+        });
+        row.querySelector(".btn-reject-res").addEventListener("click", async () => {
+          if (confirm("هل ترغب برفض وحذف هذا الرابط؟")) {
+            await deleteDoc(doc(db, "public_resources", item.id));
+          }
+        });
+        adminPendingResourcesList.appendChild(row);
+      });
+    }
+
+    // رفع طلب تعديل التصنيف أو الدفعة من الطالب
+    btnOpenRequestChange.addEventListener("click", () => {
+      profileModal.classList.remove("open");
+      requestChangeModal.classList.add("open");
+    });
+    btnCloseRequestModal.addEventListener("click", () => requestChangeModal.classList.remove("open"));
+
+    requestChangeForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await addDoc(collection(db, "profile_change_requests"), {
+        uid: currentUser.uid,
+        studentName: currentUser.displayName || "طالب/ـة",
+        studentEmail: currentUser.email,
+        requestedGender: document.getElementById("req-gender-select").value,
+        requestedSection: document.getElementById("req-section-input").value.trim(),
+        reason: document.getElementById("req-reason-input").value.trim(),
+        status: "pending",
+        createdAt: new Date().toISOString()
+      });
+      requestChangeForm.reset();
+      requestChangeModal.classList.remove("open");
+      alert("تم إرسال طلب التعديل إلى المشرف بنجاح وسيقوم بمراجعته واعتماده مباشرة! 🚀");
     });
 
     // استطلاع الرأي
@@ -3054,7 +3276,7 @@
     }
 
     btnAdminCreatePoll.addEventListener("click", () => adminPollModal.classList.add("open"));
-    document.getElementById("btn-close-poll-modal").addEventListener("click", () => adminPollModal.classList.remove("open"));
+    btnClosePollModal.addEventListener("click", () => adminPollModal.classList.remove("open"));
 
     adminPollForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -3087,13 +3309,13 @@
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف (طالب/طالبة),رقم الشعبة,المستوى الحالي,رصيد النقاط,تاريخ التسجيل,آخر تسجيل دخول\n";
+      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف (طالب/طالبة),رقم الدفعة,المستوى الحالي,رصيد النقاط,تاريخ التسجيل,آخر تسجيل دخول\n";
       
       snap.forEach(d => {
         const u = d.data();
         const regDate = u.createdAt ? new Date(u.createdAt).toLocaleString('ar-SA') : 'غير متوفر';
         const loginDate = u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString('ar-SA') : 'غير متوفر';
-        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${regDate}","${loginDate}"\n`;
+        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'دفعة عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${regDate}","${loginDate}"\n`;
       });
 
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -3256,7 +3478,6 @@
       }
     });
 
-    // حفظ تعديلات الملف الشخصي (الاسم متاح للتعديل، الشعبة والتصنيف محميان)
     profileEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const newName = profileNameInput.value.trim();
@@ -3668,7 +3889,7 @@
       if (currentCourses.length === 0) {
         resourcesGlobalContainer.innerHTML = `
           <div style="text-align:center; padding:30px 16px; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle);">
-            <p style="font-size:13px; font-weight:700; color:var(--text-muted);">لا توجد مقررات في جدولك حالياً 📚</p>
+            <p style="font-size:13px; font-weight:700; color:var(--text-muted);">لا توجد مقررات مضافة في جدولك حالياً 📚</p>
             <p style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">أضف موادك في صفحة "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</p>
           </div>
         `;
@@ -3848,52 +4069,6 @@
       studentSubmitResourceModal.classList.remove("open");
       alert("شكراً لمساهمتك! تم إرسال الملخص وسيتم نشره للجميع فور اعتماده من المشرف ❤️");
     });
-
-    // اعتماد الملخصات ومنح صاحب المساهمة +15 نقطة
-    function renderPendingApprovalsUI() {
-      if (pendingResources.length === 0) {
-        adminPendingApprovalBox.style.display = "none";
-        return;
-      }
-      adminPendingApprovalBox.style.display = "block";
-      pendingItemsList.innerHTML = "";
-      pendingResources.forEach(item => {
-        const row = document.createElement("div");
-        row.style.cssText = "background:white; border:1px solid #FDE68A; border-radius:10px; padding:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;";
-        row.innerHTML = `
-          <div>
-            <span style="font-size:12px; font-weight:800; color:#1E293B;">${item.title}</span>
-            <span style="font-size:11px; color:#92400E; display:block;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
-            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط ↗</a>
-          </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn-approve" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">اعتماد ✅</button>
-            <button class="btn-reject" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض ❌</button>
-          </div>
-        `;
-        row.querySelector(".btn-approve").addEventListener("click", async () => {
-          await updateDoc(doc(db, "public_resources", item.id), { status: "approved" });
-          
-          // منح الطالب المساهم +15 نقطة تقديراً لمساهمته
-          if (item.contributorUid) {
-            const authorRef = doc(db, "users", item.contributorUid);
-            const authorSnap = await getDoc(authorRef);
-            if (authorSnap.exists()) {
-              const currentPts = authorSnap.data().points || 0;
-              await updateDoc(authorRef, { points: currentPts + 15 });
-            }
-          }
-          alert("تم اعتماد الملخص بنجاح ومنح الطالب المساهم +15 نقطة ⭐");
-        });
-
-        row.querySelector(".btn-reject").addEventListener("click", async () => {
-          if (confirm("هل ترغب برفض وحذف هذا الرابط؟")) {
-            await deleteDoc(doc(db, "public_resources", item.id));
-          }
-        });
-        pendingItemsList.appendChild(row);
-      });
-    }
 
     function updateLevelUIState() {
       levelDisplayHeading.textContent = `إنجاز المقررات الدراسية`;
@@ -4292,7 +4467,7 @@
       renderTreeStage(totalFocusSeconds);
     });
 
-    // التنقل السفلي مع فوكس صافي
+    // التنقل السفلي مع الفوكس النقي
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -4304,7 +4479,7 @@
         document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
         document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
         document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
-        document.getElementById("tab-content-gpa").style.display = target === "gpa" ? "block" : "none";
+        document.getElementById("tab-content-admin").style.display = "none";
 
         if (target === "home") renderHomeDashboardUI();
       });
