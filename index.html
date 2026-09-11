@@ -6,7 +6,7 @@
   <title>جدولي الأكاديمي - كلية علوم وهندسة الحاسب</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -19,7 +19,23 @@
       --border-subtle: #E2E8F0;
       --text-main: #0F172A;
       --text-muted: #64748B;
+      --subtle-bg: #F1F5F9;
+      --body-outer: #CBD5E1;
       --font-family: 'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --primary-dark: #064E3B;
+      --primary-teal: #14B8A6;
+      --primary-red: #EF4444;
+      --red-soft: #450A0A;
+      --bg-page: #0F172A;
+      --card-bg: #1E293B;
+      --border-subtle: #334155;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --subtle-bg: #1E293B;
+      --body-outer: #020617;
     }
 
     * {
@@ -28,10 +44,11 @@
       padding: 0;
       font-family: var(--font-family);
       -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.25s, color 0.25s, border-color 0.25s;
     }
 
     body {
-      background-color: #CBD5E1;
+      background-color: var(--body-outer);
       color: var(--text-main);
       display: flex;
       justify-content: center;
@@ -45,7 +62,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
       position: relative;
     }
 
@@ -56,10 +73,11 @@
     }
 
     .auth-card {
-      background: white;
+      background: var(--card-bg);
       padding: 28px 22px;
       border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-subtle);
     }
 
     .auth-logo {
@@ -74,7 +92,7 @@
 
     .auth-logo h2 {
       font-size: 21px;
-      color: var(--primary-dark);
+      color: var(--primary-teal);
       font-weight: 800;
     }
 
@@ -89,21 +107,15 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background-color: white;
-      color: #1E293B;
-      border: 1.5px solid #CBD5E1;
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      border: 1.5px solid var(--border-subtle);
       border-radius: 12px;
       padding: 12px;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-      transition: background-color 0.2s, border-color 0.2s;
-    }
-
-    .btn-google:hover {
-      background-color: #F8FAFC;
-      border-color: #94A3B8;
     }
 
     .btn-google svg {
@@ -116,7 +128,7 @@
       align-items: center;
       text-align: center;
       margin: 18px 0;
-      color: #94A3B8;
+      color: var(--text-muted);
       font-size: 12px;
       font-weight: 600;
     }
@@ -124,7 +136,7 @@
     .auth-divider::before, .auth-divider::after {
       content: '';
       flex: 1;
-      border-bottom: 1px solid #E2E8F0;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .auth-divider:not(:empty)::before { margin-left: .5em; }
@@ -148,8 +160,8 @@
     }
 
     .tab-btn.active {
-      color: var(--primary-dark);
-      border-bottom: 2.5px solid var(--primary-dark);
+      color: var(--primary-teal);
+      border-bottom: 2.5px solid var(--primary-teal);
     }
 
     .form-group {
@@ -171,7 +183,8 @@
       border-radius: 12px;
       font-size: 13.5px;
       outline: none;
-      background-color: white;
+      background-color: var(--card-bg);
+      color: var(--text-main);
     }
 
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
@@ -179,8 +192,8 @@
     }
 
     .form-group select:disabled {
-      background-color: #F1F5F9;
-      color: #334155;
+      background-color: var(--subtle-bg);
+      color: var(--text-muted);
       font-weight: bold;
     }
 
@@ -213,11 +226,11 @@
       text-align: center;
     }
 
-    /* Header - بدون خانة اللغة */
+    /* Header */
     .app-header {
       background-color: var(--primary-dark);
       color: white;
-      padding: 16px 20px;
+      padding: 14px 18px;
       position: sticky;
       top: 0;
       z-index: 20;
@@ -239,11 +252,14 @@
       background: rgba(255, 255, 255, 0.2);
       color: white;
       border: none;
-      padding: 5px 14px;
+      padding: 5px 12px;
       border-radius: 15px;
       font-size: 11.5px;
       cursor: pointer;
       font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .header-branding {
@@ -268,8 +284,15 @@
       margin-bottom: 75px;
     }
 
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
     .content-header h2 {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
     }
 
@@ -279,13 +302,48 @@
       margin-top: 2px;
     }
 
+    /* Sorting Bar */
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0 14px 0;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .sort-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .sort-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .sort-pill.active {
+      background: var(--primary-teal);
+      color: white;
+      border-color: var(--primary-teal);
+    }
+
     /* Summary Card */
     .summary-card {
-      background: white;
+      background: var(--card-bg);
       border: 1px solid #FECACA;
       border-radius: 18px;
       padding: 18px;
-      margin: 14px 0;
+      margin: 12px 0 16px 0;
       box-shadow: 0 4px 12px rgba(220, 38, 38, 0.03);
     }
 
@@ -328,14 +386,14 @@
 
     .summary-subtext {
       font-size: 12px;
-      color: #1E293B;
+      color: var(--text-main);
       margin-top: 2px;
     }
 
     .progress-track {
       width: 100%;
       height: 8px;
-      background-color: #FEE2E2;
+      background-color: var(--red-soft);
       border-radius: 8px;
       margin: 14px 0 10px 0;
       overflow: hidden;
@@ -364,11 +422,11 @@
     .btn-add-course {
       width: 100%;
       padding: 11px;
-      background: white;
+      background: var(--card-bg);
       border: 1.5px dashed var(--primary-teal);
       color: var(--primary-teal);
       border-radius: 14px;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       margin-bottom: 14px;
@@ -376,7 +434,7 @@
 
     /* Course Cards */
     .course-card {
-      background: white;
+      background: var(--card-bg);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
       margin-bottom: 12px;
@@ -392,9 +450,9 @@
     }
 
     .course-badge {
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 12.5px;
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 12px;
       font-weight: 700;
     }
 
@@ -404,12 +462,12 @@
       font-size: 10px;
       padding: 2px 6px;
       border-radius: 6px;
-      margin-right: 4px;
+      margin-left: 4px;
       font-weight: 800;
     }
 
     .course-status-brief {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
       font-weight: 600;
     }
@@ -427,22 +485,54 @@
     .course-card-body {
       display: none;
       padding: 0 16px 16px 16px;
-      border-top: 1px solid #F1F5F9;
+      border-top: 1px solid var(--border-subtle);
     }
 
     .course-card.expanded .course-card-body {
       display: block;
     }
 
+    /* حاسبة الغياب والحرمان داخل المادة */
+    .dn-calculator-box {
+      background: var(--subtle-bg);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin: 10px 0 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dn-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dn-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .dn-status {
+      font-size: 12.5px;
+      font-weight: 800;
+    }
+
+    .dn-badge-safe { color: #10B981; }
+    .dn-badge-warn { color: #F59E0B; }
+    .dn-badge-danger { color: #EF4444; }
+
     .stepper-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 0 8px 0;
+      padding: 10px 0 8px 0;
     }
 
     .stepper-row span {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
     }
 
@@ -457,25 +547,27 @@
       height: 28px;
       border-radius: 50%;
       border: 1px solid var(--border-subtle);
-      background: white;
+      background: var(--card-bg);
+      color: var(--text-main);
       font-weight: bold;
       cursor: pointer;
     }
 
     .quick-actions-bar {
       display: flex;
-      gap: 8px;
-      margin: 8px 0 12px 0;
+      gap: 6px;
+      margin: 8px 0 10px 0;
     }
 
     .btn-quick {
       flex: 1;
-      padding: 6px;
+      padding: 6px 8px;
       border-radius: 8px;
       font-size: 11px;
       font-weight: 700;
       border: 1px solid var(--border-subtle);
-      background: #F8FAFC;
+      background: var(--subtle-bg);
+      color: var(--text-main);
       cursor: pointer;
     }
 
@@ -502,7 +594,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 8px 10px;
-      background: #F8FAFC;
+      background: var(--subtle-bg);
       border-radius: 8px;
       margin-bottom: 6px;
       font-size: 12.5px;
@@ -513,21 +605,36 @@
       color: #94A3B8;
     }
 
+    .course-footer-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .btn-course-resources {
+      background: none;
+      border: none;
+      color: var(--primary-teal);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
     .btn-delete-course {
       background: none;
       border: none;
       color: var(--primary-red);
       font-size: 11.5px;
       cursor: pointer;
-      margin-top: 12px;
-      display: block;
-      text-align: left;
     }
 
-    /* قسم الترقية في أسفل صفحة المقررات */
+    /* أسفل صفحة المقررات: قسم الانتقال للمستوى التالي */
     .bottom-level-section {
-      background: white;
-      border: 1.5px solid #E2E8F0;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-subtle);
       border-radius: 16px;
       padding: 16px;
       margin-top: 24px;
@@ -537,7 +644,6 @@
     .bottom-level-section h3 {
       font-size: 15px;
       font-weight: 800;
-      color: var(--text-main);
       margin-bottom: 4px;
     }
 
@@ -552,11 +658,10 @@
       width: 100%;
       padding: 12px;
       border-radius: 12px;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 800;
       border: none;
       cursor: pointer;
-      transition: opacity 0.2s, background-color 0.2s;
     }
 
     .btn-transition-stage.unlocked {
@@ -565,8 +670,8 @@
     }
 
     .btn-transition-stage.locked {
-      background: #E2E8F0;
-      color: #64748B;
+      background: var(--subtle-bg);
+      color: var(--text-muted);
       cursor: not-allowed;
     }
 
@@ -590,7 +695,7 @@
       padding: 8px;
       border-radius: 10px;
       border: 1px solid var(--border-subtle);
-      background: white;
+      background: var(--card-bg);
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
@@ -605,7 +710,7 @@
     }
 
     .task-card {
-      background: white;
+      background: var(--card-bg);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 12px 14px;
@@ -617,11 +722,11 @@
 
     .task-card.completed {
       opacity: 0.6;
-      background: #F8FAFC;
+      background: var(--subtle-bg);
     }
 
     .task-info h4 {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
     }
 
@@ -638,29 +743,67 @@
     }
 
     .task-badge-tag {
-      background: #E2E8F0;
-      color: #334155;
+      background: var(--subtle-bg);
+      color: var(--text-main);
       padding: 2px 6px;
       border-radius: 6px;
       font-weight: bold;
     }
 
-    /* Pomodoro Timer */
-    .pomodoro-box {
-      background: white;
-      border-radius: 16px;
-      padding: 18px;
+    /* ============================================================ */
+    /* مؤقت التركيز التفاعلي: غرس الإنجاز (Interactive Tree Timer) */
+    /* ============================================================ */
+    .tree-timer-box {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
       text-align: center;
       border: 1px solid var(--border-subtle);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+
+    .tree-timer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .tree-points-badge {
+      background: #FEF3C7;
+      color: #92400E;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tree-illustration-container {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 10px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .timer-display {
-      font-size: 40px;
+      font-size: 42px;
       font-weight: 900;
-      color: var(--primary-dark);
-      margin: 8px 0;
+      color: var(--primary-teal);
       letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .tree-status-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 6px 0 14px 0;
+      font-weight: 600;
     }
 
     .timer-controls {
@@ -670,8 +813,8 @@
     }
 
     .btn-timer {
-      padding: 6px 18px;
-      border-radius: 10px;
+      padding: 8px 20px;
+      border-radius: 12px;
       border: none;
       font-weight: 700;
       font-size: 13px;
@@ -685,7 +828,7 @@
       width: 100%;
       max-width: 480px;
       height: 64px;
-      background: white;
+      background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-around;
@@ -705,7 +848,7 @@
     }
 
     .nav-item.active {
-      color: var(--primary-dark);
+      color: var(--primary-teal);
     }
 
     .nav-item span.icon {
@@ -716,7 +859,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.55);
       display: none;
       align-items: flex-end;
       justify-content: center;
@@ -728,7 +871,8 @@
     }
 
     .modal-content {
-      background: white;
+      background: var(--card-bg);
+      color: var(--text-main);
       width: 100%;
       max-width: 480px;
       border-radius: 24px 24px 0 0;
@@ -755,6 +899,7 @@
       border: none;
       font-size: 24px;
       cursor: pointer;
+      color: var(--text-muted);
     }
 
     .color-palette {
@@ -773,14 +918,14 @@
     }
 
     .color-dot.active {
-      border-color: #0F172A;
+      border-color: var(--text-main);
       transform: scale(1.1);
     }
   </style>
 </head>
 <body>
 
-  <!-- شاشة التسجيل والدخول مع دعم Google -->
+  <!-- شاشة الدخول والتسجيل -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -815,29 +960,25 @@
         <div class="form-row" id="group-academic" style="display: none;">
           <div class="form-group">
             <label>الجامعة</label>
-            <select id="auth-univ" disabled>
-              <option selected>جامعة طيبة</option>
-            </select>
+            <select id="auth-univ" disabled><option selected>جامعة طيبة</option></select>
           </div>
           <div class="form-group">
             <label>التخصص</label>
-            <select id="auth-major" disabled>
-              <option selected>هندسة الحاسب</option>
-            </select>
+            <select id="auth-major" disabled><option selected>هندسة الحاسب</option></select>
           </div>
         </div>
 
         <div class="form-group" id="group-level" style="display: none;">
-          <label>السنة والمستوى الدراسي</label>
+          <label>المستوى المسجل حالياً</label>
           <select id="auth-level" disabled>
-            <option selected>المستوى الخامس (المسجل حالياً)</option>
+            <option selected>المستوى الخامس (18 وحدة معتمدة)</option>
           </select>
         </div>
 
         <div class="form-group" id="group-default-state" style="display: none;">
           <label>حالة المواد عند البدء:</label>
           <select id="auth-default-status">
-            <option value="none" selected>غير منجزة بالكامل (0%)</option>
+            <option value="none" selected>غير منجزة بالكامل (0% - بداية الترم)</option>
             <option value="all">منجزة بالكامل (100%)</option>
           </select>
         </div>
@@ -860,10 +1001,11 @@
 
   <!-- الشاشة الرئيسية -->
   <div id="main-app" class="app-container" style="display: none;">
-    <!-- شريط الرأس بدون خانة اللغة الإنجليزية -->
+    <!-- هيدر التطبيق مع زر الوضع الليلي -->
     <header class="app-header">
       <div class="header-inner">
         <div class="header-actions">
+          <button id="btn-toggle-theme" class="btn-header-action" title="تبديل الوضع">🌙</button>
           <button id="btn-open-feedback" class="btn-header-action" title="اقتراح أو شكوى">📩 اقتراح</button>
           <button id="btn-logout" class="btn-header-action">خروج</button>
         </div>
@@ -874,7 +1016,7 @@
       </div>
     </header>
 
-    <!-- تبويب 1: صفحة المواد والإنجاز -->
+    <!-- تبويب 1: المقررات والإنجاز -->
     <main class="main-content" id="tab-content-courses">
       <div class="content-header">
         <div>
@@ -883,6 +1025,7 @@
         </div>
       </div>
 
+      <!-- كارت إجمالي المتراكم -->
       <section class="summary-card">
         <div class="summary-top">
           <div class="summary-info">
@@ -904,12 +1047,21 @@
         </div>
       </section>
 
+      <!-- شريط ترتيب المواد -->
+      <div class="sort-bar">
+        <span class="sort-label">ترتيب حسب:</span>
+        <button class="sort-pill active" data-sort="default">الافتراضي</button>
+        <button class="sort-pill" data-sort="credits">الأكثر ساعات</button>
+        <button class="sort-pill" data-sort="missed">الأكثر تأخراً</button>
+        <button class="sort-pill" data-sort="name">أبجدياً</button>
+      </div>
+
       <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد (أو متقدم من الخطة)</button>
 
       <!-- قائمة المواد -->
       <section class="courses-list" id="courses-container"></section>
 
-      <!-- قسم الانتقال إلى المستوى التالي في أسفل الصفحة ومقفل بتاريخ 7 يناير 2027 -->
+      <!-- قسم الترقية للمستوى التالي مقفل بتاريخ 7 يناير 2027 -->
       <div class="bottom-level-section">
         <h3 id="transition-section-title">🎓 إتمام الفصل والانتقال للمستوى التالي</h3>
         <p id="transition-section-desc">
@@ -924,15 +1076,38 @@
       </div>
     </main>
 
-    <!-- تبويب 2: المهام والواجبات المربوطة بالمقررات ومؤقت المذاكرة -->
+    <!-- تبويب 2: المهام ومؤقت "غرس الإنجاز" التفاعلي -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
-      <div class="pomodoro-box">
-        <span style="font-size:12px; font-weight:700; color:var(--text-muted);">⏱️ مؤقت التركيز للمذاكرة (Pomodoro)</span>
+      
+      <!-- مؤقت غرس الإنجاز التفاعلي (Interactive Tree Timer) -->
+      <div class="tree-timer-box">
+        <div class="tree-timer-header">
+          <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز</span>
+          <div class="tree-points-badge">
+            <span>⭐</span>
+            <span id="user-points-display">0 نقطة</span>
+            <span style="font-size:11px; opacity:0.8;">(<span id="trees-grown-count">0</span> شجرة)</span>
+          </div>
+        </div>
+
+        <!-- شكل الشجرة التفاعلي SVG يتغير وينمو مع الوقت -->
+        <div class="tree-illustration-container" id="tree-svg-container">
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <!-- الأرضية / التربة -->
+            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
+            <!-- البذرة الافتراضية -->
+            <circle cx="50" cy="82" r="5" fill="#5D4037"/>
+            <path d="M50 78 Q52 72 50 68" stroke="#4CAF50" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+
         <div class="timer-display" id="pomodoro-timer">25:00</div>
+        <p class="tree-status-text" id="tree-status-text">ازرع شجرة إنجازك أثناء تركيزك في المذاكرة</p>
+
         <div class="timer-controls">
-          <button id="btn-timer-start" class="btn-timer" style="background:#0F766E; color:white;">بدء</button>
-          <button id="btn-timer-pause" class="btn-timer" style="background:#E2E8F0; color:#334155;">إيقاف</button>
-          <button id="btn-timer-reset" class="btn-timer" style="background:#FEE2E2; color:#DC2626;">إعادة</button>
+          <button id="btn-timer-start" class="btn-timer" style="background:#0F766E; color:white;">غرس وبدء 🌱</button>
+          <button id="btn-timer-pause" class="btn-timer" style="background:var(--subtle-bg); color:var(--text-main);">إيقاف ⏸️</button>
+          <button id="btn-timer-reset" class="btn-timer" style="background:#FEE2E2; color:#DC2626;">تراجع 🔄</button>
         </div>
       </div>
 
@@ -943,7 +1118,7 @@
         </div>
       </div>
 
-      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 14px;">+ إضافة مهمة أو تكليف جديد</button>
+      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 6px;">+ إضافة مهمة أو تكليف جديد</button>
 
       <div class="task-filter-bar">
         <div class="filter-chip active" data-filter="all">الكل</div>
@@ -954,15 +1129,14 @@
       <div id="tasks-container"></div>
     </main>
 
-    <!-- تبويب 3: حاسبة المعدل الحقيقية بحسب عدد الساعات وسلم جامعة طيبة -->
+    <!-- تبويب 3: حاسبة المعدل الحقيقية بحسب عدد الساعات -->
     <main class="main-content" id="tab-content-gpa" style="display: none;">
       <div class="content-header">
         <div>
           <h2>حاسبة المعدل المعتمدة</h2>
-          <p>حساب المعدل الفصلي والتراكمي الفعلي (سلم 5.00 بالوزن المعتمد لكل مادة)</p>
+          <p>حساب المعدل الفصلي والتراكمي الفعلي بسلم 5.00 وفق الساعات المعتمدة في خطتك</p>
         </div>
       </div>
-
       <div id="gpa-calc-container" style="margin-top: 16px;"></div>
     </main>
 
@@ -973,7 +1147,7 @@
         <span>المقررات</span>
       </div>
       <div class="nav-item" data-target="tasks">
-        <span class="icon">📝</span>
+        <span class="icon">🌳</span>
         <span>المهام والمؤقت</span>
       </div>
       <div class="nav-item" data-target="gpa">
@@ -982,7 +1156,36 @@
       </div>
     </nav>
 
-    <!-- مودال إضافة مادة (يدوي أو استيراد من المستويات المتقدمة) -->
+    <!-- مودال الملاحظات والروابط السريعة للمادة -->
+    <div id="resources-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="res-modal-title">ملخصات وروابط المادة</h3>
+          <button id="btn-close-resources-modal" class="close-btn">&times;</button>
+        </div>
+        <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
+          <h4 style="font-size:12px; color:var(--text-muted); margin-bottom:6px;">ملاحظاتي الخاصة للمقرر:</h4>
+          <textarea id="course-notes-textarea" rows="3" placeholder="اكتبي ملاحظاتك عن تقسيم الدرجات، المياجر، ومواقع المعامل..."></textarea>
+          <button id="btn-save-notes" class="btn-primary" style="padding:8px; font-size:12px; margin-top:6px;">حفظ الملاحظات</button>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <h4 style="font-size:13px; font-weight:800; margin-bottom:8px;">📁 روابط التجميعات والسلايدات المعتمدة:</h4>
+          <div id="course-links-list" style="display:flex; flex-direction:column; gap:8px;">
+            <!-- يتم تعبئة الروابط ديناميكياً -->
+          </div>
+        </div>
+
+        <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:12px; padding:12px; text-align:center;">
+          <p style="font-size:12px; color:#065F46; font-weight:700; margin-bottom:6px;">عندك ملخص أو تجميعة مفيدة لزملائك؟</p>
+          <button id="btn-share-resource" class="btn-primary" style="background:#059669; padding:8px 14px; font-size:12px; width:auto;">
+            📤 إرسال ملخص للإدارة لإضافته بالروابط
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- مودال إضافة مادة -->
     <div id="course-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1084,19 +1287,19 @@
       </div>
     </div>
 
-    <!-- مودال الاقتراحات والشكاوى المربوط بـ Formspree -->
+    <!-- مودال الاقتراحات والشكاوى ومشاركة الملخصات المربوط بـ Formspree -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>📩 صندوق الاقتراحات والشكاوى</h3>
+          <h3 id="fb-modal-heading">📩 صندوق الاقتراحات ومشاركة الملخصات</h3>
           <button id="btn-close-feedback-modal" class="close-btn" type="button">&times;</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-          رأيك وملاحظاتك تساهم في تطوير التطبيق. تُرسل رسالتك آلياً إلى إدارة النظام.
+          رسالتك تُرسل آلياً إلى إدارة المنصة؛ سواء كان اقتراحاً أو رابط ملخص ترغب بإضافته للجميع.
         </p>
 
         <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:13px; margin-bottom:10px;">
-          تم استلام اقتراحك بنجاح ووصل إلى البريد! شكراً لك ❤️
+          تم استلام رسالتك بنجاح ووصلت للإدارة! شكراً لمساهمتك ❤️
         </div>
         <div data-fs-error style="text-align:center; color:red; font-size:12px; margin-bottom:10px;"></div>
 
@@ -1107,6 +1310,7 @@
           <div class="form-group">
             <label>نوع الرسالة</label>
             <select name="category" id="fb-type" data-fs-field>
+              <option value="مشاركة ملخص أو تجميعات">مشاركة ملخص أو تجميعات 📚</option>
               <option value="اقتراح ميزة جديدة">اقتراح ميزة جديدة 💡</option>
               <option value="إبلاغ عن خلل أو مشكلة">إبلاغ عن خلل أو مشكلة 🐛</option>
               <option value="استفسار عام">استفسار عام 💬</option>
@@ -1115,23 +1319,23 @@
 
           <div class="form-group">
             <label>الموضوع</label>
-            <input type="text" id="fb-subject" name="subject" required placeholder="عنوان مختصر" data-fs-field>
+            <input type="text" id="fb-subject" name="subject" required placeholder="عنوان مختصر (مثال: ملخص سلايدات نظم التشغيل)" data-fs-field>
             <span data-fs-error="subject" style="color:red; font-size:11px;"></span>
           </div>
 
           <div class="form-group">
-            <label>تفاصيل الرسالة</label>
-            <textarea id="fb-content" name="message" rows="4" required placeholder="اكتب اقتراحك بالتفصيل..." data-fs-field></textarea>
+            <label>الرسالة ورابط الملخص (Google Drive / Telegram)</label>
+            <textarea id="fb-content" name="message" rows="4" required placeholder="ضع رابط الملخص هنا مع أي تفاصيل..." data-fs-field></textarea>
             <span data-fs-error="message" style="color:red; font-size:11px;"></span>
           </div>
 
-          <button type="submit" class="btn-primary" data-fs-submit-btn>إرسال الاقتراح فوراً 🚀</button>
+          <button type="submit" class="btn-primary" data-fs-submit-btn>إرسال للإدارة فوراً 🚀</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- منطق التطبيق مع Firebase Firestore و Google Auth والتحكم بالمستويات -->
+  <!-- منطق التطبيق مع Firebase Firestore و Google Auth و Formspree -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -1178,7 +1382,7 @@
     // تاريخ فتح الانتقال للمستوى السادس (7 يناير 2027)
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
 
-    // الخطة الدراسية الكاملة لأقسام هندسة الحاسب بجامعة طيبة
+    // الخطة الدراسية المعتمدة لهندسة الحاسب بجامعة طيبة
     const CURRICULUM_PLAN = {
       6: [
         { name: "النظم المضمنة (1)", code: "COE 246", credits: 4, totalLectures: 28, color: "#6366F1" },
@@ -1214,6 +1418,32 @@
       ]
     };
 
+    // روابط السلايدات والتجميعات الافتراضية
+    const DEFAULT_COURSE_LINKS = {
+      "COE 225": [
+        { title: "قناة تجميعات وسلايدات COE 225", url: "https://t.me/" },
+        { title: "سلايدات وملخصات Pipelining & Cache", url: "https://drive.google.com/" }
+      ],
+      "COE 295": [
+        { title: "تجميعات كويزات ولابات قواعد البيانات", url: "https://t.me/" },
+        { title: "ملخص أوامر SQL & Relational Algebra", url: "https://drive.google.com/" }
+      ],
+      "CS 226": [
+        { title: "شروحات وتجميعات نظم التشغيل", url: "https://t.me/" },
+        { title: "ملخص خوارزميات الـ Scheduling & Threads", url: "https://drive.google.com/" }
+      ],
+      "EE 201": [
+        { title: "بنك أسئلة وحلول دوائر كهربائية (1)", url: "https://t.me/" },
+        { title: "شيت قوانين النودل والمش وثيفنن", url: "https://drive.google.com/" }
+      ],
+      "STAT 301": [
+        { title: "تجميعات واختبارات سابقة إحصاء واحتمالات", url: "https://t.me/" }
+      ],
+      "GS 311": [
+        { title: "نماذج سيرة ذاتية وحقيبة التخطيط المهني", url: "https://drive.google.com/" }
+      ]
+    };
+
     let currentUser = null;
     let currentCourses = [];
     let currentTasks = [];
@@ -1221,8 +1451,10 @@
     let isRegisterMode = false;
     let currentTaskFilter = "all";
     let currentLevel = 5;
+    let currentSort = "default";
+    let selectedCourseForResources = null;
 
-    // عناصر الصفحة
+    // عناصر الدخول
     const authScreen = document.getElementById("auth-screen");
     const mainApp = document.getElementById("main-app");
     const authForm = document.getElementById("auth-form");
@@ -1241,18 +1473,22 @@
     const btnLogout = document.getElementById("btn-logout");
     const userGreeting = document.getElementById("user-greeting");
     const btnGoogleLogin = document.getElementById("btn-google-login");
+    const btnToggleTheme = document.getElementById("btn-toggle-theme");
 
+    // عناصر المقررات والمهام
     const coursesContainer = document.getElementById("courses-container");
     const tasksContainer = document.getElementById("tasks-container");
     const courseModal = document.getElementById("course-modal");
     const taskModal = document.getElementById("task-modal");
     const feedbackModal = document.getElementById("feedback-modal");
+    const resourcesModal = document.getElementById("resources-modal");
     const btnOpenCourseModal = document.getElementById("btn-open-course-modal");
     const btnCloseCourseModal = document.getElementById("btn-close-course-modal");
     const btnOpenTaskModal = document.getElementById("btn-open-task-modal");
     const btnCloseTaskModal = document.getElementById("btn-close-task-modal");
     const btnOpenFeedback = document.getElementById("btn-open-feedback");
     const btnCloseFeedbackModal = document.getElementById("btn-close-feedback-modal");
+    const btnCloseResourcesModal = document.getElementById("btn-close-resources-modal");
     const addCourseForm = document.getElementById("add-course-form");
     const addTaskForm = document.getElementById("add-task-form");
     const feedbackForm = document.getElementById("feedback-form");
@@ -1263,7 +1499,25 @@
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // تعبئة قائمة المواد المتقدمة في الـ Modal
+    // ==========================================
+    // 1. إدارة الوضع الليلي (Dark Mode)
+    // ==========================================
+    function initTheme() {
+      const savedTheme = localStorage.getItem("app_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      btnToggleTheme.textContent = savedTheme === "dark" ? "☀️" : "🌙";
+    }
+    initTheme();
+
+    btnToggleTheme.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("app_theme", next);
+      btnToggleTheme.textContent = next === "dark" ? "☀️" : "🌙";
+    });
+
+    // تعبئة المواد المتقدمة في قائمة الإضافة
     function populateQuickPresets() {
       quickCoursePreset.innerHTML = `<option value="">-- كتابة مادة مخصصة يدوياً --</option>`;
       [6, 7, 8, 9, 10].forEach(lvl => {
@@ -1290,7 +1544,7 @@
       document.getElementById("course-lectures-input").value = data.totalLectures || 24;
     });
 
-    // تبديل التبويبات
+    // تبديل تسجيل الدخول وإنشاء الحساب
     tabLogin.addEventListener("click", () => {
       isRegisterMode = false;
       tabLogin.classList.add("active");
@@ -1315,7 +1569,7 @@
       authError.textContent = "";
     });
 
-    // Google Sign-in
+    // تسجيل الدخول بـ Google
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
@@ -1333,6 +1587,8 @@
             university: "جامعة طيبة",
             major: "هندسة الحاسب",
             currentLevel: 5,
+            points: 0,
+            treesGrown: 0,
             createdAt: new Date().toISOString()
           });
           await seedInitialLevel5(user.uid, false);
@@ -1345,7 +1601,7 @@
       }
     });
 
-    // البريد وكلمة المرور
+    // الدخول بالبريد
     authForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       authError.textContent = "";
@@ -1369,6 +1625,8 @@
             university: "جامعة طيبة",
             major: "هندسة الحاسب",
             currentLevel: 5,
+            points: 0,
+            treesGrown: 0,
             createdAt: new Date().toISOString()
           });
 
@@ -1386,20 +1644,23 @@
 
     btnLogout.addEventListener("click", () => signOut(auth));
 
-    // مراقبة الجلسة وحالة الترقية المقفلة بالتاريخ
+    // مراقبة حالة الجلسة
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
         authScreen.style.display = "none";
         mainApp.style.display = "flex";
 
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          currentLevel = data.currentLevel || 5;
-        }
-
-        updateLevelUIState();
+        // جلب بيانات الحساب
+        onSnapshot(doc(db, "users", user.uid), (snap) => {
+          if (snap.exists()) {
+            const data = snap.data();
+            currentLevel = data.currentLevel || 5;
+            document.getElementById("user-points-display").textContent = `${data.points || 0} نقطة`;
+            document.getElementById("trees-grown-count").textContent = `${data.treesGrown || 0}`;
+            updateLevelUIState();
+          }
+        });
 
         userGreeting.textContent = user.displayName ? `${user.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
 
@@ -1423,7 +1684,7 @@
       }
     });
 
-    // تحديث حالة زر وقفل الترقية حسب التاريخ والمستوى
+    // حالة قفل الترقية بالتاريخ
     function updateLevelUIState() {
       levelDisplayHeading.textContent = `إنجاز مواد المستوى ${currentLevel == 5 ? 'الخامس' : currentLevel}`;
       
@@ -1453,23 +1714,20 @@
       }
     }
 
-    // تنفيذ الانتقال للمستوى السادس ومسح مواد المستوى الخامس
+    // الانتقال للمستوى السادس
     btnTransitionLevel.addEventListener("click", async () => {
       if (confirm("هل أنت متأكد من الانتقال للمستوى السادس؟ سيتم مسح مواد المستوى الخامس وبدء مرحلة جديدة من الصفر.")) {
         btnTransitionLevel.disabled = true;
         btnTransitionLevel.textContent = "جاري تهيئة المستوى السادس...";
 
-        // 1. حذف مواد المستوى الخامس
         const coursesSnap = await getDocs(collection(db, "users", currentUser.uid, "courses"));
         for (const d of coursesSnap.docs) {
           await deleteDoc(doc(db, "users", currentUser.uid, "courses", d.id));
         }
 
-        // 2. تحديث المستوى في بيانات الطالب
         await setDoc(doc(db, "users", currentUser.uid), { currentLevel: 6 }, { merge: true });
         currentLevel = 6;
 
-        // 3. بذر مواد المستوى السادس من الخطة المعتمدة
         for (const c of CURRICULUM_PLAN[6]) {
           await addDoc(collection(db, "users", currentUser.uid, "courses"), {
             name: c.name,
@@ -1477,6 +1735,7 @@
             credits: c.credits,
             totalLectures: c.totalLectures,
             attendedLectures: 0,
+            absences: 0,
             color: c.color,
             originLevel: "المستوى 6",
             chapters: [
@@ -1492,6 +1751,395 @@
       }
     });
 
+    // ==========================================
+    // 2. فرز وترتيب المقررات
+    // ==========================================
+    document.querySelectorAll(".sort-pill").forEach(pill => {
+      pill.addEventListener("click", () => {
+        document.querySelectorAll(".sort-pill").forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+        currentSort = pill.getAttribute("data-sort");
+        renderCoursesUI();
+      });
+    });
+
+    // ==========================================
+    // 3. رسم واجهة المواد مع حاسبة الحرمان والروابط
+    // ==========================================
+    function renderCoursesUI() {
+      coursesContainer.innerHTML = "";
+      let totalLecAll = 0;
+      let attendedLecAll = 0;
+
+      // تطبيق الفرز
+      let sorted = [...currentCourses];
+      if (currentSort === "credits") {
+        sorted.sort((a, b) => (b.credits || 3) - (a.credits || 3));
+      } else if (currentSort === "missed") {
+        sorted.sort((a, b) => {
+          const remA = (a.totalLectures || 0) - (a.attendedLectures || 0);
+          const remB = (b.totalLectures || 0) - (b.attendedLectures || 0);
+          return remB - remA;
+        });
+      } else if (currentSort === "name") {
+        sorted.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+      }
+
+      sorted.forEach((course) => {
+        totalLecAll += (course.totalLectures || 0);
+        attendedLecAll += (course.attendedLectures || 0);
+
+        const remainingLec = Math.max(0, (course.totalLectures || 0) - (course.attendedLectures || 0));
+        const completedChapters = (course.chapters || []).filter(c => c.done).length;
+        const totalChapters = (course.chapters || []).length;
+
+        // حساب الحرمان (25% من إجمالي المحاضرات)
+        const totalLec = course.totalLectures || 24;
+        const maxAbsence = Math.floor(totalLec * 0.25);
+        const absences = course.absences || 0;
+        const remainingAbsences = maxAbsence - absences;
+
+        let dnBadgeClass = "dn-badge-safe";
+        let dnStatusText = `باقي لك ${remainingAbsences} غيابات قبل الحرمان`;
+        if (remainingAbsences <= 0) {
+          dnBadgeClass = "dn-badge-danger";
+          dnStatusText = "⚠️ بلغت حد الحرمان (DN)! راجع أستاذ المادة";
+        } else if (remainingAbsences <= 2) {
+          dnBadgeClass = "dn-badge-warn";
+          dnStatusText = `انتبه! باقي لك ${remainingAbsences} فقط قبل الحرمان`;
+        }
+
+        const originTagHtml = course.originLevel 
+          ? `<span class="origin-level-tag">${course.originLevel}</span>` 
+          : '';
+
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.innerHTML = `
+          <div class="course-card-header">
+            <div>
+              ${originTagHtml}
+              <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
+                ${course.name} (${course.code}) • ${course.credits || 3} س
+              </span>
+            </div>
+            <span class="course-status-brief">
+              أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
+            </span>
+            <span class="course-expand-icon">▼</span>
+          </div>
+          <div class="course-card-body">
+            
+            <!-- حاسبة الحرمان والغياب (25%) -->
+            <div class="dn-calculator-box">
+              <div class="dn-info">
+                <span class="dn-title">متابعة الحرمان والغياب (حد الحرمان 25% = ${maxAbsence} محاضرات):</span>
+                <span class="dn-status ${dnBadgeClass}">الغياب: ${absences} / ${maxAbsence} • ${dnStatusText}</span>
+              </div>
+              <div class="stepper-controls">
+                <button class="step-btn btn-dec-abs" title="إنقاص غياب">-</button>
+                <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--primary-red); font-weight:900;">+</button>
+              </div>
+            </div>
+
+            <div class="quick-actions-bar">
+              <button class="btn-quick btn-mark-all-done">إنجاز الكل سريعاً ✨</button>
+              <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
+            </div>
+
+            <div class="stepper-row">
+              <span>المحاضرات التي تم حضورها:</span>
+              <div class="stepper-controls">
+                <button class="step-btn btn-dec">-</button>
+                <strong>${course.attendedLectures} / ${course.totalLectures}</strong>
+                <button class="step-btn btn-inc">+</button>
+              </div>
+            </div>
+
+            <div class="chapter-section-title">
+              <span>الشباتر المذاكرة (${completedChapters}/${totalChapters})</span>
+              <button class="btn-add-chapter-mini">+ إضافة شابتر</button>
+            </div>
+
+            <div class="chapters-wrapper">
+              ${(course.chapters || []).map(ch => `
+                <div class="chapter-item ${ch.done ? 'done' : ''}">
+                  <span>${ch.title}</span>
+                  <input type="checkbox" ${ch.done ? 'checked' : ''} class="ch-check">
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- روابط المادة والملاحظات وحذف المقرر -->
+            <div class="course-footer-links">
+              <button class="btn-course-resources">🔗 الروابط والملاحظات والتجميعات</button>
+              <button class="btn-delete-course">حذف المقرر</button>
+            </div>
+          </div>
+        `;
+
+        card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
+
+        // حضور المحاضرات
+        card.querySelector(".btn-inc").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (course.attendedLectures < course.totalLectures) {
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+              attendedLectures: course.attendedLectures + 1
+            });
+          }
+        });
+
+        card.querySelector(".btn-dec").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (course.attendedLectures > 0) {
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+              attendedLectures: course.attendedLectures - 1
+            });
+          }
+        });
+
+        // رصد الغياب
+        card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            absences: (course.absences || 0) + 1
+          });
+        });
+
+        card.querySelector(".btn-dec-abs").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if ((course.absences || 0) > 0) {
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+              absences: course.absences - 1
+            });
+          }
+        });
+
+        // إنجاز الكل وتصفير الكل
+        card.querySelector(".btn-mark-all-done").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
+          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            attendedLectures: course.totalLectures,
+            chapters: updatedChs
+          });
+        });
+
+        card.querySelector(".btn-reset-all").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: false }));
+          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            attendedLectures: 0,
+            absences: 0,
+            chapters: updatedChs
+          });
+        });
+
+        // الشباتر
+        card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
+          checkbox.addEventListener("change", async (e) => {
+            e.stopPropagation();
+            const chs = [...course.chapters];
+            chs[idx].done = checkbox.checked;
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
+          });
+        });
+
+        card.querySelector(".btn-add-chapter-mini").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const title = prompt("اسم الشابتر:");
+          if (title && title.trim()) {
+            const chs = [...(course.chapters || []), { id: `ch_${Date.now()}`, title: title.trim(), done: false }];
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
+          }
+        });
+
+        // فتح مودال الروابط والتجميعات
+        card.querySelector(".btn-course-resources").addEventListener("click", (e) => {
+          e.stopPropagation();
+          openResourcesModal(course);
+        });
+
+        card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
+            await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
+          }
+        });
+
+        coursesContainer.appendChild(card);
+      });
+
+      // الكارت التراكمي
+      const missed = totalLecAll - attendedLecAll;
+      const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
+
+      document.getElementById("missed-lectures-count").textContent = `${missed} محاضرات`;
+      document.getElementById("overall-progress-bar").style.width = `${pct}%`;
+      document.getElementById("overall-percent-label").textContent = `${pct}% نسبة المواكبة`;
+
+      const motiv = document.getElementById("motivational-text");
+      if (pct >= 85) motiv.textContent = "أداء ممتاز جداً! استمر بنفس الحماس 🔥";
+      else if (pct >= 50) motiv.textContent = "كأنها هجت شوي 🫣 يبيلك تاخذها وحدة وحدة";
+      else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
+    }
+
+    // ==========================================
+    // 4. فتح وإدارة مودال الملاحظات والروابط
+    // ==========================================
+    function openResourcesModal(course) {
+      selectedCourseForResources = course;
+      document.getElementById("res-modal-title").textContent = `ملخصات وتجميعات: ${course.name} (${course.code})`;
+      document.getElementById("course-notes-textarea").value = course.userNotes || "";
+
+      const linksBox = document.getElementById("course-links-list");
+      linksBox.innerHTML = "";
+
+      const links = course.customLinks || DEFAULT_COURSE_LINKS[course.code] || [
+        { title: "قناة التجميعات للمقرر", url: "https://t.me/" }
+      ];
+
+      links.forEach(link => {
+        const a = document.createElement("a");
+        a.href = link.url;
+        a.target = "_blank";
+        a.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--border-subtle); padding:10px 12px; border-radius:10px; text-decoration:none; color:var(--text-main); font-size:12.5px; font-weight:700;";
+        a.innerHTML = `<span>📖 ${link.title}</span> <span style="color:var(--primary-teal); font-size:11px;">فتح ↗</span>`;
+        linksBox.appendChild(a);
+      });
+
+      resourcesModal.classList.add("open");
+    }
+
+    document.getElementById("btn-save-notes").addEventListener("click", async () => {
+      if (!selectedCourseForResources) return;
+      const notes = document.getElementById("course-notes-textarea").value;
+      await updateDoc(doc(db, "users", currentUser.uid, "courses", selectedCourseForResources.id), {
+        userNotes: notes
+      });
+      alert("تم حفظ ملاحظاتك بنجاح ✅");
+    });
+
+    document.getElementById("btn-share-resource").addEventListener("click", () => {
+      resourcesModal.classList.remove("open");
+      document.getElementById("fb-type").value = "مشاركة ملخص أو تجميعات";
+      document.getElementById("fb-subject").value = `مشاركة ملخص لمقرر: ${selectedCourseForResources ? selectedCourseForResources.name : ''}`;
+      feedbackModal.classList.add("open");
+    });
+
+    btnCloseResourcesModal.addEventListener("click", () => resourcesModal.classList.remove("open"));
+
+    // ============================================================
+    // 5. مؤقت غرس الإنجاز التفاعلي ونظام النقاط (Interactive Tree)
+    // ============================================================
+    const TOTAL_FOCUS_TIME = 25 * 60; // 25 دقيقة
+    let timerDuration = TOTAL_FOCUS_TIME;
+    let timerInterval = null;
+    const timerDisplay = document.getElementById("pomodoro-timer");
+    const treeStatusText = document.getElementById("tree-status-text");
+    const treeContainer = document.getElementById("tree-svg-container");
+
+    // رسم مراحل نمو الشجرة تدريجياً عبر SVG
+    function renderTreeStage(secondsLeft) {
+      const elapsed = TOTAL_FOCUS_TIME - secondsLeft;
+      const progressRatio = elapsed / TOTAL_FOCUS_TIME;
+
+      let treeSvg = "";
+      if (progressRatio < 0.25) {
+        // المرحلة 1: بذرة في التربة
+        treeSvg = `
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
+            <circle cx="50" cy="82" r="5" fill="#5D4037"/>
+            <path d="M50 78 Q52 74 50 70" stroke="#84CC16" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>`;
+        treeStatusText.textContent = "البذرة تُغرس في التربة... ركّز ولا تشتت ذهنك 🌱";
+      } else if (progressRatio < 0.60) {
+        // المرحلة 2: برعم ينمو
+        treeSvg = `
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
+            <path d="M50 82 Q50 65 50 55" stroke="#795548" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path d="M50 65 Q40 60 42 52 Q48 55 50 62" fill="#84CC16"/>
+            <path d="M50 60 Q60 55 58 48 Q52 50 50 58" fill="#84CC16"/>
+          </svg>`;
+        treeStatusText.textContent = "شجرتك تكبر وتورق! استمر في التركيز 🌿";
+      } else if (progressRatio < 0.95) {
+        // المرحلة 3: شجرة بأغصان كثيفة
+        treeSvg = `
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <ellipse cx="50" cy="88" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
+            <path d="M50 85 L50 48" stroke="#5D4037" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="50" cy="40" r="18" fill="#10B981"/>
+            <circle cx="40" cy="46" r="13" fill="#059669"/>
+            <circle cx="60" cy="46" r="13" fill="#059669"/>
+          </svg>`;
+        treeStatusText.textContent = "أوشكت الشجرة على الإزهار! دقائق قليلة متبقية 🌳";
+      } else {
+        // المرحلة 4: شجرة مزهرة مكتملة
+        treeSvg = `
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <ellipse cx="50" cy="88" rx="38" ry="8" fill="#8D6E63" opacity="0.4"/>
+            <path d="M50 85 L50 45" stroke="#5D4037" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="50" cy="38" r="22" fill="#059669"/>
+            <circle cx="36" cy="45" r="15" fill="#10B981"/>
+            <circle cx="64" cy="45" r="15" fill="#10B981"/>
+            <circle cx="50" cy="22" r="14" fill="#34D399"/>
+            <!-- ثمار ونقاط ذهبية -->
+            <circle cx="44" cy="32" r="3" fill="#FBBF24"/>
+            <circle cx="58" cy="36" r="3" fill="#FBBF24"/>
+            <circle cx="48" cy="48" r="3" fill="#FBBF24"/>
+          </svg>`;
+        treeStatusText.textContent = "مبارك! اكتملت شجرة إنجازك وأُضيفت النقاط لرصيدك 🌟";
+      }
+      treeContainer.innerHTML = treeSvg;
+    }
+
+    document.getElementById("btn-timer-start").addEventListener("click", () => {
+      if (timerInterval) return;
+      timerInterval = setInterval(async () => {
+        if (timerDuration > 0) {
+          timerDuration--;
+          const m = Math.floor(timerDuration / 60).toString().padStart(2, '0');
+          const s = (timerDuration % 60).toString().padStart(2, '0');
+          timerDisplay.textContent = `${m}:${s}`;
+          renderTreeStage(timerDuration);
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          renderTreeStage(0);
+
+          // إضافة 25 نقطة وشجرة إنجاز للمستخدم في Firestore
+          if (currentUser) {
+            const userRef = doc(db, "users", currentUser.uid);
+            const userSnap = await getDoc(userRef);
+            const currentPoints = (userSnap.data()?.points || 0) + 25;
+            const currentTrees = (userSnap.data()?.treesGrown || 0) + 1;
+            await updateDoc(userRef, { points: currentPoints, treesGrown: currentTrees });
+          }
+
+          alert("🎉 أحسنت! أكملت 25 دقيقة تركيز وحصلت على +25 نقطة في رصيدك وشجرة جديدة!");
+        }
+      }, 1000);
+    });
+
+    document.getElementById("btn-timer-pause").addEventListener("click", () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    });
+
+    document.getElementById("btn-timer-reset").addEventListener("click", () => {
+      if (timerDuration < TOTAL_FOCUS_TIME && timerDuration > 0) {
+        if (!confirm("هل ترغب بإلغاء جلسة التركيز الحالية؟ ستفقد تقدم الشجرة الحالية.")) return;
+      }
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerDuration = TOTAL_FOCUS_TIME;
+      timerDisplay.textContent = "25:00";
+      renderTreeStage(TOTAL_FOCUS_TIME);
+    });
+
     // التنقل السفلي
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
@@ -1504,6 +2152,7 @@
       });
     });
 
+    // نوافذ الإضافة
     btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
     btnCloseCourseModal.addEventListener("click", () => courseModal.classList.remove("open"));
 
@@ -1544,7 +2193,7 @@
       });
     });
 
-    // إضافة مقرر يدوي أو متقدم مع شارة المستوى
+    // إضافة مقرر يدوي أو متقدم
     addCourseForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.getElementById("course-name-input").value.trim();
@@ -1566,6 +2215,7 @@
         originLevel,
         totalLectures,
         attendedLectures: 0,
+        absences: 0,
         color: selectedColor,
         chapters
       });
@@ -1595,152 +2245,7 @@
       taskModal.classList.remove("open");
     });
 
-    // رسم واجهة المواد مع الشارات (Origin Level Badge)
-    function renderCoursesUI() {
-      coursesContainer.innerHTML = "";
-      let totalLecAll = 0;
-      let attendedLecAll = 0;
-
-      currentCourses.forEach((course) => {
-        totalLecAll += (course.totalLectures || 0);
-        attendedLecAll += (course.attendedLectures || 0);
-
-        const remainingLec = Math.max(0, (course.totalLectures || 0) - (course.attendedLectures || 0));
-        const completedChapters = (course.chapters || []).filter(c => c.done).length;
-        const totalChapters = (course.chapters || []).length;
-
-        const originTagHtml = course.originLevel 
-          ? `<span class="origin-level-tag">${course.originLevel}</span>` 
-          : '';
-
-        const card = document.createElement("div");
-        card.className = "course-card";
-        card.innerHTML = `
-          <div class="course-card-header">
-            <div>
-              ${originTagHtml}
-              <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
-                ${course.name} (${course.code}) • ${course.credits || 3} س
-              </span>
-            </div>
-            <span class="course-status-brief">
-              أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
-            </span>
-            <span class="course-expand-icon">▼</span>
-          </div>
-          <div class="course-card-body">
-            <div class="quick-actions-bar">
-              <button class="btn-quick btn-mark-all-done">إنجاز الكل سريعاً ✨</button>
-              <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
-            </div>
-
-            <div class="stepper-row">
-              <span>المحاضرات المنجزة:</span>
-              <div class="stepper-controls">
-                <button class="step-btn btn-dec">-</button>
-                <strong>${course.attendedLectures} / ${course.totalLectures}</strong>
-                <button class="step-btn btn-inc">+</button>
-              </div>
-            </div>
-
-            <div class="chapter-section-title">
-              <span>الشباتر المذاكرة (${completedChapters}/${totalChapters})</span>
-              <button class="btn-add-chapter-mini">+ إضافة شابتر</button>
-            </div>
-
-            <div class="chapters-wrapper">
-              ${(course.chapters || []).map(ch => `
-                <div class="chapter-item ${ch.done ? 'done' : ''}">
-                  <span>${ch.title}</span>
-                  <input type="checkbox" ${ch.done ? 'checked' : ''} class="ch-check">
-                </div>
-              `).join('')}
-            </div>
-
-            <button class="btn-delete-course">حذف المقرر</button>
-          </div>
-        `;
-
-        card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
-
-        card.querySelector(".btn-inc").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (course.attendedLectures < course.totalLectures) {
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-              attendedLectures: course.attendedLectures + 1
-            });
-          }
-        });
-
-        card.querySelector(".btn-dec").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (course.attendedLectures > 0) {
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-              attendedLectures: course.attendedLectures - 1
-            });
-          }
-        });
-
-        card.querySelector(".btn-mark-all-done").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
-          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-            attendedLectures: course.totalLectures,
-            chapters: updatedChs
-          });
-        });
-
-        card.querySelector(".btn-reset-all").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: false }));
-          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-            attendedLectures: 0,
-            chapters: updatedChs
-          });
-        });
-
-        card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
-          checkbox.addEventListener("change", async (e) => {
-            e.stopPropagation();
-            const chs = [...course.chapters];
-            chs[idx].done = checkbox.checked;
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
-          });
-        });
-
-        card.querySelector(".btn-add-chapter-mini").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const title = prompt("اسم الشابتر:");
-          if (title && title.trim()) {
-            const chs = [...(course.chapters || []), { id: `ch_${Date.now()}`, title: title.trim(), done: false }];
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
-          }
-        });
-
-        card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
-            await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
-          }
-        });
-
-        coursesContainer.appendChild(card);
-      });
-
-      const missed = totalLecAll - attendedLecAll;
-      const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
-
-      document.getElementById("missed-lectures-count").textContent = `${missed} محاضرات`;
-      document.getElementById("overall-progress-bar").style.width = `${pct}%`;
-      document.getElementById("overall-percent-label").textContent = `${pct}% نسبة المواكبة`;
-
-      const motiv = document.getElementById("motivational-text");
-      if (pct >= 85) motiv.textContent = "أداء ممتاز جداً! استمر بنفس الحماس 🔥";
-      else if (pct >= 50) motiv.textContent = "كأنها هجت شوي 🫣 يبيلك تاخذها وحدة وحدة";
-      else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
-    }
-
-    // رسم واجهة المهام
+    // رسم المهام
     function renderTasksUI() {
       tasksContainer.innerHTML = "";
       let filtered = currentTasks;
@@ -1748,7 +2253,7 @@
       if (currentTaskFilter === "done") filtered = currentTasks.filter(t => t.completed);
 
       if (filtered.length === 0) {
-        tasksContainer.innerHTML = `<p style="text-align:center; color:#94A3B8; margin-top:30px; font-size:13px;">لا توجد مهام في هذا القسم 🎉</p>`;
+        tasksContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:30px; font-size:13px;">لا توجد مهام في هذا القسم 🎉</p>`;
         return;
       }
 
@@ -1807,16 +2312,16 @@
       });
     }
 
-    // حاسبة المعدل الحقيقية بحسب عدد الساعات
+    // حاسبة المعدل
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
       gpaBox.innerHTML = `
-        <div style="background:white; border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
-          <div style="background:#F8FAFC; padding:12px; border-radius:10px; margin-bottom:14px;">
-            <span style="font-size:12px; font-weight:700; color:var(--primary-dark);">حساب المعدل التراكمي الجديد (اختياري):</span>
+        <div style="background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
+          <div style="background:var(--subtle-bg); padding:12px; border-radius:10px; margin-bottom:14px;">
+            <span style="font-size:12px; font-weight:700; color:var(--primary-teal);">حساب المعدل التراكمي الجديد (اختياري):</span>
             <div style="display:flex; gap:10px; margin-top:6px;">
-              <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid #CBD5E1; border-radius:8px; font-size:12px;">
-              <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid #CBD5E1; border-radius:8px; font-size:12px;">
+              <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
+              <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
             </div>
           </div>
 
@@ -1828,7 +2333,7 @@
                   <span style="font-size:13px; font-weight:700;">${c.code}</span>
                   <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits || 3} ساعات)</span>
                 </div>
-                <select class="grade-input" data-credits="${c.credits || 3}" style="padding:6px 10px; border-radius:8px; border:1px solid #CBD5E1; font-size:12.5px;">
+                <select class="grade-input" data-credits="${c.credits || 3}" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12.5px;">
                   <option value="5.0">A+ (5.00)</option>
                   <option value="4.75">A (4.75)</option>
                   <option value="4.5">B+ (4.50)</option>
@@ -1872,59 +2377,26 @@
           if (!isNaN(prevGPA) && !isNaN(prevHours) && prevHours > 0) {
             const prevTotalPoints = prevGPA * prevHours;
             const newCumulative = ((prevTotalPoints + totalQualityPoints) / (prevHours + currentSemesterHours)).toFixed(2);
-            cumulativeText = `<br><span style="color:#0F766E; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
+            cumulativeText = `<br><span style="color:#10B981; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
           }
 
           document.getElementById("gpa-result").innerHTML = `
-            <span style="color:var(--primary-dark); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
+            <span style="color:var(--primary-teal); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
             ${cumulativeText}
           `;
         });
       }
     }
 
-    // مؤقت Pomodoro
-    let timerDuration = 25 * 60;
-    let timerInterval = null;
-    const timerDisplay = document.getElementById("pomodoro-timer");
-
-    document.getElementById("btn-timer-start").addEventListener("click", () => {
-      if (timerInterval) return;
-      timerInterval = setInterval(() => {
-        if (timerDuration > 0) {
-          timerDuration--;
-          const m = Math.floor(timerDuration / 60).toString().padStart(2, '0');
-          const s = (timerDuration % 60).toString().padStart(2, '0');
-          timerDisplay.textContent = `${m}:${s}`;
-        } else {
-          clearInterval(timerInterval);
-          timerInterval = null;
-          alert("انتهت جلسة التركيز! خذ استراحة قصيرة 5 دقائق ☕");
-        }
-      }, 1000);
-    });
-
-    document.getElementById("btn-timer-pause").addEventListener("click", () => {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    });
-
-    document.getElementById("btn-timer-reset").addEventListener("click", () => {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerDuration = 25 * 60;
-      timerDisplay.textContent = "25:00";
-    });
-
-    // بذر مواد المستوى الخامس (خطة 18 وحدة مسجلة)
+    // بذر مواد المستوى الخامس
     async function seedInitialLevel5(userId, isAllCompleted) {
       const courses = [
-        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
-        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 20, attendedLectures: isAllCompleted ? 20 : 0, color: "#0D9488", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted }, { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted }] },
-        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, color: "#F43F5E", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted }, { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted }] },
-        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, color: "#10B981", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Nodal & Mesh", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Superposition", done: isAllCompleted }] },
-        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 14, attendedLectures: isAllCompleted ? 14 : 0, color: "#0284C7", originLevel: "", chapters: [{ id: "c1", title: "الوحدة 1: السيرة الذاتية المهنية", done: isAllCompleted }] },
-        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#F59E0B", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: isAllCompleted }] }
+        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, absences: 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
+        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 20, attendedLectures: isAllCompleted ? 20 : 0, absences: 0, color: "#0D9488", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted }, { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted }] },
+        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, absences: 0, color: "#F43F5E", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted }, { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted }] },
+        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, absences: 0, color: "#10B981", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Nodal & Mesh", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Superposition", done: isAllCompleted }] },
+        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 14, attendedLectures: isAllCompleted ? 14 : 0, absences: 0, color: "#0284C7", originLevel: "", chapters: [{ id: "c1", title: "الوحدة 1: السيرة الذاتية المهنية", done: isAllCompleted }] },
+        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, absences: 0, color: "#F59E0B", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: isAllCompleted }] }
       ];
 
       for (const c of courses) {
