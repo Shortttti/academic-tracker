@@ -492,7 +492,7 @@
       display: block;
     }
 
-    /* حاسبة الغياب والحرمان داخل المادة */
+    /* حاسبة الغياب والحرمان */
     .dn-calculator-box {
       background: var(--subtle-bg);
       border-radius: 10px;
@@ -750,9 +750,7 @@
       font-weight: bold;
     }
 
-    /* ============================================================ */
-    /* مؤقت التركيز التفاعلي: غرس الإنجاز (Interactive Tree Timer) */
-    /* ============================================================ */
+    /* مؤقت غرس الإنجاز التفاعلي */
     .tree-timer-box {
       background: var(--card-bg);
       border-radius: 20px;
@@ -1001,7 +999,6 @@
 
   <!-- الشاشة الرئيسية -->
   <div id="main-app" class="app-container" style="display: none;">
-    <!-- هيدر التطبيق مع زر الوضع الليلي -->
     <header class="app-header">
       <div class="header-inner">
         <div class="header-actions">
@@ -1078,8 +1075,6 @@
 
     <!-- تبويب 2: المهام ومؤقت "غرس الإنجاز" التفاعلي -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
-      
-      <!-- مؤقت غرس الإنجاز التفاعلي (Interactive Tree Timer) -->
       <div class="tree-timer-box">
         <div class="tree-timer-header">
           <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز</span>
@@ -1090,12 +1085,9 @@
           </div>
         </div>
 
-        <!-- شكل الشجرة التفاعلي SVG يتغير وينمو مع الوقت -->
         <div class="tree-illustration-container" id="tree-svg-container">
           <svg viewBox="0 0 100 100" width="100" height="100">
-            <!-- الأرضية / التربة -->
             <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
-            <!-- البذرة الافتراضية -->
             <circle cx="50" cy="82" r="5" fill="#5D4037"/>
             <path d="M50 78 Q52 72 50 68" stroke="#4CAF50" stroke-width="2.5" fill="none" stroke-linecap="round"/>
           </svg>
@@ -1129,7 +1121,7 @@
       <div id="tasks-container"></div>
     </main>
 
-    <!-- تبويب 3: حاسبة المعدل الحقيقية بحسب عدد الساعات -->
+    <!-- تبويب 3: حاسبة المعدل -->
     <main class="main-content" id="tab-content-gpa" style="display: none;">
       <div class="content-header">
         <div>
@@ -1156,7 +1148,7 @@
       </div>
     </nav>
 
-    <!-- مودال الملاحظات والروابط السريعة للمادة -->
+    <!-- مودال الملاحظات والروابط السريعة -->
     <div id="resources-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1170,10 +1162,8 @@
         </div>
 
         <div style="margin-bottom:14px;">
-          <h4 style="font-size:13px; font-weight:800; margin-bottom:8px;">📁 روابط التجميعات والسلايدات المعتمدة:</h4>
-          <div id="course-links-list" style="display:flex; flex-direction:column; gap:8px;">
-            <!-- يتم تعبئة الروابط ديناميكياً -->
-          </div>
+          <h4 style="font-size:13px; font-weight:800; margin-bottom:8px;">📁 روابط التجميعات والسلايدات:</h4>
+          <div id="course-links-list" style="display:flex; flex-direction:column; gap:8px;"></div>
         </div>
 
         <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:12px; padding:12px; text-align:center;">
@@ -1215,7 +1205,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label>المستوى الدراسي التابع له المقرر (إذا كانت مادة متقدمة):</label>
+            <label>المستوى الدراسي التابع له المقرر:</label>
             <select id="course-origin-level-input">
               <option value="">مقرر من نفس المستوى الحالي</option>
               <option value="المستوى 6">مقرر من المستوى 6</option>
@@ -1287,7 +1277,7 @@
       </div>
     </div>
 
-    <!-- مودال الاقتراحات والشكاوى ومشاركة الملخصات المربوط بـ Formspree -->
+    <!-- مودال الاقتراحات ومشاركة الملخصات -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1363,7 +1353,6 @@
       onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
-    // إعدادات Firebase الخاصة بمشروعك
     const firebaseConfig = {
       apiKey: "AIzaSyAuCWmbCIyzUcuhNe4-scxqvGU9mjzhDXg",
       authDomain: "my-study-tracker-1a084.firebaseapp.com",
@@ -1379,46 +1368,46 @@
     const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
 
-    // تاريخ فتح الانتقال للمستوى السادس (7 يناير 2027)
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
 
-    // الخطة الدراسية المعتمدة لهندسة الحاسب بجامعة طيبة
+    // ============================================================
+    // الخطة الدراسية المطابقة تماماً لبياناتك الرسمية
+    // ============================================================
     const CURRICULUM_PLAN = {
       6: [
-        { name: "النظم المضمنة (1)", code: "COE 246", credits: 4, totalLectures: 28, color: "#6366F1" },
+        { name: "مقرر متطلب جامعة اختياري (2)", code: "GSE 2", credits: 2, totalLectures: 14, color: "#8B5CF6" },
         { name: "شبكات الحاسب", code: "COE 236", credits: 4, totalLectures: 28, color: "#0EA5E9" },
         { name: "إلكترونيات (1)", code: "EE 222", credits: 4, totalLectures: 28, color: "#10B981" },
         { name: "التصميم الهندسي", code: "COE 286", credits: 3, totalLectures: 24, color: "#F59E0B" },
-        { name: "مقرر متطلب جامعة اختياري (2)", code: "GSE 2", credits: 2, totalLectures: 14, color: "#8B5CF6" }
+        { name: "النظم المضمنة (1)", code: "COE 246", credits: 4, totalLectures: 28, color: "#6366F1" }
       ],
       7: [
+        { name: "مقرر متطلب جامعة اختياري (3)", code: "GSE 3", credits: 2, totalLectures: 14, color: "#F43F5E" },
         { name: "النظم المضمنة (2)", code: "COE 347", credits: 4, totalLectures: 28, color: "#6366F1" },
         { name: "اساسيات انترنت الاشياء", code: "COE 337", credits: 4, totalLectures: 28, color: "#0D9488" },
         { name: "تصميم النظم الرقمية", code: "COE 317", credits: 4, totalLectures: 28, color: "#8B5CF6" },
-        { name: "الطرق العددية في هندسة الحاسب", code: "COE 377", credits: 3, totalLectures: 24, color: "#0284C7" },
-        { name: "مقرر متطلب جامعة اختياري (3)", code: "GSE 3", credits: 2, totalLectures: 14, color: "#F43F5E" }
+        { name: "الطرق العددية في هندسة الحاسب", code: "COE 377", credits: 3, totalLectures: 24, color: "#0284C7" }
       ],
       8: [
-        { name: "أمن الحاسب والشبكات", code: "COE 368", credits: 4, totalLectures: 28, color: "#DC2626" },
-        { name: "معالجة الإشارات الرقمية", code: "COE 358", credits: 4, totalLectures: 28, color: "#059669" },
         { name: "البصريات", code: "PHYS 246", credits: 3, totalLectures: 24, color: "#D97706" },
         { name: "مقرر اختياري برنامج (1)", code: "COE 1", credits: 3, totalLectures: 24, color: "#2563EB" },
+        { name: "أمن الحاسب والشبكات", code: "COE 368", credits: 4, totalLectures: 28, color: "#DC2626" },
+        { name: "معالجة الإشارات الرقمية", code: "COE 358", credits: 4, totalLectures: 28, color: "#059669" },
         { name: "مشروع التخرج (1)", code: "COE 398", credits: 2, totalLectures: 14, color: "#7C3AED" }
       ],
       9: [
-        { name: "الشبكات المعرفة بالبرمجيات", code: "COE 439", credits: 3, totalLectures: 24, color: "#0284C7" },
-        { name: "مشروع التخرج (2)", code: "COE 499", credits: 3, totalLectures: 24, color: "#7C3AED" },
-        { name: "مقرر اختياري برنامج (2)", code: "COE 2", credits: 3, totalLectures: 24, color: "#2563EB" },
-        { name: "مقرر اختياري برنامج (3)", code: "COE 3", credits: 3, totalLectures: 24, color: "#4F46E5" },
         { name: "الحوسبة و أخلاقيات المهنة والمجتمع", code: "IS 275", credits: 2, totalLectures: 14, color: "#059669" },
-        { name: "الابتكار وريادة الاعمال في مجال الحوسبة", code: "IS 377", credits: 2, totalLectures: 14, color: "#D97706" }
+        { name: "الابتكار وريادة الاعمال في مجال الحوسبة", code: "IS 377", credits: 2, totalLectures: 14, color: "#D97706" },
+        { name: "الشبكات المعرفة بالبرمجيات", code: "COE 439", credits: 3, totalLectures: 24, color: "#0284C7" },
+        { name: "مقرر اختياري برنامج (3)", code: "COE 3", credits: 3, totalLectures: 24, color: "#4F46E5" },
+        { name: "مقرر اختياري برنامج (2)", code: "COE 2", credits: 3, totalLectures: 24, color: "#2563EB" },
+        { name: "مشروع التخرج (2)", code: "COE 499", credits: 3, totalLectures: 24, color: "#7C3AED" }
       ],
       10: [
         { name: "التدريب التعاوني", code: "COE 490", credits: 6, totalLectures: 30, color: "#0F766E" }
       ]
     };
 
-    // روابط السلايدات والتجميعات الافتراضية
     const DEFAULT_COURSE_LINKS = {
       "COE 225": [
         { title: "قناة تجميعات وسلايدات COE 225", url: "https://t.me/" },
@@ -1454,7 +1443,7 @@
     let currentSort = "default";
     let selectedCourseForResources = null;
 
-    // عناصر الدخول
+    // عناصر الصفحة
     const authScreen = document.getElementById("auth-screen");
     const mainApp = document.getElementById("main-app");
     const authForm = document.getElementById("auth-form");
@@ -1475,7 +1464,6 @@
     const btnGoogleLogin = document.getElementById("btn-google-login");
     const btnToggleTheme = document.getElementById("btn-toggle-theme");
 
-    // عناصر المقررات والمهام
     const coursesContainer = document.getElementById("courses-container");
     const tasksContainer = document.getElementById("tasks-container");
     const courseModal = document.getElementById("course-modal");
@@ -1499,9 +1487,7 @@
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // ==========================================
-    // 1. إدارة الوضع الليلي (Dark Mode)
-    // ==========================================
+    // الوضع الليلي
     function initTheme() {
       const savedTheme = localStorage.getItem("app_theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -1517,7 +1503,7 @@
       btnToggleTheme.textContent = next === "dark" ? "☀️" : "🌙";
     });
 
-    // تعبئة المواد المتقدمة في قائمة الإضافة
+    // تعبئة القائمة بالخطة الدقيقة
     function populateQuickPresets() {
       quickCoursePreset.innerHTML = `<option value="">-- كتابة مادة مخصصة يدوياً --</option>`;
       [6, 7, 8, 9, 10].forEach(lvl => {
@@ -1526,7 +1512,7 @@
         CURRICULUM_PLAN[lvl].forEach(c => {
           const opt = document.createElement("option");
           opt.value = JSON.stringify({ ...c, originLevel: `المستوى ${lvl}` });
-          opt.textContent = `${c.code} - ${c.name} (${c.credits} ساعات)`;
+          opt.textContent = `${c.code} - ${c.name} (${c.credits} وحدات معتمدة)`;
           grp.appendChild(opt);
         });
         quickCoursePreset.appendChild(grp);
@@ -1544,7 +1530,6 @@
       document.getElementById("course-lectures-input").value = data.totalLectures || 24;
     });
 
-    // تبديل تسجيل الدخول وإنشاء الحساب
     tabLogin.addEventListener("click", () => {
       isRegisterMode = false;
       tabLogin.classList.add("active");
@@ -1569,7 +1554,6 @@
       authError.textContent = "";
     });
 
-    // تسجيل الدخول بـ Google
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
@@ -1601,7 +1585,6 @@
       }
     });
 
-    // الدخول بالبريد
     authForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       authError.textContent = "";
@@ -1644,14 +1627,12 @@
 
     btnLogout.addEventListener("click", () => signOut(auth));
 
-    // مراقبة حالة الجلسة
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
         authScreen.style.display = "none";
         mainApp.style.display = "flex";
 
-        // جلب بيانات الحساب
         onSnapshot(doc(db, "users", user.uid), (snap) => {
           if (snap.exists()) {
             const data = snap.data();
@@ -1684,7 +1665,6 @@
       }
     });
 
-    // حالة قفل الترقية بالتاريخ
     function updateLevelUIState() {
       levelDisplayHeading.textContent = `إنجاز مواد المستوى ${currentLevel == 5 ? 'الخامس' : currentLevel}`;
       
@@ -1751,9 +1731,6 @@
       }
     });
 
-    // ==========================================
-    // 2. فرز وترتيب المقررات
-    // ==========================================
     document.querySelectorAll(".sort-pill").forEach(pill => {
       pill.addEventListener("click", () => {
         document.querySelectorAll(".sort-pill").forEach(p => p.classList.remove("active"));
@@ -1763,15 +1740,11 @@
       });
     });
 
-    // ==========================================
-    // 3. رسم واجهة المواد مع حاسبة الحرمان والروابط
-    // ==========================================
     function renderCoursesUI() {
       coursesContainer.innerHTML = "";
       let totalLecAll = 0;
       let attendedLecAll = 0;
 
-      // تطبيق الفرز
       let sorted = [...currentCourses];
       if (currentSort === "credits") {
         sorted.sort((a, b) => (b.credits || 3) - (a.credits || 3));
@@ -1793,7 +1766,6 @@
         const completedChapters = (course.chapters || []).filter(c => c.done).length;
         const totalChapters = (course.chapters || []).length;
 
-        // حساب الحرمان (25% من إجمالي المحاضرات)
         const totalLec = course.totalLectures || 24;
         const maxAbsence = Math.floor(totalLec * 0.25);
         const absences = course.absences || 0;
@@ -1830,7 +1802,6 @@
           </div>
           <div class="course-card-body">
             
-            <!-- حاسبة الحرمان والغياب (25%) -->
             <div class="dn-calculator-box">
               <div class="dn-info">
                 <span class="dn-title">متابعة الحرمان والغياب (حد الحرمان 25% = ${maxAbsence} محاضرات):</span>
@@ -1870,7 +1841,6 @@
               `).join('')}
             </div>
 
-            <!-- روابط المادة والملاحظات وحذف المقرر -->
             <div class="course-footer-links">
               <button class="btn-course-resources">🔗 الروابط والملاحظات والتجميعات</button>
               <button class="btn-delete-course">حذف المقرر</button>
@@ -1880,7 +1850,6 @@
 
         card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
 
-        // حضور المحاضرات
         card.querySelector(".btn-inc").addEventListener("click", async (e) => {
           e.stopPropagation();
           if (course.attendedLectures < course.totalLectures) {
@@ -1899,7 +1868,6 @@
           }
         });
 
-        // رصد الغياب
         card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
           e.stopPropagation();
           await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
@@ -1916,7 +1884,6 @@
           }
         });
 
-        // إنجاز الكل وتصفير الكل
         card.querySelector(".btn-mark-all-done").addEventListener("click", async (e) => {
           e.stopPropagation();
           const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
@@ -1936,7 +1903,6 @@
           });
         });
 
-        // الشباتر
         card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
           checkbox.addEventListener("change", async (e) => {
             e.stopPropagation();
@@ -1955,7 +1921,6 @@
           }
         });
 
-        // فتح مودال الروابط والتجميعات
         card.querySelector(".btn-course-resources").addEventListener("click", (e) => {
           e.stopPropagation();
           openResourcesModal(course);
@@ -1971,7 +1936,6 @@
         coursesContainer.appendChild(card);
       });
 
-      // الكارت التراكمي
       const missed = totalLecAll - attendedLecAll;
       const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
 
@@ -1985,9 +1949,6 @@
       else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
     }
 
-    // ==========================================
-    // 4. فتح وإدارة مودال الملاحظات والروابط
-    // ==========================================
     function openResourcesModal(course) {
       selectedCourseForResources = course;
       document.getElementById("res-modal-title").textContent = `ملخصات وتجميعات: ${course.name} (${course.code})`;
@@ -2030,24 +1991,20 @@
 
     btnCloseResourcesModal.addEventListener("click", () => resourcesModal.classList.remove("open"));
 
-    // ============================================================
-    // 5. مؤقت غرس الإنجاز التفاعلي ونظام النقاط (Interactive Tree)
-    // ============================================================
-    const TOTAL_FOCUS_TIME = 25 * 60; // 25 دقيقة
+    // مؤقت غرس الإنجاز التفاعلي
+    const TOTAL_FOCUS_TIME = 25 * 60;
     let timerDuration = TOTAL_FOCUS_TIME;
     let timerInterval = null;
     const timerDisplay = document.getElementById("pomodoro-timer");
     const treeStatusText = document.getElementById("tree-status-text");
     const treeContainer = document.getElementById("tree-svg-container");
 
-    // رسم مراحل نمو الشجرة تدريجياً عبر SVG
     function renderTreeStage(secondsLeft) {
       const elapsed = TOTAL_FOCUS_TIME - secondsLeft;
       const progressRatio = elapsed / TOTAL_FOCUS_TIME;
 
       let treeSvg = "";
       if (progressRatio < 0.25) {
-        // المرحلة 1: بذرة في التربة
         treeSvg = `
           <svg viewBox="0 0 100 100" width="100" height="100">
             <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
@@ -2056,7 +2013,6 @@
           </svg>`;
         treeStatusText.textContent = "البذرة تُغرس في التربة... ركّز ولا تشتت ذهنك 🌱";
       } else if (progressRatio < 0.60) {
-        // المرحلة 2: برعم ينمو
         treeSvg = `
           <svg viewBox="0 0 100 100" width="100" height="100">
             <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
@@ -2066,7 +2022,6 @@
           </svg>`;
         treeStatusText.textContent = "شجرتك تكبر وتورق! استمر في التركيز 🌿";
       } else if (progressRatio < 0.95) {
-        // المرحلة 3: شجرة بأغصان كثيفة
         treeSvg = `
           <svg viewBox="0 0 100 100" width="100" height="100">
             <ellipse cx="50" cy="88" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
@@ -2077,7 +2032,6 @@
           </svg>`;
         treeStatusText.textContent = "أوشكت الشجرة على الإزهار! دقائق قليلة متبقية 🌳";
       } else {
-        // المرحلة 4: شجرة مزهرة مكتملة
         treeSvg = `
           <svg viewBox="0 0 100 100" width="100" height="100">
             <ellipse cx="50" cy="88" rx="38" ry="8" fill="#8D6E63" opacity="0.4"/>
@@ -2086,7 +2040,6 @@
             <circle cx="36" cy="45" r="15" fill="#10B981"/>
             <circle cx="64" cy="45" r="15" fill="#10B981"/>
             <circle cx="50" cy="22" r="14" fill="#34D399"/>
-            <!-- ثمار ونقاط ذهبية -->
             <circle cx="44" cy="32" r="3" fill="#FBBF24"/>
             <circle cx="58" cy="36" r="3" fill="#FBBF24"/>
             <circle cx="48" cy="48" r="3" fill="#FBBF24"/>
@@ -2110,7 +2063,6 @@
           timerInterval = null;
           renderTreeStage(0);
 
-          // إضافة 25 نقطة وشجرة إنجاز للمستخدم في Firestore
           if (currentUser) {
             const userRef = doc(db, "users", currentUser.uid);
             const userSnap = await getDoc(userRef);
@@ -2140,7 +2092,6 @@
       renderTreeStage(TOTAL_FOCUS_TIME);
     });
 
-    // التنقل السفلي
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -2152,7 +2103,6 @@
       });
     });
 
-    // نوافذ الإضافة
     btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
     btnCloseCourseModal.addEventListener("click", () => courseModal.classList.remove("open"));
 
@@ -2193,7 +2143,6 @@
       });
     });
 
-    // إضافة مقرر يدوي أو متقدم
     addCourseForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.getElementById("course-name-input").value.trim();
@@ -2224,7 +2173,6 @@
       courseModal.classList.remove("open");
     });
 
-    // إضافة مهمة
     addTaskForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const title = document.getElementById("task-title-input").value.trim();
@@ -2245,7 +2193,6 @@
       taskModal.classList.remove("open");
     });
 
-    // رسم المهام
     function renderTasksUI() {
       tasksContainer.innerHTML = "";
       let filtered = currentTasks;
@@ -2312,7 +2259,7 @@
       });
     }
 
-    // حاسبة المعدل
+    // حاسبة المعدل بسلم 5.00
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
       gpaBox.innerHTML = `
@@ -2331,7 +2278,7 @@
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <div>
                   <span style="font-size:13px; font-weight:700;">${c.code}</span>
-                  <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits || 3} ساعات)</span>
+                  <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits || 3} وحدات معتمدة)</span>
                 </div>
                 <select class="grade-input" data-credits="${c.credits || 3}" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12.5px;">
                   <option value="5.0">A+ (5.00)</option>
@@ -2388,7 +2335,7 @@
       }
     }
 
-    // بذر مواد المستوى الخامس
+    // بذر مواد المستوى الخامس (وفق جدولك الرسمي بالساعات المعتمدة الحقيقية)
     async function seedInitialLevel5(userId, isAllCompleted) {
       const courses = [
         { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, absences: 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
