@@ -1590,7 +1590,7 @@
         </div>
         <div class="header-branding">
           <div style="display: flex; align-items: center; gap: 6px; justify-content: flex-end;">
-            <span id="admin-badge" class="admin-badge" style="display:none;" onclick="document.querySelector('[data-target=\'admin\']')?.click()">👑 لوحة المشرف</span>
+            <span id="admin-badge" class="admin-badge">👑 لوحة المشرف</span>
             <h1 class="brand-title">جدولي</h1>
           </div>
           <span id="user-greeting" class="brand-subtitle">كلية علوم وهندسة الحاسب</span>
@@ -1622,7 +1622,7 @@
           <span>تجميعات وملخصات بانتظار الاعتماد:</span>
           <strong id="notif-res-count" style="color:#D97706;">0</strong>
         </div>
-        <button class="btn-primary" style="background:#854D0E; font-size:11.5px; padding:6px; margin-top:8px;" onclick="document.querySelector('[data-target=\'admin\']').click();">
+        <button class="btn-primary" style="background:#854D0E; font-size:11.5px; padding:6px; margin-top:8px;" onclick="document.getElementById('admin-badge').click();">
           الانتقال إلى لوحة الإشراف للمراجعة 👑
         </button>
       </div>
@@ -1797,7 +1797,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات (بدون خيار رفع الملفات محلياً، روابط فقط) -->
+    <!-- تبويب التجميعات والملخصات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1920,7 +1920,7 @@
       </footer>
     </main>
 
-    <!-- صفحة الإشراف المستقلة (Admin Panel) -->
+    <!-- صفحة الإشراف المستقلة (Dedicated Admin Panel) -->
     <main class="main-content" id="tab-content-admin" style="display: none;">
       <div class="content-header">
         <div>
@@ -1971,25 +1971,25 @@
 
     <!-- شريط التنقل السفلي -->
     <nav class="bottom-nav">
-      <div class="nav-item" data-target="courses">
+      <div class="nav-item" data-target="courses" onclick="switchTab('courses')">
         <span class="icon">📊</span>
         <span>المقررات</span>
       </div>
-      <div class="nav-item" data-target="schedule">
+      <div class="nav-item" data-target="schedule" onclick="switchTab('schedule')">
         <span class="icon">🗓️</span>
         <span>الجدول</span>
       </div>
       
-      <div class="nav-item active" data-target="home">
+      <div class="nav-item active" data-target="home" onclick="switchTab('home')">
         <span class="icon">🏠</span>
         <span>الرئيسية</span>
       </div>
 
-      <div class="nav-item" data-target="resources">
+      <div class="nav-item" data-target="resources" onclick="switchTab('resources')">
         <span class="icon">📚</span>
         <span>التجميعات</span>
       </div>
-      <div class="nav-item" data-target="tasks">
+      <div class="nav-item" data-target="tasks" onclick="switchTab('tasks')">
         <span class="icon">🌳</span>
         <span>المهام</span>
       </div>
@@ -2180,7 +2180,7 @@
     <div id="student-submit-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>📤 مشاركة ملخص أو تجميعة</h3>
+          <h3>📤 مشاركة رابط تجميعة</h3>
           <button id="btn-close-submit-res-modal" class="close-btn">&times;</button>
         </div>
         <form id="student-resource-form">
@@ -2189,7 +2189,7 @@
             <select id="sub-res-course" required></select>
           </div>
           <div class="form-group">
-            <label>عنوان الرابط أو الملخص</label>
+            <label>عنوان الرابط أو التجميعة</label>
             <input type="text" id="sub-res-title" required placeholder="مثال: مراجعة شاملة لقوانين الميد">
           </div>
           <div class="form-group">
@@ -2689,6 +2689,30 @@
     const btnTransitionLevel = document.getElementById("btn-transition-level");
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
+
+    // دالة الانتقال بين التبويبات العامة لضمان عمل كافة الأزرار
+    window.switchTab = function(target) {
+      document.querySelectorAll(".nav-item").forEach(n => {
+        if (n.getAttribute("data-target") === target) n.classList.add("active");
+        else n.classList.remove("active");
+      });
+
+      document.getElementById("tab-content-home").style.display = target === "home" ? "block" : "none";
+      document.getElementById("tab-content-courses").style.display = target === "courses" ? "block" : "none";
+      document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
+      document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
+      document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
+      document.getElementById("tab-content-admin").style.display = target === "admin" ? "block" : "none";
+
+      if (target === "home") renderHomeDashboardUI();
+    };
+
+    document.querySelectorAll(".nav-item").forEach(item => {
+      item.addEventListener("click", () => {
+        const target = item.getAttribute("data-target");
+        switchTab(target);
+      });
+    });
 
     document.querySelectorAll(".modal-overlay").forEach(overlay => {
       overlay.addEventListener("click", (e) => {
@@ -3760,6 +3784,7 @@
       });
     }
 
+    // التنقل السفلي الفعال والمضمون
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
