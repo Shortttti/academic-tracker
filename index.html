@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>جدولي - هندسة الحاسب | جامعة طيبة</title>
+  <title>جدولي الأكاديمي - كلية علوم وهندسة الحاسب</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -118,7 +118,7 @@
       color: var(--text-muted);
     }
 
-    .form-group input, .form-group select {
+    .form-group input, .form-group select, .form-group textarea {
       padding: 11px 13px;
       border: 1.5px solid var(--border-subtle);
       border-radius: 12px;
@@ -127,7 +127,7 @@
       background-color: white;
     }
 
-    .form-group input:focus, .form-group select:focus {
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
       border-color: var(--primary-teal);
     }
 
@@ -148,12 +148,12 @@
 
     .btn-primary {
       width: 100%;
-      padding: 13px;
+      padding: 12px;
       background-color: var(--primary-dark);
       color: white;
       border: none;
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       cursor: pointer;
       margin-top: 6px;
@@ -226,7 +226,13 @@
     .main-content {
       padding: 16px;
       flex: 1;
-      margin-bottom: 70px;
+      margin-bottom: 75px;
+    }
+
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
     }
 
     .content-header h2 {
@@ -240,13 +246,46 @@
       margin-top: 2px;
     }
 
+    /* Level Transition Banner */
+    .level-banner {
+      background: linear-gradient(135deg, #0F766E, #085F56);
+      color: white;
+      padding: 14px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .level-banner-info h4 {
+      font-size: 13.5px;
+      font-weight: 800;
+    }
+
+    .level-banner-info p {
+      font-size: 11px;
+      color: #CCFBF1;
+    }
+
+    .btn-upgrade-level {
+      background: #FEF08A;
+      color: #854D0E;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     /* Summary Card */
     .summary-card {
       background: white;
       border: 1px solid #FECACA;
       border-radius: 18px;
       padding: 18px;
-      margin: 16px 0;
+      margin: 14px 0;
       box-shadow: 0 4px 12px rgba(220, 38, 38, 0.03);
     }
 
@@ -475,7 +514,7 @@
       text-align: left;
     }
 
-    /* Tasks Page Styling */
+    /* Tasks Page */
     .task-filter-bar {
       display: flex;
       gap: 8px;
@@ -542,7 +581,40 @@
       font-weight: bold;
     }
 
-    /* Bottom Nav Bar */
+    /* Pomodoro Timer Widget */
+    .pomodoro-box {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      text-align: center;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 16px;
+    }
+
+    .timer-display {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--primary-dark);
+      margin: 8px 0;
+      letter-spacing: 2px;
+    }
+
+    .timer-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-timer {
+      padding: 6px 18px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    /* Bottom Nav */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -563,7 +635,7 @@
       align-items: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       gap: 3px;
     }
@@ -573,10 +645,10 @@
     }
 
     .nav-item span.icon {
-      font-size: 20px;
+      font-size: 18px;
     }
 
-    /* Modal Styling */
+    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -598,6 +670,8 @@
       border-radius: 24px 24px 0 0;
       padding: 24px;
       animation: slideUp 0.25s ease-out;
+      max-height: 85vh;
+      overflow-y: auto;
     }
 
     @keyframes slideUp {
@@ -642,7 +716,7 @@
 </head>
 <body>
 
-  <!-- شاشة التسجيل والدخول المخصصة لجامعة طيبة -->
+  <!-- شاشة التسجيل والدخول المحايدة لجامعة طيبة -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -659,10 +733,9 @@
       <form id="auth-form">
         <div class="form-group" id="group-name" style="display: none;">
           <label>الاسم الكامل</label>
-          <input type="text" id="auth-name" placeholder="مثال: جوري العروي">
+          <input type="text" id="auth-name" placeholder="اسم الطالب / الطالبة">
         </div>
 
-        <!-- حقول إجبارية ومثبتة لجامعة طيبة وهندسة الحاسب والمستوى 5 -->
         <div class="form-row" id="group-academic" style="display: none;">
           <div class="form-group">
             <label>الجامعة</label>
@@ -695,7 +768,7 @@
 
         <div class="form-group">
           <label>البريد الإلكتروني</label>
-          <input type="email" id="auth-email" required placeholder="name@taibahu.edu.sa">
+          <input type="email" id="auth-email" required placeholder="student@taibahu.edu.sa">
         </div>
 
         <div class="form-group">
@@ -715,22 +788,35 @@
       <div class="header-inner">
         <div class="header-actions">
           <span class="badge-lang">EN</span>
-          <button id="btn-logout" class="btn-header-action">تسجيل خروج</button>
+          <button id="btn-open-feedback" class="btn-header-action" title="اقتراح أو شكوى">📩 اقتراح</button>
+          <button id="btn-logout" class="btn-header-action">خروج</button>
         </div>
         <div class="header-branding">
           <h1 class="brand-title">جدولي</h1>
-          <span id="user-greeting" class="brand-subtitle">كلية علوم وهندسة الحاسب | المستوى 5</span>
+          <span id="user-greeting" class="brand-subtitle">كلية علوم وهندسة الحاسب</span>
         </div>
       </div>
     </header>
 
     <!-- تبويب 1: صفحة المواد والإنجاز -->
     <main class="main-content" id="tab-content-courses">
-      <div class="content-header">
-        <h2>إنجاز المواد</h2>
-        <p>المحاضرات والشباتر التي أخذت حتى اليوم، مرتبة حسب المادة</p>
+      <!-- شريط الترقية للمستوى التالي -->
+      <div class="level-banner" id="level-banner-box">
+        <div class="level-banner-info">
+          <h4 id="current-level-title">المستوى الدراسي: الخامس</h4>
+          <p>عند نهاية الفصل الدراسي يمكنك الترقية وحفظ السجل</p>
+        </div>
+        <button id="btn-upgrade-level-action" class="btn-upgrade-level">ترقية للمستوى 6 🎓</button>
       </div>
 
+      <div class="content-header">
+        <div>
+          <h2>إنجاز المواد</h2>
+          <p>المحاضرات والشباتر التي أخذت حتى اليوم، مرتبة حسب المادة</p>
+        </div>
+      </div>
+
+      <!-- كارت الملخص التراكمي -->
       <section class="summary-card">
         <div class="summary-top">
           <div class="summary-info">
@@ -757,11 +843,24 @@
       <section class="courses-list" id="courses-container"></section>
     </main>
 
-    <!-- تبويب 2: صفحة المهام والواجبات المربوطة بالمواد -->
+    <!-- تبويب 2: المهام والواجبات المربوطة بالمواد ومؤقت المذاكرة -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
+      <!-- مؤقت بومودورو للتركيز والمذاكرة -->
+      <div class="pomodoro-box">
+        <span style="font-size:12px; font-weight:700; color:var(--text-muted);">⏱️ مؤقت التركيز للمذاكرة (Pomodoro)</span>
+        <div class="timer-display" id="pomodoro-timer">25:00</div>
+        <div class="timer-controls">
+          <button id="btn-timer-start" class="btn-timer" style="background:#0F766E; color:white;">بدء</button>
+          <button id="btn-timer-pause" class="btn-timer" style="background:#E2E8F0; color:#334155;">إيقاف</button>
+          <button id="btn-timer-reset" class="btn-timer" style="background:#FEE2E2; color:#DC2626;">إعادة</button>
+        </div>
+      </div>
+
       <div class="content-header">
-        <h2>المهام والتكاليف</h2>
-        <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
+        <div>
+          <h2>المهام والتكاليف</h2>
+          <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
+        </div>
       </div>
 
       <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 14px;">+ إضافة مهمة أو تكليف جديد</button>
@@ -775,17 +874,19 @@
       <div id="tasks-container"></div>
     </main>
 
-    <!-- تبويب 3: حاسبة المعدل المتوقع سريعة -->
+    <!-- تبويب 3: حاسبة المعدل الأكاديمي الحقيقي المعتمد بجامعة طيبة -->
     <main class="main-content" id="tab-content-gpa" style="display: none;">
       <div class="content-header">
-        <h2>حاسبة التقدير الفصلي</h2>
-        <p>تقدير سريع للمعدل الفصلي للمستوى الخامس (18 وحدة معتمدة)</p>
+        <div>
+          <h2>حاسبة المعدل المعتمدة</h2>
+          <p>حساب المعدل الفصلي والتراكمي الفعلي (سلم 5.00 بعدد الساعات المعتمدة)</p>
+        </div>
       </div>
 
       <div id="gpa-calc-container" style="margin-top: 16px;"></div>
     </main>
 
-    <!-- شريط التنقل السفلي (Bottom Navigation) -->
+    <!-- شريط التنقل السفلي -->
     <nav class="bottom-nav">
       <div class="nav-item active" data-target="courses">
         <span class="icon">📊</span>
@@ -793,7 +894,7 @@
       </div>
       <div class="nav-item" data-target="tasks">
         <span class="icon">📝</span>
-        <span>المهام والتكاليف</span>
+        <span>المهام والمؤقت</span>
       </div>
       <div class="nav-item" data-target="gpa">
         <span class="icon">🎯</span>
@@ -813,9 +914,15 @@
             <label>اسم المادة</label>
             <input type="text" id="course-name-input" required placeholder="مثال: هندسة البرمجيات">
           </div>
-          <div class="form-group">
-            <label>رمز المادة</label>
-            <input type="text" id="course-code-input" required placeholder="مثال: CS 300">
+          <div class="form-row">
+            <div class="form-group">
+              <label>رمز المادة</label>
+              <input type="text" id="course-code-input" required placeholder="مثال: CS 300">
+            </div>
+            <div class="form-group">
+              <label>عدد الساعات (Credit Hours)</label>
+              <input type="number" id="course-credits-input" required min="1" max="6" value="3">
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group">
@@ -853,7 +960,7 @@
         <form id="add-task-form">
           <div class="form-group">
             <label>عنوان المهمة</label>
-            <input type="text" id="task-title-input" required placeholder="مثال: حل شيت الواجب 2">
+            <input type="text" id="task-title-input" required placeholder="مثال: تسليم لاب 3">
           </div>
           <div class="form-group">
             <label>المقرر التابع له:</label>
@@ -876,6 +983,39 @@
           </div>
           <button type="submit" class="btn-primary">حفظ المهمة</button>
         </form>
+      </div>
+    </div>
+
+    <!-- مودال الاقتراحات والشكاوى الآلية -->
+    <div id="feedback-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>📩 صندوق الاقتراحات والشكاوى</h3>
+          <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
+          رأيك وملاحظاتك تساهم في تطوير التطبيق لخدمة جميع الطلاب. تُرسل رسالتك آلياً إلى إدارة النظام.
+        </p>
+        <form id="feedback-form">
+          <div class="form-group">
+            <label>نوع الرسالة</label>
+            <select id="fb-type">
+              <option value="اقتراح ميزة جديدة">اقتراح ميزة جديدة 💡</option>
+              <option value="إبلاغ عن خلل أو مشكلة">إبلاغ عن خلل أو مشكلة 🐛</option>
+              <option value="استفسار عام">استفسار عام 💬</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>الموضوع</label>
+            <input type="text" id="fb-subject" required placeholder="عنوان مختصر">
+          </div>
+          <div class="form-group">
+            <label>تفاصيل الرسالة</label>
+            <textarea id="fb-content" rows="4" required placeholder="اكتب اقتراحك أو وصف المشكلة بالتفصيل..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary">إرسال الاقتراح فوراً 🚀</button>
+        </form>
+        <div id="fb-msg-status" style="text-align:center; font-size:12px; margin-top:10px;"></div>
       </div>
     </div>
   </div>
@@ -901,6 +1041,7 @@
       updateDoc, 
       deleteDoc, 
       setDoc, 
+      getDoc,
       onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
@@ -925,6 +1066,7 @@
     let selectedColor = "#8B5CF6";
     let isRegisterMode = false;
     let currentTaskFilter = "all";
+    let currentLevel = 5;
 
     // عناصر الدخول
     const authScreen = document.getElementById("auth-screen");
@@ -950,13 +1092,19 @@
     const tasksContainer = document.getElementById("tasks-container");
     const courseModal = document.getElementById("course-modal");
     const taskModal = document.getElementById("task-modal");
+    const feedbackModal = document.getElementById("feedback-modal");
     const btnOpenCourseModal = document.getElementById("btn-open-course-modal");
     const btnCloseCourseModal = document.getElementById("btn-close-course-modal");
     const btnOpenTaskModal = document.getElementById("btn-open-task-modal");
     const btnCloseTaskModal = document.getElementById("btn-close-task-modal");
+    const btnOpenFeedback = document.getElementById("btn-open-feedback");
+    const btnCloseFeedbackModal = document.getElementById("btn-close-feedback-modal");
     const addCourseForm = document.getElementById("add-course-form");
     const addTaskForm = document.getElementById("add-task-form");
+    const feedbackForm = document.getElementById("feedback-form");
     const taskCourseSelect = document.getElementById("task-course-select");
+    const btnUpgradeLevel = document.getElementById("btn-upgrade-level-action");
+    const currentLevelTitle = document.getElementById("current-level-title");
 
     // تبديل تسجيل الدخول وإنشاء حساب
     tabLogin.addEventListener("click", () => {
@@ -996,23 +1144,21 @@
 
         if (isRegisterMode) {
           const name = authName.value.trim();
-          if (!name) throw new Error("الرجاء إدخال اسمك.");
+          if (!name) throw new Error("الرجاء إدخال الاسم.");
           const userCred = await createUserWithEmailAndPassword(auth, email, pass);
           await updateProfile(userCred.user, { displayName: name });
           
-          // حفظ بيانات الطالب في Firestore
           await setDoc(doc(db, "users", userCred.user.uid), {
             displayName: name,
             email: email,
             university: "جامعة طيبة",
             major: "هندسة الحاسب",
-            level: "سنة 3 - المستوى الخامس",
+            currentLevel: 5,
             createdAt: new Date().toISOString()
           });
 
-          // بذر مواد المستوى الخامس حسب اختيار المستخدم (منجزة أم غير منجزة)
           const isAllCompleted = authDefaultStatus.value === "all";
-          await seedTaibahCourses(userCred.user.uid, isAllCompleted);
+          await seedTaibahCoursesLevel5(userCred.user.uid, isAllCompleted);
         } else {
           await signInWithEmailAndPassword(auth, email, pass);
         }
@@ -1026,12 +1172,23 @@
     btnLogout.addEventListener("click", () => signOut(auth));
 
     // مراقبة تسجيل الدخول
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
         authScreen.style.display = "none";
         mainApp.style.display = "flex";
-        userGreeting.textContent = user.displayName ? `${user.displayName} | هندسة الحاسب` : "جامعة طيبة | المستوى 5";
+
+        // جلب مستوى الطالب
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          currentLevel = data.currentLevel || 5;
+          currentLevelTitle.textContent = `المستوى الدراسي: ${currentLevel == 5 ? 'الخامس' : 'السادس'}`;
+          btnUpgradeLevel.textContent = currentLevel == 5 ? 'ترقية للمستوى 6 🎓' : 'أنت في المستوى السادس ✅';
+          if (currentLevel >= 6) btnUpgradeLevel.disabled = true;
+        }
+
+        userGreeting.textContent = user.displayName ? `${user.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
 
         // استماع المقررات
         onSnapshot(collection(db, "users", user.uid, "courses"), (snapshot) => {
@@ -1055,7 +1212,7 @@
       }
     });
 
-    // تبديل صفحات التطبيق السفلية
+    // التنقل السفلي
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -1067,12 +1224,15 @@
       });
     });
 
-    // نوافذ الإضافة
+    // النوافذ المنبثقة
     btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
     btnCloseCourseModal.addEventListener("click", () => courseModal.classList.remove("open"));
 
     btnOpenTaskModal.addEventListener("click", () => taskModal.classList.add("open"));
     btnCloseTaskModal.addEventListener("click", () => taskModal.classList.remove("open"));
+
+    btnOpenFeedback.addEventListener("click", () => feedbackModal.classList.add("open"));
+    btnCloseFeedbackModal.addEventListener("click", () => feedbackModal.classList.remove("open"));
 
     document.querySelectorAll(".color-dot").forEach(dot => {
       dot.addEventListener("click", () => {
@@ -1082,11 +1242,64 @@
       });
     });
 
+    // ميزة الترقية للمستوى السادس عند انتهاء الفصل
+    btnUpgradeLevel.addEventListener("click", async () => {
+      if (confirm("هل أتممت المستوى الخامس وترغب بالترقية ونقل جدولك للمستوى السادس؟")) {
+        await setDoc(doc(db, "users", currentUser.uid), { currentLevel: 6 }, { merge: true });
+        currentLevel = 6;
+        currentLevelTitle.textContent = "المستوى الدراسي: السادس";
+        btnUpgradeLevel.textContent = "أنت في المستوى السادس ✅";
+        btnUpgradeLevel.disabled = true;
+
+        // بذر مواد المستوى السادس
+        await seedTaibahCoursesLevel6(currentUser.uid);
+        alert("تمت الترقية بنجاح وإضافة مقررات المستوى السادس إلى لوحتك 🚀");
+      }
+    });
+
+    // إرسال الاقتراحات والشكاوى الآلية
+    feedbackForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const statusBox = document.getElementById("fb-msg-status");
+      statusBox.textContent = "جاري الحفظ والإرسال...";
+
+      const fbData = {
+        senderName: currentUser.displayName || "طالب/ـة",
+        senderEmail: currentUser.email || "غير معروف",
+        type: document.getElementById("fb-type").value,
+        subject: document.getElementById("fb-subject").value.trim(),
+        content: document.getElementById("fb-content").value.trim(),
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        // حفظ الشكوى في Firestore
+        await addDoc(collection(db, "feedbacks"), fbData);
+
+        // فتح نافذة الإرسال المباشر للبريد الإلكتروني للرد المباشر
+        const mailtoLink = `mailto:${currentUser.email}?subject=${encodeURIComponent(`[${fbData.type}] ${fbData.subject}`)}&body=${encodeURIComponent(`المرسل: ${fbData.senderName} (${fbData.senderEmail})\n\nالرسالة:\n${fbData.content}`)}`;
+        
+        statusBox.style.color = "green";
+        statusBox.textContent = "تم تسجيل اقتراحك بنجاح وسنعمل عليه في التحديث القادم! شكراً لك ❤️";
+
+        setTimeout(() => {
+          feedbackForm.reset();
+          feedbackModal.classList.remove("open");
+          statusBox.textContent = "";
+        }, 1800);
+
+      } catch (err) {
+        statusBox.style.color = "red";
+        statusBox.textContent = "حدث خطأ أثناء الإرسال، حاول مجدداً.";
+      }
+    });
+
     // إضافة مقرر جديد
     addCourseForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.getElementById("course-name-input").value.trim();
       const code = document.getElementById("course-code-input").value.trim();
+      const credits = parseInt(document.getElementById("course-credits-input").value) || 3;
       const totalLectures = parseInt(document.getElementById("course-lectures-input").value) || 15;
       const chapterCount = parseInt(document.getElementById("course-chapters-input").value) || 5;
 
@@ -1098,6 +1311,7 @@
       await addDoc(collection(db, "users", currentUser.uid, "courses"), {
         name,
         code,
+        credits,
         totalLectures,
         attendedLectures: 0,
         color: selectedColor,
@@ -1148,7 +1362,7 @@
         card.innerHTML = `
           <div class="course-card-header">
             <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
-              ${course.name} (${course.code})
+              ${course.name} (${course.code}) • ${course.credits || 3} س
             </span>
             <span class="course-status-brief">
               أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
@@ -1190,7 +1404,6 @@
 
         card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
 
-        // زيادة ونقص المحاضرات
         card.querySelector(".btn-inc").addEventListener("click", async (e) => {
           e.stopPropagation();
           if (course.attendedLectures < course.totalLectures) {
@@ -1209,7 +1422,6 @@
           }
         });
 
-        // أزرار المرونة: إنجاز الكل وتصفير الكل
         card.querySelector(".btn-mark-all-done").addEventListener("click", async (e) => {
           e.stopPropagation();
           const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
@@ -1228,7 +1440,6 @@
           });
         });
 
-        // تبديل الشابتر
         card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
           checkbox.addEventListener("change", async (e) => {
             e.stopPropagation();
@@ -1257,7 +1468,6 @@
         coursesContainer.appendChild(card);
       });
 
-      // الكارت العلوي
       const missed = totalLecAll - attendedLecAll;
       const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
 
@@ -1266,12 +1476,12 @@
       document.getElementById("overall-percent-label").textContent = `${pct}% نسبة المواكبة`;
 
       const motiv = document.getElementById("motivational-text");
-      if (pct >= 85) motiv.textContent = "أداء مهندسة استثنائي! 🔥 واكبتِ كل المحاضرات";
+      if (pct >= 85) motiv.textContent = "أداء ممتاز جداً! استمر بنفس الحماس 🔥";
       else if (pct >= 50) motiv.textContent = "كأنها هجت شوي 🫣 يبيلك تاخذها وحدة وحدة";
       else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
     }
 
-    // رسم واجهة المهام والواجبات
+    // رسم واجهة المهام
     function renderTasksUI() {
       tasksContainer.innerHTML = "";
 
@@ -1316,7 +1526,6 @@
       });
     }
 
-    // فلترة المهام
     document.querySelectorAll(".filter-chip").forEach(chip => {
       chip.addEventListener("click", () => {
         document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
@@ -1326,7 +1535,6 @@
       });
     });
 
-    // تحديث قائمة المقررات في نافذة المهمة
     function updateTaskSelectOptions() {
       taskCourseSelect.innerHTML = "";
       if (currentCourses.length === 0) {
@@ -1341,126 +1549,146 @@
       });
     }
 
-    // حاسبة المعدل الفصلي التقديرية
+    // حاسبة المعدل الحقيقية بحسب عدد الساعات وسلم جامعة طيبة
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
       gpaBox.innerHTML = `
         <div style="background:white; border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
-          <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">توقعي درجاتك في مقررات الفصل لحساب المعدل الفصلي المباشر (من 5.00):</p>
+          <!-- السجل التراكمي السابق (اختياري) -->
+          <div style="background:#F8FAFC; padding:12px; border-radius:10px; margin-bottom:14px;">
+            <span style="font-size:12px; font-weight:700; color:var(--primary-dark);">حساب المعدل التراكمي الجديد (اختياري):</span>
+            <div style="display:flex; gap:10px; margin-top:6px;">
+              <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid #CBD5E1; border-radius:8px; font-size:12px;">
+              <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid #CBD5E1; border-radius:8px; font-size:12px;">
+            </div>
+          </div>
+
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">حددي التقدير المتوقع لكل مقرر (الحساب بضرب النقاط بالساعات المعتمدة للمادة):</p>
           <div id="gpa-rows">
             ${currentCourses.map(c => `
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <span style="font-size:13px; font-weight:700;">${c.code}</span>
-                <select class="grade-input" style="padding:6px; border-radius:8px; border:1px solid #CBD5E1;">
-                  <option value="5.0">A+ (ممتاز مرتفع)</option>
-                  <option value="4.75">A (ممتاز)</option>
-                  <option value="4.5">B+ (جيد جداً مرتفع)</option>
-                  <option value="4.0">B (جيد جداً)</option>
-                  <option value="3.5">C+ (جيد مرتفع)</option>
-                  <option value="3.0">C (جيد)</option>
+                <div>
+                  <span style="font-size:13px; font-weight:700;">${c.code}</span>
+                  <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits || 3} ساعات)</span>
+                </div>
+                <select class="grade-input" data-credits="${c.credits || 3}" style="padding:6px 10px; border-radius:8px; border:1px solid #CBD5E1; font-size:12.5px;">
+                  <option value="5.0">A+ (5.00)</option>
+                  <option value="4.75">A (4.75)</option>
+                  <option value="4.5">B+ (4.50)</option>
+                  <option value="4.0">B (4.00)</option>
+                  <option value="3.5">C+ (3.50)</option>
+                  <option value="3.0">C (3.00)</option>
+                  <option value="2.5">D+ (2.50)</option>
+                  <option value="2.0">D (2.00)</option>
+                  <option value="1.0">F (1.00)</option>
                 </select>
               </div>
             `).join('')}
           </div>
-          <button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل المتوقع</button>
-          <div id="gpa-result" style="text-align:center; font-size:18px; font-weight:800; color:var(--primary-dark); margin-top:14px;"></div>
+          <button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل الفصلي والتراكمي</button>
+          
+          <div id="gpa-result" style="text-align:center; margin-top:14px; font-weight:800;"></div>
         </div>
       `;
 
       const btnCalc = document.getElementById("btn-calc-gpa");
       if (btnCalc) {
         btnCalc.addEventListener("click", () => {
-          const grades = document.querySelectorAll(".grade-input");
-          if (grades.length === 0) return;
-          let sum = 0;
-          grades.forEach(g => sum += parseFloat(g.value));
-          const avg = (sum / grades.length).toFixed(2);
-          document.getElementById("gpa-result").textContent = `المعدل الفصلي المتوقع: ${avg} من 5.00 🌟`;
+          const rows = document.querySelectorAll(".grade-input");
+          if (rows.length === 0) return;
+
+          let totalQualityPoints = 0;
+          let currentSemesterHours = 0;
+
+          rows.forEach(select => {
+            const points = parseFloat(select.value);
+            const credits = parseFloat(select.getAttribute("data-credits")) || 3;
+            totalQualityPoints += (points * credits);
+            currentSemesterHours += credits;
+          });
+
+          const semesterGPA = (totalQualityPoints / currentSemesterHours).toFixed(2);
+
+          // حساب التراكمي إن وجد
+          const prevGPA = parseFloat(document.getElementById("prev-gpa").value);
+          const prevHours = parseFloat(document.getElementById("prev-hours").value);
+
+          let cumulativeText = "";
+          if (!isNaN(prevGPA) && !isNaN(prevHours) && prevHours > 0) {
+            const prevTotalPoints = prevGPA * prevHours;
+            const newCumulative = ((prevTotalPoints + totalQualityPoints) / (prevHours + currentSemesterHours)).toFixed(2);
+            cumulativeText = `<br><span style="color:#0F766E; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
+          }
+
+          document.getElementById("gpa-result").innerHTML = `
+            <span style="color:var(--primary-dark); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
+            ${cumulativeText}
+          `;
         });
       }
     }
 
-    // بذر مواد خطة المستوى الخامس لهندسة الحاسب بجامعة طيبة
-    async function seedTaibahCourses(userId, isAllCompleted) {
-      const taibahLevel5Courses = [
-        { 
-          name: "تنظيم وبناء الحاسب الآلي (2)", 
-          code: "COE 225", 
-          totalLectures: 24, 
-          attendedLectures: isAllCompleted ? 24 : 0, 
-          color: "#8B5CF6", 
-          chapters: [
-            { id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted },
-            { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted },
-            { id: "c3", title: "Chapter 3: Pipeline Hazards", done: isAllCompleted },
-            { id: "c4", title: "Chapter 4: Advanced Architecture", done: isAllCompleted }
-          ] 
-        },
-        { 
-          name: "قواعد البيانات للمهندسين", 
-          code: "COE 295", 
-          totalLectures: 20, 
-          attendedLectures: isAllCompleted ? 20 : 0, 
-          color: "#0D9488", 
-          chapters: [
-            { id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted },
-            { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted },
-            { id: "c3", title: "Chapter 3: Normalization", done: isAllCompleted }
-          ] 
-        },
-        { 
-          name: "نظم التشغيل", 
-          code: "CS 226", 
-          totalLectures: 28, 
-          attendedLectures: isAllCompleted ? 28 : 0, 
-          color: "#F43F5E", 
-          chapters: [
-            { id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted },
-            { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted },
-            { id: "c3", title: "Chapter 3: Synchronization & Deadlocks", done: isAllCompleted },
-            { id: "c4", title: "Chapter 4: Main Memory & Virtual Memory", done: isAllCompleted }
-          ] 
-        },
-        { 
-          name: "دوائر كهربائية (1)", 
-          code: "EE 201", 
-          totalLectures: 28, 
-          attendedLectures: isAllCompleted ? 28 : 0, 
-          color: "#10B981", 
-          chapters: [
-            { id: "c1", title: "Chapter 1: Basic Circuit Laws & Nodal", done: isAllCompleted },
-            { id: "c2", title: "Chapter 2: Mesh Analysis & Superposition", done: isAllCompleted },
-            { id: "c3", title: "Chapter 3: Thevenin & Norton Equivalent", done: isAllCompleted },
-            { id: "c4", title: "Chapter 4: Capacitors & Inductors", done: isAllCompleted }
-          ] 
-        },
-        { 
-          name: "التخطيط المهني", 
-          code: "GS 311", 
-          totalLectures: 14, 
-          attendedLectures: isAllCompleted ? 14 : 0, 
-          color: "#0284C7", 
-          chapters: [
-            { id: "c1", title: "الوحدة الأولى: إعداد السيرة الذاتية المهنية", done: isAllCompleted },
-            { id: "c2", title: "الوحدة الثانية: مهارات المقابلات الشخصية وتطوير المسار", done: isAllCompleted }
-          ] 
-        },
-        { 
-          name: "الاحتمالات والإحصاء للمهندسين", 
-          code: "STAT 301", 
-          totalLectures: 24, 
-          attendedLectures: isAllCompleted ? 24 : 0, 
-          color: "#F59E0B", 
-          chapters: [
-            { id: "c1", title: "Chapter 1: Sample Space & Probability Laws", done: isAllCompleted },
-            { id: "c2", title: "Chapter 2: Discrete Random Variables", done: isAllCompleted },
-            { id: "c3", title: "Chapter 3: Continuous Probability Distributions", done: isAllCompleted }
-          ] 
+    // مؤقت Pomodoro التفاعلي
+    let timerDuration = 25 * 60;
+    let timerInterval = null;
+    const timerDisplay = document.getElementById("pomodoro-timer");
+
+    document.getElementById("btn-timer-start").addEventListener("click", () => {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        if (timerDuration > 0) {
+          timerDuration--;
+          const m = Math.floor(timerDuration / 60).toString().padStart(2, '0');
+          const s = (timerDuration % 60).toString().padStart(2, '0');
+          timerDisplay.textContent = `${m}:${s}`;
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          alert("انتهت جلسة التركيز! خذ استراحة قصيرة 5 دقائق ☕");
         }
+      }, 1000);
+    });
+
+    document.getElementById("btn-timer-pause").addEventListener("click", () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    });
+
+    document.getElementById("btn-timer-reset").addEventListener("click", () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerDuration = 25 * 60;
+      timerDisplay.textContent = "25:00";
+    });
+
+    // بذر مواد المستوى الخامس (حسب جدولك الحقيقي)
+    async function seedTaibahCoursesLevel5(userId, isAllCompleted) {
+      const courses = [
+        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#8B5CF6", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }, { id: "c3", title: "Chapter 3: Pipeline Hazards", done: isAllCompleted }] },
+        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 20, attendedLectures: isAllCompleted ? 20 : 0, color: "#0D9488", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted }, { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted }] },
+        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, color: "#F43F5E", chapters: [{ id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted }, { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted }, { id: "c3", title: "Chapter 3: Synchronization", done: isAllCompleted }] },
+        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, color: "#10B981", chapters: [{ id: "c1", title: "Chapter 1: Nodal & Mesh Analysis", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Superposition & Thevenin", done: isAllCompleted }] },
+        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 14, attendedLectures: isAllCompleted ? 14 : 0, color: "#0284C7", chapters: [{ id: "c1", title: "الوحدة الأولى: السيرة الذاتية المهنية", done: isAllCompleted }, { id: "c2", title: "الوحدة الثانية: مهارات المقابلات الوظيفية", done: isAllCompleted }] },
+        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#F59E0B", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Random Variables & Distributions", done: isAllCompleted }] }
       ];
 
-      for (const course of taibahLevel5Courses) {
-        await addDoc(collection(db, "users", userId, "courses"), course);
+      for (const c of courses) {
+        await addDoc(collection(db, "users", userId, "courses"), c);
+      }
+    }
+
+    // بذر مواد المستوى السادس عند الترقية (الخطة الرسمية لهندسة الحاسب)
+    async function seedTaibahCoursesLevel6(userId) {
+      const level6Courses = [
+        { name: "الأنظمة المدمجة", code: "COE 321", credits: 4, totalLectures: 28, attendedLectures: 0, color: "#6366F1", chapters: [{ id: "c1", title: "Chapter 1: Microcontroller Architecture", done: false }, { id: "c2", title: "Chapter 2: GPIO & Interfacing", done: false }] },
+        { name: "شبكات الحاسب للمهندسين", code: "COE 341", credits: 4, totalLectures: 28, attendedLectures: 0, color: "#0EA5E9", chapters: [{ id: "c1", title: "Chapter 1: OSI & TCP/IP Models", done: false }, { id: "c2", title: "Chapter 2: IP Addressing & Subnetting", done: false }] },
+        { name: "إلكترونيات (1)", code: "EE 202", credits: 4, totalLectures: 28, attendedLectures: 0, color: "#10B981", chapters: [{ id: "c1", title: "Chapter 1: Semiconductor Diodes", done: false }, { id: "c2", title: "Chapter 2: BJT & MOSFET Amplifiers", done: false }] },
+        { name: "الإشارات والأنظمة", code: "EE 301", credits: 3, totalLectures: 24, attendedLectures: 0, color: "#F59E0B", chapters: [{ id: "c1", title: "Chapter 1: Continuous & Discrete Signals", done: false }, { id: "c2", title: "Chapter 2: Fourier & Laplace Transforms", done: false }] },
+        { name: "الكتابة التقنية والمهنية", code: "ENG 202", credits: 2, totalLectures: 14, attendedLectures: 0, color: "#84CC16", chapters: [{ id: "c1", title: "Unit 1: Technical Report Writing", done: false }] }
+      ];
+
+      for (const c of level6Courses) {
+        await addDoc(collection(db, "users", userId, "courses"), c);
       }
     }
   </script>
