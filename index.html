@@ -2786,18 +2786,6 @@
       authError.textContent = "";
     });
 
-    btnAppleLogin.addEventListener("click", async () => {
-      authError.textContent = "";
-      try {
-        await setPersistence(auth, browserLocalPersistence);
-        const result = await signInWithPopup(auth, appleProvider);
-        const user = result.user;
-        await handleSocialLogin(user);
-      } catch (err) {
-        authError.textContent = err.message || "تعذر تسجيل الدخول بحساب Apple.";
-      }
-    });
-
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
