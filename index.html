@@ -50,7 +50,10 @@
       padding: 0;
       font-family: var(--font-family);
       -webkit-tap-highlight-color: transparent;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+      transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                  color 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                  border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.15s ease;
     }
 
     body {
@@ -122,6 +125,8 @@
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0,0,0,0.03);
     }
+
+    .btn-google:active { transform: scale(0.98); }
 
     .btn-google svg {
       width: 20px;
@@ -224,6 +229,8 @@
       margin-top: 6px;
     }
 
+    .btn-primary:active { transform: scale(0.98); }
+
     .error-msg {
       color: var(--primary-red);
       font-size: 12px;
@@ -266,7 +273,8 @@
       gap: 4px;
     }
 
-    /* الصورة المصغرة في الهيدر */
+    .btn-header-action:active { transform: scale(0.95); }
+
     .user-profile-btn {
       display: flex;
       align-items: center;
@@ -276,6 +284,8 @@
       padding: 3px 8px 3px 4px;
       border-radius: 20px;
     }
+
+    .user-profile-btn:active { transform: scale(0.96); }
 
     .user-avatar-mini {
       width: 28px;
@@ -364,7 +374,13 @@
     .main-content {
       padding: 16px;
       flex: 1;
-      margin-bottom: 75px;
+      margin-bottom: 85px;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .content-header {
@@ -383,6 +399,105 @@
       font-size: 12px;
       color: var(--text-muted);
       margin-top: 2px;
+    }
+
+    /* ========================================== */
+    /* كروت وخصائص صفحة الرئيسية (Home Dashboard) */
+    /* ========================================== */
+    .home-hero-card {
+      background: linear-gradient(135deg, var(--card-bg), var(--subtle-bg));
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+
+    .home-hero-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid var(--primary-teal);
+      background: #0F766E;
+    }
+
+    .home-hero-info h3 {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .home-hero-info p {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .home-widget-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .home-widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .home-widget-title {
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .home-quick-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .home-stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .home-stat-card span.stat-num {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--primary-teal);
+      display: block;
+    }
+
+    .home-stat-card span.stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .daily-quote-card {
+      background: linear-gradient(135deg, rgba(13, 148, 136, 0.08), rgba(8, 95, 86, 0.12));
+      border: 1px dashed var(--primary-teal);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-teal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
     }
 
     .sort-bar {
@@ -766,7 +881,7 @@
       display: block;
     }
 
-    /* صفحة التجميعات والملخصات */
+    /* صفحة التجميعات */
     .admin-controls-card {
       background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(8, 95, 86, 0.15));
       border: 1.5px dashed var(--primary-teal);
@@ -1175,6 +1290,9 @@
       letter-spacing: 1px;
     }
 
+    /* ========================================== */
+    /* شريط التنقل السفلي مع بروز زر الرئيسية */
+    /* ========================================== */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1195,9 +1313,11 @@
       align-items: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 700;
       gap: 2px;
+      flex: 1;
+      padding: 4px 0;
     }
 
     .nav-item.active {
@@ -1206,6 +1326,29 @@
 
     .nav-item span.icon {
       font-size: 16px;
+    }
+
+    /* زر الرئيسية البارز في المنتصف (Floating Center Action Button) */
+    .nav-item.nav-item-home {
+      position: relative;
+      top: -12px;
+    }
+
+    .nav-item-home .home-icon-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--primary-dark);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(8, 95, 86, 0.35);
+      border: 3px solid var(--card-bg);
+    }
+
+    .nav-item.active .home-icon-circle {
+      background: var(--primary-teal);
     }
 
     .modal-overlay {
@@ -1274,7 +1417,6 @@
       transform: scale(1.1);
     }
 
-    /* أزرار خيارات الصورة */
     .option-selector-row {
       display: flex;
       gap: 8px;
@@ -1298,6 +1440,20 @@
       border-color: var(--primary-teal);
       background: rgba(13, 148, 136, 0.1);
       color: var(--primary-teal);
+    }
+
+    /* أزرار التبديل لتفضيلات الودجات */
+    .pref-switch-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .pref-switch-row span {
+      font-size: 12px;
+      font-weight: 700;
     }
   </style>
 </head>
@@ -1377,7 +1533,7 @@
     </div>
   </div>
 
-  <!-- الشاشة الرئيسية -->
+  <!-- الشاشة الرئيسية للتطبيق -->
   <div id="main-app" class="app-container" style="display: none;">
     
     <div id="global-broadcast-banner" class="broadcast-banner">
@@ -1388,7 +1544,7 @@
     <header class="app-header">
       <div class="header-inner">
         <div class="header-actions">
-          <div id="btn-open-profile" class="user-profile-btn" title="الملف الشخصي">
+          <div id="btn-open-profile" class="user-profile-btn" title="الملف الشخصي والتفضيلات">
             <img id="header-avatar" class="user-avatar-mini" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" alt="Avatar">
             <span id="header-name-display" style="font-size:11.5px; font-weight:bold;">حسابي</span>
           </div>
@@ -1406,8 +1562,96 @@
       </div>
     </header>
 
-    <!-- تبويب 1: المقررات والإنجاز -->
-    <main class="main-content" id="tab-content-courses">
+    <!-- ============================================================ -->
+    <!-- تبويب الصفحة الرئيسية (Home Dashboard) في المنتصف -->
+    <!-- ============================================================ -->
+    <main class="main-content" id="tab-content-home">
+      
+      <!-- كارت الترحيب الشخصي بالاسم والصورة -->
+      <div class="home-hero-card">
+        <img id="home-hero-avatar-img" class="home-hero-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" alt="Avatar">
+        <div class="home-hero-info">
+          <h3 id="home-greeting-name">أهلاً بك يا مهندس/ـة ✨</h3>
+          <p id="home-today-date-text">جاري قراءة تقويم اليوم...</p>
+        </div>
+      </div>
+
+      <!-- بطاقة إرشادية وترحيبية خاصة للطلاب الجدد -->
+      <div id="new-user-welcome-box" class="daily-quote-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
+        <span>👋</span>
+        <div>
+          <strong>مرحباً بك في منصة جدولي!</strong>
+          <span style="font-size:11px; display:block; opacity:0.9;">تم تجهيز موادك تلقائياً؛ يمكنك متابعة حضور المحاضرات، إدارة جدولك الأسبوعي، والوصول للتجميعات بكل سهولة.</span>
+        </div>
+      </div>
+
+      <!-- ويدجت الاقتباس التحفيزي اليومي (يمكن إخفاؤه من التفضيلات) -->
+      <div id="home-widget-quote" class="daily-quote-card">
+        <span>💡</span>
+        <span id="daily-quote-text">"الهندسة ليست مجرد أرقام وكود، بل شغف بحل أصعب التحديات."</span>
+      </div>
+
+      <!-- ويدجت مؤشر الحضور السريع ونقاط التركيز (اختياري) -->
+      <div id="home-widget-stats" class="home-quick-stat-grid">
+        <div class="home-stat-card">
+          <span class="stat-num" id="home-quick-attendance">0%</span>
+          <span class="stat-label">نسبة المواكبة الإجمالية</span>
+        </div>
+        <div class="home-stat-card">
+          <span class="stat-num" id="home-quick-points">0</span>
+          <span class="stat-label">نقاط غرس الإنجاز ⭐</span>
+        </div>
+      </div>
+
+      <!-- قسم محاضرات اليوم الحية التلقائية -->
+      <div class="home-widget-box">
+        <div class="home-widget-header">
+          <div class="home-widget-title">
+            <span>📍</span>
+            <span id="home-today-classes-heading">محاضرات اليوم</span>
+          </div>
+          <span id="home-today-classes-count" style="font-size:11px; font-weight:700; color:var(--text-muted);">0 محاضرات</span>
+        </div>
+        <div id="home-today-lectures-list">
+          <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">جاري تحميل محاضراتك...</p>
+        </div>
+      </div>
+
+      <!-- قسم المهام والتكاليف العاجلة القادمة (اختياري) -->
+      <div id="home-widget-tasks" class="home-widget-box">
+        <div class="home-widget-header">
+          <div class="home-widget-title">
+            <span>📝</span>
+            <span>المهام والتكاليف القريبة</span>
+          </div>
+          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target=\'tasks\']').click();">عرض الكل ↗</span>
+        </div>
+        <div id="home-urgent-tasks-list">
+          <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد مهام عاجلة في الوقت الحالي 🎉</p>
+        </div>
+      </div>
+
+      <!-- قسم الجديد في التجميعات والإعلانات (اختياري) -->
+      <div id="home-widget-news" class="home-widget-box">
+        <div class="home-widget-header">
+          <div class="home-widget-title">
+            <span>✨</span>
+            <span>الجديد في التجميعات</span>
+          </div>
+          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target=\'resources\']').click();">تصفح ↗</span>
+        </div>
+        <div id="home-latest-resources-list">
+          <p style="font-size:12px; color:var(--text-muted); text-align:center;">جاري جلب أحدث الملخصات المعتمدة...</p>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+      </footer>
+    </main>
+
+    <!-- تبويب المقررات والإنجاز -->
+    <main class="main-content" id="tab-content-courses" style="display: none;">
       <div id="exam-countdown-box" class="countdown-widget">
         <div class="countdown-info">
           <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
@@ -1474,7 +1718,7 @@
       </footer>
     </main>
 
-    <!-- تبويب 2: الجدول الدراسي الأسبوعي -->
+    <!-- تبويب الجدول الدراسي الأسبوعي -->
     <main class="main-content" id="tab-content-schedule" style="display: none;">
       <div class="content-header">
         <div>
@@ -1499,7 +1743,7 @@
       </footer>
     </main>
 
-    <!-- تبويب 3: التجميعات والملخصات -->
+    <!-- تبويب التجميعات والملخصات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1550,7 +1794,7 @@
       </footer>
     </main>
 
-    <!-- تبويب 4: المهام ومؤقت غرس الإنجاز -->
+    <!-- تبويب المهام ومؤقت غرس الإنجاز -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
       <div class="cram-planner-card">
         <div class="cram-planner-header">
@@ -1642,7 +1886,7 @@
       </footer>
     </main>
 
-    <!-- تبويب 5: حاسبة المعدل -->
+    <!-- تبويب حاسبة المعدل -->
     <main class="main-content" id="tab-content-gpa" style="display: none;">
       <div class="content-header">
         <div>
@@ -1657,9 +1901,11 @@
       </footer>
     </main>
 
-    <!-- شريط التنقل السفلي -->
+    <!-- ============================================================ -->
+    <!-- شريط التنقل السفلي المطور 5 تابات مع بروز زر الرئيسية بالنص -->
+    <!-- ============================================================ -->
     <nav class="bottom-nav">
-      <div class="nav-item active" data-target="courses">
+      <div class="nav-item" data-target="courses">
         <span class="icon">📊</span>
         <span>المقررات</span>
       </div>
@@ -1667,23 +1913,26 @@
         <span class="icon">🗓️</span>
         <span>الجدول</span>
       </div>
+
+      <!-- الزر المركزي البارز: الرئيسية (Home) -->
+      <div class="nav-item nav-item-home active" data-target="home">
+        <div class="home-icon-circle">
+          <span style="font-size: 20px;">🏠</span>
+        </div>
+        <span style="font-weight: 800; font-size: 9.5px;">الرئيسية</span>
+      </div>
+
       <div class="nav-item" data-target="resources">
         <span class="icon">📚</span>
         <span>التجميعات</span>
       </div>
       <div class="nav-item" data-target="tasks">
         <span class="icon">🌳</span>
-        <span>المهام والمؤقت</span>
-      </div>
-      <div class="nav-item" data-target="gpa">
-        <span class="icon">🎯</span>
-        <span>المعدل</span>
+        <span>المهام</span>
       </div>
     </nav>
 
-    <!-- ============================================================ -->
-    <!-- استوديو تخصيص وتحميل صورة الجدول الدراسي (عمودي/أفقي، فاتح/داكن) -->
-    <!-- ============================================================ -->
+    <!-- استوديو تصميم صورة الجدول الدراسي -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1706,33 +1955,27 @@
           <button class="option-btn" id="btn-opt-light">☀️ فاتح نقي (Light)</button>
         </div>
 
-        <div style="background:var(--subtle-bg); padding:10px; border-radius:12px; font-size:11.5px; color:var(--text-muted); margin-bottom:14px;">
-          ✨ تحتفظ كل مادة بلونها الأصلي المخصص لها في الجدول لسهولة تمييز القاعات والمحاضرات.
-        </div>
-
         <button id="btn-execute-download" class="btn-primary" style="background:#0F766E;">
           📥 تنزيل صورة الجدول الفخمة بجودة HD
         </button>
       </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- مودال الملف الشخصي المتكامل (تعديل الاسم والصورة والنبذة) -->
-    <!-- ============================================================ -->
+    <!-- مودال الملف الشخصي المتكامل وتخصيص الودجات -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>👤 الملف الشخصي والتخصيص</h3>
+          <h3>👤 الملف الشخصي وتفضيلات الودجات</h3>
           <button id="btn-close-profile-modal" class="close-btn">&times;</button>
         </div>
         <form id="profile-edit-form">
           <div style="text-align:center; margin-bottom:14px;">
-            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:3px solid var(--primary-teal); background:#0F766E; margin-bottom:6px;" alt="Avatar">
-            <span style="font-size:11px; color:var(--text-muted); display:block;">تخصيص الصورة الشخصية (الأفتار)</span>
+            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:68px; height:68px; border-radius:50%; object-fit:cover; border:3px solid var(--primary-teal); background:#0F766E; margin-bottom:6px;" alt="Avatar">
+            <span style="font-size:11px; color:var(--text-muted); display:block;">تخصيص الصورة الشخصية</span>
           </div>
 
           <div class="form-group">
-            <label>الاسم الكامل (المعروض بالجدول ولوحة الشرف)</label>
+            <label>الاسم الكامل</label>
             <input type="text" id="profile-name-input" required placeholder="اسمك الكريم">
           </div>
 
@@ -1742,27 +1985,49 @@
           </div>
 
           <div class="form-group">
-            <label>رابط الصورة الشخصية (أو اختر من التشكيلة الجاهزة بالأسفل):</label>
+            <label>رابط الصورة الشخصية:</label>
             <input type="url" id="profile-avatar-url" placeholder="https://...">
           </div>
 
           <div class="form-group">
-            <label>أو رفع صورة من جهازك مباشرة:</label>
+            <label>أو رفع صورة من جهازك:</label>
             <input type="file" id="profile-avatar-file" accept="image/*" style="font-size:11.5px; padding:6px;">
           </div>
 
           <div style="margin-bottom:14px;">
             <span style="font-size:11px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:6px;">أفتارات هندسية سريعة:</span>
             <div style="display:flex; gap:8px; justify-content:center;">
-              <img class="quick-avatar-choice" data-seed="tech" src="https://api.dicebear.com/7.x/bottts/svg?seed=tech" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-              <img class="quick-avatar-choice" data-seed="cyber" src="https://api.dicebear.com/7.x/bottts/svg?seed=cyber" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-              <img class="quick-avatar-choice" data-seed="coder" src="https://api.dicebear.com/7.x/bottts/svg?seed=coder" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-              <img class="quick-avatar-choice" data-seed="engineer" src="https://api.dicebear.com/7.x/bottts/svg?seed=engineer" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
-              <img class="quick-avatar-choice" data-seed="robot" src="https://api.dicebear.com/7.x/bottts/svg?seed=robot" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="tech" src="https://api.dicebear.com/7.x/bottts/svg?seed=tech" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="cyber" src="https://api.dicebear.com/7.x/bottts/svg?seed=cyber" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="coder" src="https://api.dicebear.com/7.x/bottts/svg?seed=coder" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="engineer" src="https://api.dicebear.com/7.x/bottts/svg?seed=engineer" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="robot" src="https://api.dicebear.com/7.x/bottts/svg?seed=robot" style="width:34px; height:34px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
             </div>
           </div>
 
-          <button type="submit" class="btn-primary">حفظ تحديثات الملف الشخصي ✅</button>
+          <!-- تفضيلات ودجات الصفحة الرئيسية (إظهار/إخفاء حسب الرغبة) -->
+          <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
+            <span style="font-size:12px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:6px;">⚙️ تخصيص بطاقات الصفحة الرئيسية:</span>
+            
+            <div class="pref-switch-row">
+              <span>إظهار الاقتباس التحفيزي اليومي 💡</span>
+              <input type="checkbox" id="pref-show-quote" checked>
+            </div>
+            <div class="pref-switch-row">
+              <span>إظهار إحصائيات الحضور ونقاط التركيز 📊</span>
+              <input type="checkbox" id="pref-show-stats" checked>
+            </div>
+            <div class="pref-switch-row">
+              <span>إظهار المهام والتكاليف القريبة 📝</span>
+              <input type="checkbox" id="pref-show-tasks" checked>
+            </div>
+            <div class="pref-switch-row">
+              <span>إظهار الجديد في التجميعات والإعلانات ✨</span>
+              <input type="checkbox" id="pref-show-news" checked>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary">حفظ وتطبيق التفضيلات ✅</button>
         </form>
       </div>
     </div>
@@ -2069,7 +2334,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق البرمجي المتكامل -->
+  <!-- منطق التطبيق الكامل -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -2162,6 +2427,15 @@
       ]
     };
 
+    // باقة اقتباسات هندسية تحفيزية
+    const ENGINEERING_QUOTES = [
+      "الهندسة ليست مجرد أرقام وكود، بل شغف بحل أصعب التحديات.",
+      "كل سطر كود تكتبه اليوم يبني مهندس المستقبل الذي تطمح أن تكونه.",
+      "العالم يصنعه أولئك الذين يجرؤون على التفكير كمهندسين.",
+      "التفوق ليس ضربة حظ، بل استمرار وانضباط في كل محاضرة وشابتر.",
+      "مهندس الحاسب يرى في الأخطاء البرمجية فرصة للابتكار والإبداع."
+    ];
+
     let currentUser = null;
     let currentCourses = [];
     let currentTasks = [];
@@ -2177,9 +2451,16 @@
     let isAdmin = false;
     let countdownInterval = null;
 
-    // خيارات تصدير الصورة
-    let exportOrientation = "portrait"; // "portrait" أو "landscape"
-    let exportTheme = "dark";           // "dark" أو "light"
+    let exportOrientation = "portrait";
+    let exportTheme = "dark";
+
+    // تفضيلات ظهور الودجات الافتراضية
+    let userWidgetPrefs = {
+      showQuote: true,
+      showStats: true,
+      showTasks: true,
+      showNews: true
+    };
 
     // عناصر الصفحة
     const authScreen = document.getElementById("auth-screen");
@@ -2215,6 +2496,30 @@
     const profileBioInput = document.getElementById("profile-bio-input");
     const profileAvatarUrl = document.getElementById("profile-avatar-url");
     const profileAvatarFile = document.getElementById("profile-avatar-file");
+
+    // تفضيلات الودجات
+    const prefShowQuote = document.getElementById("pref-show-quote");
+    const prefShowStats = document.getElementById("pref-show-stats");
+    const prefShowTasks = document.getElementById("pref-show-tasks");
+    const prefShowNews = document.getElementById("pref-show-news");
+
+    // عناصر الصفحة الرئيسية
+    const homeHeroAvatarImg = document.getElementById("home-hero-avatar-img");
+    const homeGreetingName = document.getElementById("home-greeting-name");
+    const homeTodayDateText = document.getElementById("home-today-date-text");
+    const newUserWelcomeBox = document.getElementById("new-user-welcome-box");
+    const homeWidgetQuote = document.getElementById("home-widget-quote");
+    const dailyQuoteText = document.getElementById("daily-quote-text");
+    const homeWidgetStats = document.getElementById("home-widget-stats");
+    const homeQuickAttendance = document.getElementById("home-quick-attendance");
+    const homeQuickPoints = document.getElementById("home-quick-points");
+    const homeTodayClassesHeading = document.getElementById("home-today-classes-heading");
+    const homeTodayClassesCount = document.getElementById("home-today-classes-count");
+    const homeTodayLecturesList = document.getElementById("home-today-lectures-list");
+    const homeWidgetTasks = document.getElementById("home-widget-tasks");
+    const homeUrgentTasksList = document.getElementById("home-urgent-tasks-list");
+    const homeWidgetNews = document.getElementById("home-widget-news");
+    const homeLatestResourcesList = document.getElementById("home-latest-resources-list");
 
     const coursesContainer = document.getElementById("courses-container");
     const tasksContainer = document.getElementById("tasks-container");
@@ -2376,6 +2681,8 @@
             currentLevel: 5,
             points: 0,
             treesGrown: 0,
+            widgetPrefs: userWidgetPrefs,
+            isNewUser: true,
             createdAt: new Date().toISOString()
           });
           await seedInitialLevel5(user.uid, false);
@@ -2416,6 +2723,8 @@
             currentLevel: 5,
             points: 0,
             treesGrown: 0,
+            widgetPrefs: userWidgetPrefs,
+            isNewUser: true,
             createdAt: new Date().toISOString()
           });
 
@@ -2482,18 +2791,33 @@
             document.getElementById("user-points-display").textContent = `${data.points || 0} نقطة`;
             document.getElementById("trees-grown-count").textContent = `${data.treesGrown || 0}`;
             
-            // تحديث واجهة الملف الشخصي في الهيدر
             const avatarUrl = data.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`;
             headerAvatar.src = avatarUrl;
+            homeHeroAvatarImg.src = avatarUrl;
             profileAvatarPreview.src = avatarUrl;
             headerNameDisplay.textContent = (data.displayName || "حسابي").split(" ")[0];
+            homeGreetingName.textContent = `مرحباً بك يا مهندس/ـة ${data.displayName || ''} ✨`;
             profileNameInput.value = data.displayName || "";
             profileBioInput.value = data.bio || "";
             profileAvatarUrl.value = data.photoURL || "";
 
             userGreeting.textContent = data.displayName ? `${data.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
 
+            // قراءة تفضيلات الودجات
+            if (data.widgetPrefs) {
+              userWidgetPrefs = { ...userWidgetPrefs, ...data.widgetPrefs };
+            }
+            applyUserWidgetPrefsUI();
+
+            // إظهار رسالة الترحيب للجدد
+            if (data.isNewUser) {
+              newUserWelcomeBox.style.display = "flex";
+            } else {
+              newUserWelcomeBox.style.display = "none";
+            }
+
             updateLevelUIState();
+            renderHomeDashboardUI();
           }
         });
 
@@ -2507,18 +2831,21 @@
           updateAllCourseDropdowns();
           renderGPACalculator();
           renderPublicResourcesUI();
+          renderHomeDashboardUI();
         });
 
         onSnapshot(collection(db, "users", user.uid, "tasks"), (snapshot) => {
           currentTasks = [];
           snapshot.forEach(d => currentTasks.push({ id: d.id, ...d.data() }));
           renderTasksUI();
+          renderHomeDashboardUI();
         });
 
         onSnapshot(collection(db, "users", user.uid, "schedule"), (snapshot) => {
           currentScheduleSlots = [];
           snapshot.forEach(d => currentScheduleSlots.push({ id: d.id, ...d.data() }));
           renderScheduleUI();
+          renderHomeDashboardUI();
         });
 
         onSnapshot(collection(db, "public_resources"), (snapshot) => {
@@ -2534,6 +2861,7 @@
           });
           renderPublicResourcesUI();
           if (isAdmin) renderPendingApprovalsUI();
+          renderHomeDashboardUI();
         });
 
         onSnapshot(doc(db, "system_configs", "alerts"), (snap) => {
@@ -2552,7 +2880,137 @@
     });
 
     // ============================================================
-    // إدارة الملف الشخصي (تعديل الاسم والأفتار والنبذة)
+    // إدارة وبناء الصفحة الرئيسية (Home Dashboard)
+    // ============================================================
+    function renderHomeDashboardUI() {
+      // 1. تقويم وتاريخ اليوم
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      homeTodayDateText.textContent = `📅 ${now.toLocaleDateString('ar-SA', options)}`;
+
+      // 2. اقتباس عشوائي متجدد
+      const randomQuote = ENGINEERING_QUOTES[now.getDate() % ENGINEERING_QUOTES.length];
+      dailyQuoteText.textContent = `"${randomQuote}"`;
+
+      // 3. إحصائيات الحضور ونقاط التركيز
+      let totalLecAll = 0;
+      let attendedLecAll = 0;
+      currentCourses.forEach(c => {
+        totalLecAll += (c.totalLectures || 0);
+        attendedLecAll += (c.attendedLectures || 0);
+      });
+      const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
+      homeQuickAttendance.textContent = `${pct}%`;
+      homeQuickPoints.textContent = document.getElementById("user-points-display").textContent.replace(" نقطة", "") || "0";
+
+      // 4. فحص محاضرات اليوم (الأحد - الخميس)
+      const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
+      const currentDayArabic = daysMap[now.getDay()];
+
+      homeTodayLecturesList.innerHTML = "";
+
+      if (!currentDayArabic) {
+        // الجمعة أو السبت = عطلة نهاية الأسبوع
+        homeTodayClassesHeading.textContent = "إجازة نهاية الأسبوع ☕";
+        homeTodayClassesCount.textContent = "Off";
+        homeTodayLecturesList.innerHTML = `
+          <div style="text-align:center; padding:16px 10px; background:var(--subtle-bg); border-radius:12px;">
+            <span style="font-size:24px;">🌴</span>
+            <p style="font-size:12.5px; font-weight:800; margin-top:4px;">استمتع بعطلة نهاية الأسبوع!</p>
+            <p style="font-size:11px; color:var(--text-muted);">لا توجد محاضرات مجدولة اليوم، خذ قسطاً من الراحة واستعد للأسبوع القادم.</p>
+          </div>
+        `;
+      } else {
+        homeTodayClassesHeading.textContent = `محاضرات اليوم (${currentDayArabic})`;
+        const todaySlots = currentScheduleSlots.filter(s => s.day === currentDayArabic);
+        todaySlots.sort((a, b) => a.startTime.localeCompare(b.startTime));
+        homeTodayClassesCount.textContent = `${todaySlots.length} محاضرات`;
+
+        if (todaySlots.length === 0) {
+          homeTodayLecturesList.innerHTML = `
+            <div style="text-align:center; padding:14px; background:var(--subtle-bg); border-radius:12px;">
+              <p style="font-size:12px; color:var(--text-muted); font-weight:700;">لا توجد محاضرات مجدولة لك اليوم (${currentDayArabic}) ☕</p>
+            </div>
+          `;
+        } else {
+          todaySlots.forEach(slot => {
+            const row = document.createElement("div");
+            row.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:12px; padding:10px 12px; margin-bottom:8px;";
+            row.innerHTML = `
+              <div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="width:8px; height:8px; border-radius:50%; background:${slot.color};"></span>
+                  <strong style="font-size:13px;">${slot.courseName} (${slot.courseCode})</strong>
+                </div>
+                <span style="font-size:11px; color:var(--text-muted); display:block; margin-top:2px;">
+                  📍 قاعة: ${slot.room} • ${slot.building}
+                </span>
+              </div>
+              <span style="font-size:12px; font-weight:800; color:var(--primary-teal); background:rgba(13,148,136,0.1); padding:4px 8px; border-radius:8px;">
+                ⏰ ${slot.startTime}
+              </span>
+            `;
+            homeTodayLecturesList.appendChild(row);
+          });
+        }
+      }
+
+      // 5. المهام والتكاليف القريبة
+      homeUrgentTasksList.innerHTML = "";
+      const pendingTasks = currentTasks.filter(t => !t.completed).slice(0, 3);
+      if (pendingTasks.length === 0) {
+        homeUrgentTasksList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px 0;">لا توجد مهام أو واجبات معلقة حالياً 🎉</p>`;
+      } else {
+        pendingTasks.forEach(task => {
+          const tRow = document.createElement("div");
+          tRow.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--subtle-bg); padding:8px 12px; border-radius:10px; margin-bottom:6px; font-size:12px;";
+          tRow.innerHTML = `
+            <div>
+              <strong>${task.title}</strong>
+              <span style="font-size:10.5px; color:var(--text-muted); display:block;">${task.courseCode} • 📅 ${task.dueDate}</span>
+            </div>
+            <span class="resource-type-badge">${task.type}</span>
+          `;
+          homeUrgentTasksList.appendChild(tRow);
+        });
+      }
+
+      // 6. الجديد في التجميعات
+      homeLatestResourcesList.innerHTML = "";
+      const latestRes = publicResources.slice(0, 3);
+      if (latestRes.length === 0) {
+        homeLatestResourcesList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px 0;">لا توجد تجميعات منشورة مؤخراً.</p>`;
+      } else {
+        latestRes.forEach(r => {
+          const rRow = document.createElement("div");
+          rRow.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--subtle-bg); padding:8px 12px; border-radius:10px; margin-bottom:6px; font-size:12px;";
+          rRow.innerHTML = `
+            <div>
+              <strong style="color:var(--text-main);">${r.title}</strong>
+              <span style="font-size:10px; color:var(--text-muted); display:block;">مقرر: ${r.courseCode}</span>
+            </div>
+            <a href="${r.url}" target="_blank" style="color:var(--primary-teal); font-weight:bold; text-decoration:none; font-size:11px;">فتح ↗</a>
+          `;
+          homeLatestResourcesList.appendChild(rRow);
+        });
+      }
+    }
+
+    // تطبيق تفضيلات ظهور الودجات من حساب المستخدم
+    function applyUserWidgetPrefsUI() {
+      prefShowQuote.checked = userWidgetPrefs.showQuote;
+      prefShowStats.checked = userWidgetPrefs.showStats;
+      prefShowTasks.checked = userWidgetPrefs.showTasks;
+      prefShowNews.checked = userWidgetPrefs.showNews;
+
+      homeWidgetQuote.style.display = userWidgetPrefs.showQuote ? "flex" : "none";
+      homeWidgetStats.style.display = userWidgetPrefs.showStats ? "grid" : "none";
+      homeWidgetTasks.style.display = userWidgetPrefs.showTasks ? "block" : "none";
+      homeWidgetNews.style.display = userWidgetPrefs.showNews ? "block" : "none";
+    }
+
+    // ============================================================
+    // إدارة الملف الشخصي والتفضيلات
     // ============================================================
     btnOpenProfile.addEventListener("click", () => {
       profileModal.classList.add("open");
@@ -2582,7 +3040,7 @@
         const reader = new FileReader();
         reader.onload = (ev) => {
           profileAvatarPreview.src = ev.target.result;
-          profileAvatarUrl.value = ev.target.result; // حفظ الصورة محلياً كـ Data URI
+          profileAvatarUrl.value = ev.target.result;
         };
         reader.readAsDataURL(file);
       }
@@ -2594,6 +3052,13 @@
       const newBio = profileBioInput.value.trim();
       const newPhoto = profileAvatarUrl.value.trim() || profileAvatarPreview.src;
 
+      const newPrefs = {
+        showQuote: prefShowQuote.checked,
+        showStats: prefShowStats.checked,
+        showTasks: prefShowTasks.checked,
+        showNews: prefShowNews.checked
+      };
+
       try {
         await updateProfile(auth.currentUser, {
           displayName: newName,
@@ -2603,18 +3068,23 @@
         await updateDoc(doc(db, "users", currentUser.uid), {
           displayName: newName,
           bio: newBio,
-          photoURL: newPhoto
+          photoURL: newPhoto,
+          widgetPrefs: newPrefs,
+          isNewUser: false // إيقاف إشعار الترحيب بمجرد حفظ التفضيلات
         });
 
+        userWidgetPrefs = newPrefs;
+        applyUserWidgetPrefsUI();
+
         profileModal.classList.remove("open");
-        alert("تم حفظ وتحديث ملفك الشخصي بنجاح! 🎉");
+        alert("تم حفظ وتحديث ملفك الشخصي وتفضيلاتك بنجاح! 🎉");
       } catch (err) {
         alert("حدث خطأ أثناء الحفظ: " + err.message);
       }
     });
 
     // ============================================================
-    // إدارة استوديو تصميم وتحميل صورة الجدول الدراسي
+    // استوديو تصميم وتحميل صورة الجدول
     // ============================================================
     btnOpenExportStudio.addEventListener("click", () => {
       if (currentScheduleSlots.length === 0) {
@@ -2651,7 +3121,6 @@
       exportTheme = "light";
     });
 
-    // رسم وتنزيل صورة الجدول باحترافية
     btnExecuteDownload.addEventListener("click", () => {
       const isPortrait = (exportOrientation === "portrait");
       const isDark = (exportTheme === "dark");
@@ -2664,7 +3133,6 @@
       canvas.height = height;
       const ctx = canvas.getContext("2d");
 
-      // 1. الخلفية المتدرجة
       if (isDark) {
         const grad = ctx.createLinearGradient(0, 0, width, height);
         grad.addColorStop(0, "#062822");
@@ -2680,7 +3148,6 @@
       }
       ctx.fillRect(0, 0, width, height);
 
-      // 2. الهيدر والاسم والكلية
       const studentName = currentUser ? (currentUser.displayName || "مهندس/ـة الحاسب") : "طالب/ـة جامعة طيبة";
       
       ctx.textAlign = "center";
@@ -2692,16 +3159,13 @@
       ctx.font = isPortrait ? "700 28px Cairo, sans-serif" : "700 30px Cairo, sans-serif";
       ctx.fillText(`${studentName} • كلية علوم وهندسة الحاسب - جامعة طيبة`, width / 2, isPortrait ? 165 : 140);
 
-      // 3. رسم بطاقات الأيام والمحاضرات مع الاحتفاظ بألوان المواد
       const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس"];
 
       if (isPortrait) {
-        // الرسم العمودي (شاشات الهاتف 9:16)
         let currentY = 220;
         days.forEach(day => {
           const slots = currentScheduleSlots.filter(s => s.day === day).sort((a, b) => a.startTime.localeCompare(b.startTime));
 
-          // شريط اليوم
           ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 148, 136, 0.12)";
           ctx.beginPath();
           ctx.roundRect(50, currentY, 980, 44, 10);
@@ -2720,25 +3184,21 @@
             currentY += 46;
           } else {
             slots.forEach(s => {
-              // بطاقة المحاضرة
               ctx.fillStyle = isDark ? "#1E293B" : "#FFFFFF";
               ctx.beginPath();
               ctx.roundRect(50, currentY, 980, 64, 12);
               ctx.fill();
 
-              // شريط لون المادة المخصص على الطرف الأيمن
               ctx.fillStyle = s.color || "#0D9488";
               ctx.beginPath();
               ctx.roundRect(1020, currentY, 10, 64, [0, 12, 12, 0]);
               ctx.fill();
 
-              // نص المادة
               ctx.fillStyle = isDark ? "#F8FAFC" : "#0F172A";
               ctx.textAlign = "right";
               ctx.font = "800 24px Cairo, sans-serif";
               ctx.fillText(`${s.courseName} (${s.courseCode})`, 1000, currentY + 40);
 
-              // الوقت والقاعة
               ctx.fillStyle = s.color || (isDark ? "#2DD4BF" : "#0D9488");
               ctx.textAlign = "left";
               ctx.font = "700 20px Cairo, sans-serif";
@@ -2751,7 +3211,6 @@
         });
 
       } else {
-        // الرسم الأفقي (شاشات الكمبيوتر والألواح والطباعة)
         const colWidth = 340;
         const startX = 60;
         const startY = 190;
@@ -2762,7 +3221,6 @@
 
           const slots = currentScheduleSlots.filter(s => s.day === day).sort((a, b) => a.startTime.localeCompare(b.startTime));
 
-          // عمود اليوم
           ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 148, 136, 0.12)";
           ctx.beginPath();
           ctx.roundRect(x, y, colWidth, 48, 10);
@@ -2785,7 +3243,6 @@
               ctx.roundRect(x, y, colWidth, 110, 12);
               ctx.fill();
 
-              // شريط اللون
               ctx.fillStyle = s.color || "#0D9488";
               ctx.beginPath();
               ctx.roundRect(x + colWidth - 8, y, 8, 110, [0, 12, 12, 0]);
@@ -2812,13 +3269,11 @@
         });
       }
 
-      // 4. الفوتر وتوقيع الحقوق
       ctx.textAlign = "center";
       ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.6)" : "rgba(0, 0, 0, 0.5)";
       ctx.font = "600 20px Cairo, sans-serif";
       ctx.fillText("COE • J  © 2026 - صُمم لمهندسي جامعة طيبة", width / 2, height - 35);
 
-      // التنزيل التلقائي
       const link = document.createElement("a");
       link.download = `الجدول_الدراسي_${studentName.replace(/\s+/g, '_')}_${exportOrientation}_${exportTheme}.png`;
       link.href = canvas.toDataURL("image/png");
@@ -2828,7 +3283,7 @@
     });
 
     // ============================================================
-    // بقية دوال النظام والجدول الأسبوعي
+    // وظائف الجدول الأسبوعي
     // ============================================================
     btnOpenSlotModal.addEventListener("click", () => {
       if (currentCourses.length === 0) {
@@ -2929,7 +3384,6 @@
       }
     }
 
-    // مولّد خطة المذاكرة
     btnGenerateCramPlan.addEventListener("click", () => {
       const courseId = cramCourseSelect.value;
       const examDateStr = cramExamDate.value;
@@ -2997,7 +3451,6 @@
       });
     }
 
-    // عرض التجميعات المرتبطة فقط بمواد الطالب
     searchResourcesInput.addEventListener("input", () => renderPublicResourcesUI());
     document.querySelectorAll("[data-res-filter]").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -3550,7 +4003,7 @@
       else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
     }
 
-    // مؤقت غرس الإنجاز التفاعلي
+    // مؤقت غرس الإنجاز
     let sessionMinutes = 25;
     let totalFocusSeconds = sessionMinutes * 60;
     let timerDuration = totalFocusSeconds;
@@ -3690,17 +4143,21 @@
       renderTreeStage(totalFocusSeconds);
     });
 
-    // التنقل السفلي بين 5 تبويبات
+    // التنقل السفلي السلس مع دعم الرئيسية في المنتصف
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
         item.classList.add("active");
         const target = item.getAttribute("data-target");
+        
+        document.getElementById("tab-content-home").style.display = target === "home" ? "block" : "none";
         document.getElementById("tab-content-courses").style.display = target === "courses" ? "block" : "none";
         document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
         document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
         document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
         document.getElementById("tab-content-gpa").style.display = target === "gpa" ? "block" : "none";
+
+        if (target === "home") renderHomeDashboardUI();
       });
     });
 
