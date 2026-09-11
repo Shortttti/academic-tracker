@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="جدولي">
-  <meta name="theme-color" content="#085F56">
+  <meta name="theme-color" content="#0F766E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,32 +16,34 @@
   
   <style>
     :root {
-      --primary-dark: #085F56;
-      --primary-teal: #0D9488;
-      --primary-red: #DC2626;
-      --red-soft: #FDE8E8;
+      --primary-dark: #0F766E;
+      --primary-teal: #14B8A6;
+      --primary-accent: #0D9488;
+      --primary-red: #E11D48;
+      --red-soft: #FFE4E6;
       --bg-page: #F8FAFC;
       --card-bg: #FFFFFF;
       --border-subtle: #E2E8F0;
       --text-main: #0F172A;
       --text-muted: #64748B;
       --subtle-bg: #F1F5F9;
-      --body-outer: #CBD5E1;
+      --body-outer: #94A3B8;
       --font-family: 'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     [data-theme="dark"] {
-      --primary-dark: #064E3B;
-      --primary-teal: #14B8A6;
-      --primary-red: #EF4444;
-      --red-soft: #450A0A;
-      --bg-page: #0F172A;
-      --card-bg: #1E293B;
-      --border-subtle: #334155;
-      --text-main: #F8FAFC;
-      --text-muted: #94A3B8;
-      --subtle-bg: #1E293B;
-      --body-outer: #020617;
+      --primary-dark: #042F2E;
+      --primary-teal: #2DD4BF;
+      --primary-accent: #14B8A6;
+      --primary-red: #F43F5E;
+      --red-soft: #4C0519;
+      --bg-page: #090D16;
+      --card-bg: #111827;
+      --border-subtle: #1F2937;
+      --text-main: #F9FAFB;
+      --text-muted: #9CA3AF;
+      --subtle-bg: #1F2937;
+      --body-outer: #030712;
     }
 
     * {
@@ -70,7 +72,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.18);
       position: relative;
     }
 
@@ -82,8 +84,8 @@
     .auth-card {
       background: var(--card-bg);
       padding: 28px 22px;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border-radius: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
       border: 1px solid var(--border-subtle);
     }
 
@@ -126,11 +128,7 @@
     }
 
     .btn-google:active { transform: scale(0.98); }
-
-    .btn-google svg {
-      width: 20px;
-      height: 20px;
-    }
+    .btn-google svg { width: 20px; height: 20px; }
 
     .auth-divider {
       display: flex;
@@ -223,13 +221,7 @@
     }
 
     .btn-primary:active { transform: scale(0.98); }
-
-    .error-msg {
-      color: var(--primary-red);
-      font-size: 12px;
-      margin-top: 10px;
-      text-align: center;
-    }
+    .error-msg { color: var(--primary-red); font-size: 12px; margin-top: 10px; text-align: center; }
 
     .app-header {
       background-color: var(--primary-dark);
@@ -238,6 +230,7 @@
       position: sticky;
       top: 0;
       z-index: 20;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     .header-inner {
@@ -392,7 +385,6 @@
       margin-top: 2px;
     }
 
-    /* كروت الصفحة الرئيسية */
     .home-hero-card {
       background: linear-gradient(135deg, var(--card-bg), var(--subtle-bg));
       border: 1px solid var(--border-subtle);
@@ -898,7 +890,6 @@
       display: block;
     }
 
-    /* صفحة التجميعات */
     .admin-controls-card {
       background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(8, 95, 86, 0.15));
       border: 1.5px dashed var(--primary-teal);
@@ -1025,7 +1016,6 @@
       margin-top: 2px;
     }
 
-    /* صفحة الجدول الدراسي */
     .timetable-controls-bar {
       display: flex;
       gap: 8px;
@@ -1074,16 +1064,8 @@
       padding: 10px 12px;
     }
 
-    .timetable-slot-info h4 {
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .timetable-slot-info p {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
+    .timetable-slot-info h4 { font-size: 13px; font-weight: 800; }
+    .timetable-slot-info p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
     .cram-planner-card {
       background: var(--card-bg);
@@ -1157,11 +1139,7 @@
       color: var(--text-muted);
     }
 
-    .preset-chip.active {
-      background: var(--primary-teal);
-      color: white;
-      border-color: var(--primary-teal);
-    }
+    .preset-chip.active { background: var(--primary-teal); color: white; border-color: var(--primary-teal); }
 
     .tree-illustration-container {
       width: 140px;
@@ -1180,27 +1158,9 @@
       line-height: 1;
     }
 
-    .tree-status-text {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin: 6px 0 14px 0;
-      font-weight: 600;
-    }
-
-    .timer-controls {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .btn-timer {
-      padding: 8px 20px;
-      border-radius: 12px;
-      border: none;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-    }
+    .tree-status-text { font-size: 12px; color: var(--text-muted); margin: 6px 0 14px 0; font-weight: 600; }
+    .timer-controls { display: flex; justify-content: center; gap: 10px; }
+    .btn-timer { padding: 8px 20px; border-radius: 12px; border: none; font-weight: 700; font-size: 13px; cursor: pointer; }
 
     .leaderboard-card {
       background: var(--card-bg);
@@ -1232,18 +1192,9 @@
       font-weight: 700;
     }
 
-    .leaderboard-rank {
-      font-weight: 900;
-      width: 24px;
-      text-align: center;
-    }
+    .leaderboard-rank { font-weight: 900; width: 24px; text-align: center; }
 
-    .task-filter-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
+    .task-filter-bar { display: flex; gap: 8px; margin-bottom: 14px; }
     .filter-chip {
       flex: 1;
       padding: 8px;
@@ -1256,12 +1207,7 @@
       text-align: center;
       color: var(--text-muted);
     }
-
-    .filter-chip.active {
-      background: var(--primary-dark);
-      color: white;
-      border-color: var(--primary-dark);
-    }
+    .filter-chip.active { background: var(--primary-dark); color: white; border-color: var(--primary-dark); }
 
     .task-card {
       background: var(--card-bg);
@@ -1274,35 +1220,11 @@
       justify-content: space-between;
     }
 
-    .task-card.completed {
-      opacity: 0.6;
-      background: var(--subtle-bg);
-    }
-
-    .task-info h4 {
-      font-size: 13.5px;
-      font-weight: 700;
-    }
-
-    .task-card.completed .task-info h4 {
-      text-decoration: line-through;
-    }
-
-    .task-meta {
-      display: flex;
-      gap: 8px;
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .task-badge-tag {
-      background: var(--subtle-bg);
-      color: var(--text-main);
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-weight: bold;
-    }
+    .task-card.completed { opacity: 0.6; background: var(--subtle-bg); }
+    .task-info h4 { font-size: 13.5px; font-weight: 700; }
+    .task-card.completed .task-info h4 { text-decoration: line-through; }
+    .task-meta { display: flex; gap: 8px; margin-top: 4px; font-size: 11px; color: var(--text-muted); }
+    .task-badge-tag { background: var(--subtle-bg); color: var(--text-main); padding: 2px 6px; border-radius: 6px; font-weight: bold; }
 
     .site-footer {
       text-align: center;
@@ -1313,21 +1235,17 @@
       margin-top: 20px;
     }
 
-    .footer-brand {
-      font-weight: 800;
-      color: var(--primary-teal);
-      letter-spacing: 1px;
-    }
+    .footer-brand { font-weight: 800; color: var(--primary-teal); letter-spacing: 1px; }
 
-    /* ========================================== */
-    /* شريط التنقل السفلي الكلاسيكي المريح الجديد */
-    /* ========================================== */
+    /* ============================================================ */
+    /* شريط التنقل السفلي الكلاسيكي مع الرئيسية في المنتصف وتحديد الفوكس */
+    /* ============================================================ */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
       max-width: 480px;
-      height: 64px;
+      height: 66px;
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
       display: flex;
@@ -1343,19 +1261,29 @@
       align-items: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
-      gap: 2px;
+      gap: 3px;
       flex: 1;
-      padding: 8px 0;
+      padding: 6px 0;
+      position: relative;
     }
 
     .nav-item.active {
       color: var(--primary-teal);
     }
 
-    .nav-item span.icon {
-      font-size: 19px;
+    .nav-item span.icon { font-size: 18px; }
+
+    /* تأثير الفوكس والكبسولة الناعمة أعلى التبويب النشط */
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 24px;
+      height: 3px;
+      background: var(--primary-teal);
+      border-radius: 3px 3px 0 0;
     }
 
     .modal-overlay {
@@ -1368,9 +1296,7 @@
       z-index: 99;
     }
 
-    .modal-overlay.open {
-      display: flex;
-    }
+    .modal-overlay.open { display: flex; }
 
     .modal-content {
       background: var(--card-bg);
@@ -1389,47 +1315,14 @@
       to { transform: translateY(0); }
     }
 
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
 
-    .close-btn {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: var(--text-muted);
-    }
+    .color-palette { display: flex; gap: 12px; margin-top: 6px; }
+    .color-dot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: inline-block; border: 2px solid transparent; }
+    .color-dot.active { border-color: var(--text-main); transform: scale(1.1); }
 
-    .color-palette {
-      display: flex;
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .color-dot {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: inline-block;
-      border: 2px solid transparent;
-    }
-
-    .color-dot.active {
-      border-color: var(--text-main);
-      transform: scale(1.1);
-    }
-
-    .option-selector-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
+    .option-selector-row { display: flex; gap: 8px; margin-bottom: 14px; }
     .option-btn {
       flex: 1;
       padding: 10px;
@@ -1442,30 +1335,15 @@
       cursor: pointer;
       text-align: center;
     }
+    .option-btn.active { border-color: var(--primary-teal); background: rgba(13, 148, 136, 0.1); color: var(--primary-teal); }
 
-    .option-btn.active {
-      border-color: var(--primary-teal);
-      background: rgba(13, 148, 136, 0.1);
-      color: var(--primary-teal);
-    }
-
-    .pref-switch-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .pref-switch-row span {
-      font-size: 12px;
-      font-weight: 700;
-    }
+    .pref-switch-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-subtle); }
+    .pref-switch-row span { font-size: 12px; font-weight: 700; }
   </style>
 </head>
 <body>
 
-  <!-- شاشة الدخول والتسجيل (مع دعم اختيار طالب/طالبة والشعبة) -->
+  <!-- شاشة الدخول والتسجيل -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -1574,7 +1452,102 @@
       </div>
     </header>
 
-    <!-- تبويب الصفحة الرئيسية (Home) -->
+    <!-- تبويب المقررات والإنجاز -->
+    <main class="main-content" id="tab-content-courses" style="display: none;">
+      <div id="exam-countdown-box" class="countdown-widget">
+        <div class="countdown-info">
+          <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
+          <p id="countdown-target-date">متبقي على الموعد المحدد</p>
+        </div>
+        <div class="countdown-timer-digits" id="countdown-timer-digits">-- ي -- س</div>
+      </div>
+
+      <div class="content-header">
+        <div>
+          <h2 id="level-display-heading">إنجاز المقررات الدراسية</h2>
+          <p>المحاضرات والشباتر المنجزة والمتبقية مرتبة حسب المادة</p>
+        </div>
+      </div>
+
+      <section class="summary-card">
+        <div class="summary-top">
+          <div class="summary-info">
+            <span class="summary-label">إجمالي المتراكم</span>
+            <div class="summary-value-wrapper">
+              <h3 id="missed-lectures-count">0 محاضرات</h3>
+              <div class="summary-arrow-icon">↑</div>
+            </div>
+            <p id="motivational-text" class="summary-subtext">جاري تحليل الإنجاز...</p>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="overall-progress-bar" class="progress-fill" style="width: 0%;"></div>
+        </div>
+
+        <div class="progress-pill">
+          <span id="overall-percent-label">0% نسبة المواكبة</span>
+        </div>
+      </section>
+
+      <div class="sort-bar">
+        <span class="sort-label">ترتيب حسب:</span>
+        <button class="sort-pill active" data-sort="default">الافتراضي</button>
+        <button class="sort-pill" data-sort="credits">الأكثر ساعات</button>
+        <button class="sort-pill" data-sort="missed">الأكثر تأخراً</button>
+        <button class="sort-pill" data-sort="name">أبجدياً</button>
+      </div>
+
+      <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد (المستوى الخامس فما فوق)</button>
+
+      <section class="courses-list" id="courses-container"></section>
+
+      <div class="bottom-level-section">
+        <h3 id="transition-section-title">🎓 إدارة الفصل الدراسي</h3>
+        <p id="transition-section-desc">
+          يمكنك ترقية مستواك الدراسي ونقل خطتك عند انتهاء الفصول الدراسية وفق خطة هندسة الحاسب.
+        </p>
+        <button id="btn-transition-level" class="btn-transition-stage locked" disabled>
+          الانتقال للمستوى القادم 🔒
+        </button>
+        <span id="date-lock-message" class="date-lock-hint">
+          ⏳ ميزة الانتقال متاحة رسمياً بانتهاء الفصل في: 07 / 01 / 2027
+        </span>
+      </div>
+
+      <footer class="site-footer">
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+      </footer>
+    </main>
+
+    <!-- تبويب الجدول الدراسي -->
+    <main class="main-content" id="tab-content-schedule" style="display: none;">
+      <div class="content-header">
+        <div>
+          <h2>الجدول الدراسي الأسبوعي</h2>
+          <p>أوقات المحاضرات، القاعات، والمباني لجميع أيام الأسبوع</p>
+        </div>
+      </div>
+
+      <div class="timetable-controls-bar">
+        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 12.5px; padding: 10px;">
+          ➕ إضافة محاضرة للجدول
+        </button>
+        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 12.5px; padding: 10px;">
+          📥 تحميل الجدول الدراسي
+        </button>
+      </div>
+
+      <div id="schedule-days-container"></div>
+
+      <footer class="site-footer">
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+      </footer>
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- تبويب الصفحة الرئيسية (Home Dashboard) في المنتصف -->
+    <!-- ============================================================ -->
     <main class="main-content" id="tab-content-home">
       
       <div id="inapp-reminder-banner" class="reminder-banner">
@@ -1595,7 +1568,6 @@
         <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتبدأ متابعة حضورك، جدولك، وتجميعات موادك بكل سهولة.</span>
       </div>
 
-      <!-- استطلاع الرأي (يظهر بحسب الفئة المستهدفة التي يحددها المشرف) -->
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <span style="font-size:12px; font-weight:800; color:var(--primary-teal);">📊 استطلاع رأي الدفعة</span>
@@ -1654,99 +1626,6 @@
           <p style="font-size:12px; color:var(--text-muted); text-align:center;">جلب أحدث الملخصات المعتمدة...</p>
         </div>
       </div>
-
-      <footer class="site-footer">
-        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
-      </footer>
-    </main>
-
-    <!-- تبويب المقررات والإنجاز -->
-    <main class="main-content" id="tab-content-courses" style="display: none;">
-      <div id="exam-countdown-box" class="countdown-widget">
-        <div class="countdown-info">
-          <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
-          <p id="countdown-target-date">متبقي على الموعد المحدد</p>
-        </div>
-        <div class="countdown-timer-digits" id="countdown-timer-digits">-- ي -- س</div>
-      </div>
-
-      <div class="content-header">
-        <div>
-          <h2 id="level-display-heading">إنجاز المقررات الدراسية</h2>
-          <p>المحاضرات والشباتر المنجزة والمتبقية مرتبة حسب المادة</p>
-        </div>
-      </div>
-
-      <section class="summary-card">
-        <div class="summary-top">
-          <div class="summary-info">
-            <span class="summary-label">إجمالي المتراكم</span>
-            <div class="summary-value-wrapper">
-              <h3 id="missed-lectures-count">0 محاضرات</h3>
-              <div class="summary-arrow-icon">↑</div>
-            </div>
-            <p id="motivational-text" class="summary-subtext">جاري تحليل الإنجاز...</p>
-          </div>
-        </div>
-
-        <div class="progress-track">
-          <div id="overall-progress-bar" class="progress-fill" style="width: 0%;"></div>
-        </div>
-
-        <div class="progress-pill">
-          <span id="overall-percent-label">0% نسبة المواكبة</span>
-        </div>
-      </section>
-
-      <div class="sort-bar">
-        <span class="sort-label">ترتيب حسب:</span>
-        <button class="sort-pill active" data-sort="default">الافتراضي</button>
-        <button class="sort-pill" data-sort="credits">الأكثر ساعات</button>
-        <button class="sort-pill" data-sort="missed">الأكثر تأخراً</button>
-        <button class="sort-pill" data-sort="name">أبجدياً</button>
-      </div>
-
-      <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد (من المستوى الخامس فما فوق)</button>
-
-      <section class="courses-list" id="courses-container"></section>
-
-      <div class="bottom-level-section">
-        <h3 id="transition-section-title">🎓 إدارة الفصل الدراسي</h3>
-        <p id="transition-section-desc">
-          يمكنك ترقية مستواك الدراسي ونقل خطتك عند انتهاء الفصول الدراسية وفق خطة هندسة الحاسب.
-        </p>
-        <button id="btn-transition-level" class="btn-transition-stage locked" disabled>
-          الانتقال للمستوى القادم 🔒
-        </button>
-        <span id="date-lock-message" class="date-lock-hint">
-          ⏳ ميزة الانتقال متاحة رسمياً بانتهاء الفصل في: 07 / 01 / 2027
-        </span>
-      </div>
-
-      <footer class="site-footer">
-        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
-      </footer>
-    </main>
-
-    <!-- تبويب الجدول الدراسي -->
-    <main class="main-content" id="tab-content-schedule" style="display: none;">
-      <div class="content-header">
-        <div>
-          <h2>الجدول الدراسي الأسبوعي</h2>
-          <p>أوقات المحاضرات، القاعات، والمباني لجميع أيام الأسبوع</p>
-        </div>
-      </div>
-
-      <div class="timetable-controls-bar">
-        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 12.5px; padding: 10px;">
-          ➕ إضافة محاضرة للجدول
-        </button>
-        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 12.5px; padding: 10px;">
-          📥 تحميل الجدول الدراسي
-        </button>
-      </div>
-
-      <div id="schedule-days-container"></div>
 
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
@@ -1920,13 +1799,9 @@
     </main>
 
     <!-- ============================================================ -->
-    <!-- شريط التنقل السفلي الكلاسيكي المريح الجديد -->
+    <!-- شريط التنقل السفلي الكلاسيكي المريح (الرئيسية في المنتصف مع فوكس) -->
     <!-- ============================================================ -->
     <nav class="bottom-nav">
-      <div class="nav-item active" data-target="home">
-        <span class="icon">🏠</span>
-        <span>الرئيسية</span>
-      </div>
       <div class="nav-item" data-target="courses">
         <span class="icon">📊</span>
         <span>المقررات</span>
@@ -1935,13 +1810,17 @@
         <span class="icon">🗓️</span>
         <span>الجدول</span>
       </div>
+      <div class="nav-item active" data-target="home">
+        <span class="icon">🏠</span>
+        <span>الرئيسية</span>
+      </div>
       <div class="nav-item" data-target="resources">
         <span class="icon">📚</span>
         <span>التجميعات</span>
       </div>
       <div class="nav-item" data-target="tasks">
         <span class="icon">🌳</span>
-        <span>المهام والمؤقت</span>
+        <span>المهام</span>
       </div>
     </nav>
 
@@ -2057,7 +1936,7 @@
       </div>
     </div>
 
-    <!-- مودال إنشاء استطلاع رأي للأدمن مع تحديد الفئة -->
+    <!-- مودال إنشاء استطلاع رأي للأدمن -->
     <div id="admin-poll-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2174,7 +2053,7 @@
       </div>
     </div>
 
-    <!-- مودال إضافة رابط تجميعة مباشر للأدمن مع خيار التثبيت -->
+    <!-- مودال إضافة رابط تجميعة مباشر للأدمن -->
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2253,7 +2132,7 @@
       </div>
     </div>
 
-    <!-- مودال إضافة مادة (محدث ليشمل المستوى الخامس فما فوق) -->
+    <!-- مودال إضافة مادة (يشمل المستوى الخامس فما فوق) -->
     <div id="course-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2269,12 +2148,12 @@
           </div>
           <div class="form-group">
             <label>اسم المادة</label>
-            <input type="text" id="course-name-input" required placeholder="مثال: نظم التشغيل">
+            <input type="text" id="course-name-input" required placeholder="مثال: شبكات الحاسب">
           </div>
           <div class="form-row">
             <div class="form-group">
               <label>رمز المادة</label>
-              <input type="text" id="course-code-input" required placeholder="مثال: CS 226">
+              <input type="text" id="course-code-input" required placeholder="مثال: COE 236">
             </div>
             <div class="form-group">
               <label>عدد الساعات (Credit Hours)</label>
@@ -2284,7 +2163,7 @@
           <div class="form-group">
             <label>المستوى الدراسي:</label>
             <select id="course-origin-level-input">
-              <option value="المستوى 5">المستوى 5 (الفصل الحالي)</option>
+              <option value="المستوى 5">المستوى 5</option>
               <option value="المستوى 6">المستوى 6</option>
               <option value="المستوى 7">المستوى 7</option>
               <option value="المستوى 8">المستوى 8</option>
@@ -2396,7 +2275,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق الكامل -->
+  <!-- منطق التطبيق البرمجي المتكامل -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -2445,7 +2324,15 @@
     const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
 
-    // الخطة الدراسية الشاملة (تشمل المستوى الخامس فما فوق)
+    const OFFICIAL_LEVEL_5_DATA = {
+      "COE 225": { credits: 3, totalLectures: 30 },
+      "COE 295": { credits: 2, totalLectures: 15 },
+      "CS 226":  { credits: 4, totalLectures: 45 },
+      "EE 201":  { credits: 4, totalLectures: 45 },
+      "GS 311":  { credits: 2, totalLectures: 15 },
+      "STAT 301":{ credits: 3, totalLectures: 30 }
+    };
+
     const CURRICULUM_PLAN = {
       5: [
         { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, color: "#8B5CF6" },
@@ -2684,7 +2571,7 @@
         CURRICULUM_PLAN[lvl].forEach(c => {
           const opt = document.createElement("option");
           opt.value = JSON.stringify({ ...c, originLevel: `المستوى ${lvl}` });
-          opt.textContent = `${c.code} - ${c.name} (${c.credits} وحدات - ${c.totalLectures} محاضرة)`;
+          opt.textContent = `${c.code} - ${c.name} (${c.credits} وحدات معتمدة - ${c.totalLectures} محاضرة)`;
           grp.appendChild(opt);
         });
         quickCoursePreset.appendChild(grp);
@@ -2698,7 +2585,7 @@
       document.getElementById("course-name-input").value = data.name;
       document.getElementById("course-code-input").value = data.code;
       document.getElementById("course-credits-input").value = data.credits;
-      document.getElementById("course-origin-level-input").value = data.originLevel || "المستوى 5";
+      document.getElementById("course-origin-level-input").value = data.originLevel;
       document.getElementById("course-lectures-input").value = data.totalLectures || 30;
     });
 
@@ -2929,7 +2816,7 @@
     });
 
     // ==========================================
-    // إدارة استطلاع الرأي (مع تصفية حسب الفئة المستهدفة)
+    // إدارة استطلاع الرأي (حسب التصفية: طلاب / طالبات / الجميع)
     // ==========================================
     async function renderPollUI() {
       if (!activePoll || !activePoll.active) {
@@ -2937,11 +2824,10 @@
         return;
       }
 
-      // جلب بيانات الطالب الحالي للتحقق من فئته (طالب أم طالبة)
       const userDoc = await getDoc(doc(db, "users", currentUser.uid));
       const userGender = userDoc.exists() ? (userDoc.data().gender || "طالبة") : "طالبة";
 
-      const targetGroup = activePoll.targetGroup || "الكل"; // "الكل", "طالبة", "طالب"
+      const targetGroup = activePoll.targetGroup || "الكل";
       if (targetGroup !== "الكل" && targetGroup !== userGender) {
         homeActivePollBox.style.display = "none";
         return;
@@ -3011,10 +2897,13 @@
       alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
+    // ==========================================
+    // تصدير ملف Excel / CSV منسق ومحترف للأدمن
+    // ==========================================
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم,البريد الإلكتروني,التصنيف (طالب/طالبة),الشعبة,المستوى الحالي,نقاط التركيز\n";
+      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الشعبة,المستوى الحالي,رصيد النقاط\n";
       
       snap.forEach(d => {
         const u = d.data();
@@ -3025,7 +2914,7 @@
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", `طلاب_هندسة_الحسب_طيبة_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("download", `تقرير_طلاب_هندسة_الحاسب_${new Date().toISOString().slice(0,10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -3667,7 +3556,7 @@
       });
     }
 
-    // التنقل السفلي الكلاسيكي المريح
+    // التنقل السفلي الكلاسيكي مع الرئيسية في المنتصف وتحديد الفوكس
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -3775,63 +3664,6 @@
       addTaskForm.reset();
       taskModal.classList.remove("open");
     });
-
-    function renderTasksUI() {
-      tasksContainer.innerHTML = "";
-      let filtered = currentTasks;
-      if (currentTaskFilter === "pending") filtered = currentTasks.filter(t => !t.completed);
-      if (currentTaskFilter === "done") filtered = currentTasks.filter(t => t.completed);
-
-      if (filtered.length === 0) {
-        tasksContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:30px; font-size:13px;">لا توجد مهام في هذا القسم 🎉</p>`;
-        return;
-      }
-
-      filtered.forEach(task => {
-        const item = document.createElement("div");
-        item.className = `task-card ${task.completed ? 'completed' : ''}`;
-        item.innerHTML = `
-          <div class="task-info">
-            <h4>${task.title}</h4>
-            <div class="task-meta">
-              <span class="task-badge-tag">${task.courseCode}</span>
-              <span>📅 ${task.dueDate}</span>
-              <span>🏷️ ${task.type}</span>
-            </div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <input type="checkbox" ${task.completed ? 'checked' : ''} class="task-toggle" style="width:20px; height:20px; cursor:pointer;">
-            <button class="btn-del-task" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
-          </div>
-        `;
-
-        item.querySelector(".task-toggle").addEventListener("change", async (e) => {
-          await updateDoc(doc(db, "users", currentUser.uid, "tasks", task.id), {
-            completed: e.target.checked
-          });
-        });
-
-        item.querySelector(".btn-del-task").addEventListener("click", async () => {
-          await deleteDoc(doc(db, "users", currentUser.uid, "tasks", task.id));
-        });
-
-        tasksContainer.appendChild(item);
-      });
-    }
-
-    document.querySelectorAll(".filter-chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
-        chip.classList.add("active");
-        currentTaskFilter = chip.getAttribute("data-filter");
-        renderTasksUI();
-      });
-    });
-
-    // بذر مواد المستوى الخامس (يبدأ الطالب بإضافتها بنفسه أو من القائمة)
-    async function seedInitialLevel5(userId, isAllCompleted) {
-      // تم جعل البدء بجدول نظيف ومخصص حسب اختيار الطالب
-    }
   </script>
 
   <!-- Formspree Ajax SDK -->
