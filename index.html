@@ -83,7 +83,6 @@
       color: var(--text-muted);
     }
 
-    /* زر Google الاحترافي */
     .btn-google {
       width: 100%;
       display: flex;
@@ -128,13 +127,8 @@
       border-bottom: 1px solid #E2E8F0;
     }
 
-    .auth-divider:not(:empty)::before {
-      margin-left: .5em;
-    }
-
-    .auth-divider:not(:empty)::after {
-      margin-right: .5em;
-    }
+    .auth-divider:not(:empty)::before { margin-left: .5em; }
+    .auth-divider:not(:empty)::after { margin-right: .5em; }
 
     .auth-tabs {
       display: flex;
@@ -219,7 +213,7 @@
       text-align: center;
     }
 
-    /* Header */
+    /* Header - بدون خانة اللغة */
     .app-header {
       background-color: var(--primary-dark);
       color: white;
@@ -241,23 +235,15 @@
       align-items: center;
     }
 
-    .badge-lang {
-      background: white;
-      color: var(--primary-dark);
-      padding: 3px 10px;
-      border-radius: 15px;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
     .btn-header-action {
       background: rgba(255, 255, 255, 0.2);
       color: white;
       border: none;
-      padding: 4px 12px;
+      padding: 5px 14px;
       border-radius: 15px;
-      font-size: 11px;
+      font-size: 11.5px;
       cursor: pointer;
+      font-weight: bold;
     }
 
     .header-branding {
@@ -282,12 +268,6 @@
       margin-bottom: 75px;
     }
 
-    .content-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
     .content-header h2 {
       font-size: 20px;
       font-weight: 800;
@@ -297,39 +277,6 @@
       font-size: 12px;
       color: var(--text-muted);
       margin-top: 2px;
-    }
-
-    /* Level Transition Banner */
-    .level-banner {
-      background: linear-gradient(135deg, #0F766E, #085F56);
-      color: white;
-      padding: 14px;
-      border-radius: 14px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .level-banner-info h4 {
-      font-size: 13.5px;
-      font-weight: 800;
-    }
-
-    .level-banner-info p {
-      font-size: 11px;
-      color: #CCFBF1;
-    }
-
-    .btn-upgrade-level {
-      background: #FEF08A;
-      color: #854D0E;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-size: 11.5px;
-      font-weight: 800;
-      cursor: pointer;
     }
 
     /* Summary Card */
@@ -451,6 +398,16 @@
       font-weight: 700;
     }
 
+    .origin-level-tag {
+      background: #FEF3C7;
+      color: #92400E;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      margin-right: 4px;
+      font-weight: 800;
+    }
+
     .course-status-brief {
       font-size: 12px;
       color: var(--text-muted);
@@ -565,6 +522,60 @@
       margin-top: 12px;
       display: block;
       text-align: left;
+    }
+
+    /* قسم الترقية في أسفل صفحة المقررات */
+    .bottom-level-section {
+      background: white;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .bottom-level-section h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .bottom-level-section p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .btn-transition-stage {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, background-color 0.2s;
+    }
+
+    .btn-transition-stage.unlocked {
+      background: #0F766E;
+      color: white;
+    }
+
+    .btn-transition-stage.locked {
+      background: #E2E8F0;
+      color: #64748B;
+      cursor: not-allowed;
+    }
+
+    .date-lock-hint {
+      font-size: 11px;
+      color: #D97706;
+      font-weight: 700;
+      margin-top: 6px;
+      display: block;
     }
 
     /* Tasks Page */
@@ -769,16 +780,15 @@
 </head>
 <body>
 
-  <!-- شاشة التسجيل والدخول مع دعم Google المباشر -->
+  <!-- شاشة التسجيل والدخول مع دعم Google -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
         <div class="logo-icon">🎓</div>
         <h2>بوابة جدولي الأكاديمي</h2>
-        <p>جامعة طيبة - هندسة الحاسب الآلي (المستوى الخامس)</p>
+        <p>جامعة طيبة - هندسة الحاسب الآلي</p>
       </div>
 
-      <!-- زر تسجيل الدخول السريع عبر Google -->
       <button id="btn-google-login" type="button" class="btn-google">
         <svg viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -820,15 +830,15 @@
         <div class="form-group" id="group-level" style="display: none;">
           <label>السنة والمستوى الدراسي</label>
           <select id="auth-level" disabled>
-            <option selected>سنة 3 - المستوى الخامس (18 وحدة مسجلة)</option>
+            <option selected>المستوى الخامس (المسجل حالياً)</option>
           </select>
         </div>
 
         <div class="form-group" id="group-default-state" style="display: none;">
-          <label>حالة المواد الافتراضية عند البدء:</label>
+          <label>حالة المواد عند البدء:</label>
           <select id="auth-default-status">
-            <option value="none" selected>غير منجزة بالكامل (0% - بداية الفصل)</option>
-            <option value="all">منجزة بالكامل (100% تم حضورها ومذاكرتها)</option>
+            <option value="none" selected>غير منجزة بالكامل (0%)</option>
+            <option value="all">منجزة بالكامل (100%)</option>
           </select>
         </div>
 
@@ -848,12 +858,12 @@
     </div>
   </div>
 
-  <!-- الشاشة الرئيسية للتطبيق -->
+  <!-- الشاشة الرئيسية -->
   <div id="main-app" class="app-container" style="display: none;">
+    <!-- شريط الرأس بدون خانة اللغة الإنجليزية -->
     <header class="app-header">
       <div class="header-inner">
         <div class="header-actions">
-          <span class="badge-lang">EN</span>
           <button id="btn-open-feedback" class="btn-header-action" title="اقتراح أو شكوى">📩 اقتراح</button>
           <button id="btn-logout" class="btn-header-action">خروج</button>
         </div>
@@ -866,18 +876,10 @@
 
     <!-- تبويب 1: صفحة المواد والإنجاز -->
     <main class="main-content" id="tab-content-courses">
-      <div class="level-banner" id="level-banner-box">
-        <div class="level-banner-info">
-          <h4 id="current-level-title">المستوى الدراسي: الخامس</h4>
-          <p>عند نهاية الفصل الدراسي يمكنك الترقية وحفظ السجل</p>
-        </div>
-        <button id="btn-upgrade-level-action" class="btn-upgrade-level">ترقية للمستوى 6 🎓</button>
-      </div>
-
       <div class="content-header">
         <div>
-          <h2>إنجاز المواد</h2>
-          <p>المحاضرات والشباتر التي أخذت حتى اليوم، مرتبة حسب المادة</p>
+          <h2 id="level-display-heading">إنجاز مواد المستوى الخامس</h2>
+          <p>المحاضرات والشباتر المنجزة والمتبقية مرتبة حسب المادة</p>
         </div>
       </div>
 
@@ -902,12 +904,27 @@
         </div>
       </section>
 
-      <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد</button>
+      <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد (أو متقدم من الخطة)</button>
 
+      <!-- قائمة المواد -->
       <section class="courses-list" id="courses-container"></section>
+
+      <!-- قسم الانتقال إلى المستوى التالي في أسفل الصفحة ومقفل بتاريخ 7 يناير 2027 -->
+      <div class="bottom-level-section">
+        <h3 id="transition-section-title">🎓 إتمام الفصل والانتقال للمستوى التالي</h3>
+        <p id="transition-section-desc">
+          عند إنهاء الفصل الدراسي، يمكنك مسح المواد السابقة وبدء مرحلة جديدة تلقائياً بمواد المستوى القادم من الخطة.
+        </p>
+        <button id="btn-transition-level" class="btn-transition-stage locked" disabled>
+          الانتقال للمستوى السادس وبدء مرحلة جديدة 🔒
+        </button>
+        <span id="date-lock-message" class="date-lock-hint">
+          ⏳ ميزة الانتقال متاحة رسمياً بانتهاء الفصل في: 07 / 01 / 2027
+        </span>
+      </div>
     </main>
 
-    <!-- تبويب 2: المهام والواجبات المربوطة بالمواد ومؤقت المذاكرة -->
+    <!-- تبويب 2: المهام والواجبات المربوطة بالمقررات ومؤقت المذاكرة -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
       <div class="pomodoro-box">
         <span style="font-size:12px; font-weight:700; color:var(--text-muted);">⏱️ مؤقت التركيز للمذاكرة (Pomodoro)</span>
@@ -937,12 +954,12 @@
       <div id="tasks-container"></div>
     </main>
 
-    <!-- تبويب 3: حاسبة المعدل الأكاديمي الحقيقي المعتمد بجامعة طيبة -->
+    <!-- تبويب 3: حاسبة المعدل الحقيقية بحسب عدد الساعات وسلم جامعة طيبة -->
     <main class="main-content" id="tab-content-gpa" style="display: none;">
       <div class="content-header">
         <div>
           <h2>حاسبة المعدل المعتمدة</h2>
-          <p>حساب المعدل الفصلي والتراكمي الفعلي (سلم 5.00 حسب ساعات المواد المعتمدة في خطتك)</p>
+          <p>حساب المعدل الفصلي والتراكمي الفعلي (سلم 5.00 بالوزن المعتمد لكل مادة)</p>
         </div>
       </div>
 
@@ -965,32 +982,50 @@
       </div>
     </nav>
 
-    <!-- مودال إضافة مادة -->
+    <!-- مودال إضافة مادة (يدوي أو استيراد من المستويات المتقدمة) -->
     <div id="course-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>إضافة مقرر دراسي جديد</h3>
+          <h3>إضافة مقرر دراسي</h3>
           <button id="btn-close-course-modal" class="close-btn">&times;</button>
         </div>
         <form id="add-course-form">
           <div class="form-group">
+            <label>اختر من خطة هندسة الحاسب (اختياري للإضافة السريعة):</label>
+            <select id="quick-course-preset">
+              <option value="">-- كتابة مادة مخصصة يدوياً --</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
             <label>اسم المادة</label>
-            <input type="text" id="course-name-input" required placeholder="مثال: هندسة البرمجيات">
+            <input type="text" id="course-name-input" required placeholder="مثال: شبكات الحاسب">
           </div>
           <div class="form-row">
             <div class="form-group">
               <label>رمز المادة</label>
-              <input type="text" id="course-code-input" required placeholder="مثال: CS 300">
+              <input type="text" id="course-code-input" required placeholder="مثال: COE 236">
             </div>
             <div class="form-group">
               <label>عدد الساعات (Credit Hours)</label>
               <input type="number" id="course-credits-input" required min="1" max="6" value="3">
             </div>
           </div>
+          <div class="form-group">
+            <label>المستوى الدراسي التابع له المقرر (إذا كانت مادة متقدمة):</label>
+            <select id="course-origin-level-input">
+              <option value="">مقرر من نفس المستوى الحالي</option>
+              <option value="المستوى 6">مقرر من المستوى 6</option>
+              <option value="المستوى 7">مقرر من المستوى 7</option>
+              <option value="المستوى 8">مقرر من المستوى 8</option>
+              <option value="المستوى 9">مقرر من المستوى 9</option>
+              <option value="المستوى 10">مقرر من المستوى 10</option>
+            </select>
+          </div>
           <div class="form-row">
             <div class="form-group">
               <label>المحاضرات المقررة</label>
-              <input type="number" id="course-lectures-input" required min="1" value="20">
+              <input type="number" id="course-lectures-input" required min="1" value="24">
             </div>
             <div class="form-group">
               <label>عدد الشباتر</label>
@@ -1008,12 +1043,12 @@
               <span class="color-dot" data-color="#F59E0B" style="background: #F59E0B;"></span>
             </div>
           </div>
-          <button type="submit" class="btn-primary">حفظ المقرر</button>
+          <button type="submit" class="btn-primary">حفظ المقرر في الجدول</button>
         </form>
       </div>
     </div>
 
-    <!-- مودال إضافة مهمة جديدة -->
+    <!-- مودال إضافة مهمة -->
     <div id="task-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1023,7 +1058,7 @@
         <form id="add-task-form">
           <div class="form-group">
             <label>عنوان المهمة</label>
-            <input type="text" id="task-title-input" required placeholder="مثال: تسليم لاب 3">
+            <input type="text" id="task-title-input" required placeholder="مثال: تسليم تقرير اللاب">
           </div>
           <div class="form-group">
             <label>المقرر التابع له:</label>
@@ -1096,7 +1131,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق مع Firebase Firestore و Google Auth -->
+  <!-- منطق التطبيق مع Firebase Firestore و Google Auth والتحكم بالمستويات -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -1140,6 +1175,45 @@
     const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
 
+    // تاريخ فتح الانتقال للمستوى السادس (7 يناير 2027)
+    const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
+
+    // الخطة الدراسية الكاملة لأقسام هندسة الحاسب بجامعة طيبة
+    const CURRICULUM_PLAN = {
+      6: [
+        { name: "النظم المضمنة (1)", code: "COE 246", credits: 4, totalLectures: 28, color: "#6366F1" },
+        { name: "شبكات الحاسب", code: "COE 236", credits: 4, totalLectures: 28, color: "#0EA5E9" },
+        { name: "إلكترونيات (1)", code: "EE 222", credits: 4, totalLectures: 28, color: "#10B981" },
+        { name: "التصميم الهندسي", code: "COE 286", credits: 3, totalLectures: 24, color: "#F59E0B" },
+        { name: "مقرر متطلب جامعة اختياري (2)", code: "GSE 2", credits: 2, totalLectures: 14, color: "#8B5CF6" }
+      ],
+      7: [
+        { name: "النظم المضمنة (2)", code: "COE 347", credits: 4, totalLectures: 28, color: "#6366F1" },
+        { name: "اساسيات انترنت الاشياء", code: "COE 337", credits: 4, totalLectures: 28, color: "#0D9488" },
+        { name: "تصميم النظم الرقمية", code: "COE 317", credits: 4, totalLectures: 28, color: "#8B5CF6" },
+        { name: "الطرق العددية في هندسة الحاسب", code: "COE 377", credits: 3, totalLectures: 24, color: "#0284C7" },
+        { name: "مقرر متطلب جامعة اختياري (3)", code: "GSE 3", credits: 2, totalLectures: 14, color: "#F43F5E" }
+      ],
+      8: [
+        { name: "أمن الحاسب والشبكات", code: "COE 368", credits: 4, totalLectures: 28, color: "#DC2626" },
+        { name: "معالجة الإشارات الرقمية", code: "COE 358", credits: 4, totalLectures: 28, color: "#059669" },
+        { name: "البصريات", code: "PHYS 246", credits: 3, totalLectures: 24, color: "#D97706" },
+        { name: "مقرر اختياري برنامج (1)", code: "COE 1", credits: 3, totalLectures: 24, color: "#2563EB" },
+        { name: "مشروع التخرج (1)", code: "COE 398", credits: 2, totalLectures: 14, color: "#7C3AED" }
+      ],
+      9: [
+        { name: "الشبكات المعرفة بالبرمجيات", code: "COE 439", credits: 3, totalLectures: 24, color: "#0284C7" },
+        { name: "مشروع التخرج (2)", code: "COE 499", credits: 3, totalLectures: 24, color: "#7C3AED" },
+        { name: "مقرر اختياري برنامج (2)", code: "COE 2", credits: 3, totalLectures: 24, color: "#2563EB" },
+        { name: "مقرر اختياري برنامج (3)", code: "COE 3", credits: 3, totalLectures: 24, color: "#4F46E5" },
+        { name: "الحوسبة و أخلاقيات المهنة والمجتمع", code: "IS 275", credits: 2, totalLectures: 14, color: "#059669" },
+        { name: "الابتكار وريادة الاعمال في مجال الحوسبة", code: "IS 377", credits: 2, totalLectures: 14, color: "#D97706" }
+      ],
+      10: [
+        { name: "التدريب التعاوني", code: "COE 490", credits: 6, totalLectures: 30, color: "#0F766E" }
+      ]
+    };
+
     let currentUser = null;
     let currentCourses = [];
     let currentTasks = [];
@@ -1148,7 +1222,7 @@
     let currentTaskFilter = "all";
     let currentLevel = 5;
 
-    // عناصر الدخول
+    // عناصر الصفحة
     const authScreen = document.getElementById("auth-screen");
     const mainApp = document.getElementById("main-app");
     const authForm = document.getElementById("auth-form");
@@ -1168,7 +1242,6 @@
     const userGreeting = document.getElementById("user-greeting");
     const btnGoogleLogin = document.getElementById("btn-google-login");
 
-    // عناصر المقررات والمهام
     const coursesContainer = document.getElementById("courses-container");
     const tasksContainer = document.getElementById("tasks-container");
     const courseModal = document.getElementById("course-modal");
@@ -1184,10 +1257,40 @@
     const addTaskForm = document.getElementById("add-task-form");
     const feedbackForm = document.getElementById("feedback-form");
     const taskCourseSelect = document.getElementById("task-course-select");
-    const btnUpgradeLevel = document.getElementById("btn-upgrade-level-action");
-    const currentLevelTitle = document.getElementById("current-level-title");
+    const quickCoursePreset = document.getElementById("quick-course-preset");
 
-    // تبديل تسجيل الدخول وإنشاء حساب
+    const btnTransitionLevel = document.getElementById("btn-transition-level");
+    const dateLockMessage = document.getElementById("date-lock-message");
+    const levelDisplayHeading = document.getElementById("level-display-heading");
+
+    // تعبئة قائمة المواد المتقدمة في الـ Modal
+    function populateQuickPresets() {
+      quickCoursePreset.innerHTML = `<option value="">-- كتابة مادة مخصصة يدوياً --</option>`;
+      [6, 7, 8, 9, 10].forEach(lvl => {
+        const grp = document.createElement("optgroup");
+        grp.label = `مواد المستوى ${lvl}`;
+        CURRICULUM_PLAN[lvl].forEach(c => {
+          const opt = document.createElement("option");
+          opt.value = JSON.stringify({ ...c, originLevel: `المستوى ${lvl}` });
+          opt.textContent = `${c.code} - ${c.name} (${c.credits} ساعات)`;
+          grp.appendChild(opt);
+        });
+        quickCoursePreset.appendChild(grp);
+      });
+    }
+    populateQuickPresets();
+
+    quickCoursePreset.addEventListener("change", (e) => {
+      if (!e.target.value) return;
+      const data = JSON.parse(e.target.value);
+      document.getElementById("course-name-input").value = data.name;
+      document.getElementById("course-code-input").value = data.code;
+      document.getElementById("course-credits-input").value = data.credits;
+      document.getElementById("course-origin-level-input").value = data.originLevel;
+      document.getElementById("course-lectures-input").value = data.totalLectures || 24;
+    });
+
+    // تبديل التبويبات
     tabLogin.addEventListener("click", () => {
       isRegisterMode = false;
       tabLogin.classList.add("active");
@@ -1212,7 +1315,7 @@
       authError.textContent = "";
     });
 
-    // 1. تسجيل الدخول المباشر عبر Google بنقرة واحدة
+    // Google Sign-in
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
@@ -1220,7 +1323,6 @@
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
 
-        // التحقق إن كان حساباً جديداً لبذر مواد المستوى الخامس
         const userDocRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userDocRef);
 
@@ -1233,20 +1335,17 @@
             currentLevel: 5,
             createdAt: new Date().toISOString()
           });
-          await seedTaibahCoursesLevel5(user.uid, false);
+          await seedInitialLevel5(user.uid, false);
         } else {
-          // التأكد من وجود المواد للمستخدمين السابقين
-          const existingCourses = await getDocs(collection(db, "users", user.uid, "courses"));
-          if (existingCourses.empty) {
-            await seedTaibahCoursesLevel5(user.uid, false);
-          }
+          const snap = await getDocs(collection(db, "users", user.uid, "courses"));
+          if (snap.empty) await seedInitialLevel5(user.uid, false);
         }
       } catch (err) {
-        authError.textContent = err.message || "تعذر تسجيل الدخول بحساب Google. تأكدي من تفعيل Google في Firebase Console";
+        authError.textContent = err.message || "تعذر تسجيل الدخول بحساب Google.";
       }
     });
 
-    // 2. تسجيل الدخول العادي بالبريد
+    // البريد وكلمة المرور
     authForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       authError.textContent = "";
@@ -1274,7 +1373,7 @@
           });
 
           const isAllCompleted = authDefaultStatus.value === "all";
-          await seedTaibahCoursesLevel5(userCred.user.uid, isAllCompleted);
+          await seedInitialLevel5(userCred.user.uid, isAllCompleted);
         } else {
           await signInWithEmailAndPassword(auth, email, pass);
         }
@@ -1287,7 +1386,7 @@
 
     btnLogout.addEventListener("click", () => signOut(auth));
 
-    // مراقبة الجلسة
+    // مراقبة الجلسة وحالة الترقية المقفلة بالتاريخ
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
@@ -1298,10 +1397,9 @@
         if (userDoc.exists()) {
           const data = userDoc.data();
           currentLevel = data.currentLevel || 5;
-          currentLevelTitle.textContent = `المستوى الدراسي: ${currentLevel == 5 ? 'الخامس' : 'السادس'}`;
-          btnUpgradeLevel.textContent = currentLevel == 5 ? 'ترقية للمستوى 6 🎓' : 'أنت في المستوى السادس ✅';
-          if (currentLevel >= 6) btnUpgradeLevel.disabled = true;
         }
+
+        updateLevelUIState();
 
         userGreeting.textContent = user.displayName ? `${user.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
 
@@ -1325,6 +1423,75 @@
       }
     });
 
+    // تحديث حالة زر وقفل الترقية حسب التاريخ والمستوى
+    function updateLevelUIState() {
+      levelDisplayHeading.textContent = `إنجاز مواد المستوى ${currentLevel == 5 ? 'الخامس' : currentLevel}`;
+      
+      const now = new Date();
+      const isDateReached = now >= TRANSITION_UNLOCK_DATE;
+
+      if (currentLevel >= 6) {
+        btnTransitionLevel.textContent = `أنت حالياً في المستوى ${currentLevel} ✅`;
+        btnTransitionLevel.className = "btn-transition-stage locked";
+        btnTransitionLevel.disabled = true;
+        dateLockMessage.textContent = "تم إتمام الانتقال بنجاح.";
+        dateLockMessage.style.color = "green";
+      } else {
+        if (isDateReached) {
+          btnTransitionLevel.textContent = "إتمام المستوى الخامس والانتقال للمستوى السادس 🚀";
+          btnTransitionLevel.className = "btn-transition-stage unlocked";
+          btnTransitionLevel.disabled = false;
+          dateLockMessage.textContent = "🔓 ميزة الانتقال متاحة الآن!";
+          dateLockMessage.style.color = "green";
+        } else {
+          btnTransitionLevel.textContent = "الانتقال للمستوى السادس وبدء مرحلة جديدة 🔒";
+          btnTransitionLevel.className = "btn-transition-stage locked";
+          btnTransitionLevel.disabled = true;
+          dateLockMessage.textContent = "⏳ ميزة الانتقال متاحة رسمياً بانتهاء الفصل في: 07 / 01 / 2027";
+          dateLockMessage.style.color = "#D97706";
+        }
+      }
+    }
+
+    // تنفيذ الانتقال للمستوى السادس ومسح مواد المستوى الخامس
+    btnTransitionLevel.addEventListener("click", async () => {
+      if (confirm("هل أنت متأكد من الانتقال للمستوى السادس؟ سيتم مسح مواد المستوى الخامس وبدء مرحلة جديدة من الصفر.")) {
+        btnTransitionLevel.disabled = true;
+        btnTransitionLevel.textContent = "جاري تهيئة المستوى السادس...";
+
+        // 1. حذف مواد المستوى الخامس
+        const coursesSnap = await getDocs(collection(db, "users", currentUser.uid, "courses"));
+        for (const d of coursesSnap.docs) {
+          await deleteDoc(doc(db, "users", currentUser.uid, "courses", d.id));
+        }
+
+        // 2. تحديث المستوى في بيانات الطالب
+        await setDoc(doc(db, "users", currentUser.uid), { currentLevel: 6 }, { merge: true });
+        currentLevel = 6;
+
+        // 3. بذر مواد المستوى السادس من الخطة المعتمدة
+        for (const c of CURRICULUM_PLAN[6]) {
+          await addDoc(collection(db, "users", currentUser.uid, "courses"), {
+            name: c.name,
+            code: c.code,
+            credits: c.credits,
+            totalLectures: c.totalLectures,
+            attendedLectures: 0,
+            color: c.color,
+            originLevel: "المستوى 6",
+            chapters: [
+              { id: "ch_1", title: "الشابتر 1", done: false },
+              { id: "ch_2", title: "الشابتر 2", done: false },
+              { id: "ch_3", title: "الشابتر 3", done: false }
+            ]
+          });
+        }
+
+        updateLevelUIState();
+        alert("مبارك انتقالك للمستوى السادس! تم تجهيز موادك الجديدة من الخطة بنجاح 🎉");
+      }
+    });
+
     // التنقل السفلي
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
@@ -1337,7 +1504,6 @@
       });
     });
 
-    // النوافذ المنبثقة
     btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
     btnCloseCourseModal.addEventListener("click", () => courseModal.classList.remove("open"));
 
@@ -1353,7 +1519,6 @@
     });
     btnCloseFeedbackModal.addEventListener("click", () => feedbackModal.classList.remove("open"));
 
-    // حفظ نسخة في Firestore عند إرسال الاقتراح
     feedbackForm.addEventListener("submit", async () => {
       if (currentUser) {
         try {
@@ -1379,27 +1544,14 @@
       });
     });
 
-    // الترقية للمستوى السادس
-    btnUpgradeLevel.addEventListener("click", async () => {
-      if (confirm("هل أتممت المستوى الخامس وترغب بالترقية ونقل جدولك للمستوى السادس؟")) {
-        await setDoc(doc(db, "users", currentUser.uid), { currentLevel: 6 }, { merge: true });
-        currentLevel = 6;
-        currentLevelTitle.textContent = "المستوى الدراسي: السادس";
-        btnUpgradeLevel.textContent = "أنت في المستوى السادس ✅";
-        btnUpgradeLevel.disabled = true;
-
-        await seedTaibahCoursesLevel6(currentUser.uid);
-        alert("تمت الترقية بنجاح وإضافة مقررات المستوى السادس إلى لوحتك 🚀");
-      }
-    });
-
-    // إضافة مقرر يدوي
+    // إضافة مقرر يدوي أو متقدم مع شارة المستوى
     addCourseForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.getElementById("course-name-input").value.trim();
       const code = document.getElementById("course-code-input").value.trim();
       const credits = parseInt(document.getElementById("course-credits-input").value) || 3;
-      const totalLectures = parseInt(document.getElementById("course-lectures-input").value) || 15;
+      const originLevel = document.getElementById("course-origin-level-input").value.trim();
+      const totalLectures = parseInt(document.getElementById("course-lectures-input").value) || 24;
       const chapterCount = parseInt(document.getElementById("course-chapters-input").value) || 5;
 
       const chapters = [];
@@ -1411,6 +1563,7 @@
         name,
         code,
         credits,
+        originLevel,
         totalLectures,
         attendedLectures: 0,
         color: selectedColor,
@@ -1442,7 +1595,7 @@
       taskModal.classList.remove("open");
     });
 
-    // رسم واجهة المواد
+    // رسم واجهة المواد مع الشارات (Origin Level Badge)
     function renderCoursesUI() {
       coursesContainer.innerHTML = "";
       let totalLecAll = 0;
@@ -1456,13 +1609,20 @@
         const completedChapters = (course.chapters || []).filter(c => c.done).length;
         const totalChapters = (course.chapters || []).length;
 
+        const originTagHtml = course.originLevel 
+          ? `<span class="origin-level-tag">${course.originLevel}</span>` 
+          : '';
+
         const card = document.createElement("div");
         card.className = "course-card";
         card.innerHTML = `
           <div class="course-card-header">
-            <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
-              ${course.name} (${course.code}) • ${course.credits || 3} ساعات معتمدة
-            </span>
+            <div>
+              ${originTagHtml}
+              <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
+                ${course.name} (${course.code}) • ${course.credits || 3} س
+              </span>
+            </div>
             <span class="course-status-brief">
               أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
             </span>
@@ -1583,7 +1743,6 @@
     // رسم واجهة المهام
     function renderTasksUI() {
       tasksContainer.innerHTML = "";
-
       let filtered = currentTasks;
       if (currentTaskFilter === "pending") filtered = currentTasks.filter(t => !t.completed);
       if (currentTaskFilter === "done") filtered = currentTasks.filter(t => t.completed);
@@ -1648,7 +1807,7 @@
       });
     }
 
-    // حاسبة المعدل الحقيقية بحسب عدد الساعات الفعلي لكل مادة من جدولك
+    // حاسبة المعدل الحقيقية بحسب عدد الساعات
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
       gpaBox.innerHTML = `
@@ -1661,7 +1820,7 @@
             </div>
           </div>
 
-          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">الدرجات التقديرية (الحساب بضرب النقاط بالساعات المعتمدة لكل مادة):</p>
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">الدرجات التقديرية (الحساب بالوزن الفعلي لساعات كل مادة مسجلة):</p>
           <div id="gpa-rows">
             ${currentCourses.map(c => `
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -1684,7 +1843,6 @@
             `).join('')}
           </div>
           <button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل الفصلي والتراكمي</button>
-          
           <div id="gpa-result" style="text-align:center; margin-top:14px; font-weight:800;"></div>
         </div>
       `;
@@ -1758,33 +1916,18 @@
       timerDisplay.textContent = "25:00";
     });
 
-    // بذر مواد المستوى الخامس بالساعات الدقيقة من جدولك (مجموع 18 وحدة مسجلة)
-    async function seedTaibahCoursesLevel5(userId, isAllCompleted) {
+    // بذر مواد المستوى الخامس (خطة 18 وحدة مسجلة)
+    async function seedInitialLevel5(userId, isAllCompleted) {
       const courses = [
-        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#8B5CF6", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }, { id: "c3", title: "Chapter 3: Pipeline Hazards", done: isAllCompleted }] },
-        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 20, attendedLectures: isAllCompleted ? 20 : 0, color: "#0D9488", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted }, { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted }] },
-        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, color: "#F43F5E", chapters: [{ id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted }, { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted }, { id: "c3", title: "Chapter 3: Synchronization", done: isAllCompleted }] },
-        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, color: "#10B981", chapters: [{ id: "c1", title: "Chapter 1: Nodal & Mesh Analysis", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Superposition & Thevenin", done: isAllCompleted }] },
-        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 14, attendedLectures: isAllCompleted ? 14 : 0, color: "#0284C7", chapters: [{ id: "c1", title: "الوحدة الأولى: السيرة الذاتية المهنية", done: isAllCompleted }, { id: "c2", title: "الوحدة الثانية: مهارات المقابلات الوظيفية", done: isAllCompleted }] },
-        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#F59E0B", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Random Variables & Distributions", done: isAllCompleted }] }
+        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
+        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 20, attendedLectures: isAllCompleted ? 20 : 0, color: "#0D9488", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted }, { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted }] },
+        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, color: "#F43F5E", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted }, { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted }] },
+        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 28, attendedLectures: isAllCompleted ? 28 : 0, color: "#10B981", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Nodal & Mesh", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Superposition", done: isAllCompleted }] },
+        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 14, attendedLectures: isAllCompleted ? 14 : 0, color: "#0284C7", originLevel: "", chapters: [{ id: "c1", title: "الوحدة 1: السيرة الذاتية المهنية", done: isAllCompleted }] },
+        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#F59E0B", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: isAllCompleted }] }
       ];
 
       for (const c of courses) {
-        await addDoc(collection(db, "users", userId, "courses"), c);
-      }
-    }
-
-    // بذر مواد المستوى السادس
-    async function seedTaibahCoursesLevel6(userId) {
-      const level6Courses = [
-        { name: "الأنظمة المدمجة", code: "COE 321", credits: 4, totalLectures: 28, attendedLectures: 0, color: "#6366F1", chapters: [{ id: "c1", title: "Chapter 1: Microcontroller Architecture", done: false }, { id: "c2", title: "Chapter 2: GPIO & Interfacing", done: false }] },
-        { name: "شبكات الحاسب للمهندسين", code: "COE 341", credits: 4, totalLectures: 28, attendedLectures: 0, color: "#0EA5E9", chapters: [{ id: "c1", title: "Chapter 1: OSI & TCP/IP Models", done: false }, { id: "c2", title: "Chapter 2: IP Addressing & Subnetting", done: false }] },
-        { name: "إلكترونيات (1)", code: "EE 202", credits: 4, totalLectures: 28, attendedLectures: 0, color: "#10B981", chapters: [{ id: "c1", title: "Chapter 1: Semiconductor Diodes", done: false }, { id: "c2", title: "Chapter 2: BJT & MOSFET Amplifiers", done: false }] },
-        { name: "الإشارات والأنظمة", code: "EE 301", credits: 3, totalLectures: 24, attendedLectures: 0, color: "#F59E0B", chapters: [{ id: "c1", title: "Chapter 1: Continuous & Discrete Signals", done: false }, { id: "c2", title: "Chapter 2: Fourier & Laplace Transforms", done: false }] },
-        { name: "الكتابة التقنية والمهنية", code: "ENG 202", credits: 2, totalLectures: 14, attendedLectures: 0, color: "#84CC16", chapters: [{ id: "c1", title: "Unit 1: Technical Report Writing", done: false }] }
-      ];
-
-      for (const c of level6Courses) {
         await addDoc(collection(db, "users", userId, "courses"), c);
       }
     }
