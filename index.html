@@ -234,7 +234,7 @@
     .app-header {
       background-color: var(--primary-dark);
       color: white;
-      padding: 14px 18px;
+      padding: 12px 16px;
       position: sticky;
       top: 0;
       z-index: 20;
@@ -248,7 +248,7 @@
 
     .header-actions {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
     }
 
@@ -256,8 +256,8 @@
       background: rgba(255, 255, 255, 0.2);
       color: white;
       border: none;
-      padding: 5px 12px;
-      border-radius: 15px;
+      padding: 5px 10px;
+      border-radius: 14px;
       font-size: 11.5px;
       cursor: pointer;
       font-weight: bold;
@@ -266,16 +266,36 @@
       gap: 4px;
     }
 
+    /* الصورة المصغرة في الهيدر */
+    .user-profile-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 3px 8px 3px 4px;
+      border-radius: 20px;
+    }
+
+    .user-avatar-mini {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #0F766E;
+      border: 1.5px solid white;
+    }
+
     .admin-badge {
       background: #FEF08A;
       color: #854D0E;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 900;
-      padding: 3px 8px;
-      border-radius: 12px;
+      padding: 2px 7px;
+      border-radius: 10px;
       display: none;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
     }
 
     .header-branding {
@@ -859,9 +879,7 @@
       margin-top: 2px;
     }
 
-    /* ============================================================ */
-    /* صفحة الجدول الدراسي الأسبوعي (Timetable) */
-    /* ============================================================ */
+    /* صفحة الجدول الدراسي */
     .timetable-controls-bar {
       display: flex;
       gap: 8px;
@@ -921,7 +939,7 @@
       margin-top: 2px;
     }
 
-    /* مولّد خطة المذاكرة التجريبي (Cram Planner) */
+    /* مولّد خطة المذاكرة */
     .cram-planner-card {
       background: var(--card-bg);
       border: 1.5px dashed var(--primary-teal);
@@ -946,7 +964,7 @@
       border-radius: 6px;
     }
 
-    /* مؤقت غرس الإنجاز المطور */
+    /* مؤقت غرس الإنجاز */
     .tree-timer-box {
       background: var(--card-bg);
       border-radius: 20px;
@@ -1255,6 +1273,32 @@
       border-color: var(--text-main);
       transform: scale(1.1);
     }
+
+    /* أزرار خيارات الصورة */
+    .option-selector-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .option-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-subtle);
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .option-btn.active {
+      border-color: var(--primary-teal);
+      background: rgba(13, 148, 136, 0.1);
+      color: var(--primary-teal);
+    }
   </style>
 </head>
 <body>
@@ -1344,8 +1388,12 @@
     <header class="app-header">
       <div class="header-inner">
         <div class="header-actions">
+          <div id="btn-open-profile" class="user-profile-btn" title="الملف الشخصي">
+            <img id="header-avatar" class="user-avatar-mini" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" alt="Avatar">
+            <span id="header-name-display" style="font-size:11.5px; font-weight:bold;">حسابي</span>
+          </div>
           <button id="btn-toggle-theme" class="btn-header-action" title="تبديل الوضع">🌙</button>
-          <button id="btn-open-feedback" class="btn-header-action" title="اقتراح أو شكوى">📩 اقتراح</button>
+          <button id="btn-open-feedback" class="btn-header-action" title="اقتراح أو شكوى">📩</button>
           <button id="btn-logout" class="btn-header-action">خروج</button>
         </div>
         <div class="header-branding">
@@ -1360,7 +1408,6 @@
 
     <!-- تبويب 1: المقررات والإنجاز -->
     <main class="main-content" id="tab-content-courses">
-      
       <div id="exam-countdown-box" class="countdown-widget">
         <div class="countdown-info">
           <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
@@ -1407,10 +1454,8 @@
 
       <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد (أو متقدم من الخطة)</button>
 
-      <!-- قائمة المواد -->
       <section class="courses-list" id="courses-container"></section>
 
-      <!-- قسم الترقية للمستوى التالي مقفل بتاريخ 7 يناير 2027 -->
       <div class="bottom-level-section">
         <h3 id="transition-section-title">🎓 إتمام الفصل والانتقال للمستوى التالي</h3>
         <p id="transition-section-desc">
@@ -1429,7 +1474,7 @@
       </footer>
     </main>
 
-    <!-- تبويب 2: الجدول الدراسي الأسبوعي (مرن، سلس، ويبدأ فارغاً) -->
+    <!-- تبويب 2: الجدول الدراسي الأسبوعي -->
     <main class="main-content" id="tab-content-schedule" style="display: none;">
       <div class="content-header">
         <div>
@@ -1438,17 +1483,15 @@
         </div>
       </div>
 
-      <!-- أزرار التحكم بالجدول وتصدير الصورة الفخمة -->
       <div class="timetable-controls-bar">
-        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.2; font-size: 12.5px; padding: 10px;">
+        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 12.5px; padding: 10px;">
           ➕ إضافة محاضرة للجدول
         </button>
-        <button id="btn-export-schedule-img" class="btn-primary" style="flex: 1; background: #0F766E; font-size: 12.5px; padding: 10px;">
-          📸 حفظ كصورة أنيقة
+        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 12.5px; padding: 10px;">
+          📥 تحميل الجدول الدراسي
         </button>
       </div>
 
-      <!-- أيام الأسبوع (الأحد إلى الخميس) -->
       <div id="schedule-days-container"></div>
 
       <footer class="site-footer">
@@ -1456,7 +1499,7 @@
       </footer>
     </main>
 
-    <!-- تبويب 3: التجميعات والملخصات (تظهر فقط لمواد الطالب المضافة) -->
+    <!-- تبويب 3: التجميعات والملخصات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1500,7 +1543,6 @@
         </div>
       </div>
 
-      <!-- الحاوية المرتبطة بمواد الطالب فقط -->
       <div id="resources-global-container"></div>
 
       <footer class="site-footer">
@@ -1508,17 +1550,15 @@
       </footer>
     </main>
 
-    <!-- تبويب 4: المهام ومؤقت غرس الإنجاز وخطة المذاكرة التجريبية -->
+    <!-- تبويب 4: المهام ومؤقت غرس الإنجاز -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
-      
-      <!-- مولّد خطة المذاكرة السريعة (خاصية تجريبية 🧪) -->
       <div class="cram-planner-card">
         <div class="cram-planner-header">
           <span style="font-size:13px; font-weight:800;">⚡ مولّد خطة المذاكرة السريعة</span>
           <span class="cram-pill-tag">خاصية تجريبية 🧪</span>
         </div>
         <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px;">
-          حددي موعد الاختبار والشباتر المتبقية لحساب معدل الإنجاز اليومي وختم المنهج بدون ضغط:
+          حددي موعد الاختبار والشباتر المتبقية لحساب معدل الإنجاز اليومي وختم المنهج:
         </p>
         <div class="form-row">
           <div class="form-group" style="margin:0;">
@@ -1534,7 +1574,6 @@
         <div id="cram-result-box" style="margin-top:10px; font-size:12px; display:none; background:var(--subtle-bg); padding:10px; border-radius:10px;"></div>
       </div>
 
-      <!-- مؤقت غرس الإنجاز التفاعلي -->
       <div class="tree-timer-box">
         <div class="tree-timer-header">
           <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز</span>
@@ -1572,7 +1611,6 @@
         </div>
       </div>
 
-      <!-- لوحة الشرف للمتصدرين -->
       <div class="leaderboard-card">
         <div class="leaderboard-header">
           <span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span>
@@ -1619,7 +1657,7 @@
       </footer>
     </main>
 
-    <!-- شريط التنقل السفلي المطور 5 تابات سلسة -->
+    <!-- شريط التنقل السفلي -->
     <nav class="bottom-nav">
       <div class="nav-item active" data-target="courses">
         <span class="icon">📊</span>
@@ -1642,6 +1680,92 @@
         <span>المعدل</span>
       </div>
     </nav>
+
+    <!-- ============================================================ -->
+    <!-- استوديو تخصيص وتحميل صورة الجدول الدراسي (عمودي/أفقي، فاتح/داكن) -->
+    <!-- ============================================================ -->
+    <div id="export-studio-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>🎨 استوديو تصميم صورة الجدول</h3>
+          <button id="btn-close-export-studio" class="close-btn">&times;</button>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">
+          خصص شكل وتنسيق الصورة لتناسب شاشة قفل الآيفون أو شاشة الكمبيوتر:
+        </p>
+
+        <label style="font-size:12px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:6px;">اتجاه الصورة:</label>
+        <div class="option-selector-row">
+          <button class="option-btn active" id="btn-opt-portrait">📱 عمودي (خلفية جوال)</button>
+          <button class="option-btn" id="btn-opt-landscape">🖥️ أفقي (كمبيوتر / طباعة)</button>
+        </div>
+
+        <label style="font-size:12px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:6px;">نمط التصميم والألوان:</label>
+        <div class="option-selector-row">
+          <button class="option-btn active" id="btn-opt-dark">🌙 داكن فخم (Dark)</button>
+          <button class="option-btn" id="btn-opt-light">☀️ فاتح نقي (Light)</button>
+        </div>
+
+        <div style="background:var(--subtle-bg); padding:10px; border-radius:12px; font-size:11.5px; color:var(--text-muted); margin-bottom:14px;">
+          ✨ تحتفظ كل مادة بلونها الأصلي المخصص لها في الجدول لسهولة تمييز القاعات والمحاضرات.
+        </div>
+
+        <button id="btn-execute-download" class="btn-primary" style="background:#0F766E;">
+          📥 تنزيل صورة الجدول الفخمة بجودة HD
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- مودال الملف الشخصي المتكامل (تعديل الاسم والصورة والنبذة) -->
+    <!-- ============================================================ -->
+    <div id="profile-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>👤 الملف الشخصي والتخصيص</h3>
+          <button id="btn-close-profile-modal" class="close-btn">&times;</button>
+        </div>
+        <form id="profile-edit-form">
+          <div style="text-align:center; margin-bottom:14px;">
+            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:3px solid var(--primary-teal); background:#0F766E; margin-bottom:6px;" alt="Avatar">
+            <span style="font-size:11px; color:var(--text-muted); display:block;">تخصيص الصورة الشخصية (الأفتار)</span>
+          </div>
+
+          <div class="form-group">
+            <label>الاسم الكامل (المعروض بالجدول ولوحة الشرف)</label>
+            <input type="text" id="profile-name-input" required placeholder="اسمك الكريم">
+          </div>
+
+          <div class="form-group">
+            <label>النبذة التعريفية (Bio)</label>
+            <input type="text" id="profile-bio-input" placeholder="مثال: طالبة هندسة حاسب - جامعة طيبة">
+          </div>
+
+          <div class="form-group">
+            <label>رابط الصورة الشخصية (أو اختر من التشكيلة الجاهزة بالأسفل):</label>
+            <input type="url" id="profile-avatar-url" placeholder="https://...">
+          </div>
+
+          <div class="form-group">
+            <label>أو رفع صورة من جهازك مباشرة:</label>
+            <input type="file" id="profile-avatar-file" accept="image/*" style="font-size:11.5px; padding:6px;">
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <span style="font-size:11px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:6px;">أفتارات هندسية سريعة:</span>
+            <div style="display:flex; gap:8px; justify-content:center;">
+              <img class="quick-avatar-choice" data-seed="tech" src="https://api.dicebear.com/7.x/bottts/svg?seed=tech" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="cyber" src="https://api.dicebear.com/7.x/bottts/svg?seed=cyber" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="coder" src="https://api.dicebear.com/7.x/bottts/svg?seed=coder" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="engineer" src="https://api.dicebear.com/7.x/bottts/svg?seed=engineer" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+              <img class="quick-avatar-choice" data-seed="robot" src="https://api.dicebear.com/7.x/bottts/svg?seed=robot" style="width:36px; height:36px; border-radius:50%; cursor:pointer; background:#E2E8F0; padding:2px;">
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary">حفظ تحديثات الملف الشخصي ✅</button>
+        </form>
+      </div>
+    </div>
 
     <!-- مودال إضافة محاضرة للجدول الأسبوعي -->
     <div id="slot-modal" class="modal-overlay">
@@ -1945,7 +2069,7 @@
     </div>
   </div>
 
-  <!-- سكربت التطبيق الكامل -->
+  <!-- منطق التطبيق البرمجي المتكامل -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -2053,6 +2177,10 @@
     let isAdmin = false;
     let countdownInterval = null;
 
+    // خيارات تصدير الصورة
+    let exportOrientation = "portrait"; // "portrait" أو "landscape"
+    let exportTheme = "dark";           // "dark" أو "light"
+
     // عناصر الصفحة
     const authScreen = document.getElementById("auth-screen");
     const mainApp = document.getElementById("main-app");
@@ -2075,6 +2203,19 @@
     const btnToggleTheme = document.getElementById("btn-toggle-theme");
     const adminBadge = document.getElementById("admin-badge");
 
+    // عناصر الملف الشخصي
+    const btnOpenProfile = document.getElementById("btn-open-profile");
+    const profileModal = document.getElementById("profile-modal");
+    const btnCloseProfileModal = document.getElementById("btn-close-profile-modal");
+    const profileEditForm = document.getElementById("profile-edit-form");
+    const headerAvatar = document.getElementById("header-avatar");
+    const headerNameDisplay = document.getElementById("header-name-display");
+    const profileAvatarPreview = document.getElementById("profile-avatar-preview");
+    const profileNameInput = document.getElementById("profile-name-input");
+    const profileBioInput = document.getElementById("profile-bio-input");
+    const profileAvatarUrl = document.getElementById("profile-avatar-url");
+    const profileAvatarFile = document.getElementById("profile-avatar-file");
+
     const coursesContainer = document.getElementById("courses-container");
     const tasksContainer = document.getElementById("tasks-container");
     const courseModal = document.getElementById("course-modal");
@@ -2088,14 +2229,21 @@
     const resourcesGlobalContainer = document.getElementById("resources-global-container");
     const searchResourcesInput = document.getElementById("search-resources-input");
 
-    // الجدول الدراسي
+    // الجدول وتصدير الصورة
     const scheduleDaysContainer = document.getElementById("schedule-days-container");
     const slotModal = document.getElementById("slot-modal");
     const slotForm = document.getElementById("slot-form");
     const slotCourseSelect = document.getElementById("slot-course-select");
     const btnOpenSlotModal = document.getElementById("btn-open-slot-modal");
     const btnCloseSlotModal = document.getElementById("btn-close-slot-modal");
-    const btnExportScheduleImg = document.getElementById("btn-export-schedule-img");
+    const btnOpenExportStudio = document.getElementById("btn-open-export-studio");
+    const exportStudioModal = document.getElementById("export-studio-modal");
+    const btnCloseExportStudio = document.getElementById("btn-close-export-studio");
+    const btnOptPortrait = document.getElementById("btn-opt-portrait");
+    const btnOptLandscape = document.getElementById("btn-opt-landscape");
+    const btnOptDark = document.getElementById("btn-opt-dark");
+    const btnOptLight = document.getElementById("btn-opt-light");
+    const btnExecuteDownload = document.getElementById("btn-execute-download");
 
     // الإعلانات والعدّاد
     const globalBroadcastBanner = document.getElementById("global-broadcast-banner");
@@ -2221,6 +2369,8 @@
           await setDoc(userDocRef, {
             displayName: user.displayName || "طالب/ـة",
             email: user.email,
+            photoURL: user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`,
+            bio: "مهندس/ـة حاسب آلي - جامعة طيبة",
             university: "جامعة طيبة",
             major: "هندسة الحاسب",
             currentLevel: 5,
@@ -2252,12 +2402,15 @@
         if (isRegisterMode) {
           const name = authName.value.trim();
           if (!name) throw new Error("الرجاء إدخال الاسم.");
+          const defaultAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${Date.now()}`;
           const userCred = await createUserWithEmailAndPassword(auth, email, pass);
-          await updateProfile(userCred.user, { displayName: name });
+          await updateProfile(userCred.user, { displayName: name, photoURL: defaultAvatar });
           
           await setDoc(doc(db, "users", userCred.user.uid), {
             displayName: name,
             email: email,
+            photoURL: defaultAvatar,
+            bio: "مهندس/ـة حاسب آلي - جامعة طيبة",
             university: "جامعة طيبة",
             major: "هندسة الحاسب",
             currentLevel: 5,
@@ -2328,13 +2481,22 @@
             currentLevel = data.currentLevel || 5;
             document.getElementById("user-points-display").textContent = `${data.points || 0} نقطة`;
             document.getElementById("trees-grown-count").textContent = `${data.treesGrown || 0}`;
+            
+            // تحديث واجهة الملف الشخصي في الهيدر
+            const avatarUrl = data.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`;
+            headerAvatar.src = avatarUrl;
+            profileAvatarPreview.src = avatarUrl;
+            headerNameDisplay.textContent = (data.displayName || "حسابي").split(" ")[0];
+            profileNameInput.value = data.displayName || "";
+            profileBioInput.value = data.bio || "";
+            profileAvatarUrl.value = data.photoURL || "";
+
+            userGreeting.textContent = data.displayName ? `${data.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
+
             updateLevelUIState();
           }
         });
 
-        userGreeting.textContent = user.displayName ? `${user.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
-
-        // مراقبة المقررات
         onSnapshot(collection(db, "users", user.uid, "courses"), async (snapshot) => {
           currentCourses = [];
           snapshot.forEach(d => currentCourses.push({ id: d.id, ...d.data() }));
@@ -2344,24 +2506,21 @@
           renderCoursesUI();
           updateAllCourseDropdowns();
           renderGPACalculator();
-          renderPublicResourcesUI(); // تحديث التجميعات تلقائياً لتطابق مقررات الطالب الحالية فقط
+          renderPublicResourcesUI();
         });
 
-        // مراقبة المهام
         onSnapshot(collection(db, "users", user.uid, "tasks"), (snapshot) => {
           currentTasks = [];
           snapshot.forEach(d => currentTasks.push({ id: d.id, ...d.data() }));
           renderTasksUI();
         });
 
-        // مراقبة جدول الطالب الأسبوعي
         onSnapshot(collection(db, "users", user.uid, "schedule"), (snapshot) => {
           currentScheduleSlots = [];
           snapshot.forEach(d => currentScheduleSlots.push({ id: d.id, ...d.data() }));
           renderScheduleUI();
         });
 
-        // مراقبة التجميعات العامة
         onSnapshot(collection(db, "public_resources"), (snapshot) => {
           publicResources = [];
           pendingResources = [];
@@ -2393,7 +2552,283 @@
     });
 
     // ============================================================
-    // إدارة الجدول الدراسي الأسبوعي (مرن، وسلس، وتصدير الصورة)
+    // إدارة الملف الشخصي (تعديل الاسم والأفتار والنبذة)
+    // ============================================================
+    btnOpenProfile.addEventListener("click", () => {
+      profileModal.classList.add("open");
+    });
+    btnCloseProfileModal.addEventListener("click", () => {
+      profileModal.classList.remove("open");
+    });
+
+    document.querySelectorAll(".quick-avatar-choice").forEach(img => {
+      img.addEventListener("click", () => {
+        const seed = img.getAttribute("data-seed");
+        const url = `https://api.dicebear.com/7.x/bottts/svg?seed=${seed}`;
+        profileAvatarUrl.value = url;
+        profileAvatarPreview.src = url;
+      });
+    });
+
+    profileAvatarUrl.addEventListener("input", () => {
+      if (profileAvatarUrl.value.trim()) {
+        profileAvatarPreview.src = profileAvatarUrl.value.trim();
+      }
+    });
+
+    profileAvatarFile.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          profileAvatarPreview.src = ev.target.result;
+          profileAvatarUrl.value = ev.target.result; // حفظ الصورة محلياً كـ Data URI
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    profileEditForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const newName = profileNameInput.value.trim();
+      const newBio = profileBioInput.value.trim();
+      const newPhoto = profileAvatarUrl.value.trim() || profileAvatarPreview.src;
+
+      try {
+        await updateProfile(auth.currentUser, {
+          displayName: newName,
+          photoURL: newPhoto
+        });
+
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          displayName: newName,
+          bio: newBio,
+          photoURL: newPhoto
+        });
+
+        profileModal.classList.remove("open");
+        alert("تم حفظ وتحديث ملفك الشخصي بنجاح! 🎉");
+      } catch (err) {
+        alert("حدث خطأ أثناء الحفظ: " + err.message);
+      }
+    });
+
+    // ============================================================
+    // إدارة استوديو تصميم وتحميل صورة الجدول الدراسي
+    // ============================================================
+    btnOpenExportStudio.addEventListener("click", () => {
+      if (currentScheduleSlots.length === 0) {
+        alert("الجدول فارغ حالياً! أضف محاضراتك أولاً لتتمكن من تنزيل الصورة.");
+        return;
+      }
+      exportStudioModal.classList.add("open");
+    });
+    btnCloseExportStudio.addEventListener("click", () => {
+      exportStudioModal.classList.remove("open");
+    });
+
+    btnOptPortrait.addEventListener("click", () => {
+      btnOptPortrait.classList.add("active");
+      btnOptLandscape.classList.remove("active");
+      exportOrientation = "portrait";
+    });
+
+    btnOptLandscape.addEventListener("click", () => {
+      btnOptLandscape.classList.add("active");
+      btnOptPortrait.classList.remove("active");
+      exportOrientation = "landscape";
+    });
+
+    btnOptDark.addEventListener("click", () => {
+      btnOptDark.classList.add("active");
+      btnOptLight.classList.remove("active");
+      exportTheme = "dark";
+    });
+
+    btnOptLight.addEventListener("click", () => {
+      btnOptLight.classList.add("active");
+      btnOptDark.classList.remove("active");
+      exportTheme = "light";
+    });
+
+    // رسم وتنزيل صورة الجدول باحترافية
+    btnExecuteDownload.addEventListener("click", () => {
+      const isPortrait = (exportOrientation === "portrait");
+      const isDark = (exportTheme === "dark");
+
+      const width = isPortrait ? 1080 : 1920;
+      const height = isPortrait ? 1920 : 1080;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+
+      // 1. الخلفية المتدرجة
+      if (isDark) {
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, "#062822");
+        grad.addColorStop(0.5, "#0B1519");
+        grad.addColorStop(1, "#02090C");
+        ctx.fillStyle = grad;
+      } else {
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, "#F0FDFA");
+        grad.addColorStop(0.5, "#F8FAFC");
+        grad.addColorStop(1, "#E2E8F0");
+        ctx.fillStyle = grad;
+      }
+      ctx.fillRect(0, 0, width, height);
+
+      // 2. الهيدر والاسم والكلية
+      const studentName = currentUser ? (currentUser.displayName || "مهندس/ـة الحاسب") : "طالب/ـة جامعة طيبة";
+      
+      ctx.textAlign = "center";
+      ctx.fillStyle = isDark ? "#FFFFFF" : "#0F172A";
+      ctx.font = isPortrait ? "900 48px Cairo, sans-serif" : "900 52px Cairo, sans-serif";
+      ctx.fillText("الجدول الدراسي الأسبوعي", width / 2, isPortrait ? 110 : 90);
+
+      ctx.fillStyle = isDark ? "#2DD4BF" : "#0D9488";
+      ctx.font = isPortrait ? "700 28px Cairo, sans-serif" : "700 30px Cairo, sans-serif";
+      ctx.fillText(`${studentName} • كلية علوم وهندسة الحاسب - جامعة طيبة`, width / 2, isPortrait ? 165 : 140);
+
+      // 3. رسم بطاقات الأيام والمحاضرات مع الاحتفاظ بألوان المواد
+      const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس"];
+
+      if (isPortrait) {
+        // الرسم العمودي (شاشات الهاتف 9:16)
+        let currentY = 220;
+        days.forEach(day => {
+          const slots = currentScheduleSlots.filter(s => s.day === day).sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+          // شريط اليوم
+          ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 148, 136, 0.12)";
+          ctx.beginPath();
+          ctx.roundRect(50, currentY, 980, 44, 10);
+          ctx.fill();
+
+          ctx.fillStyle = isDark ? "#FCD34D" : "#0F766E";
+          ctx.textAlign = "right";
+          ctx.font = "900 24px Cairo, sans-serif";
+          ctx.fillText(`📅 ${day}`, 1000, currentY + 31);
+          currentY += 56;
+
+          if (slots.length === 0) {
+            ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(0, 0, 0, 0.4)";
+            ctx.font = "600 20px Cairo, sans-serif";
+            ctx.fillText("لا توجد محاضرات مجدولة (إجازة / Off) ☕", 990, currentY + 24);
+            currentY += 46;
+          } else {
+            slots.forEach(s => {
+              // بطاقة المحاضرة
+              ctx.fillStyle = isDark ? "#1E293B" : "#FFFFFF";
+              ctx.beginPath();
+              ctx.roundRect(50, currentY, 980, 64, 12);
+              ctx.fill();
+
+              // شريط لون المادة المخصص على الطرف الأيمن
+              ctx.fillStyle = s.color || "#0D9488";
+              ctx.beginPath();
+              ctx.roundRect(1020, currentY, 10, 64, [0, 12, 12, 0]);
+              ctx.fill();
+
+              // نص المادة
+              ctx.fillStyle = isDark ? "#F8FAFC" : "#0F172A";
+              ctx.textAlign = "right";
+              ctx.font = "800 24px Cairo, sans-serif";
+              ctx.fillText(`${s.courseName} (${s.courseCode})`, 1000, currentY + 40);
+
+              // الوقت والقاعة
+              ctx.fillStyle = s.color || (isDark ? "#2DD4BF" : "#0D9488");
+              ctx.textAlign = "left";
+              ctx.font = "700 20px Cairo, sans-serif";
+              ctx.fillText(`⏰ ${s.startTime} - ${s.endTime}  |  قاعة: ${s.room} (${s.building})`, 75, currentY + 40);
+
+              currentY += 76;
+            });
+          }
+          currentY += 16;
+        });
+
+      } else {
+        // الرسم الأفقي (شاشات الكمبيوتر والألواح والطباعة)
+        const colWidth = 340;
+        const startX = 60;
+        const startY = 190;
+
+        days.forEach((day, index) => {
+          const x = startX + (index * (colWidth + 24));
+          let y = startY;
+
+          const slots = currentScheduleSlots.filter(s => s.day === day).sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+          // عمود اليوم
+          ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 148, 136, 0.12)";
+          ctx.beginPath();
+          ctx.roundRect(x, y, colWidth, 48, 10);
+          ctx.fill();
+
+          ctx.fillStyle = isDark ? "#FCD34D" : "#0F766E";
+          ctx.textAlign = "center";
+          ctx.font = "900 24px Cairo, sans-serif";
+          ctx.fillText(day, x + (colWidth / 2), y + 34);
+          y += 62;
+
+          if (slots.length === 0) {
+            ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.35)";
+            ctx.font = "600 18px Cairo, sans-serif";
+            ctx.fillText("إجازة (Off) ☕", x + (colWidth / 2), y + 40);
+          } else {
+            slots.forEach(s => {
+              ctx.fillStyle = isDark ? "#1E293B" : "#FFFFFF";
+              ctx.beginPath();
+              ctx.roundRect(x, y, colWidth, 110, 12);
+              ctx.fill();
+
+              // شريط اللون
+              ctx.fillStyle = s.color || "#0D9488";
+              ctx.beginPath();
+              ctx.roundRect(x + colWidth - 8, y, 8, 110, [0, 12, 12, 0]);
+              ctx.fill();
+
+              ctx.textAlign = "right";
+              ctx.fillStyle = isDark ? "#F8FAFC" : "#0F172A";
+              ctx.font = "800 19px Cairo, sans-serif";
+              ctx.fillText(s.courseCode, x + colWidth - 20, y + 32);
+
+              ctx.font = "700 15px Cairo, sans-serif";
+              ctx.fillStyle = isDark ? "#94A3B8" : "#64748B";
+              const shortName = s.courseName.length > 22 ? s.courseName.substring(0, 22) + "..." : s.courseName;
+              ctx.fillText(shortName, x + colWidth - 20, y + 58);
+
+              ctx.font = "700 14px Cairo, sans-serif";
+              ctx.fillStyle = s.color || (isDark ? "#2DD4BF" : "#0D9488");
+              ctx.fillText(`⏰ ${s.startTime} - ${s.endTime}`, x + colWidth - 20, y + 84);
+              ctx.fillText(`📍 قاعة: ${s.room}`, x + colWidth - 20, y + 102);
+
+              y += 122;
+            });
+          }
+        });
+      }
+
+      // 4. الفوتر وتوقيع الحقوق
+      ctx.textAlign = "center";
+      ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.6)" : "rgba(0, 0, 0, 0.5)";
+      ctx.font = "600 20px Cairo, sans-serif";
+      ctx.fillText("COE • J  © 2026 - صُمم لمهندسي جامعة طيبة", width / 2, height - 35);
+
+      // التنزيل التلقائي
+      const link = document.createElement("a");
+      link.download = `الجدول_الدراسي_${studentName.replace(/\s+/g, '_')}_${exportOrientation}_${exportTheme}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+
+      exportStudioModal.classList.remove("open");
+    });
+
+    // ============================================================
+    // بقية دوال النظام والجدول الأسبوعي
     // ============================================================
     btnOpenSlotModal.addEventListener("click", () => {
       if (currentCourses.length === 0) {
@@ -2435,10 +2870,8 @@
 
     function renderScheduleUI() {
       scheduleDaysContainer.innerHTML = "";
-
       const daysOfWeek = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس"];
       
-      // معرفة اليوم الحالي لتظليله تلقائياً
       const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
       const todayArabic = daysMap[new Date().getDay()];
 
@@ -2465,7 +2898,7 @@
               <div class="timetable-slot-item">
                 <div class="timetable-slot-info">
                   <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="width:8px; height:8px; border-radius:50%; background:${slot.color};"></span>
+                    <span style="width:10px; height:10px; border-radius:50%; background:${slot.color};"></span>
                     <h4>${slot.courseName} (${slot.courseCode})</h4>
                   </div>
                   <p>⏰ من ${slot.startTime} إلى ${slot.endTime} • قاعة: ${slot.room} (${slot.building})</p>
@@ -2496,100 +2929,7 @@
       }
     }
 
-    // تصدير وتوليد بطاقة الجدول الأنيقة كصورة Canvas
-    btnExportScheduleImg.addEventListener("click", () => {
-      if (currentScheduleSlots.length === 0) {
-        alert("الجدول فارغ حالياً! أضف محاضراتك أولاً لتصدير صورة الجدول.");
-        return;
-      }
-
-      const canvas = document.createElement("canvas");
-      canvas.width = 1080;
-      canvas.height = 1350;
-      const ctx = canvas.getContext("2d");
-
-      // خلفية متدرجة فخمة
-      const grad = ctx.createLinearGradient(0, 0, 0, 1350);
-      grad.addColorStop(0, "#085F56");
-      grad.addColorStop(0.2, "#0F766E");
-      grad.addColorStop(1, "#042F2E");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1080, 1350);
-
-      // الهيدر والاسم
-      ctx.fillStyle = "#FFFFFF";
-      ctx.textAlign = "center";
-      ctx.font = "900 48px Cairo, sans-serif";
-      ctx.fillText("الجدول الدراسي الأسبوعي", 540, 90);
-
-      ctx.font = "700 28px Cairo, sans-serif";
-      ctx.fillStyle = "#CCFBF1";
-      const studentName = currentUser ? (currentUser.displayName || "مهندس/ـة الحاسب") : "جامعة طيبة";
-      ctx.fillText(`${studentName} • كلية علوم وهندسة الحاسب`, 540, 140);
-
-      // رسم الأيام
-      const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس"];
-      let currentY = 190;
-
-      days.forEach(day => {
-        const slots = currentScheduleSlots.filter(s => s.day === day).sort((a, b) => a.startTime.localeCompare(b.startTime));
-        
-        ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
-        ctx.beginPath();
-        ctx.roundRect(60, currentY, 960, 42, 8);
-        ctx.fill();
-
-        ctx.fillStyle = "#FEF08A";
-        ctx.textAlign = "right";
-        ctx.font = "900 24px Cairo, sans-serif";
-        ctx.fillText(`📅 ${day}`, 990, currentY + 30);
-        currentY += 52;
-
-        if (slots.length === 0) {
-          ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
-          ctx.font = "600 20px Cairo, sans-serif";
-          ctx.fillText("لا توجد محاضرات (إجازة / Off)", 980, currentY + 22);
-          currentY += 40;
-        } else {
-          slots.forEach(s => {
-            ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
-            ctx.beginPath();
-            ctx.roundRect(60, currentY, 960, 56, 10);
-            ctx.fill();
-
-            // المادة والوقت
-            ctx.fillStyle = "#0F172A";
-            ctx.font = "800 22px Cairo, sans-serif";
-            ctx.fillText(`${s.courseName} (${s.courseCode})`, 990, currentY + 36);
-
-            ctx.fillStyle = "#0D9488";
-            ctx.textAlign = "left";
-            ctx.font = "700 20px Cairo, sans-serif";
-            ctx.fillText(`⏰ ${s.startTime} - ${s.endTime}  |  قاعة: ${s.room}`, 80, currentY + 36);
-            ctx.textAlign = "right";
-
-            currentY += 66;
-          });
-        }
-        currentY += 16;
-      });
-
-      // الفوتر والحقوق
-      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-      ctx.textAlign = "center";
-      ctx.font = "600 20px Cairo, sans-serif";
-      ctx.fillText("COE • J  © 2026 - صُمم خصيصاً لمهندسي جامعة طيبة", 540, 1310);
-
-      // تنزيل الصورة تلقائياً
-      const link = document.createElement("a");
-      link.download = `جدولي_الدراسي_${studentName}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    });
-
-    // ============================================================
-    // مولّد خطة المذاكرة السريعة (خاصية تجريبية 🧪)
-    // ============================================================
+    // مولّد خطة المذاكرة
     btnGenerateCramPlan.addEventListener("click", () => {
       const courseId = cramCourseSelect.value;
       const examDateStr = cramExamDate.value;
@@ -2631,9 +2971,6 @@
       `;
     });
 
-    // ==========================================
-    // تحديث القوائم المنسدلة للمواد تلقائياً
-    // ==========================================
     function updateAllCourseDropdowns() {
       const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse];
       selects.forEach(sel => {
@@ -2660,9 +2997,7 @@
       });
     }
 
-    // ============================================================
-    // عرض التجميعات المرتبطة فقط بمواد الطالب الحالية
-    // ============================================================
+    // عرض التجميعات المرتبطة فقط بمواد الطالب
     searchResourcesInput.addEventListener("input", () => renderPublicResourcesUI());
     document.querySelectorAll("[data-res-filter]").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -2677,7 +3012,6 @@
       resourcesGlobalContainer.innerHTML = "";
       const queryText = searchResourcesInput.value.trim().toLowerCase();
 
-      // حصر العرض فقط على المواد المضافة في جدول الطالب حالياً + الروابط العامة
       const mySubjects = currentCourses.map(c => ({ code: c.code, name: c.name }));
       mySubjects.push({ code: "عام", name: "روابط وتجميعات عامة" });
 
@@ -2753,9 +3087,6 @@
       });
     }
 
-    // ==========================================
-    // بقية وظائف النظام ومؤقت غرس الإنجاز
-    // ==========================================
     function applySystemAlertsConfig(cfg) {
       if (cfg.broadcastActive && cfg.broadcastText) {
         broadcastText.textContent = `📢 ${cfg.broadcastText}`;
@@ -2835,6 +3166,7 @@
           item.innerHTML = `
             <div style="display:flex; align-items:center; gap:8px;">
               <span class="leaderboard-rank">${medals[rank - 1] || rank}</span>
+              <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:24px; height:24px; border-radius:50%;">
               <span>${u.displayName || 'طالب/ـة'}</span>
             </div>
             <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
@@ -3515,6 +3847,20 @@
         renderTasksUI();
       });
     });
+
+    function updateTaskSelectOptions() {
+      taskCourseSelect.innerHTML = "";
+      if (currentCourses.length === 0) {
+        taskCourseSelect.innerHTML = `<option value="عام">عام</option>`;
+        return;
+      }
+      currentCourses.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = `${c.code}`;
+        opt.textContent = `${c.code} - ${c.name}`;
+        taskCourseSelect.appendChild(opt);
+      });
+    }
 
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
