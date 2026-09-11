@@ -983,41 +983,56 @@
       </div>
     </div>
 
-    <!-- مودال الاقتراحات والشكاوى الآلية -->
+    <!-- مودال الاقتراحات والشكاوى المربوط بـ Formspree SDK -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
           <h3>📩 صندوق الاقتراحات والشكاوى</h3>
-          <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
+          <button id="btn-close-feedback-modal" class="close-btn" type="button">&times;</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-          رأيك وملاحظاتك تساهم في تطوير التطبيق لخدمة جميع الطلاب. تُرسل رسالتك آلياً إلى إدارة النظام.
+          رأيك وملاحظاتك تساهم في تطوير التطبيق. تُرسل رسالتك آلياً إلى إدارة النظام.
         </p>
+
+        <!-- عناصر إشعارات Formspree التلقائية -->
+        <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:13px; margin-bottom:10px;">
+          تم استلام اقتراحك بنجاح ووصل إلى البريد! شكراً لك ❤️
+        </div>
+        <div data-fs-error style="text-align:center; color:red; font-size:12px; margin-bottom:10px;"></div>
+
         <form id="feedback-form">
+          <!-- بيانات الطالب لتصل في البريد -->
+          <input type="hidden" id="fb-sender-name" name="name" value="طالب/ـة">
+          <input type="hidden" id="fb-sender-email" name="email" value="student@taibahu.edu.sa">
+
           <div class="form-group">
             <label>نوع الرسالة</label>
-            <select id="fb-type">
+            <select name="category" id="fb-type" data-fs-field>
               <option value="اقتراح ميزة جديدة">اقتراح ميزة جديدة 💡</option>
               <option value="إبلاغ عن خلل أو مشكلة">إبلاغ عن خلل أو مشكلة 🐛</option>
               <option value="استفسار عام">استفسار عام 💬</option>
             </select>
           </div>
+
           <div class="form-group">
             <label>الموضوع</label>
-            <input type="text" id="fb-subject" required placeholder="عنوان مختصر">
+            <input type="text" id="fb-subject" name="subject" required placeholder="عنوان مختصر" data-fs-field>
+            <span data-fs-error="subject" style="color:red; font-size:11px;"></span>
           </div>
+
           <div class="form-group">
             <label>تفاصيل الرسالة</label>
-            <textarea id="fb-content" rows="4" required placeholder="اكتب اقتراحك أو وصف المشكلة بالتفصيل..."></textarea>
+            <textarea id="fb-content" name="message" rows="4" required placeholder="اكتب اقتراحك بالتفصيل..." data-fs-field></textarea>
+            <span data-fs-error="message" style="color:red; font-size:11px;"></span>
           </div>
-          <button type="submit" class="btn-primary">إرسال الاقتراح فوراً 🚀</button>
+
+          <button type="submit" class="btn-primary" data-fs-submit-btn>إرسال الاقتراح فوراً 🚀</button>
         </form>
-        <div id="fb-msg-status" style="text-align:center; font-size:12px; margin-top:10px;"></div>
       </div>
     </div>
   </div>
 
-  <!-- منطق التطبيق الكامل مع Firebase و Formspree -->
+  <!-- منطق التطبيق مع Firebase Firestore و Authentication -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -1042,7 +1057,7 @@
       onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
-    // إعدادات Firebase الخاصة بمشروعك
+    // إعدادات Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyAuCWmbCIyzUcuhNe4-scxqvGU9mjzhDXg",
       authDomain: "my-study-tracker-1a084.firebaseapp.com",
@@ -1056,9 +1071,6 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-
-    // الرابط الفعلي الخاص بكِ على Formspree لاستلام الرسائل على الإيميل مباشرة
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgjwqzr";
 
     let currentUser = null;
     let currentCourses = [];
@@ -1101,7 +1113,6 @@
     const btnCloseFeedbackModal = document.getElementById("btn-close-feedback-modal");
     const addCourseForm = document.getElementById("add-course-form");
     const addTaskForm = document.getElementById("add-task-form");
-    const feedbackForm = document.getElementById("feedback-form");
     const taskCourseSelect = document.getElementById("task-course-select");
     const btnUpgradeLevel = document.getElementById("btn-upgrade-level-action");
     const currentLevelTitle = document.getElementById("current-level-title");
@@ -1171,7 +1182,7 @@
 
     btnLogout.addEventListener("click", () => signOut(auth));
 
-    // مراقبة الجلسة
+    // مراقبة تسجيل الدخول
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
@@ -1228,8 +1239,32 @@
     btnOpenTaskModal.addEventListener("click", () => taskModal.classList.add("open"));
     btnCloseTaskModal.addEventListener("click", () => taskModal.classList.remove("open"));
 
-    btnOpenFeedback.addEventListener("click", () => feedbackModal.classList.add("open"));
+    btnOpenFeedback.addEventListener("click", () => {
+      if (currentUser) {
+        document.getElementById("fb-sender-name").value = currentUser.displayName || "طالب/ـة";
+        document.getElementById("fb-sender-email").value = currentUser.email || "student@taibahu.edu.sa";
+      }
+      feedbackModal.classList.add("open");
+    });
     btnCloseFeedbackModal.addEventListener("click", () => feedbackModal.classList.remove("open"));
+
+    // حفظ نسخة احتياطية في Firestore عند الإرسال
+    document.getElementById("feedback-form").addEventListener("submit", async () => {
+      if (currentUser) {
+        try {
+          await addDoc(collection(db, "feedbacks"), {
+            name: currentUser.displayName || "طالب/ـة",
+            email: currentUser.email,
+            category: document.getElementById("fb-type").value,
+            subject: document.getElementById("fb-subject").value,
+            message: document.getElementById("fb-content").value,
+            createdAt: new Date().toISOString()
+          });
+        } catch (e) {
+          console.error("Firestore backup error:", e);
+        }
+      }
+    });
 
     document.querySelectorAll(".color-dot").forEach(dot => {
       dot.addEventListener("click", () => {
@@ -1250,58 +1285,6 @@
 
         await seedTaibahCoursesLevel6(currentUser.uid);
         alert("تمت الترقية بنجاح وإضافة مقررات المستوى السادس إلى لوحتك 🚀");
-      }
-    });
-
-    // إرسال الاقتراحات والشكاوى مباشرة إلى بريدك عبر Formspree
-    feedbackForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const statusBox = document.getElementById("fb-msg-status");
-      statusBox.textContent = "جاري إرسال الاقتراح إلى بريدك...";
-      statusBox.style.color = "#085F56";
-
-      const fbData = {
-        name: currentUser ? (currentUser.displayName || "طالب/ـة") : "مستخدم عام",
-        email: currentUser ? currentUser.email : "غير مسجل",
-        type: document.getElementById("fb-type").value,
-        subject: document.getElementById("fb-subject").value.trim(),
-        message: document.getElementById("fb-content").value.trim()
-      };
-
-      try {
-        // إرسال فوري إلى بريدك الإلكتروني
-        const response = await fetch(FORMSPREE_ENDPOINT, {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(fbData)
-        });
-
-        // حفظ نسخة في Firestore
-        if (currentUser) {
-          await addDoc(collection(db, "feedbacks"), {
-            ...fbData,
-            createdAt: new Date().toISOString()
-          });
-        }
-
-        if (response.ok) {
-          statusBox.style.color = "green";
-          statusBox.textContent = "تم إرسال اقتراحك بنجاح ووصل إلى البريد! شكراً لك ❤️";
-          setTimeout(() => {
-            feedbackForm.reset();
-            feedbackModal.classList.remove("open");
-            statusBox.textContent = "";
-          }, 2000);
-        } else {
-          throw new Error("فشل الإرسال إلى البريد");
-        }
-
-      } catch (err) {
-        statusBox.style.color = "red";
-        statusBox.textContent = "حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.";
       }
     });
 
@@ -1560,7 +1543,7 @@
       });
     }
 
-    // حاسبة المعدل الحقيقية بحسب عدد الساعات وسلم جامعة طيبة
+    // حاسبة المعدل
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
       gpaBox.innerHTML = `
@@ -1670,7 +1653,7 @@
       timerDisplay.textContent = "25:00";
     });
 
-    // مواد المستوى الخامس
+    // بذر مواد المستوى الخامس
     async function seedTaibahCoursesLevel5(userId, isAllCompleted) {
       const courses = [
         { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#8B5CF6", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }, { id: "c3", title: "Chapter 3: Pipeline Hazards", done: isAllCompleted }] },
@@ -1686,7 +1669,7 @@
       }
     }
 
-    // مواد المستوى السادس
+    // بذر مواد المستوى السادس
     async function seedTaibahCoursesLevel6(userId) {
       const level6Courses = [
         { name: "الأنظمة المدمجة", code: "COE 321", credits: 4, totalLectures: 28, attendedLectures: 0, color: "#6366F1", chapters: [{ id: "c1", title: "Chapter 1: Microcontroller Architecture", done: false }, { id: "c2", title: "Chapter 2: GPIO & Interfacing", done: false }] },
@@ -1701,5 +1684,15 @@
       }
     }
   </script>
+
+  <!-- Formspree Ajax SDK المعتمدة رسمياً لربط الفورم بدون أخطاء -->
+  <script>
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { 
+      formElement: '#feedback-form', 
+      formId: 'xbgjwqzr' 
+    });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
