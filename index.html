@@ -1775,7 +1775,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات (الافتراضي فارغ تماماً بدون مواد حتى يتم إضافتها) -->
+    <!-- تبويب التجميعات والملخصات (الافتراضي فارغ تماماً بدون مواد حتى يتم إضافتها في المقررات) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1942,7 +1942,7 @@
     </main>
 
     <!-- ============================================================ -->
-    <!-- شريط التنقل السفلي الكلاسيكي مع فوكس نقي وواضح -->
+    <!-- شريط التنقل السفلي الاحترافي (الرئيسية في المنتصف مع فوكس واشح نقي) -->
     <!-- ============================================================ -->
     <nav class="bottom-nav">
       <div class="nav-item" data-target="courses">
@@ -1999,7 +1999,7 @@
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي (الاسم متاح للتعديل، التصنيف والشعبة محميان) -->
+    <!-- مودال الملف الشخصي (إمكانية تعديل الاسم، قفل التصنيف والشعبة) -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2423,7 +2423,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق البرمجي المتكامل -->
+  <!-- منطق التطبيق الكامل بدون أي نقصان -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -3256,7 +3256,7 @@
       }
     });
 
-    // حفظ التعديلات في الملف الشخصي (الاسم متاح للتعديل، الشعبة والتصنيف محميان)
+    // حفظ تعديلات الملف الشخصي (الاسم متاح للتعديل، الشعبة والتصنيف محميان)
     profileEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const newName = profileNameInput.value.trim();
@@ -3657,6 +3657,7 @@
       });
     });
 
+    // ربط التجميعات بالمقررات الحالية (الافتراضي فارغ تماماً)
     function renderPublicResourcesUI() {
       resourcesGlobalContainer.innerHTML = "";
       const queryText = searchResourcesInput.value.trim().toLowerCase();
@@ -3847,6 +3848,700 @@
       studentSubmitResourceModal.classList.remove("open");
       alert("شكراً لمساهمتك! تم إرسال الملخص وسيتم نشره للجميع فور اعتماده من المشرف ❤️");
     });
+
+    // اعتماد الملخصات ومنح صاحب المساهمة +15 نقطة
+    function renderPendingApprovalsUI() {
+      if (pendingResources.length === 0) {
+        adminPendingApprovalBox.style.display = "none";
+        return;
+      }
+      adminPendingApprovalBox.style.display = "block";
+      pendingItemsList.innerHTML = "";
+      pendingResources.forEach(item => {
+        const row = document.createElement("div");
+        row.style.cssText = "background:white; border:1px solid #FDE68A; border-radius:10px; padding:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;";
+        row.innerHTML = `
+          <div>
+            <span style="font-size:12px; font-weight:800; color:#1E293B;">${item.title}</span>
+            <span style="font-size:11px; color:#92400E; display:block;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
+            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط ↗</a>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn-approve" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">اعتماد ✅</button>
+            <button class="btn-reject" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض ❌</button>
+          </div>
+        `;
+        row.querySelector(".btn-approve").addEventListener("click", async () => {
+          await updateDoc(doc(db, "public_resources", item.id), { status: "approved" });
+          
+          // منح الطالب المساهم +15 نقطة تقديراً لمساهمته
+          if (item.contributorUid) {
+            const authorRef = doc(db, "users", item.contributorUid);
+            const authorSnap = await getDoc(authorRef);
+            if (authorSnap.exists()) {
+              const currentPts = authorSnap.data().points || 0;
+              await updateDoc(authorRef, { points: currentPts + 15 });
+            }
+          }
+          alert("تم اعتماد الملخص بنجاح ومنح الطالب المساهم +15 نقطة ⭐");
+        });
+
+        row.querySelector(".btn-reject").addEventListener("click", async () => {
+          if (confirm("هل ترغب برفض وحذف هذا الرابط؟")) {
+            await deleteDoc(doc(db, "public_resources", item.id));
+          }
+        });
+        pendingItemsList.appendChild(row);
+      });
+    }
+
+    function updateLevelUIState() {
+      levelDisplayHeading.textContent = `إنجاز المقررات الدراسية`;
+    }
+
+    btnAdminAddResource.addEventListener("click", () => adminResourceModal.classList.add("open"));
+    btnCloseAdminResModal.addEventListener("click", () => adminResourceModal.classList.remove("open"));
+
+    adminResourceForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!isAdmin) {
+        alert("عذراً، هذه الصلاحية مخصصة للأدمن فقط.");
+        return;
+      }
+
+      await addDoc(collection(db, "public_resources"), {
+        courseCode: document.getElementById("admin-res-course").value,
+        title: document.getElementById("admin-res-title").value.trim(),
+        type: document.getElementById("admin-res-type").value,
+        url: document.getElementById("admin-res-url").value.trim(),
+        pinned: document.getElementById("admin-res-pinned").checked,
+        status: "approved",
+        contributorName: "مشرف النظام",
+        createdAt: new Date().toISOString()
+      });
+
+      adminResourceForm.reset();
+      adminResourceModal.classList.remove("open");
+      alert("تم نشر الرابط لجميع الطلاب بنجاح! 🚀");
+    });
+
+    document.querySelectorAll(".sort-pill").forEach(pill => {
+      pill.addEventListener("click", () => {
+        document.querySelectorAll(".sort-pill").forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+        currentSort = pill.getAttribute("data-sort");
+        renderCoursesUI();
+      });
+    });
+
+    function renderCoursesUI() {
+      coursesContainer.innerHTML = "";
+      let totalLecAll = 0;
+      let attendedLecAll = 0;
+
+      let sorted = [...currentCourses];
+      if (currentSort === "credits") {
+        sorted.sort((a, b) => (b.credits || 3) - (a.credits || 3));
+      } else if (currentSort === "missed") {
+        sorted.sort((a, b) => {
+          const remA = (a.totalLectures || 0) - (a.attendedLectures || 0);
+          const remB = (b.totalLectures || 0) - (b.attendedLectures || 0);
+          return remB - remA;
+        });
+      } else if (currentSort === "name") {
+        sorted.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+      }
+
+      sorted.forEach((course) => {
+        totalLecAll += (course.totalLectures || 0);
+        attendedLecAll += (course.attendedLectures || 0);
+
+        const remainingLec = Math.max(0, (course.totalLectures || 0) - (course.attendedLectures || 0));
+        const completedChapters = (course.chapters || []).filter(c => c.done).length;
+        const totalChapters = (course.chapters || []).length;
+
+        const totalLec = course.totalLectures || (course.credits === 4 ? 45 : (course.credits === 3 ? 30 : 15));
+        const maxAllowedAbsences = Math.floor(totalLec / 4);
+        const dnAbsenceThreshold = maxAllowedAbsences + 1;
+        const absences = course.absences || 0;
+
+        const absencePercentage = totalLec === 0 ? 0 : ((absences / totalLec) * 100).toFixed(1);
+        const remainingAbsences = maxAllowedAbsences - absences;
+
+        let statusTextClass = "dn-safe";
+        let statusPillClass = "dn-safe-pill";
+        let statusMessage = `المسموح: ${maxAllowedAbsences} غيابات (باقي لك ${remainingAbsences} قبل الحرمان)`;
+
+        if (absences >= dnAbsenceThreshold) {
+          statusTextClass = "dn-danger";
+          statusPillClass = "dn-danger-pill";
+          statusMessage = `🚨 تم تجاوز نسبة 25%! وقع الحرمان (DN) برصيد ${absences} غياب`;
+        } else if (absences === maxAllowedAbsences) {
+          statusTextClass = "dn-warn";
+          statusPillClass = "dn-warn-pill";
+          statusMessage = `⚠️ تحذير شديد! بلغت الحد الأقصى (${absences}/${maxAllowedAbsences}). الغياب القادم هو الحرمان!`;
+        } else if (remainingAbsences === 1) {
+          statusTextClass = "dn-warn";
+          statusPillClass = "dn-warn-pill";
+          statusMessage = `انتبه! باقي لك غياب واحد فقط قبل بلوغ الحد الأقصى`;
+        }
+
+        const originTagHtml = course.originLevel 
+          ? `<span class="origin-level-tag">${course.originLevel}</span>` 
+          : '';
+
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.innerHTML = `
+          <div class="course-card-header">
+            <div>
+              ${originTagHtml}
+              <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
+                ${course.name} (${course.code}) • ${course.credits} وحدات معتمدة
+              </span>
+            </div>
+            <span class="course-status-brief">
+              أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
+            </span>
+            <span class="course-expand-icon">▼</span>
+          </div>
+          <div class="course-card-body">
+            
+            <div class="dn-calculator-box">
+              <div class="dn-info">
+                <span class="dn-title">نظام الحرمان بجامعة طيبة (المحاضرات: ${totalLec} • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
+                <span class="dn-status ${statusTextClass}">${statusMessage}</span>
+                <div class="dn-percentage-pill ${statusPillClass}">
+                  نسبة الغياب: ${absencePercentage}% (${absences} غيابات من ${totalLec})
+                </div>
+              </div>
+              <div class="stepper-controls">
+                <button class="step-btn btn-dec-abs" title="إنقاص غياب">-</button>
+                <span style="font-size:14px; font-weight:800;">${absences}</span>
+                <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--primary-red); font-weight:900;">+</button>
+              </div>
+            </div>
+
+            <div class="quick-actions-bar">
+              <button class="btn-quick btn-mark-all-done">إنجاز الكل سريعاً ✨</button>
+              <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
+            </div>
+
+            <div class="stepper-row">
+              <span>المحاضرات التي تم حضورها:</span>
+              <div class="stepper-controls">
+                <button class="step-btn btn-dec">-</button>
+                <strong>${course.attendedLectures} / ${course.totalLectures}</strong>
+                <button class="step-btn btn-inc">+</button>
+              </div>
+            </div>
+
+            <div class="chapter-section-title">
+              <span>الشباتر المذاكرة (${completedChapters}/${totalChapters})</span>
+              <button class="btn-add-chapter-mini">+ إضافة شابتر</button>
+            </div>
+
+            <div class="chapters-wrapper">
+              ${(course.chapters || []).map(ch => `
+                <div class="chapter-item ${ch.done ? 'done' : ''}">
+                  <span>${ch.title}</span>
+                  <input type="checkbox" ${ch.done ? 'checked' : ''} class="ch-check">
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="course-footer-links">
+              <button class="btn-delete-course">حذف المقرر</button>
+            </div>
+          </div>
+        `;
+
+        card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
+
+        card.querySelector(".btn-inc").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (course.attendedLectures < course.totalLectures) {
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+              attendedLectures: course.attendedLectures + 1
+            });
+          }
+        });
+
+        card.querySelector(".btn-dec").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (course.attendedLectures > 0) {
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+              attendedLectures: course.attendedLectures - 1
+            });
+          }
+        });
+
+        card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            absences: (course.absences || 0) + 1
+          });
+        });
+
+        card.querySelector(".btn-dec-abs").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if ((course.absences || 0) > 0) {
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+              absences: course.absences - 1
+            });
+          }
+        });
+
+        card.querySelector(".btn-mark-all-done").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
+          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            attendedLectures: course.totalLectures,
+            chapters: updatedChs
+          });
+        });
+
+        card.querySelector(".btn-reset-all").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: false }));
+          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            attendedLectures: 0,
+            absences: 0,
+            chapters: updatedChs
+          });
+        });
+
+        card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
+          checkbox.addEventListener("change", async (e) => {
+            e.stopPropagation();
+            const chs = [...course.chapters];
+            chs[idx].done = checkbox.checked;
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
+          });
+        });
+
+        card.querySelector(".btn-add-chapter-mini").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const title = prompt("اسم الشابتر:");
+          if (title && title.trim()) {
+            const chs = [...(course.chapters || []), { id: `ch_${Date.now()}`, title: title.trim(), done: false }];
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
+          }
+        });
+
+        card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
+            await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
+          }
+        });
+
+        coursesContainer.appendChild(card);
+      });
+
+      const missed = totalLecAll - attendedLecAll;
+      const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
+
+      document.getElementById("missed-lectures-count").textContent = `${missed} محاضرات`;
+      document.getElementById("overall-progress-bar").style.width = `${pct}%`;
+      document.getElementById("overall-percent-label").textContent = `${pct}% نسبة المواكبة`;
+
+      const motiv = document.getElementById("motivational-text");
+      if (pct >= 85) motiv.textContent = "أداء ممتاز جداً! استمر بنفس الحماس 🔥";
+      else if (pct >= 50) motiv.textContent = "كأنها هجت شوي 🫣 يبيلك تاخذها وحدة وحدة";
+      else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
+    }
+
+    // مؤقت غرس الإنجاز
+    let sessionMinutes = 25;
+    let totalFocusSeconds = sessionMinutes * 60;
+    let timerDuration = totalFocusSeconds;
+    let timerInterval = null;
+
+    const timerDisplay = document.getElementById("pomodoro-timer");
+    const treeStatusText = document.getElementById("tree-status-text");
+    const treeContainer = document.getElementById("tree-svg-container");
+
+    function setSessionDuration(minutes) {
+      if (timerInterval) {
+        if (!confirm("الجلسة تعمل حالياً، هل ترغب بإيقافها وتغيير الوقت؟")) return;
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      sessionMinutes = minutes;
+      totalFocusSeconds = sessionMinutes * 60;
+      timerDuration = totalFocusSeconds;
+      
+      const m = sessionMinutes.toString().padStart(2, '0');
+      timerDisplay.textContent = `${m}:00`;
+      renderTreeStage(timerDuration);
+    }
+
+    document.querySelectorAll(".preset-chip[data-time]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".preset-chip").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        setSessionDuration(parseInt(chip.getAttribute("data-time")));
+      });
+    });
+
+    document.getElementById("btn-custom-timer").addEventListener("click", () => {
+      const input = prompt("أدخل مدة جلسة المذاكرة بالدقائق (مثال: 30 أو 50):", "30");
+      const min = parseInt(input);
+      if (min && min > 0 && min <= 180) {
+        document.querySelectorAll(".preset-chip").forEach(c => c.classList.remove("active"));
+        document.getElementById("btn-custom-timer").classList.add("active");
+        setSessionDuration(min);
+      } else if (input !== null) {
+        alert("الرجاء إدخال وقت صحيح بين 1 و 180 دقيقة.");
+      }
+    });
+
+    function renderTreeStage(secondsLeft) {
+      const elapsed = totalFocusSeconds - secondsLeft;
+      const progressRatio = totalFocusSeconds === 0 ? 0 : (elapsed / totalFocusSeconds);
+
+      let treeSvg = "";
+      if (progressRatio < 0.25) {
+        treeSvg = `
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
+            <circle cx="50" cy="82" r="5" fill="#5D4037"/>
+            <path d="M50 78 Q52 74 50 70" stroke="#84CC16" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>`;
+        treeStatusText.textContent = "البذرة تُغرس في التربة... ركّز ولا تشتت ذهنك 🌱";
+      } else if (progressRatio < 0.60) {
+        treeSvg = `
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
+            <path d="M50 82 Q50 65 50 55" stroke="#795548" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path d="M50 65 Q40 60 42 52 Q48 55 50 62" fill="#84CC16"/>
+            <path d="M50 60 Q60 55 58 48 Q52 50 50 58" fill="#84CC16"/>
+          </svg>`;
+        treeStatusText.textContent = "شجرتك تكبر وتورق! استمر في التركيز 🌿";
+      } else if (progressRatio < 0.95) {
+        treeSvg = `
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <ellipse cx="50" cy="88" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
+            <path d="M50 85 L50 48" stroke="#5D4037" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="50" cy="40" r="18" fill="#10B981"/>
+            <circle cx="40" cy="46" r="13" fill="#059669"/>
+            <circle cx="60" cy="46" r="13" fill="#059669"/>
+          </svg>`;
+        treeStatusText.textContent = "أوشكت الشجرة على الإزهار! دقائق قليلة متبقية 🌳";
+      } else {
+        treeSvg = `
+          <svg viewBox="0 0 100 100" width="100" height="100">
+            <ellipse cx="50" cy="88" rx="38" ry="8" fill="#8D6E63" opacity="0.4"/>
+            <path d="M50 85 L50 45" stroke="#5D4037" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="50" cy="38" r="22" fill="#059669"/>
+            <circle cx="36" cy="45" r="15" fill="#10B981"/>
+            <circle cx="64" cy="45" r="15" fill="#10B981"/>
+            <circle cx="50" cy="22" r="14" fill="#34D399"/>
+            <circle cx="44" cy="32" r="3" fill="#FBBF24"/>
+            <circle cx="58" cy="36" r="3" fill="#FBBF24"/>
+            <circle cx="48" cy="48" r="3" fill="#FBBF24"/>
+          </svg>`;
+        treeStatusText.textContent = "مبارك! اكتملت شجرة إنجازك وأُضيفت النقاط لرصيدك 🌟";
+      }
+      treeContainer.innerHTML = treeSvg;
+    }
+
+    document.getElementById("btn-timer-start").addEventListener("click", () => {
+      if (timerInterval) return;
+      timerInterval = setInterval(async () => {
+        if (timerDuration > 0) {
+          timerDuration--;
+          const m = Math.floor(timerDuration / 60).toString().padStart(2, '0');
+          const s = (timerDuration % 60).toString().padStart(2, '0');
+          timerDisplay.textContent = `${m}:${s}`;
+          renderTreeStage(timerDuration);
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          renderTreeStage(0);
+
+          const earnedPoints = sessionMinutes;
+          if (currentUser) {
+            const userRef = doc(db, "users", currentUser.uid);
+            const userSnap = await getDoc(userRef);
+            const currentPoints = (userSnap.data()?.points || 0) + earnedPoints;
+            const currentTrees = (userSnap.data()?.treesGrown || 0) + 1;
+            await updateDoc(userRef, { points: currentPoints, treesGrown: currentTrees });
+          }
+
+          alert(`🎉 أحسنت! أكملت ${sessionMinutes} دقيقة تركيز وحصلت على +${earnedPoints} نقطة في رصيدك وشجرة جديدة!`);
+        }
+      }, 1000);
+    });
+
+    document.getElementById("btn-timer-pause").addEventListener("click", () => {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    });
+
+    document.getElementById("btn-timer-reset").addEventListener("click", () => {
+      if (timerDuration < totalFocusSeconds && timerDuration > 0) {
+        if (!confirm("هل ترغب بإلغاء جلسة التركيز الحالية؟ ستفقد تقدم الشجرة الحالية.")) return;
+      }
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerDuration = totalFocusSeconds;
+      const m = sessionMinutes.toString().padStart(2, '0');
+      timerDisplay.textContent = `${m}:00`;
+      renderTreeStage(totalFocusSeconds);
+    });
+
+    // التنقل السفلي مع فوكس صافي
+    document.querySelectorAll(".nav-item").forEach(item => {
+      item.addEventListener("click", () => {
+        document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+        item.classList.add("active");
+        const target = item.getAttribute("data-target");
+        
+        document.getElementById("tab-content-home").style.display = target === "home" ? "block" : "none";
+        document.getElementById("tab-content-courses").style.display = target === "courses" ? "block" : "none";
+        document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
+        document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
+        document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
+        document.getElementById("tab-content-gpa").style.display = target === "gpa" ? "block" : "none";
+
+        if (target === "home") renderHomeDashboardUI();
+      });
+    });
+
+    btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
+    btnCloseCourseModal.addEventListener("click", () => courseModal.classList.remove("open"));
+
+    btnOpenTaskModal.addEventListener("click", () => taskModal.classList.add("open"));
+    btnCloseTaskModal.addEventListener("click", () => taskModal.classList.remove("open"));
+
+    btnOpenFeedback.addEventListener("click", () => {
+      if (currentUser) {
+        document.getElementById("fb-sender-name").value = currentUser.displayName || "طالب/ـة";
+        document.getElementById("fb-sender-email").value = currentUser.email || "student@taibahu.edu.sa";
+      }
+      feedbackModal.classList.add("open");
+    });
+    btnCloseFeedbackModal.addEventListener("click", () => feedbackModal.classList.remove("open"));
+
+    feedbackForm.addEventListener("submit", async () => {
+      if (currentUser) {
+        try {
+          await addDoc(collection(db, "feedbacks"), {
+            name: currentUser.displayName || "طالب/ـة",
+            email: currentUser.email,
+            category: document.getElementById("fb-type").value,
+            subject: document.getElementById("fb-subject").value,
+            message: document.getElementById("fb-content").value,
+            createdAt: new Date().toISOString()
+          });
+        } catch (e) {
+          console.error("Backup feedback error:", e);
+        }
+      }
+    });
+
+    document.querySelectorAll(".color-dot").forEach(dot => {
+      dot.addEventListener("click", () => {
+        document.querySelectorAll(".color-dot").forEach(d => d.classList.remove("active"));
+        dot.classList.add("active");
+        selectedColor = dot.getAttribute("data-color");
+      });
+    });
+
+    addCourseForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("course-name-input").value.trim();
+      const code = document.getElementById("course-code-input").value.trim();
+      const credits = parseInt(document.getElementById("course-credits-input").value) || 3;
+      const originLevel = document.getElementById("course-origin-level-input").value.trim();
+      
+      const defaultLec = credits === 4 ? 45 : (credits === 3 ? 30 : 15);
+      const totalLectures = parseInt(document.getElementById("course-lectures-input").value) || defaultLec;
+      const chapterCount = parseInt(document.getElementById("course-chapters-input").value) || 5;
+
+      const chapters = [];
+      for (let i = 1; i <= chapterCount; i++) {
+        chapters.push({ id: `ch_${Date.now()}_${i}`, title: `الشابتر ${i}`, done: false });
+      }
+
+      await addDoc(collection(db, "users", currentUser.uid, "courses"), {
+        name,
+        code,
+        credits,
+        originLevel,
+        totalLectures,
+        attendedLectures: 0,
+        absences: 0,
+        color: selectedColor,
+        chapters
+      });
+
+      addCourseForm.reset();
+      courseModal.classList.remove("open");
+    });
+
+    addTaskForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("task-title-input").value.trim();
+      const courseCode = taskCourseSelect.value;
+      const dueDate = document.getElementById("task-date-input").value || "غير محدد";
+      const type = document.getElementById("task-type-select").value;
+
+      await addDoc(collection(db, "users", currentUser.uid, "tasks"), {
+        title,
+        courseCode,
+        dueDate,
+        type,
+        completed: false,
+        createdAt: new Date().toISOString()
+      });
+
+      addTaskForm.reset();
+      taskModal.classList.remove("open");
+    });
+
+    function renderTasksUI() {
+      tasksContainer.innerHTML = "";
+      let filtered = currentTasks;
+      if (currentTaskFilter === "pending") filtered = currentTasks.filter(t => !t.completed);
+      if (currentTaskFilter === "done") filtered = currentTasks.filter(t => t.completed);
+
+      if (filtered.length === 0) {
+        tasksContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:30px; font-size:13px;">لا توجد مهام في هذا القسم 🎉</p>`;
+        return;
+      }
+
+      filtered.forEach(task => {
+        const item = document.createElement("div");
+        item.className = `task-card ${task.completed ? 'completed' : ''}`;
+        item.innerHTML = `
+          <div class="task-info">
+            <h4>${task.title}</h4>
+            <div class="task-meta">
+              <span class="task-badge-tag">${task.courseCode}</span>
+              <span>📅 ${task.dueDate}</span>
+              <span>🏷️ ${task.type}</span>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <input type="checkbox" ${task.completed ? 'checked' : ''} class="task-toggle" style="width:20px; height:20px; cursor:pointer;">
+            <button class="btn-del-task" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
+          </div>
+        `;
+
+        item.querySelector(".task-toggle").addEventListener("change", async (e) => {
+          await updateDoc(doc(db, "users", currentUser.uid, "tasks", task.id), {
+            completed: e.target.checked
+          });
+        });
+
+        item.querySelector(".btn-del-task").addEventListener("click", async () => {
+          await deleteDoc(doc(db, "users", currentUser.uid, "tasks", task.id));
+        });
+
+        tasksContainer.appendChild(item);
+      });
+    }
+
+    document.querySelectorAll(".filter-chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        currentTaskFilter = chip.getAttribute("data-filter");
+        renderTasksUI();
+      });
+    });
+
+    function updateTaskSelectOptions() {
+      taskCourseSelect.innerHTML = "";
+      if (currentCourses.length === 0) {
+        taskCourseSelect.innerHTML = `<option value="عام">عام</option>`;
+        return;
+      }
+      currentCourses.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = `${c.code}`;
+        opt.textContent = `${c.code} - ${c.name}`;
+        taskCourseSelect.appendChild(opt);
+      });
+    }
+
+    function renderGPACalculator() {
+      const gpaBox = document.getElementById("gpa-calc-container");
+      gpaBox.innerHTML = `
+        <div style="background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
+          <div style="background:var(--subtle-bg); padding:12px; border-radius:10px; margin-bottom:14px;">
+            <span style="font-size:12px; font-weight:700; color:var(--primary-teal);">حساب المعدل التراكمي الجديد (اختياري):</span>
+            <div style="display:flex; gap:10px; margin-top:6px;">
+              <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
+              <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
+            </div>
+          </div>
+
+          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">الدرجات التقديرية (الحساب بالوزن الفعلي لساعات كل مادة مسجلة):</p>
+          <div id="gpa-rows">
+            ${currentCourses.map(c => `
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div>
+                  <span style="font-size:13px; font-weight:700;">${c.code}</span>
+                  <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits} وحدات معتمدة)</span>
+                </div>
+                <select class="grade-input" data-credits="${c.credits}" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12.5px;">
+                  <option value="5.0">A+ (5.00)</option>
+                  <option value="4.75">A (4.75)</option>
+                  <option value="4.5">B+ (4.50)</option>
+                  <option value="4.0">B (4.00)</option>
+                  <option value="3.5">C+ (3.50)</option>
+                  <option value="3.0">C (3.00)</option>
+                  <option value="2.5">D+ (2.50)</option>
+                  <option value="2.0">D (2.00)</option>
+                  <option value="1.0">F (1.00)</option>
+                </select>
+              </div>
+            `).join('')}
+          </div>
+          <button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل الفصلي والتراكمي</button>
+          <div id="gpa-result" style="text-align:center; margin-top:14px; font-weight:800;"></div>
+        </div>
+      `;
+
+      const btnCalc = document.getElementById("btn-calc-gpa");
+      if (btnCalc) {
+        btnCalc.addEventListener("click", () => {
+          const rows = document.querySelectorAll(".grade-input");
+          if (rows.length === 0) return;
+
+          let totalQualityPoints = 0;
+          let currentSemesterHours = 0;
+
+          rows.forEach(select => {
+            const points = parseFloat(select.value);
+            const credits = parseFloat(select.getAttribute("data-credits")) || 3;
+            totalQualityPoints += (points * credits);
+            currentSemesterHours += credits;
+          });
+
+          const semesterGPA = (totalQualityPoints / currentSemesterHours).toFixed(2);
+
+          const prevGPA = parseFloat(document.getElementById("prev-gpa").value);
+          const prevHours = parseFloat(document.getElementById("prev-hours").value);
+
+          let cumulativeText = "";
+          if (!isNaN(prevGPA) && !isNaN(prevHours) && prevHours > 0) {
+            const prevTotalPoints = prevGPA * prevHours;
+            const newCumulative = ((prevTotalPoints + totalQualityPoints) / (prevHours + currentSemesterHours)).toFixed(2);
+            cumulativeText = `<br><span style="color:#10B981; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
+          }
+
+          document.getElementById("gpa-result").innerHTML = `
+            <span style="color:var(--primary-teal); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
+            ${cumulativeText}
+          `;
+        });
+      }
+    }
   </script>
 
   <!-- Formspree Ajax SDK -->
