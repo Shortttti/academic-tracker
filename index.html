@@ -1797,7 +1797,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات -->
+    <!-- تبويب التجميعات والملخصات (بدون خيار رفع الملفات محلياً، روابط فقط) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1807,7 +1807,7 @@
       </div>
 
       <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:12px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
-        📤 مشاركة ملخص أو تجميعة (رابط أو ملف) (+15 نقطة ⭐)
+        📤 مشاركة رابط تجميعة مع زملائك (+15 نقطة ⭐)
       </button>
 
       <div class="search-resources-bar">
@@ -1817,7 +1817,6 @@
           <button class="sort-pill" data-res-filter="تجميعات">تجميعات</button>
           <button class="sort-pill" data-res-filter="سلايدات">سلايدات</button>
           <button class="sort-pill" data-res-filter="ملخصات">ملخصات</button>
-          <button class="sort-pill" data-res-filter="ملف">ملفات مرفوعة</button>
           <button class="sort-pill" data-res-filter="قناة">قنوات</button>
         </div>
       </div>
@@ -1921,7 +1920,7 @@
       </footer>
     </main>
 
-    <!-- صفحة الإشراف المستقلة -->
+    <!-- صفحة الإشراف المستقلة (Admin Panel) -->
     <main class="main-content" id="tab-content-admin" style="display: none;">
       <div class="content-header">
         <div>
@@ -2190,23 +2189,12 @@
             <select id="sub-res-course" required></select>
           </div>
           <div class="form-group">
-            <label>عنوان الملخص أو التجميعة</label>
+            <label>عنوان الرابط أو الملخص</label>
             <input type="text" id="sub-res-title" required placeholder="مثال: مراجعة شاملة لقوانين الميد">
           </div>
           <div class="form-group">
-            <label>طريقة المشاركة:</label>
-            <div class="option-selector-row" style="margin-bottom:6px;">
-              <button type="button" class="option-btn active" id="btn-sub-mode-link">🔗 رابط خارجي</button>
-              <button type="button" class="option-btn" id="btn-sub-mode-file">📄 رفع ملف من جهازي</button>
-            </div>
-          </div>
-          <div class="form-group" id="sub-link-group">
             <label>رابط الملف (Google Drive / Telegram / Dropbox):</label>
-            <input type="url" id="sub-res-url" placeholder="https://drive.google.com/...">
-          </div>
-          <div class="form-group" id="sub-file-group" style="display:none;">
-            <label>اختر الملف (PDF أو صورة):</label>
-            <input type="file" id="sub-res-file" accept=".pdf,image/*" style="font-size:11.5px; padding:6px;">
+            <input type="url" id="sub-res-url" required placeholder="https://drive.google.com/...">
           </div>
           <div class="form-group">
             <label>نوع المورد</label>
@@ -2214,11 +2202,10 @@
               <option value="ملخصات">ملخص شامل</option>
               <option value="تجميعات">تجميعات وكويزات سابقة</option>
               <option value="سلايدات">سلايدات وشروحات</option>
-              <option value="ملف">ملف مرفوع</option>
               <option value="قناة">قناة تيليجرام / قروب</option>
             </select>
           </div>
-          <button type="submit" class="btn-primary">إرسال الملخص للمراجعة والنشر 🚀</button>
+          <button type="submit" class="btn-primary">إرسال الرابط للمراجعة والنشر 🚀</button>
         </form>
       </div>
     </div>
@@ -2440,7 +2427,6 @@
       createUserWithEmailAndPassword, 
       signInWithEmailAndPassword, 
       signInWithPopup,
-      OAuthProvider,
       GoogleAuthProvider,
       signOut, 
       onAuthStateChanged, 
@@ -2478,9 +2464,6 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
-    const appleProvider = new OAuthProvider('apple.com');
-    appleProvider.addScope('email');
-    appleProvider.addScope('name');
 
     const INITIAL_ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
     let adminUIDs = [INITIAL_ADMIN_UID];
@@ -2586,7 +2569,6 @@
     const btnLogout = document.getElementById("btn-logout");
     const userGreeting = document.getElementById("user-greeting");
     const btnGoogleLogin = document.getElementById("btn-google-login");
-    const btnAppleLogin = document.getElementById("btn-apple-login");
     const btnToggleTheme = document.getElementById("btn-toggle-theme");
     const adminBadge = document.getElementById("admin-badge");
 
