@@ -1790,7 +1790,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات (الافتراضي فارغ، روابط فقط) -->
+    <!-- تبويب التجميعات والملخصات (الافتراضي فارغ، روابط خارجية فقط) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1962,7 +1962,7 @@
       </footer>
     </main>
 
-    <!-- شريط التنقل السفلي -->
+    <!-- شريط التنقل السفلي الفعال والمضمون -->
     <nav class="bottom-nav">
       <div class="nav-item" data-target="courses" onclick="switchTab('courses')">
         <span class="icon">📊</span>
@@ -2683,7 +2683,7 @@
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // دالة موحدة لتبديل التبويبات مع ضمان عمل جميع الأزرار
+    // وظيفة تبديل التبويبات الشاملة والمضمونة 100%
     window.switchTab = function(target) {
       document.querySelectorAll(".nav-item").forEach(n => {
         if (n.getAttribute("data-target") === target) n.classList.add("active");
@@ -2706,7 +2706,6 @@
       });
     });
 
-    // إغلاق النوافذ بالخارج أو Esc أو زر ×
     document.querySelectorAll(".modal-overlay").forEach(overlay => {
       overlay.addEventListener("click", (e) => {
         if (e.target === overlay) overlay.classList.remove("open");
