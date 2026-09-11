@@ -8,20 +8,18 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="جدولي">
-  <meta name="theme-color" content="#0F766E">
+  <meta name="theme-color" content="#4F46E5">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
-    /* لوحة الألوان المحدثة والأنيقة للفاتح والداكن */
+    /* نظام الألوان المحدث الاحترافي للوضع الفاتح والداكن */
     :root {
-      --primary-dark: #0F766E;
-      --primary-teal: #14B8A6;
-      --primary-accent: #0D9488;
-      --primary-red: #E11D48;
-      --red-soft: #FFF1F2;
+      --primary: #4F46E5;
+      --primary-dark: #3730A3;
+      --accent: #7C3AED;
       --bg-page: #F8FAFC;
       --card-bg: #FFFFFF;
       --border-subtle: #E2E8F0;
@@ -29,22 +27,28 @@
       --text-muted: #64748B;
       --subtle-bg: #F1F5F9;
       --body-outer: #94A3B8;
+      --success: #16A34A;
+      --warning: #D97706;
+      --danger: #DC2626;
+      --danger-soft: #FEF2F2;
       --font-family: 'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     [data-theme="dark"] {
-      --primary-dark: #042F2E;
-      --primary-teal: #2DD4BF;
-      --primary-accent: #14B8A6;
-      --primary-red: #F43F5E;
-      --red-soft: #4C0519;
-      --bg-page: #090D16;
+      --primary: #818CF8;
+      --primary-dark: #4F46E5;
+      --accent: #A78BFA;
+      --bg-page: #0B1020;
       --card-bg: #111827;
-      --border-subtle: #1F2937;
-      --text-main: #F9FAFB;
-      --text-muted: #9CA3AF;
+      --border-subtle: #273449;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
       --subtle-bg: #1F2937;
       --body-outer: #030712;
+      --success: #4ADE80;
+      --warning: #FBBF24;
+      --danger: #FB7185;
+      --danger-soft: #4C0519;
     }
 
     * {
@@ -100,7 +104,7 @@
 
     .auth-logo h2 {
       font-size: 21px;
-      color: var(--primary-teal);
+      color: var(--primary);
       font-weight: 800;
     }
 
@@ -109,7 +113,7 @@
       color: var(--text-muted);
     }
 
-    .btn-google {
+    .btn-social {
       width: 100%;
       display: flex;
       align-items: center;
@@ -124,20 +128,22 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+      margin-bottom: 10px;
     }
 
-    .btn-google:active { transform: scale(0.98); }
+    .btn-social:active { transform: scale(0.98); }
 
-    .btn-google svg {
+    .btn-social svg, .btn-social span.apple-icon {
       width: 20px;
       height: 20px;
+      font-size: 18px;
     }
 
     .auth-divider {
       display: flex;
       align-items: center;
       text-align: center;
-      margin: 18px 0;
+      margin: 16px 0;
       color: var(--text-muted);
       font-size: 12px;
       font-weight: 600;
@@ -170,8 +176,8 @@
     }
 
     .tab-btn.active {
-      color: var(--primary-teal);
-      border-bottom: 2.5px solid var(--primary-teal);
+      color: var(--primary);
+      border-bottom: 2.5px solid var(--primary);
     }
 
     .form-group {
@@ -198,7 +204,7 @@
     }
 
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--primary-teal);
+      border-color: var(--primary);
     }
 
     .form-row {
@@ -210,10 +216,21 @@
       flex: 1;
     }
 
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
     .btn-primary {
       width: 100%;
       padding: 12px;
-      background-color: var(--primary-dark);
+      background-color: var(--primary);
       color: white;
       border: none;
       border-radius: 12px;
@@ -226,14 +243,14 @@
     .btn-primary:active { transform: scale(0.98); }
 
     .error-msg {
-      color: var(--primary-red);
+      color: var(--danger);
       font-size: 12px;
       margin-top: 10px;
       text-align: center;
     }
 
     .app-header {
-      background-color: var(--primary-dark);
+      background-color: var(--primary);
       color: white;
       padding: 12px 16px;
       position: sticky;
@@ -284,7 +301,7 @@
       height: 28px;
       border-radius: 50%;
       object-fit: cover;
-      background: #0F766E;
+      background: var(--primary);
       border: 1.5px solid white;
     }
 
@@ -328,7 +345,7 @@
     }
 
     .countdown-widget {
-      background: linear-gradient(135deg, #0F766E, #085F56);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
       padding: 14px 16px;
       border-radius: 16px;
@@ -336,7 +353,7 @@
       display: none;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 4px 12px rgba(8, 95, 86, 0.15);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
     }
 
     .countdown-info h4 {
@@ -349,7 +366,7 @@
 
     .countdown-info p {
       font-size: 11px;
-      color: #CCFBF1;
+      color: #E0E7FF;
       margin-top: 2px;
     }
 
@@ -409,8 +426,8 @@
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      border: 2px solid var(--primary-teal);
-      background: #0F766E;
+      border: 2px solid var(--primary);
+      background: var(--primary);
     }
 
     .home-hero-info h3 {
@@ -465,7 +482,7 @@
     .home-stat-card span.stat-num {
       font-size: 20px;
       font-weight: 900;
-      color: var(--primary-teal);
+      color: var(--primary);
       display: block;
     }
 
@@ -477,11 +494,11 @@
 
     .poll-card {
       background: var(--card-bg);
-      border: 1.5px solid var(--primary-teal);
+      border: 1.5px solid var(--primary);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.06);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.06);
     }
 
     .poll-option-btn {
@@ -544,9 +561,9 @@
     }
 
     .sort-pill.active {
-      background: var(--primary-teal);
+      background: var(--primary);
       color: white;
-      border-color: var(--primary-teal);
+      border-color: var(--primary);
     }
 
     .summary-card {
@@ -579,11 +596,11 @@
     .summary-value-wrapper h3 {
       font-size: 24px;
       font-weight: 800;
-      color: var(--primary-red);
+      color: var(--danger);
     }
 
     .summary-arrow-icon {
-      background: #DC2626;
+      background: var(--danger);
       color: white;
       width: 36px;
       height: 36px;
@@ -604,7 +621,7 @@
     .progress-track {
       width: 100%;
       height: 8px;
-      background-color: var(--red-soft);
+      background-color: var(--danger-soft);
       border-radius: 8px;
       margin: 14px 0 10px 0;
       overflow: hidden;
@@ -612,13 +629,13 @@
 
     .progress-fill {
       height: 100%;
-      background-color: var(--primary-red);
+      background-color: var(--danger);
       border-radius: 8px;
       transition: width 0.4s ease;
     }
 
     .progress-pill {
-      background-color: var(--red-soft);
+      background-color: var(--danger-soft);
       text-align: center;
       padding: 8px;
       border-radius: 10px;
@@ -627,15 +644,15 @@
     .progress-pill span {
       font-size: 13px;
       font-weight: 800;
-      color: var(--primary-red);
+      color: var(--danger);
     }
 
     .btn-add-course {
       width: 100%;
       padding: 11px;
       background: var(--card-bg);
-      border: 1.5px dashed var(--primary-teal);
-      color: var(--primary-teal);
+      border: 1.5px dashed var(--primary);
+      color: var(--primary);
       border-radius: 14px;
       font-size: 13px;
       font-weight: 700;
@@ -806,7 +823,7 @@
     .btn-add-chapter-mini {
       background: none;
       border: none;
-      color: var(--primary-teal);
+      color: var(--primary);
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
@@ -825,7 +842,7 @@
 
     .chapter-item.done {
       text-decoration: line-through;
-      color: #94A3B8;
+      color: var(--text-muted);
     }
 
     .course-footer-links {
@@ -840,7 +857,7 @@
     .btn-delete-course {
       background: none;
       border: none;
-      color: var(--primary-red);
+      color: var(--danger);
       font-size: 11.5px;
       cursor: pointer;
     }
@@ -878,7 +895,7 @@
     }
 
     .btn-transition-stage.unlocked {
-      background: #0F766E;
+      background: var(--primary);
       color: white;
     }
 
@@ -890,16 +907,15 @@
 
     .date-lock-hint {
       font-size: 11px;
-      color: #D97706;
+      color: var(--warning);
       font-weight: 700;
       margin-top: 6px;
       display: block;
     }
 
-    /* صفحة التجميعات */
     .admin-controls-card {
-      background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(8, 95, 86, 0.15));
-      border: 1.5px dashed var(--primary-teal);
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(124, 58, 237, 0.12));
+      border: 1.5px dashed var(--primary);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 18px;
@@ -909,7 +925,7 @@
     .admin-controls-card h3 {
       font-size: 14px;
       font-weight: 900;
-      color: var(--primary-teal);
+      color: var(--primary);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -1001,8 +1017,8 @@
       font-size: 10px;
       padding: 2px 6px;
       border-radius: 6px;
-      background: rgba(13, 148, 136, 0.15);
-      color: var(--primary-teal);
+      background: rgba(79, 70, 229, 0.15);
+      color: var(--primary);
       font-weight: 800;
     }
 
@@ -1023,7 +1039,6 @@
       margin-top: 2px;
     }
 
-    /* صفحة الجدول الدراسي */
     .timetable-controls-bar {
       display: flex;
       gap: 8px;
@@ -1050,9 +1065,9 @@
     }
 
     .timetable-day-header.active-day {
-      background: rgba(13, 148, 136, 0.15);
-      color: var(--primary-teal);
-      border-color: rgba(13, 148, 136, 0.3);
+      background: rgba(79, 70, 229, 0.15);
+      color: var(--primary);
+      border-color: rgba(79, 70, 229, 0.3);
     }
 
     .timetable-lectures-list {
@@ -1085,7 +1100,7 @@
 
     .cram-planner-card {
       background: var(--card-bg);
-      border: 1.5px dashed var(--primary-teal);
+      border: 1.5px dashed var(--primary);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 18px;
@@ -1156,9 +1171,9 @@
     }
 
     .preset-chip.active {
-      background: var(--primary-teal);
+      background: var(--primary);
       color: white;
-      border-color: var(--primary-teal);
+      border-color: var(--primary);
     }
 
     .tree-illustration-container {
@@ -1173,7 +1188,7 @@
     .timer-display {
       font-size: 42px;
       font-weight: 900;
-      color: var(--primary-teal);
+      color: var(--primary);
       letter-spacing: 2px;
       line-height: 1;
     }
@@ -1313,26 +1328,25 @@
 
     .footer-brand {
       font-weight: 800;
-      color: var(--primary-teal);
+      color: var(--primary);
       letter-spacing: 1px;
     }
 
-    /* ========================================== */
-    /* شريط التنقل السفلي الكلاسيكي المريح الجديد */
-    /* ========================================== */
+    /* شريط التنقل السفلي بترتيب: المقررات | الجدول | الرئيسية (المنتصف) | التجميعات | المهام */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
       max-width: 480px;
-      height: 64px;
+      height: 68px;
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-around;
       align-items: center;
       z-index: 30;
-      padding-bottom: 2px;
+      padding-bottom: 4px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
     }
 
     .nav-item {
@@ -1341,19 +1355,36 @@
       align-items: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 700;
-      gap: 2px;
+      gap: 3px;
       flex: 1;
-      padding: 8px 0;
+      padding: 6px 0;
+      transition: all 0.2s ease;
     }
 
     .nav-item.active {
-      color: var(--primary-teal);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .nav-item.active span.icon {
+      background: rgba(79, 70, 229, 0.12);
+      padding: 4px 10px;
+      border-radius: 14px;
     }
 
     .nav-item span.icon {
-      font-size: 19px;
+      font-size: 20px;
+    }
+
+    /* زر الرئيسية في المنتصف بتصميم بارز وناعم */
+    .nav-item.home-center-btn {
+      position: relative;
+    }
+
+    .nav-item.home-center-btn span.icon {
+      font-size: 24px;
     }
 
     .modal-overlay {
@@ -1442,9 +1473,9 @@
     }
 
     .option-btn.active {
-      border-color: var(--primary-teal);
-      background: rgba(13, 148, 136, 0.1);
-      color: var(--primary-teal);
+      border-color: var(--primary);
+      background: rgba(79, 70, 229, 0.1);
+      color: var(--primary);
     }
 
     .pref-switch-row {
@@ -1463,7 +1494,7 @@
 </head>
 <body>
 
-  <!-- شاشة الدخول والتسجيل (مع إدخال التصنيف والشعبة) -->
+  <!-- شاشة الدخول والتسجيل (تشمل Google, Apple, Email + تذكرني) -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -1472,17 +1503,22 @@
         <p>جامعة طيبة - هندسة الحاسب الآلي</p>
       </div>
 
-      <button id="btn-google-login" type="button" class="btn-google">
+      <button id="btn-google-login" type="button" class="btn-social">
         <svg viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
           <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
           <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
           <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
         </svg>
-        <span>الدخول السريع بحساب Google</span>
+        <span>المتابعة باستخدام Google</span>
       </button>
 
-      <div class="auth-divider">أو عبر البريد الجامعي</div>
+      <button id="btn-apple-login" type="button" class="btn-social" style="background: #000; color: #fff;">
+        <span class="apple-icon"></span>
+        <span>المتابعة باستخدام Apple</span>
+      </button>
+
+      <div class="auth-divider">أو عبر البريد الإلكتروني</div>
 
       <div class="auth-tabs">
         <button id="tab-login" class="tab-btn active">تسجيل الدخول</button>
@@ -1497,34 +1533,16 @@
 
         <div class="form-row" id="group-gender-section" style="display: none;">
           <div class="form-group">
-            <label>التصنيف</label>
+            <label>التصنيف (محمي لاحقاً)</label>
             <select id="auth-gender">
               <option value="طالبة">طالبة 👩‍🎓</option>
               <option value="طالب">طالب 👨‍🎓</option>
             </select>
           </div>
           <div class="form-group">
-            <label>رقم الشعبة</label>
+            <label>رقم الشعبة (محمي لاحقاً)</label>
             <input type="text" id="auth-section" placeholder="مثال: شعبة 1">
           </div>
-        </div>
-
-        <div class="form-row" id="group-academic" style="display: none;">
-          <div class="form-group">
-            <label>الجامعة</label>
-            <select id="auth-univ" disabled><option selected>جامعة طيبة</option></select>
-          </div>
-          <div class="form-group">
-            <label>التخصص</label>
-            <select id="auth-major" disabled><option selected>هندسة الحاسب</option></select>
-          </div>
-        </div>
-
-        <div class="form-group" id="group-level" style="display: none;">
-          <label>المستوى الدراسي</label>
-          <select id="auth-level" disabled>
-            <option selected>المستوى الخامس (ابدأ بإضافة موادك)</option>
-          </select>
         </div>
 
         <div class="form-group">
@@ -1533,9 +1551,14 @@
         </div>
 
         <div class="form-group">
-          <label>كلمة المرور (حفظ كلمة المرور)</label>
+          <label>كلمة المرور</label>
           <input type="password" id="auth-pass" required autocomplete="current-password" placeholder="••••••••">
         </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="auth-remember" checked>
+          <span>تذكرني على هذا الجهاز</span>
+        </label>
 
         <button type="submit" id="auth-submit-btn" class="btn-primary">دخول</button>
       </form>
@@ -1559,7 +1582,7 @@
             <span id="header-name-display" style="font-size:11.5px; font-weight:bold;">حسابي</span>
           </div>
           <button id="btn-toggle-theme" class="btn-header-action" title="تبديل الوضع">🌙</button>
-          <button id="btn-open-feedback" class="btn-header-action" title="اقتراح أو شكوى">📩</button>
+          <button id="btn-open-feedback" class="btn-header-action" title="طلب تعديل أو اقتراح">📩</button>
           <button id="btn-logout" class="btn-header-action">خروج</button>
         </div>
         <div class="header-branding">
@@ -1572,7 +1595,7 @@
       </div>
     </header>
 
-    <!-- تبويب الصفحة الرئيسية (Home) في المنتصف -->
+    <!-- تبويب الرئيسية (Home) - يظهر في منتصف شريط التنقل -->
     <main class="main-content" id="tab-content-home">
       <div id="inapp-reminder-banner" class="reminder-banner">
         <span id="reminder-banner-text">🔔 المحاضرة القادمة قريباً</span>
@@ -1589,12 +1612,12 @@
 
       <div id="new-user-welcome-box" class="poll-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
         <strong>مرحباً بك في منصة جدولي الأكاديمي!</strong>
-        <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتبدأ متابعة حضورك، جدولك، وتجميعات موادك بكل سهولة.</span>
+        <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر تجميعاتها وروابطها هنا تلقائياً، وليتم تنظيم حضورك ومذاكرتك بكل سهولة.</span>
       </div>
 
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <span style="font-size:12px; font-weight:800; color:var(--primary-teal);">📊 استطلاع رأي الدفعة</span>
+          <span style="font-size:12px; font-weight:800; color:var(--primary);">📊 استطلاع رأي الدفعة</span>
           <span id="poll-target-badge" class="resource-type-badge">مخصص</span>
         </div>
         <h4 id="poll-question-title" style="font-size:13.5px; font-weight:800; margin-bottom:10px;">عنوان الاستطلاع...</h4>
@@ -1631,7 +1654,7 @@
             <span>📝</span>
             <span>المهام والتكاليف القريبة</span>
           </div>
-          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target=\'tasks\']').click();">عرض الكل ↗</span>
+          <span style="font-size:11px; color:var(--primary); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target='tasks']').click();">عرض الكل ↗</span>
         </div>
         <div id="home-urgent-tasks-list">
           <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد مهام معلقة حالياً 🎉</p>
@@ -1644,7 +1667,7 @@
             <span>✨</span>
             <span>الجديد في التجميعات</span>
           </div>
-          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target=\'resources\']').click();">تصفح ↗</span>
+          <span style="font-size:11px; color:var(--primary); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target='resources']').click();">تصفح ↗</span>
         </div>
         <div id="home-latest-resources-list">
           <p style="font-size:12px; color:var(--text-muted); text-align:center;">جلب أحدث الملخصات...</p>
@@ -1737,7 +1760,7 @@
         <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 12.5px; padding: 10px;">
           ➕ إضافة محاضرة للجدول
         </button>
-        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 12.5px; padding: 10px;">
+        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: var(--primary); font-size: 12.5px; padding: 10px;">
           📥 تحميل الجدول الدراسي
         </button>
       </div>
@@ -1749,7 +1772,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات -->
+    <!-- تبويب التجميعات (مرتبط مباشرة بالمقررات الحالية ولا يعرض مواد افتراضية للمستخدم الجديد) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1764,7 +1787,7 @@
           إدارة التجميعات، اعتماد ملخصات الطلاب، وضبط الإعلانات والاستطلاعات.
         </p>
         <div class="admin-action-btn-row">
-          <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12px; padding:8px; flex:1;">
+          <button id="btn-admin-add-resource" class="btn-primary" style="background:var(--primary); font-size:12px; padding:8px; flex:1;">
             ➕ إضافة رابط تجميعة
           </button>
           <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:12px; padding:8px; flex:1;">
@@ -1776,7 +1799,7 @@
         </div>
         <div style="margin-top:10px;">
           <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:12.5px; padding:9px;">
-            📥 تصدير بيانات الطلاب (Excel / CSV)
+            📥 تصدير بيانات النظام (Excel / XLSX)
           </button>
         </div>
       </div>
@@ -1786,7 +1809,7 @@
         <div id="pending-items-list"></div>
       </div>
 
-      <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:12px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
+      <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:12px; background:rgba(79, 70, 229, 0.08); border-style:solid;">
         📤 مشاركة ملخص أو تجميعة مع زملائك في الدفعة
       </button>
 
@@ -1863,9 +1886,9 @@
         <p class="tree-status-text" id="tree-status-text">ازرع شجرة إنجازك أثناء تركيزك في المذاكرة</p>
 
         <div class="timer-controls">
-          <button id="btn-timer-start" class="btn-timer" style="background:#0F766E; color:white;">غرس وبدء 🌱</button>
+          <button id="btn-timer-start" class="btn-timer" style="background:var(--primary); color:white;">غرس وبدء 🌱</button>
           <button id="btn-timer-pause" class="btn-timer" style="background:var(--subtle-bg); color:var(--text-main);">إيقاف ⏸️</button>
-          <button id="btn-timer-reset" class="btn-timer" style="background:#FEE2E2; color:#DC2626;">تراجع 🔄</button>
+          <button id="btn-timer-reset" class="btn-timer" style="background:var(--danger-soft); color:var(--danger);">تراجع 🔄</button>
         </div>
       </div>
 
@@ -1900,27 +1923,8 @@
       </footer>
     </main>
 
-    <!-- تبويب حاسبة المعدل -->
-    <main class="main-content" id="tab-content-gpa" style="display: none;">
-      <div class="content-header">
-        <div>
-          <h2>حاسبة المعدل المعتمدة</h2>
-          <p>حساب المعدل الفصلي والتراكمي الفعلي بسلم 5.00 وفق الساعات المعتمدة في خطتك</p>
-        </div>
-      </div>
-      <div id="gpa-calc-container" style="margin-top: 16px;"></div>
-
-      <footer class="site-footer">
-        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
-      </footer>
-    </main>
-
-    <!-- شريط التنقل السفلي -->
+    <!-- شريط التنقل السفلي: المقررات | الجدول | الرئيسية (في المنتصف) | التجميعات | المهام -->
     <nav class="bottom-nav">
-      <div class="nav-item active" data-target="home">
-        <span class="icon">🏠</span>
-        <span>الرئيسية</span>
-      </div>
       <div class="nav-item" data-target="courses">
         <span class="icon">📊</span>
         <span>المقررات</span>
@@ -1928,6 +1932,10 @@
       <div class="nav-item" data-target="schedule">
         <span class="icon">🗓️</span>
         <span>الجدول</span>
+      </div>
+      <div class="nav-item active home-center-btn" data-target="home">
+        <span class="icon">🏠</span>
+        <span>الرئيسية</span>
       </div>
       <div class="nav-item" data-target="resources">
         <span class="icon">📚</span>
@@ -1939,7 +1947,7 @@
       </div>
     </nav>
 
-    <!-- استوديو تصميم صورة الجدول الدراسي -->
+    <!-- استوديو تصميم صورة الجدول -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1962,13 +1970,13 @@
           <button class="option-btn" id="btn-opt-light">☀️ فاتح نقي (Light)</button>
         </div>
 
-        <button id="btn-execute-download" class="btn-primary" style="background:#0F766E;">
+        <button id="btn-execute-download" class="btn-primary" style="background:var(--primary);">
           📥 تنزيل صورة الجدول الفخمة بجودة HD
         </button>
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي -->
+    <!-- مودال الملف الشخصي (البيانات الأكاديمية مثل التصنيف والشعبة محمية ولا تُعدل إلا عبر طلب مشرف) -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1977,27 +1985,27 @@
         </div>
         <form id="profile-edit-form">
           <div style="text-align:center; margin-bottom:14px;">
-            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:68px; height:68px; border-radius:50%; object-fit:cover; border:3px solid var(--primary-teal); background:#0F766E; margin-bottom:6px;" alt="Avatar">
+            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:68px; height:68px; border-radius:50%; object-fit:cover; border:3px solid var(--primary); background:var(--primary); margin-bottom:6px;" alt="Avatar">
             <span style="font-size:11px; color:var(--text-muted); display:block;">تخصيص الصورة الشخصية والأفتار</span>
           </div>
 
           <div class="form-group">
-            <label>الاسم الكامل</label>
-            <input type="text" id="profile-name-input" placeholder="الاسم الكامل">
+            <label>الاسم الكامل (قابل للتعديل)</label>
+            <input type="text" id="profile-name-input" style="font-weight:bold;">
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label>التصنيف</label>
-              <input type="text" id="profile-gender-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
+              <label>التصنيف (محمي)</label>
+              <input type="text" id="profile-gender-input" disabled style="background:var(--subtle-bg); color:var(--text-muted); font-weight:bold;">
             </div>
             <div class="form-group">
-              <label>رقم الشعبة</label>
-              <input type="text" id="profile-section-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
+              <label>رقم الشعبة (محمي)</label>
+              <input type="text" id="profile-section-input" disabled style="background:var(--subtle-bg); color:var(--text-muted); font-weight:bold;">
             </div>
           </div>
-          <p style="font-size:11px; color:#D97706; margin-bottom:12px; font-weight:700;">
-            ℹ️ ملاحظة: لتغيير التصنيف أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
+          <p style="font-size:11px; color:var(--warning); margin-bottom:12px; font-weight:700;">
+            ℹ️ ملاحظة: لتغيير التصنيف (طالب/طالبة) أو رقم الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
           </p>
 
           <div class="form-group">
@@ -2008,11 +2016,6 @@
           <div class="form-group">
             <label>رابط الصورة الشخصية:</label>
             <input type="url" id="profile-avatar-url" placeholder="https://...">
-          </div>
-
-          <div class="form-group">
-            <label>أو رفع صورة من جهازك:</label>
-            <input type="file" id="profile-avatar-file" accept="image/*" style="font-size:11.5px; padding:6px;">
           </div>
 
           <div style="margin-bottom:14px;">
@@ -2027,7 +2030,7 @@
           </div>
 
           <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
-            <span style="font-size:12px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:6px;">⚙️ تخصيص بطاقات الرئيسية:</span>
+            <span style="font-size:12px; font-weight:800; color:var(--primary); display:block; margin-bottom:6px;">⚙️ تخصيص بطاقات الرئيسية:</span>
             
             <div class="pref-switch-row">
               <span>إظهار إحصائيات الحضور ونقاط التركيز 📊</span>
@@ -2248,7 +2251,7 @@
       </div>
     </div>
 
-    <!-- مودال إضافة مادة -->
+    <!-- مودال إضافة مقرر دراسي -->
     <div id="course-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2301,7 +2304,7 @@
             <label>لون المادة</label>
             <div class="color-palette">
               <span class="color-dot active" data-color="#8B5CF6" style="background: #8B5CF6;"></span>
-              <span class="color-dot" data-color="#0D9488" style="background: #0D9488;"></span>
+              <span class="color-dot" data-color="#4F46E5" style="background: #4F46E5;"></span>
               <span class="color-dot" data-color="#F43F5E" style="background: #F43F5E;"></span>
               <span class="color-dot" data-color="#10B981" style="background: #10B981;"></span>
               <span class="color-dot" data-color="#0284C7" style="background: #0284C7;"></span>
@@ -2349,28 +2352,23 @@
       </div>
     </div>
 
-    <!-- مودال الاقتراحات والشكاوى -->
+    <!-- مودال الاقتراحات وطلبات تعديل البيانات المحمية -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 id="fb-modal-heading">📩 صندوق الاقتراحات والشكاوى</h3>
+          <h3 id="fb-modal-heading">📩 صندوق الاقتراحات وطلب تعديل البيانات</h3>
           <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-          رأي وملاحظاتك تساهم في تطوير التطبيق، أو طلب تعديل بيانات ملفك الشخصي.
+          لرغبتك في تعديل البيانات المحمية (مثل التصنيف أو رقم الشعبة)، اكتب الطلب مع ذكر السبب ليقوم المشرف باعتماده.
         </p>
-        <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:13px; margin-bottom:10px;">
-          تم استلام رسالتك بنجاح ووصلت للإدارة! شكراً لك ❤️
-        </div>
-        <div data-fs-error style="text-align:center; color:red; font-size:12px; margin-bottom:10px;"></div>
-
         <form id="feedback-form">
           <input type="hidden" id="fb-sender-name" name="name" value="طالب/ـة">
           <input type="hidden" id="fb-sender-email" name="email" value="student@taibahu.edu.sa">
           <div class="form-group">
-            <label>نوع الرسالة</label>
+            <label>نوع الطلب أو الرسالة</label>
             <select name="category" id="fb-type" data-fs-field>
-              <option value="طلب تعديل بيانات الملف الشخصي">طلب تعديل بيانات الملف الشخصي 👤</option>
+              <option value="طلب تعديل بيانات الملف الشخصي">طلب تعديل بيانات الملف الشخصي (شعبة / تصنيف) 👤</option>
               <option value="اقتراح ميزة جديدة">اقتراح ميزة جديدة 💡</option>
               <option value="إبلاغ عن خلل أو مشكلة">إبلاغ عن خلل أو مشكلة 🐛</option>
               <option value="استفسار عام">استفسار عام 💬</option>
@@ -2379,48 +2377,48 @@
           <div class="form-group">
             <label>الموضوع</label>
             <input type="text" id="fb-subject" name="subject" required placeholder="مثال: طلب تعديل رقم الشعبة" data-fs-field>
-            <span data-fs-error="subject" style="color:red; font-size:11px;"></span>
           </div>
           <div class="form-group">
-            <label>الرسالة مع ذكر السبب</label>
-            <textarea id="fb-content" name="message" rows="4" required placeholder="اكتب التفاصيل والسبب..." data-fs-field></textarea>
-            <span data-fs-error="message" style="color:red; font-size:11px;"></span>
+            <label>الرسالة مع ذكر السبب بالتفصيل</label>
+            <textarea id="fb-content" name="message" rows="4" required placeholder="أريد تعديل رقم الشعبة من 1 إلى 2 بسبب تغيير شعبتي رسمياً..." data-fs-field></textarea>
           </div>
-          <button type="submit" class="btn-primary" data-fs-submit-btn>إرسال للإدارة فوراً 🚀</button>
+          <button type="submit" class="btn-primary" data-fs-submit-btn>إرسال الطلب للإدارة فوراً 🚀</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- منطق التطبيق الكامل -->
+  <!-- منطق التطبيق البرمجي الشامل المحدّث -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-    import { 
-      getAuth, 
-      createUserWithEmailAndPassword, 
-      signInWithEmailAndPassword, 
+    import {  
+      getAuth,  
+      createUserWithEmailAndPassword,  
+      signInWithEmailAndPassword,  
       signInWithPopup,
       GoogleAuthProvider,
-      signOut, 
-      onAuthStateChanged, 
-      updateProfile, 
-      setPersistence, 
-      browserLocalPersistence 
+      OAuthProvider,
+      signOut,  
+      onAuthStateChanged,  
+      updateProfile,  
+      setPersistence,  
+      browserLocalPersistence,
+      browserSessionPersistence 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-    import { 
-      getFirestore, 
-      collection, 
-      doc, 
-      addDoc, 
-      updateDoc, 
-      deleteDoc, 
-      setDoc, 
-      getDoc, 
-      getDocs, 
-      query, 
-      orderBy, 
-      limit, 
-      onSnapshot 
+    import {  
+      getFirestore,  
+      collection,  
+      doc,  
+      addDoc,  
+      updateDoc,  
+      deleteDoc,  
+      setDoc,  
+      getDoc,  
+      getDocs,  
+      query,  
+      orderBy,  
+      limit,  
+      onSnapshot  
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -2437,13 +2435,14 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
+    const appleProvider = new OAuthProvider('apple.com');
 
     const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
 
     const CURRICULUM_PLAN = {
       5: [
         { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, color: "#8B5CF6" },
-        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 15, color: "#0D9488" },
+        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 15, color: "#4F46E5" },
         { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 45, color: "#F43F5E" },
         { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 45, color: "#10B981" },
         { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 15, color: "#0284C7" },
@@ -2459,7 +2458,7 @@
       7: [
         { name: "مقرر متطلب جامعة اختياري (3)", code: "GSE 3", credits: 2, totalLectures: 15, color: "#F43F5E" },
         { name: "النظم المضمنة (2)", code: "COE 347", credits: 4, totalLectures: 45, color: "#6366F1" },
-        { name: "اساسيات انترنت الاشياء", code: "COE 337", credits: 4, totalLectures: 45, color: "#0D9488" },
+        { name: "اساسيات انترنت الاشياء", code: "COE 337", credits: 4, totalLectures: 45, color: "#4F46E5" },
         { name: "تصميم النظم الرقمية", code: "COE 317", credits: 4, totalLectures: 45, color: "#8B5CF6" },
         { name: "الطرق العددية في هندسة الحاسب", code: "COE 377", credits: 3, totalLectures: 30, color: "#0284C7" }
       ],
@@ -2479,7 +2478,7 @@
         { name: "مشروع التخرج (2)", code: "COE 499", credits: 3, totalLectures: 30, color: "#7C3AED" }
       ],
       10: [
-        { name: "التدريب التعاوني", code: "COE 490", credits: 6, totalLectures: 60, color: "#0F766E" }
+        { name: "التدريب التعاوني", code: "COE 490", credits: 6, totalLectures: 60, color: "#4F46E5" }
       ]
     };
 
@@ -2516,19 +2515,19 @@
     const tabLogin = document.getElementById("tab-login");
     const tabRegister = document.getElementById("tab-register");
     const groupName = document.getElementById("group-name");
-    const groupAcademic = document.getElementById("group-academic");
-    const groupLevel = document.getElementById("group-level");
     const groupGenderSection = document.getElementById("group-gender-section");
     const authName = document.getElementById("auth-name");
     const authGender = document.getElementById("auth-gender");
     const authSection = document.getElementById("auth-section");
     const authEmail = document.getElementById("auth-email");
     const authPass = document.getElementById("auth-pass");
+    const authRemember = document.getElementById("auth-remember");
     const authSubmitBtn = document.getElementById("auth-submit-btn");
     const authError = document.getElementById("auth-error");
     const btnLogout = document.getElementById("btn-logout");
     const userGreeting = document.getElementById("user-greeting");
     const btnGoogleLogin = document.getElementById("btn-google-login");
+    const btnAppleLogin = document.getElementById("btn-apple-login");
     const btnToggleTheme = document.getElementById("btn-toggle-theme");
     const adminBadge = document.getElementById("admin-badge");
 
@@ -2545,7 +2544,6 @@
     const profileSectionInput = document.getElementById("profile-section-input");
     const profileBioInput = document.getElementById("profile-bio-input");
     const profileAvatarUrl = document.getElementById("profile-avatar-url");
-    const profileAvatarFile = document.getElementById("profile-avatar-file");
 
     const prefShowStats = document.getElementById("pref-show-stats");
     const prefShowTasks = document.getElementById("pref-show-tasks");
@@ -2651,19 +2649,30 @@
 
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
+    // إعداد المظهر (Light / Dark / System)
     function initTheme() {
-      const savedTheme = localStorage.getItem("app_theme") || "light";
-      document.documentElement.setAttribute("data-theme", savedTheme);
-      btnToggleTheme.textContent = savedTheme === "dark" ? "☀️" : "🌙";
+      const savedTheme = localStorage.getItem("app_theme") || "system";
+      applyThemeSetting(savedTheme);
     }
+
+    function applyThemeSetting(mode) {
+      if (mode === "system") {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+        btnToggleTheme.textContent = prefersDark ? "☀️" : "🌙";
+      } else {
+        document.documentElement.setAttribute("data-theme", mode);
+        btnToggleTheme.textContent = mode === "dark" ? "☀️" : "🌙";
+      }
+      localStorage.setItem("app_theme", mode);
+    }
+
     initTheme();
 
     btnToggleTheme.addEventListener("click", () => {
       const current = document.documentElement.getAttribute("data-theme") || "light";
       const next = current === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("app_theme", next);
-      btnToggleTheme.textContent = next === "dark" ? "☀️" : "🌙";
+      applyThemeSetting(next);
     });
 
     function populateQuickPresets() {
@@ -2697,8 +2706,6 @@
       tabLogin.classList.add("active");
       tabRegister.classList.remove("active");
       groupName.style.display = "none";
-      groupAcademic.style.display = "none";
-      groupLevel.style.display = "none";
       groupGenderSection.style.display = "none";
       authSubmitBtn.textContent = "دخول";
       authError.textContent = "";
@@ -2709,44 +2716,34 @@
       tabRegister.classList.add("active");
       tabLogin.classList.remove("active");
       groupName.style.display = "flex";
-      groupAcademic.style.display = "flex";
-      groupLevel.style.display = "flex";
       groupGenderSection.style.display = "flex";
       authSubmitBtn.textContent = "إنشاء الحساب وبدء الفصل";
       authError.textContent = "";
     });
 
+    // تسجيل الدخول بـ Google مع تذكرني والتحقق من الحساب وسجل الدخول
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
-        await setPersistence(auth, browserLocalPersistence);
+        const remember = authRemember.checked;
+        await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
         const result = await signInWithPopup(auth, googleProvider);
-        const user = result.user;
-
-        const userDocRef = doc(db, "users", user.uid);
-        const userDoc = await getDoc(userDocRef);
-
-        if (!userDoc.exists()) {
-          await setDoc(userDocRef, {
-            displayName: user.displayName || "طالب/ـة",
-            email: user.email,
-            gender: "طالبة",
-            section: "شعبة 1",
-            photoURL: user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`,
-            bio: "مهندسة حاسب آلي - جامعة طيبة",
-            university: "جامعة طيبة",
-            major: "هندسة الحاسب",
-            currentLevel: 5,
-            points: 0,
-            treesGrown: 0,
-            widgetPrefs: userWidgetPrefs,
-            isNewUser: true,
-            createdAt: new Date().toISOString(),
-            lastLoginAt: new Date().toISOString()
-          });
-        }
+        await handleSuccessfulLogin(result.user, "google");
       } catch (err) {
         authError.textContent = err.message || "تعذر تسجيل الدخول بحساب Google.";
+      }
+    });
+
+    // تسجيل الدخول بـ Apple مع OAuthProvider('apple.com')
+    btnAppleLogin.addEventListener("click", async () => {
+      authError.textContent = "";
+      try {
+        const remember = authRemember.checked;
+        await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
+        const result = await signInWithPopup(auth, appleProvider);
+        await handleSuccessfulLogin(result.user, "apple");
+      } catch (err) {
+        authError.textContent = err.message || "تعذر تسجيل الدخول باستخدام Apple.";
       }
     });
 
@@ -2757,9 +2754,10 @@
 
       const email = authEmail.value.trim();
       const pass = authPass.value;
+      const remember = authRemember.checked;
 
       try {
-        await setPersistence(auth, browserLocalPersistence);
+        await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
 
         if (isRegisterMode) {
           const name = authName.value.trim();
@@ -2788,9 +2786,14 @@
             createdAt: new Date().toISOString(),
             lastLoginAt: new Date().toISOString()
           });
+
+          await recordLoginHistory(userCred.user.uid, name, email, gender, section, "email");
         } else {
           const cred = await signInWithEmailAndPassword(auth, email, pass);
+          const uDoc = await getDoc(doc(db, "users", cred.user.uid));
+          const uData = uDoc.exists() ? uDoc.data() : {};
           await updateDoc(doc(db, "users", cred.user.uid), { lastLoginAt: new Date().toISOString() });
+          await recordLoginHistory(cred.user.uid, uData.displayName || cred.user.displayName || "مهندس/ـة", email, uData.gender || "طالبة", uData.section || "عامة", "email");
         }
       } catch (err) {
         authError.textContent = err.message || "حدث خطأ في التسجيل";
@@ -2798,6 +2801,58 @@
         authSubmitBtn.disabled = false;
       }
     });
+
+    async function handleSuccessfulLogin(user, providerName) {
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      let displayName = user.displayName;
+      if (!displayName && providerName === "apple") {
+        displayName = prompt("يرجى إدخال اسمك الكامل نظراً لأن Apple لا توفره في هذا التسجيل:") || "مهندس/ـة";
+      }
+
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          displayName: displayName || "طالب/ـة",
+          email: user.email || "apple_relay@taibahu.edu.sa",
+          gender: "طالبة",
+          section: "شعبة 1",
+          photoURL: user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`,
+          bio: "مهندسة حاسب آلي - جامعة طيبة",
+          university: "جامعة طيبة",
+          major: "هندسة الحاسب",
+          currentLevel: 5,
+          points: 0,
+          treesGrown: 0,
+          widgetPrefs: userWidgetPrefs,
+          isNewUser: true,
+          createdAt: new Date().toISOString(),
+          lastLoginAt: new Date().toISOString()
+        });
+        await recordLoginHistory(user.uid, displayName || "طالب/ـة", user.email || "", "طالبة", "شعبة 1", providerName);
+      } else {
+        const data = userDoc.data();
+        await updateDoc(userDocRef, { lastLoginAt: new Date().toISOString() });
+        await recordLoginHistory(user.uid, data.displayName || "طالب/ـة", data.email || "", data.gender || "طالبة", data.section || "عامة", providerName);
+      }
+    }
+
+    // تسجيل تفاصيل دخول المستخدم في users/{uid}/loginHistory
+    async function recordLoginHistory(uid, name, email, gender, section, method) {
+      try {
+        await addDoc(collection(db, "users", uid, "loginHistory"), {
+          timestamp: new Date().toISOString(),
+          loginMethod: method,
+          userAgent: navigator.userAgent,
+          name: name,
+          email: email,
+          gender: gender,
+          section: section
+        });
+      } catch (e) {
+        console.error("Error logging login history:", e);
+      }
+    }
 
     btnLogout.addEventListener("click", () => signOut(auth));
 
@@ -2849,7 +2904,6 @@
               newUserWelcomeBox.style.display = "none";
             }
 
-            updateLevelUIState();
             renderHomeDashboardUI();
           }
         });
@@ -2918,6 +2972,7 @@
       }
     });
 
+    // إدارة استطلاع الرأي
     async function renderPollUI() {
       if (!activePoll || !activePoll.active) {
         homeActivePollBox.style.display = "none";
@@ -2949,7 +3004,7 @@
         btn.className = "poll-option-btn";
         btn.innerHTML = `
           <span>${opt}</span>
-          <span style="font-size:11px; color:var(--primary-teal);">${count} أصوات (${percentage}%)</span>
+          <span style="font-size:11px; color:var(--primary);">${count} أصوات (${percentage}%)</span>
         `;
         btn.addEventListener("click", async () => {
           const userVoteKey = `voted_${currentUser.uid}`;
@@ -2967,53 +3022,63 @@
       });
     }
 
-    btnAdminCreatePoll.addEventListener("click", () => adminPollModal.classList.add("open"));
-    document.getElementById("btn-close-poll-modal").addEventListener("click", () => adminPollModal.classList.remove("open"));
+    if (btnAdminCreatePoll) {
+      btnAdminCreatePoll.addEventListener("click", () => adminPollModal.classList.add("open"));
+      document.getElementById("btn-close-poll-modal").addEventListener("click", () => adminPollModal.classList.remove("open"));
 
-    adminPollForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const title = document.getElementById("poll-title-input").value.trim();
-      const targetGroup = document.getElementById("poll-target-input").value;
-      const rawOpts = document.getElementById("poll-options-input").value.trim().split("\n");
-      const options = rawOpts.map(o => o.trim()).filter(o => o.length > 0);
-      const active = document.getElementById("poll-active-input").checked;
+      adminPollForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const title = document.getElementById("poll-title-input").value.trim();
+        const targetGroup = document.getElementById("poll-target-input").value;
+        const rawOpts = document.getElementById("poll-options-input").value.trim().split("
+");
+        const options = rawOpts.map(o => o.trim()).filter(o => o.length > 0);
+        const active = document.getElementById("poll-active-input").checked;
 
-      if (options.length < 2) {
-        alert("الرجاء إدخال خيارين على الأقل للاستطلاع.");
-        return;
-      }
+        if (options.length < 2) {
+          alert("الرجاء إدخال خيارين على الأقل للاستطلاع.");
+          return;
+        }
 
-      await setDoc(doc(db, "system_configs", "active_poll"), {
-        title,
-        targetGroup,
-        options,
-        votes: {},
-        active,
-        createdAt: new Date().toISOString()
+        await setDoc(doc(db, "system_configs", "active_poll"), {
+          title,
+          targetGroup,
+          options,
+          votes: {},
+          active,
+          createdAt: new Date().toISOString()
+        });
+
+        adminPollForm.reset();
+        adminPollModal.classList.remove("open");
+        alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
       });
+    }
 
-      adminPollForm.reset();
-      adminPollModal.classList.remove("open");
-      alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
-    });
-
+    // تصدير ملف Excel احترافي عبر SheetJS أو CSV متطور وشامل لكل الجداول المطلوبة
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
-      const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الشعبة,المستوى الحالي,نقاط التركيز,تاريخ التسجيل,آخر تسجيل دخول\n";
+
+      const usersSnap = await getDocs(collection(db, "users"));
+      let usersCsv = "﻿UID,الاسم,البريد,طالب/طالبة,رقم الشعبة,الجامعة,التخصص,المستوى,النقاط,الأشجار,تاريخ التسجيل,آخر تسجيل دخول
+";
       
-      snap.forEach(d => {
+      const allUsersData = [];
+      for (const d of usersSnap.docs) {
         const u = d.data();
+        allUsersData.push({ id: d.id, ...u });
         const regDate = u.createdAt ? new Date(u.createdAt).toLocaleString('ar-SA') : 'غير متوفر';
         const loginDate = u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString('ar-SA') : 'غير متوفر';
-        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${regDate}","${loginDate}"\n`;
-      });
+        usersCsv += `"${d.id}","${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'عامة'}","${u.university || 'جامعة طيبة'}","${u.major || 'هندسة الحاسب'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${u.treesGrown || 0}","${regDate}","${loginDate}"
+`;
+      }
 
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      // تصدير ملف CSV ذو بنية Sheet مُنظّمة
+      const blob = new Blob([usersCsv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", `تقرير_طلاب_هندسة_الحاسب_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("download", `جدولي_بيانات_المستخدمين_${new Date().toISOString().slice(0,10)}.xlsx`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -3081,7 +3146,7 @@
                   📍 قاعة: ${slot.room} • ${slot.building}
                 </span>
               </div>
-              <span style="font-size:12px; font-weight:800; color:var(--primary-teal); background:rgba(13,148,136,0.1); padding:4px 8px; border-radius:8px;">
+              <span style="font-size:12px; font-weight:800; color:var(--primary); background:rgba(79, 70, 229, 0.1); padding:4px 8px; border-radius:8px;">
                 ⏰ ${slot.startTime}
               </span>
             `;
@@ -3122,7 +3187,7 @@
               <strong style="color:var(--text-main);">${r.title}</strong>
               <span style="font-size:10px; color:var(--text-muted); display:block;">مقرر: ${r.courseCode}</span>
             </div>
-            <a href="${r.url}" target="_blank" style="color:var(--primary-teal); font-weight:bold; text-decoration:none; font-size:11px;">فتح ↗</a>
+            <a href="${r.url}" target="_blank" style="color:var(--primary); font-weight:bold; text-decoration:none; font-size:11px;">فتح ↗</a>
           `;
           homeLatestResourcesList.appendChild(rRow);
         });
@@ -3157,29 +3222,12 @@
       if (profileAvatarUrl.value.trim()) profileAvatarPreview.src = profileAvatarUrl.value.trim();
     });
 
-    profileAvatarFile.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          profileAvatarPreview.src = ev.target.result;
-          profileAvatarUrl.value = ev.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    // معالجة تعديل الملف الشخصي (الاسم مسموح تعديله، التصنيف والشعبة مقفلة)
+    // حفظ تعديلات الملف الشخصي المسموحة (الاسم، النبذة، الصورة، التفضيلات) مع بقاء الجنس والشعبة محميين
     profileEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const newName = profileNameInput.value.trim();
       const newBio = profileBioInput.value.trim();
       const newPhoto = profileAvatarUrl.value.trim() || profileAvatarPreview.src;
-
-      if (!newName) {
-        alert("الرجاء إدخال الاسم الكامل.");
-        return;
-      }
 
       const newPrefs = {
         showStats: prefShowStats.checked,
@@ -3252,9 +3300,9 @@
 
       if (isDark) {
         const grad = ctx.createLinearGradient(0, 0, width, height);
-        grad.addColorStop(0, "#062822");
-        grad.addColorStop(0.5, "#0B1519");
-        grad.addColorStop(1, "#02090C");
+        grad.addColorStop(0, "#1E1B4B");
+        grad.addColorStop(0.5, "#0F172A");
+        grad.addColorStop(1, "#030712");
         ctx.fillStyle = grad;
       } else {
         const grad = ctx.createLinearGradient(0, 0, width, height);
@@ -3272,7 +3320,7 @@
       ctx.font = isPortrait ? "900 48px Cairo, sans-serif" : "900 52px Cairo, sans-serif";
       ctx.fillText("الجدول الدراسي الأسبوعي", width / 2, isPortrait ? 110 : 90);
 
-      ctx.fillStyle = isDark ? "#2DD4BF" : "#0D9488";
+      ctx.fillStyle = isDark ? "#818CF8" : "#4F46E5";
       ctx.font = isPortrait ? "700 28px Cairo, sans-serif" : "700 30px Cairo, sans-serif";
       ctx.fillText(`${studentName} • كلية علوم وهندسة الحاسب - جامعة طيبة`, width / 2, isPortrait ? 165 : 140);
 
@@ -3283,12 +3331,12 @@
         days.forEach(day => {
           const slots = currentScheduleSlots.filter(s => s.day === day).sort((a, b) => a.startTime.localeCompare(b.startTime));
 
-          ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 148, 136, 0.12)";
+          ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(79, 70, 229, 0.12)";
           ctx.beginPath();
           ctx.roundRect(50, currentY, 980, 44, 10);
           ctx.fill();
 
-          ctx.fillStyle = isDark ? "#FCD34D" : "#0F766E";
+          ctx.fillStyle = isDark ? "#FCD34D" : "#4F46E5";
           ctx.textAlign = "right";
           ctx.font = "900 24px Cairo, sans-serif";
           ctx.fillText(`📅 ${day}`, 1000, currentY + 31);
@@ -3306,7 +3354,7 @@
               ctx.roundRect(50, currentY, 980, 64, 12);
               ctx.fill();
 
-              ctx.fillStyle = s.color || "#0D9488";
+              ctx.fillStyle = s.color || "#4F46E5";
               ctx.beginPath();
               ctx.roundRect(1020, currentY, 10, 64, [0, 12, 12, 0]);
               ctx.fill();
@@ -3316,7 +3364,7 @@
               ctx.font = "800 24px Cairo, sans-serif";
               ctx.fillText(`${s.courseName} (${s.courseCode})`, 1000, currentY + 40);
 
-              ctx.fillStyle = s.color || (isDark ? "#2DD4BF" : "#0D9488");
+              ctx.fillStyle = s.color || (isDark ? "#818CF8" : "#4F46E5");
               ctx.textAlign = "left";
               ctx.font = "700 20px Cairo, sans-serif";
               ctx.fillText(`⏰ ${s.startTime} - ${s.endTime}  |  قاعة: ${s.room} (${s.building})`, 75, currentY + 40);
@@ -3338,12 +3386,12 @@
 
           const slots = currentScheduleSlots.filter(s => s.day === day).sort((a, b) => a.startTime.localeCompare(b.startTime));
 
-          ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 148, 136, 0.12)";
+          ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(79, 70, 229, 0.12)";
           ctx.beginPath();
           ctx.roundRect(x, y, colWidth, 48, 10);
           ctx.fill();
 
-          ctx.fillStyle = isDark ? "#FCD34D" : "#0F766E";
+          ctx.fillStyle = isDark ? "#FCD34D" : "#4F46E5";
           ctx.textAlign = "center";
           ctx.font = "900 24px Cairo, sans-serif";
           ctx.fillText(day, x + (colWidth / 2), y + 34);
@@ -3360,7 +3408,7 @@
               ctx.roundRect(x, y, colWidth, 110, 12);
               ctx.fill();
 
-              ctx.fillStyle = s.color || "#0D9488";
+              ctx.fillStyle = s.color || "#4F46E5";
               ctx.beginPath();
               ctx.roundRect(x + colWidth - 8, y, 8, 110, [0, 12, 12, 0]);
               ctx.fill();
@@ -3376,7 +3424,7 @@
               ctx.fillText(shortName, x + colWidth - 20, y + 58);
 
               ctx.font = "700 14px Cairo, sans-serif";
-              ctx.fillStyle = s.color || (isDark ? "#2DD4BF" : "#0D9488");
+              ctx.fillStyle = s.color || (isDark ? "#818CF8" : "#4F46E5");
               ctx.fillText(`⏰ ${s.startTime} - ${s.endTime}`, x + colWidth - 20, y + 84);
               ctx.fillText(`📍 قاعة: ${s.room}`, x + colWidth - 20, y + 102);
 
@@ -3424,7 +3472,7 @@
         courseId,
         courseName: selectedC.name,
         courseCode: selectedC.code,
-        color: selectedC.color || "#0D9488",
+        color: selectedC.color || "#4F46E5",
         day,
         startTime,
         endTime,
@@ -3498,46 +3546,48 @@
       }
     }
 
-    btnGenerateCramPlan.addEventListener("click", () => {
-      const courseId = cramCourseSelect.value;
-      const examDateStr = cramExamDate.value;
-      const course = currentCourses.find(c => c.id === courseId);
+    if (btnGenerateCramPlan) {
+      btnGenerateCramPlan.addEventListener("click", () => {
+        const courseId = cramCourseSelect.value;
+        const examDateStr = cramExamDate.value;
+        const course = currentCourses.find(c => c.id === courseId);
 
-      if (!course) {
-        alert("الرجاء اختيار مادة.");
-        return;
-      }
-      if (!examDateStr) {
-        alert("الرجاء تحديد تاريخ الاختبار.");
-        return;
-      }
+        if (!course) {
+          alert("الرجاء اختيار مادة.");
+          return;
+        }
+        if (!examDateStr) {
+          alert("الرجاء تحديد تاريخ الاختبار.");
+          return;
+        }
 
-      const examDate = new Date(examDateStr);
-      const today = new Date();
-      const diffTime = examDate.getTime() - today.getTime();
-      const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const examDate = new Date(examDateStr);
+        const today = new Date();
+        const diffTime = examDate.getTime() - today.getTime();
+        const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-      if (daysRemaining <= 0) {
-        alert("تاريخ الاختبار يجب أن يكون في تاريخ قادم.");
-        return;
-      }
+        if (daysRemaining <= 0) {
+          alert("تاريخ الاختبار يجب أن يكون في تاريخ قادم.");
+          return;
+        }
 
-      const unstudiedChapters = (course.chapters || []).filter(c => !c.done).length;
-      const totalCh = (course.chapters || []).length;
-      const dailyChapters = (unstudiedChapters / daysRemaining).toFixed(1);
+        const unstudiedChapters = (course.chapters || []).filter(c => !c.done).length;
+        const totalCh = (course.chapters || []).length;
+        const dailyChapters = (unstudiedChapters / daysRemaining).toFixed(1);
 
-      cramResultBox.style.display = "block";
-      cramResultBox.innerHTML = `
-        <div style="font-weight:800; color:var(--text-main); margin-bottom:4px;">
-          📊 الخطة الذكية لمقرر ${course.name}:
-        </div>
-        <p>• الأيام المتبقية حتى الاختبار: <strong>${daysRemaining} يوم</strong></p>
-        <p>• الشباتر المتبقية للمذاكرة: <strong>${unstudiedChapters} من أصل ${totalCh} شباتر</strong></p>
-        <p style="color:var(--primary-teal); font-weight:800; margin-top:4px;">
-          🎯 معدل الإنجاز المطلوب: مذاكرة <strong>${dailyChapters} شابتر يومياً</strong> لختم المنهج قبل موعد الاختبار بكل راحة!
-        </p>
-      `;
-    });
+        cramResultBox.style.display = "block";
+        cramResultBox.innerHTML = `
+          <div style="font-weight:800; color:var(--text-main); margin-bottom:4px;">
+            📊 الخطة الذكية لمقرر ${course.name}:
+          </div>
+          <p>• الأيام المتبقية حتى الاختبار: <strong>${daysRemaining} يوم</strong></p>
+          <p>• الشباتر المتبقية للمذاكرة: <strong>${unstudiedChapters} من أصل ${totalCh} شباتر</strong></p>
+          <p style="color:var(--primary); font-weight:800; margin-top:4px;">
+            🎯 معدل الإنجاز المطلوب: مذاكرة <strong>${dailyChapters} شابتر يومياً</strong> لختم المنهج قبل موعد الاختبار بكل راحة!
+          </p>
+        `;
+      });
+    }
 
     function updateAllCourseDropdowns() {
       const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse];
@@ -3565,7 +3615,9 @@
       });
     }
 
-    searchResourcesInput.addEventListener("input", () => renderPublicResourcesUI());
+    if (searchResourcesInput) {
+      searchResourcesInput.addEventListener("input", () => renderPublicResourcesUI());
+    }
     document.querySelectorAll("[data-res-filter]").forEach(btn => {
       btn.addEventListener("click", () => {
         document.querySelectorAll("[data-res-filter]").forEach(b => b.classList.remove("active"));
@@ -3575,9 +3627,10 @@
       });
     });
 
+    // ربط صفحة التجميعات مباشرة بالمقررات الحالية (الافتراضي للمستخدم الجديد فارغ تماماً مع رسالة إرشادية)
     function renderPublicResourcesUI() {
       resourcesGlobalContainer.innerHTML = "";
-      const queryText = searchResourcesInput.value.trim().toLowerCase();
+      const queryText = searchResourcesInput ? searchResourcesInput.value.trim().toLowerCase() : "";
 
       const mySubjects = currentCourses.map(c => ({ code: c.code, name: c.name }));
       mySubjects.push({ code: "عام", name: "روابط وتجميعات عامة" });
@@ -3632,7 +3685,7 @@
                   </div>
                 </a>
                 <div style="display:flex; align-items:center; gap:8px;">
-                  <a href="${item.url}" target="_blank" style="color:var(--primary-teal); font-size:12px; font-weight:800; text-decoration:none;">فتح ↗</a>
+                  <a href="${item.url}" target="_blank" style="color:var(--primary); font-size:12px; font-weight:800; text-decoration:none;">فتح ↗</a>
                   ${isAdmin ? `<button class="btn-del-resource" data-id="${item.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:12px;" title="حذف الرابط">🗑️</button>` : ''}
                 </div>
               </div>
@@ -3690,32 +3743,34 @@
       }
     }
 
-    btnAdminConfigAlerts.addEventListener("click", async () => {
-      const snap = await getDoc(doc(db, "system_configs", "alerts"));
-      if (snap.exists()) {
-        const c = snap.data();
-        document.getElementById("cfg-broadcast-text").value = c.broadcastText || "";
-        document.getElementById("cfg-broadcast-active").checked = c.broadcastActive || false;
-        document.getElementById("cfg-countdown-title").value = c.countdownTitle || "";
-        document.getElementById("cfg-countdown-date").value = c.countdownDate || "";
-        document.getElementById("cfg-countdown-active").checked = c.countdownActive || false;
-      }
-      adminAlertsConfigModal.classList.add("open");
-    });
-    btnCloseAlertsModal.addEventListener("click", () => adminAlertsConfigModal.classList.remove("open"));
-
-    adminAlertsForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      await setDoc(doc(db, "system_configs", "alerts"), {
-        broadcastText: document.getElementById("cfg-broadcast-text").value.trim(),
-        broadcastActive: document.getElementById("cfg-broadcast-active").checked,
-        countdownTitle: document.getElementById("cfg-countdown-title").value.trim(),
-        countdownDate: document.getElementById("cfg-countdown-date").value,
-        countdownActive: document.getElementById("cfg-countdown-active").checked
+    if (btnAdminConfigAlerts) {
+      btnAdminConfigAlerts.addEventListener("click", async () => {
+        const snap = await getDoc(doc(db, "system_configs", "alerts"));
+        if (snap.exists()) {
+          const c = snap.data();
+          document.getElementById("cfg-broadcast-text").value = c.broadcastText || "";
+          document.getElementById("cfg-broadcast-active").checked = c.broadcastActive || false;
+          document.getElementById("cfg-countdown-title").value = c.countdownTitle || "";
+          document.getElementById("cfg-countdown-date").value = c.countdownDate || "";
+          document.getElementById("cfg-countdown-active").checked = c.countdownActive || false;
+        }
+        adminAlertsConfigModal.classList.add("open");
       });
-      adminAlertsConfigModal.classList.remove("open");
-      alert("تم تحديث الإعلان والعدّاد لجميع الطلاب بنجاح! 🚀");
-    });
+      btnCloseAlertsModal.addEventListener("click", () => adminAlertsConfigModal.classList.remove("open"));
+
+      adminAlertsForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await setDoc(doc(db, "system_configs", "alerts"), {
+          broadcastText: document.getElementById("cfg-broadcast-text").value.trim(),
+          broadcastActive: document.getElementById("cfg-broadcast-active").checked,
+          countdownTitle: document.getElementById("cfg-countdown-title").value.trim(),
+          countdownDate: document.getElementById("cfg-countdown-date").value,
+          countdownActive: document.getElementById("cfg-countdown-active").checked
+        });
+        adminAlertsConfigModal.classList.remove("open");
+        alert("تم تحديث الإعلان والعدّاد لجميع الطلاب بنجاح! 🚀");
+      });
+    }
 
     function listenToLeaderboard() {
       const q = query(collection(db, "users"), orderBy("points", "desc"), limit(5));
@@ -3738,7 +3793,7 @@
               <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:24px; height:24px; border-radius:50%;">
               <span>${u.displayName || 'طالب/ـة'}</span>
             </div>
-            <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
+            <span style="color:var(--primary); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
           `;
           listDiv.appendChild(item);
           rank++;
@@ -3798,35 +3853,33 @@
       });
     }
 
-    function updateLevelUIState() {
-      levelDisplayHeading.textContent = `إنجاز المقررات الدراسية`;
-    }
+    if (btnAdminAddResource) {
+      btnAdminAddResource.addEventListener("click", () => adminResourceModal.classList.add("open"));
+      btnCloseAdminResModal.addEventListener("click", () => adminResourceModal.classList.remove("open"));
 
-    btnAdminAddResource.addEventListener("click", () => adminResourceModal.classList.add("open"));
-    btnCloseAdminResModal.addEventListener("click", () => adminResourceModal.classList.remove("open"));
+      adminResourceForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!isAdmin) {
+          alert("عذراً، هذه الصلاحية مخصصة للأدمن فقط.");
+          return;
+        }
 
-    adminResourceForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!isAdmin) {
-        alert("عذراً، هذه الصلاحية مخصصة للأدمن فقط.");
-        return;
-      }
+        await addDoc(collection(db, "public_resources"), {
+          courseCode: document.getElementById("admin-res-course").value,
+          title: document.getElementById("admin-res-title").value.trim(),
+          type: document.getElementById("admin-res-type").value,
+          url: document.getElementById("admin-res-url").value.trim(),
+          pinned: document.getElementById("admin-res-pinned").checked,
+          status: "approved",
+          contributorName: "مشرف النظام",
+          createdAt: new Date().toISOString()
+        });
 
-      await addDoc(collection(db, "public_resources"), {
-        courseCode: document.getElementById("admin-res-course").value,
-        title: document.getElementById("admin-res-title").value.trim(),
-        type: document.getElementById("admin-res-type").value,
-        url: document.getElementById("admin-res-url").value.trim(),
-        pinned: document.getElementById("admin-res-pinned").checked,
-        status: "approved",
-        contributorName: "مشرف النظام",
-        createdAt: new Date().toISOString()
+        adminResourceForm.reset();
+        adminResourceModal.classList.remove("open");
+        alert("تم نشر الرابط لجميع الطلاب بنجاح! 🚀");
       });
-
-      adminResourceForm.reset();
-      adminResourceModal.classList.remove("open");
-      alert("تم نشر الرابط لجميع الطلاب بنجاح! 🚀");
-    });
+    }
 
     document.querySelectorAll(".sort-pill").forEach(pill => {
       pill.addEventListener("click", () => {
@@ -3921,7 +3974,7 @@
               <div class="stepper-controls">
                 <button class="step-btn btn-dec-abs" title="إنقاص غياب">-</button>
                 <span style="font-size:14px; font-weight:800;">${absences}</span>
-                <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--primary-red); font-weight:900;">+</button>
+                <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--danger); font-weight:900;">+</button>
               </div>
             </div>
 
@@ -4032,10 +4085,9 @@
           }
         });
 
-        // تم فك الارتباط: حذف المادة يحذفها من جدول الطالب فقط دون المساس بقسم التجميعات العامة
         card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
           e.stopPropagation();
-          if (confirm(`هل ترغب بحذف مادة ${course.name} من جدولك؟ (ستظل التجميعات العامة متاحة)`)) {
+          if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
             await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
           }
         });
@@ -4196,6 +4248,7 @@
       renderTreeStage(totalFocusSeconds);
     });
 
+    // التنقل السفلي بترتيب: المقررات | الجدول | الرئيسية (في المنتصف) | التجميعات | المهام
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -4207,7 +4260,6 @@
         document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
         document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
         document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
-        document.getElementById("tab-content-gpa").style.display = target === "gpa" ? "block" : "none";
 
         if (target === "home") renderHomeDashboardUI();
       });
@@ -4228,19 +4280,45 @@
     });
     btnCloseFeedbackModal.addEventListener("click", () => feedbackModal.classList.remove("open"));
 
-    feedbackForm.addEventListener("submit", async () => {
+    feedbackForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
       if (currentUser) {
         try {
+          const category = document.getElementById("fb-type").value;
+          const subject = document.getElementById("fb-subject").value;
+          const message = document.getElementById("fb-content").value;
+          
+          if (category === "طلب تعديل بيانات الملف الشخصي") {
+            const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+            const uData = userDoc.exists() ? userDoc.data() : {};
+            await addDoc(collection(db, "profileChangeRequests"), {
+              uid: currentUser.uid,
+              name: currentUser.displayName || "طالب/ـة",
+              email: currentUser.email || "",
+              currentGender: uData.gender || "طالبة",
+              currentSection: uData.section || "عامة",
+              requestedChanges: subject,
+              reason: message,
+              status: "pending",
+              createdAt: new Date().toISOString()
+            });
+          }
+
           await addDoc(collection(db, "feedbacks"), {
+            uid: currentUser.uid,
             name: currentUser.displayName || "طالب/ـة",
             email: currentUser.email,
-            category: document.getElementById("fb-type").value,
-            subject: document.getElementById("fb-subject").value,
-            message: document.getElementById("fb-content").value,
+            category: category,
+            subject: subject,
+            message: message,
             createdAt: new Date().toISOString()
           });
+
+          feedbackForm.reset();
+          feedbackModal.classList.remove("open");
+          alert("تم إرسال طلبك بنجاح وسيتم مراجعته من قبل المشرف قريباً ❤️");
         } catch (e) {
-          console.error("Backup feedback error:", e);
+          console.error("Feedback error:", e);
         }
       }
     });
@@ -4356,16 +4434,20 @@
         renderTasksUI();
       });
     });
-  </script>
 
-  <!-- Formspree Ajax SDK -->
-  <script>
-    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-    formspree('initForm', { 
-      formElement: '#feedback-form', 
-      formId: 'xbgjwqzr' 
-    });
+    function updateTaskSelectOptions() {
+      taskCourseSelect.innerHTML = "";
+      if (currentCourses.length === 0) {
+        taskCourseSelect.innerHTML = `<option value="عام">عام</option>`;
+        return;
+      }
+      currentCourses.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = `${c.code}`;
+        opt.textContent = `${c.code} - ${c.name}`;
+        taskCourseSelect.appendChild(opt);
+      });
+    }
   </script>
-  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
