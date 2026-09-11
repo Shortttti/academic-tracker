@@ -52,8 +52,7 @@
       -webkit-tap-highlight-color: transparent;
       transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
                   color 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
-                  border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 0.15s ease;
+                  border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     body {
@@ -201,12 +200,6 @@
       border-color: var(--primary-teal);
     }
 
-    .form-group select:disabled {
-      background-color: var(--subtle-bg);
-      color: var(--text-muted);
-      font-weight: bold;
-    }
-
     .form-row {
       display: flex;
       gap: 10px;
@@ -284,8 +277,6 @@
       padding: 3px 8px 3px 4px;
       border-radius: 20px;
     }
-
-    .user-profile-btn:active { transform: scale(0.96); }
 
     .user-avatar-mini {
       width: 28px;
@@ -484,7 +475,6 @@
       font-weight: 700;
     }
 
-    /* بطاقة استطلاع الرأي التفاعلي */
     .poll-card {
       background: var(--card-bg);
       border: 1.5px solid var(--primary-teal);
@@ -511,11 +501,8 @@
       align-items: center;
     }
 
-    .poll-option-btn:hover {
-      border-color: var(--primary-teal);
-    }
+    .poll-option-btn:hover { border-color: var(--primary-teal); }
 
-    /* إشعار المحاضرة القادمة (In-app Reminder) */
     .reminder-banner {
       background: linear-gradient(135deg, #10B981, #059669);
       color: white;
@@ -1098,7 +1085,6 @@
       margin-top: 2px;
     }
 
-    /* مولّد خطة المذاكرة */
     .cram-planner-card {
       background: var(--card-bg);
       border: 1.5px dashed var(--primary-teal);
@@ -1123,7 +1109,6 @@
       border-radius: 6px;
     }
 
-    /* مؤقت غرس الإنجاز */
     .tree-timer-box {
       background: var(--card-bg);
       border-radius: 20px;
@@ -1334,22 +1319,22 @@
       letter-spacing: 1px;
     }
 
-    /* ============================================================ */
-    /* شريط التنقل السفلي المطور بنظام Floating Dock & Active Pill */
-    /* ============================================================ */
+    /* ========================================== */
+    /* شريط التنقل السفلي الكلاسيكي المريح الجديد */
+    /* ========================================== */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
       max-width: 480px;
-      height: 68px;
+      height: 64px;
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-around;
       align-items: center;
       z-index: 30;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
     }
 
     .nav-item {
@@ -1358,12 +1343,11 @@
       align-items: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 9.5px;
+      font-size: 10.5px;
       font-weight: 700;
-      gap: 3px;
+      gap: 2px;
       flex: 1;
-      padding: 6px 0;
-      position: relative;
+      padding: 8px 0;
     }
 
     .nav-item.active {
@@ -1371,48 +1355,7 @@
     }
 
     .nav-item span.icon {
-      font-size: 18px;
-    }
-
-    /* كبسولة المؤشر النشط الناعمة (Active Pill Tracker) */
-    .nav-item.active::before {
-      content: '';
-      position: absolute;
-      top: 4px;
-      width: 32px;
-      height: 3px;
-      background: var(--primary-teal);
-      border-radius: 2px;
-      animation: pillPulse 0.3s ease;
-    }
-
-    @keyframes pillPulse {
-      0% { transform: scaleX(0.4); opacity: 0; }
-      100% { transform: scaleX(1); opacity: 1; }
-    }
-
-    /* زر الرئيسية البارز في المنتصف */
-    .nav-item.nav-item-home {
-      position: relative;
-      top: -14px;
-    }
-
-    .nav-item-home .home-icon-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--primary-dark);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 14px rgba(8, 95, 86, 0.4);
-      border: 3px solid var(--card-bg);
-    }
-
-    .nav-item.active.nav-item-home .home-icon-circle {
-      background: var(--primary-teal);
-      transform: scale(1.05);
+      font-size: 19px;
     }
 
     .modal-overlay {
@@ -1522,7 +1465,7 @@
 </head>
 <body>
 
-  <!-- شاشة الدخول والتسجيل (محدثة لتشمل اختيار طالب/طالبة ورقم الشعبة) -->
+  <!-- شاشة الدخول والتسجيل (مع دعم اختيار طالب/طالبة والشعبة) -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -1554,7 +1497,6 @@
           <input type="text" id="auth-name" placeholder="اسم الطالب / الطالبة">
         </div>
 
-        <!-- اختيار طالب / طالبة ورقم الشعبة -->
         <div class="form-row" id="group-gender-section" style="display: none;">
           <div class="form-group">
             <label>التصنيف</label>
@@ -1581,17 +1523,9 @@
         </div>
 
         <div class="form-group" id="group-level" style="display: none;">
-          <label>المستوى المسجل حالياً</label>
+          <label>المستوى الدراسي الافتراضي</label>
           <select id="auth-level" disabled>
-            <option selected>المستوى الخامس (18 وحدة معتمدة)</option>
-          </select>
-        </div>
-
-        <div class="form-group" id="group-default-state" style="display: none;">
-          <label>حالة المواد عند البدء:</label>
-          <select id="auth-default-status">
-            <option value="none" selected>غير منجزة بالكامل (0% - بداية الترم)</option>
-            <option value="all">منجزة بالكامل (100%)</option>
+            <option selected>المستوى الخامس (ابدأ بإضافة موادك)</option>
           </select>
         </div>
 
@@ -1640,18 +1574,14 @@
       </div>
     </header>
 
-    <!-- ============================================================ -->
-    <!-- تبويب 1: الصفحة الرئيسية (Home Dashboard) الافتتاحية -->
-    <!-- ============================================================ -->
+    <!-- تبويب الصفحة الرئيسية (Home) -->
     <main class="main-content" id="tab-content-home">
       
-      <!-- إشعار المحاضرة القادمة قبل موعدها (اختياري) -->
       <div id="inapp-reminder-banner" class="reminder-banner">
         <span id="reminder-banner-text">🔔 المحاضرة القادمة قريباً</span>
         <span style="font-size: 10px; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 6px;">تنبيه</span>
       </div>
 
-      <!-- كارت الترحيب الشخصي -->
       <div class="home-hero-card">
         <img id="home-hero-avatar-img" class="home-hero-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" alt="Avatar">
         <div class="home-hero-info">
@@ -1660,26 +1590,21 @@
         </div>
       </div>
 
-      <!-- بطاقة ترحيبية خاصة للطلاب الجدد -->
-      <div id="new-user-welcome-box" class="daily-quote-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8; margin-bottom:14px;">
-        <span>👋</span>
-        <div>
-          <strong>مرحباً بك في منصة جدولي!</strong>
-          <span style="font-size:11px; display:block; opacity:0.9;">تم تجهيز موادك تلقائياً؛ يمكنك متابعة حضور المحاضرات، إدارة جدولك الأسبوعي، والوصول للتجميعات بكل سهولة.</span>
-        </div>
+      <div id="new-user-welcome-box" class="poll-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
+        <strong>مرحباً بك في منصة جدولي الأكاديمي!</strong>
+        <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتبدأ متابعة حضورك، جدولك، وتجميعات موادك بكل سهولة.</span>
       </div>
 
-      <!-- بطاقة استطلاع الرأي التفاعلي (إذا كان نشطاً من الأدمن) -->
+      <!-- استطلاع الرأي (يظهر بحسب الفئة المستهدفة التي يحددها المشرف) -->
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <span style="font-size:12px; font-weight:800; color:var(--primary-teal);">📊 استطلاع رأي الدفعة</span>
-          <span style="font-size:10px; color:var(--text-muted);">مشاركتك تهمنا</span>
+          <span id="poll-target-badge" class="resource-type-badge">مخصص</span>
         </div>
         <h4 id="poll-question-title" style="font-size:13.5px; font-weight:800; margin-bottom:10px;">عنوان الاستطلاع يظهر هنا...</h4>
         <div id="poll-options-container"></div>
       </div>
 
-      <!-- مؤشر الحضور ونقاط التركيز -->
       <div id="home-widget-stats" class="home-quick-stat-grid">
         <div class="home-stat-card">
           <span class="stat-num" id="home-quick-attendance">0%</span>
@@ -1691,7 +1616,6 @@
         </div>
       </div>
 
-      <!-- محاضرات اليوم -->
       <div class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1701,11 +1625,10 @@
           <span id="home-today-classes-count" style="font-size:11px; font-weight:700; color:var(--text-muted);">0 محاضرات</span>
         </div>
         <div id="home-today-lectures-list">
-          <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">جاري تحميل محاضراتك...</p>
+          <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">جاري تحميل محاضراتك اليومية...</p>
         </div>
       </div>
 
-      <!-- المهام العاجلة -->
       <div id="home-widget-tasks" class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1715,11 +1638,10 @@
           <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target=\'tasks\']').click();">عرض الكل ↗</span>
         </div>
         <div id="home-urgent-tasks-list">
-          <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد مهام عاجلة في الوقت الحالي 🎉</p>
+          <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد مهام أو واجبات معلقة حالياً 🎉</p>
         </div>
       </div>
 
-      <!-- الجديد في التجميعات -->
       <div id="home-widget-news" class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1729,7 +1651,7 @@
           <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="document.querySelector('[data-target=\'resources\']').click();">تصفح ↗</span>
         </div>
         <div id="home-latest-resources-list">
-          <p style="font-size:12px; color:var(--text-muted); text-align:center;">جاري جلب أحدث الملخصات المعتمدة...</p>
+          <p style="font-size:12px; color:var(--text-muted); text-align:center;">جلب أحدث الملخصات المعتمدة...</p>
         </div>
       </div>
 
@@ -1750,7 +1672,7 @@
 
       <div class="content-header">
         <div>
-          <h2 id="level-display-heading">إنجاز مواد المستوى الخامس</h2>
+          <h2 id="level-display-heading">إنجاز المقررات الدراسية</h2>
           <p>المحاضرات والشباتر المنجزة والمتبقية مرتبة حسب المادة</p>
         </div>
       </div>
@@ -1784,17 +1706,17 @@
         <button class="sort-pill" data-sort="name">أبجدياً</button>
       </div>
 
-      <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد (أو متقدم من الخطة)</button>
+      <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد (من المستوى الخامس فما فوق)</button>
 
       <section class="courses-list" id="courses-container"></section>
 
       <div class="bottom-level-section">
-        <h3 id="transition-section-title">🎓 إتمام الفصل والانتقال للمستوى التالي</h3>
+        <h3 id="transition-section-title">🎓 إدارة الفصل الدراسي</h3>
         <p id="transition-section-desc">
-          عند إنهاء الفصل الدراسي، يمكنك مسح المواد السابقة وبدء مرحلة جديدة تلقائياً بمواد المستوى القادم من الخطة.
+          يمكنك ترقية مستواك الدراسي ونقل خطتك عند انتهاء الفصول الدراسية وفق خطة هندسة الحاسب.
         </p>
         <button id="btn-transition-level" class="btn-transition-stage locked" disabled>
-          الانتقال للمستوى السادس وبدء مرحلة جديدة 🔒
+          الانتقال للمستوى القادم 🔒
         </button>
         <span id="date-lock-message" class="date-lock-hint">
           ⏳ ميزة الانتقال متاحة رسمياً بانتهاء الفصل في: 07 / 01 / 2027
@@ -1843,7 +1765,7 @@
       <div id="admin-resources-panel" class="admin-controls-card">
         <h3>👑 لوحة تحكم المشرف</h3>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
-          إدارة التجميعات، اعتماد ملخصات الطلاب، وضبط شريط الإعلانات والعداد التنازلي.
+          إدارة التجميعات، اعتماد ملخصات الطلاب، وضبط الإعلانات والاستطلاعات.
         </p>
         <div class="admin-action-btn-row">
           <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12px; padding:8px; flex:1;">
@@ -1998,9 +1920,13 @@
     </main>
 
     <!-- ============================================================ -->
-    <!-- شريط التنقل السفلي المطور بنظام Floating Dock & Active Pill -->
+    <!-- شريط التنقل السفلي الكلاسيكي المريح الجديد -->
     <!-- ============================================================ -->
     <nav class="bottom-nav">
+      <div class="nav-item active" data-target="home">
+        <span class="icon">🏠</span>
+        <span>الرئيسية</span>
+      </div>
       <div class="nav-item" data-target="courses">
         <span class="icon">📊</span>
         <span>المقررات</span>
@@ -2009,26 +1935,17 @@
         <span class="icon">🗓️</span>
         <span>الجدول</span>
       </div>
-
-      <!-- زر الرئيسية في المنتصف -->
-      <div class="nav-item nav-item-home active" data-target="home">
-        <div class="home-icon-circle">
-          <span style="font-size: 20px;">🏠</span>
-        </div>
-        <span style="font-weight: 800; font-size: 9px;">الرئيسية</span>
-      </div>
-
       <div class="nav-item" data-target="resources">
         <span class="icon">📚</span>
         <span>التجميعات</span>
       </div>
       <div class="nav-item" data-target="tasks">
         <span class="icon">🌳</span>
-        <span>المهام</span>
+        <span>المهام والمؤقت</span>
       </div>
     </nav>
 
-    <!-- مودال استوديو تصميم صورة الجدول -->
+    <!-- استوديو تصميم صورة الجدول الدراسي -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2057,7 +1974,7 @@
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي وتفضيلات الودجات -->
+    <!-- مودال الملف الشخصي -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2073,6 +1990,19 @@
           <div class="form-group">
             <label>الاسم الكامل</label>
             <input type="text" id="profile-name-input" required placeholder="اسمك الكريم">
+          </div>
+
+          <div class="form-group">
+            <label>التصنيف (طالب / طالبة)</label>
+            <select id="profile-gender-input">
+              <option value="طالبة">طالبة 👩‍🎓</option>
+              <option value="طالب">طالب 👨‍🎓</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>رقم الشعبة</label>
+            <input type="text" id="profile-section-input" placeholder="مثال: شعبة 1">
           </div>
 
           <div class="form-group">
@@ -2102,7 +2032,7 @@
           </div>
 
           <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
-            <span style="font-size:12px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:6px;">⚙️ تخصيص بطاقات الصفحة الرئيسية:</span>
+            <span style="font-size:12px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:6px;">⚙️ تخصيص بطاقات الرئيسية:</span>
             
             <div class="pref-switch-row">
               <span>إظهار إحصائيات الحضور ونقاط التركيز 📊</span>
@@ -2127,7 +2057,7 @@
       </div>
     </div>
 
-    <!-- مودال إنشاء استطلاع رأي للأدمن -->
+    <!-- مودال إنشاء استطلاع رأي للأدمن مع تحديد الفئة -->
     <div id="admin-poll-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2140,12 +2070,20 @@
             <input type="text" id="poll-title-input" required placeholder="مثال: متى تفضلون موعد الاختبار التعويضي؟">
           </div>
           <div class="form-group">
+            <label>الاستهداف (من يظهر له الاستطلاع؟)</label>
+            <select id="poll-target-input">
+              <option value="الكل">الجميع (طلاب وطالبات) 🌐</option>
+              <option value="طالبة">الطالبات فقط 👩‍🎓</option>
+              <option value="طالب">الطلاب فقط 👨‍🎓</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label>الخيارات (كل خيار في سطر أو مفصولة بفواصل)</label>
             <textarea id="poll-options-input" rows="3" required placeholder="الخيار الأول: الأحد القادم&#10;الخيار الثاني: الثلاثاء القادم"></textarea>
           </div>
           <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer; margin-bottom:12px;">
             <input type="checkbox" id="poll-active-input" checked>
-            تفعيل وعرض الاستطلاع فوراً في الرئيسية لجميع الطلاب
+            تفعيل وعرض الاستطلاع فوراً في الرئيسية
           </label>
           <button type="submit" class="btn-primary">نشر الاستطلاع 🚀</button>
         </form>
@@ -2315,7 +2253,7 @@
       </div>
     </div>
 
-    <!-- مودال إضافة مادة -->
+    <!-- مودال إضافة مادة (محدث ليشمل المستوى الخامس فما فوق) -->
     <div id="course-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2331,12 +2269,12 @@
           </div>
           <div class="form-group">
             <label>اسم المادة</label>
-            <input type="text" id="course-name-input" required placeholder="مثال: شبكات الحاسب">
+            <input type="text" id="course-name-input" required placeholder="مثال: نظم التشغيل">
           </div>
           <div class="form-row">
             <div class="form-group">
               <label>رمز المادة</label>
-              <input type="text" id="course-code-input" required placeholder="مثال: COE 236">
+              <input type="text" id="course-code-input" required placeholder="مثال: CS 226">
             </div>
             <div class="form-group">
               <label>عدد الساعات (Credit Hours)</label>
@@ -2344,14 +2282,14 @@
             </div>
           </div>
           <div class="form-group">
-            <label>المستوى الدراسي التابع له المقرر:</label>
+            <label>المستوى الدراسي:</label>
             <select id="course-origin-level-input">
-              <option value="">مقرر من نفس المستوى الحالي</option>
-              <option value="المستوى 6">مقرر من المستوى 6</option>
-              <option value="المستوى 7">مقرر من المستوى 7</option>
-              <option value="المستوى 8">مقرر من المستوى 8</option>
-              <option value="المستوى 9">مقرر من المستوى 9</option>
-              <option value="المستوى 10">مقرر من المستوى 10</option>
+              <option value="المستوى 5">المستوى 5 (الفصل الحالي)</option>
+              <option value="المستوى 6">المستوى 6</option>
+              <option value="المستوى 7">المستوى 7</option>
+              <option value="المستوى 8">المستوى 8</option>
+              <option value="المستوى 9">المستوى 9</option>
+              <option value="المستوى 10">المستوى 10</option>
             </select>
           </div>
           <div class="form-row">
@@ -2507,16 +2445,16 @@
     const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
 
-    const OFFICIAL_LEVEL_5_DATA = {
-      "COE 225": { credits: 3, totalLectures: 30 },
-      "COE 295": { credits: 2, totalLectures: 15 },
-      "CS 226":  { credits: 4, totalLectures: 45 },
-      "EE 201":  { credits: 4, totalLectures: 45 },
-      "GS 311":  { credits: 2, totalLectures: 15 },
-      "STAT 301":{ credits: 3, totalLectures: 30 }
-    };
-
+    // الخطة الدراسية الشاملة (تشمل المستوى الخامس فما فوق)
     const CURRICULUM_PLAN = {
+      5: [
+        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, color: "#8B5CF6" },
+        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 15, color: "#0D9488" },
+        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 45, color: "#F43F5E" },
+        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 45, color: "#10B981" },
+        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 15, color: "#0284C7" },
+        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 30, color: "#F59E0B" }
+      ],
       6: [
         { name: "مقرر متطلب جامعة اختياري (2)", code: "GSE 2", credits: 2, totalLectures: 15, color: "#8B5CF6" },
         { name: "شبكات الحاسب", code: "COE 236", credits: 4, totalLectures: 45, color: "#0EA5E9" },
@@ -2602,7 +2540,7 @@
     const btnToggleTheme = document.getElementById("btn-toggle-theme");
     const adminBadge = document.getElementById("admin-badge");
 
-    // عناصر الملف الشخصي
+    // الملف الشخصي
     const btnOpenProfile = document.getElementById("btn-open-profile");
     const profileModal = document.getElementById("profile-modal");
     const btnCloseProfileModal = document.getElementById("btn-close-profile-modal");
@@ -2611,6 +2549,8 @@
     const headerNameDisplay = document.getElementById("header-name-display");
     const profileAvatarPreview = document.getElementById("profile-avatar-preview");
     const profileNameInput = document.getElementById("profile-name-input");
+    const profileGenderInput = document.getElementById("profile-gender-input");
+    const profileSectionInput = document.getElementById("profile-section-input");
     const profileBioInput = document.getElementById("profile-bio-input");
     const profileAvatarUrl = document.getElementById("profile-avatar-url");
     const profileAvatarFile = document.getElementById("profile-avatar-file");
@@ -2620,7 +2560,7 @@
     const prefShowNews = document.getElementById("pref-show-news");
     const prefShowReminder = document.getElementById("pref-show-reminder");
 
-    // عناصر الصفحة الرئيسية
+    // الرئيسية
     const homeHeroAvatarImg = document.getElementById("home-hero-avatar-img");
     const homeGreetingName = document.getElementById("home-greeting-name");
     const homeTodayDateText = document.getElementById("home-today-date-text");
@@ -2639,6 +2579,7 @@
     const reminderBannerText = document.getElementById("reminder-banner-text");
     const homeActivePollBox = document.getElementById("home-active-poll-box");
     const pollQuestionTitle = document.getElementById("poll-question-title");
+    const pollTargetBadge = document.getElementById("poll-target-badge");
     const pollOptionsContainer = document.getElementById("poll-options-container");
 
     const coursesContainer = document.getElementById("courses-container");
@@ -2737,13 +2678,13 @@
 
     function populateQuickPresets() {
       quickCoursePreset.innerHTML = `<option value="">-- كتابة مادة مخصصة يدوياً --</option>`;
-      [6, 7, 8, 9, 10].forEach(lvl => {
+      [5, 6, 7, 8, 9, 10].forEach(lvl => {
         const grp = document.createElement("optgroup");
         grp.label = `مواد المستوى ${lvl}`;
         CURRICULUM_PLAN[lvl].forEach(c => {
           const opt = document.createElement("option");
           opt.value = JSON.stringify({ ...c, originLevel: `المستوى ${lvl}` });
-          opt.textContent = `${c.code} - ${c.name} (${c.credits} وحدات معتمدة - ${c.totalLectures} محاضرة)`;
+          opt.textContent = `${c.code} - ${c.name} (${c.credits} وحدات - ${c.totalLectures} محاضرة)`;
           grp.appendChild(opt);
         });
         quickCoursePreset.appendChild(grp);
@@ -2757,7 +2698,7 @@
       document.getElementById("course-name-input").value = data.name;
       document.getElementById("course-code-input").value = data.code;
       document.getElementById("course-credits-input").value = data.credits;
-      document.getElementById("course-origin-level-input").value = data.originLevel;
+      document.getElementById("course-origin-level-input").value = data.originLevel || "المستوى 5";
       document.getElementById("course-lectures-input").value = data.totalLectures || 30;
     });
 
@@ -2814,10 +2755,6 @@
             isNewUser: true,
             createdAt: new Date().toISOString()
           });
-          await seedInitialLevel5(user.uid, false);
-        } else {
-          const snap = await getDocs(collection(db, "users", user.uid, "courses"));
-          if (snap.empty) await seedInitialLevel5(user.uid, false);
         }
       } catch (err) {
         authError.textContent = err.message || "تعذر تسجيل الدخول بحساب Google.";
@@ -2861,9 +2798,6 @@
             isNewUser: true,
             createdAt: new Date().toISOString()
           });
-
-          const isAllCompleted = authDefaultStatus.value === "all";
-          await seedInitialLevel5(userCred.user.uid, isAllCompleted);
         } else {
           await signInWithEmailAndPassword(auth, email, pass);
         }
@@ -2875,33 +2809,6 @@
     });
 
     btnLogout.addEventListener("click", () => signOut(auth));
-
-    async function syncTaibahCourseRules(userId, coursesList) {
-      for (const c of coursesList) {
-        const official = OFFICIAL_LEVEL_5_DATA[c.code];
-        if (official) {
-          let needsUpdate = false;
-          const updates = {};
-          if (c.credits !== official.credits) {
-            updates.credits = official.credits;
-            c.credits = official.credits;
-            needsUpdate = true;
-          }
-          if (c.totalLectures !== official.totalLectures) {
-            updates.totalLectures = official.totalLectures;
-            c.totalLectures = official.totalLectures;
-            needsUpdate = true;
-          }
-          if (needsUpdate) {
-            try {
-              await updateDoc(doc(db, "users", userId, "courses", c.id), updates);
-            } catch (e) {
-              console.error("Auto sync error:", e);
-            }
-          }
-        }
-      }
-    }
 
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
@@ -2931,7 +2838,10 @@
             profileAvatarPreview.src = avatarUrl;
             headerNameDisplay.textContent = (data.displayName || "حسابي").split(" ")[0];
             homeGreetingName.textContent = `أهلاً بك يا ${data.gender === 'طالبة' ? 'مهندسة' : 'مهندس'} ${data.displayName || ''} ✨`;
+            
             profileNameInput.value = data.displayName || "";
+            profileGenderInput.value = data.gender || "طالبة";
+            profileSectionInput.value = data.section || "";
             profileBioInput.value = data.bio || "";
             profileAvatarUrl.value = data.photoURL || "";
 
@@ -2953,12 +2863,9 @@
           }
         });
 
-        onSnapshot(collection(db, "users", user.uid, "courses"), async (snapshot) => {
+        onSnapshot(collection(db, "users", user.uid, "courses"), (snapshot) => {
           currentCourses = [];
           snapshot.forEach(d => currentCourses.push({ id: d.id, ...d.data() }));
-          
-          await syncTaibahCourseRules(user.uid, currentCourses);
-
           renderCoursesUI();
           updateAllCourseDropdowns();
           renderGPACalculator();
@@ -3022,15 +2929,27 @@
     });
 
     // ==========================================
-    // إدارة استطلاع الرأي (Poll)
+    // إدارة استطلاع الرأي (مع تصفية حسب الفئة المستهدفة)
     // ==========================================
-    function renderPollUI() {
+    async function renderPollUI() {
       if (!activePoll || !activePoll.active) {
         homeActivePollBox.style.display = "none";
         return;
       }
+
+      // جلب بيانات الطالب الحالي للتحقق من فئته (طالب أم طالبة)
+      const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+      const userGender = userDoc.exists() ? (userDoc.data().gender || "طالبة") : "طالبة";
+
+      const targetGroup = activePoll.targetGroup || "الكل"; // "الكل", "طالبة", "طالب"
+      if (targetGroup !== "الكل" && targetGroup !== userGender) {
+        homeActivePollBox.style.display = "none";
+        return;
+      }
+
       homeActivePollBox.style.display = "block";
       pollQuestionTitle.textContent = activePoll.title;
+      pollTargetBadge.textContent = `مستهدف: ${targetGroup}`;
       pollOptionsContainer.innerHTML = "";
 
       const votes = activePoll.votes || {};
@@ -3062,16 +2981,13 @@
       });
     }
 
-    btnAdminCreatePoll.addEventListener("click", () => {
-      adminPollModal.classList.add("open");
-    });
-    document.getElementById("btn-close-poll-modal").addEventListener("click", () => {
-      adminPollModal.classList.remove("open");
-    });
+    btnAdminCreatePoll.addEventListener("click", () => adminPollModal.classList.add("open"));
+    document.getElementById("btn-close-poll-modal").addEventListener("click", () => adminPollModal.classList.remove("open"));
 
     adminPollForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const title = document.getElementById("poll-title-input").value.trim();
+      const targetGroup = document.getElementById("poll-target-input").value;
       const rawOpts = document.getElementById("poll-options-input").value.trim().split("\n");
       const options = rawOpts.map(o => o.trim()).filter(o => o.length > 0);
       const active = document.getElementById("poll-active-input").checked;
@@ -3083,6 +2999,7 @@
 
       await setDoc(doc(db, "system_configs", "active_poll"), {
         title,
+        targetGroup,
         options,
         votes: {},
         active,
@@ -3091,12 +3008,9 @@
 
       adminPollForm.reset();
       adminPollModal.classList.remove("open");
-      alert("تم نشر استطلاع الرأي للطلاب بنجاح! 📊");
+      alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
-    // ==========================================
-    // تصدير بيانات الطلاب كملف Excel / CSV للأدمن
-    // ==========================================
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
@@ -3117,9 +3031,6 @@
       document.body.removeChild(link);
     });
 
-    // ==========================================
-    // بناء وتحديث واجهة الصفحة الرئيسية (Home Dashboard)
-    // ==========================================
     function renderHomeDashboardUI() {
       const now = new Date();
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -3135,7 +3046,6 @@
       homeQuickAttendance.textContent = `${pct}%`;
       homeQuickPoints.textContent = document.getElementById("user-points-display").textContent.replace(" نقطة", "") || "0";
 
-      // فحص محاضرات اليوم والتنبيه (In-App Reminder)
       const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
       const currentDayArabic = daysMap[now.getDay()];
 
@@ -3164,7 +3074,6 @@
             </div>
           `;
         } else {
-          // فحص المحاضرة القادمة للتنبيه (إذا كانت مفعمة من التفضيلات)
           if (userWidgetPrefs.showReminder && todaySlots.length > 0) {
             const firstSlot = todaySlots[0];
             reminderBannerText.textContent = `🔔 محاضرتك القادمة: ${firstSlot.courseName} الساعة ${firstSlot.startTime} في قاعة ${firstSlot.room}`;
@@ -3193,7 +3102,6 @@
         }
       }
 
-      // المهام العاجلة
       homeUrgentTasksList.innerHTML = "";
       const pendingTasks = currentTasks.filter(t => !t.completed).slice(0, 3);
       if (pendingTasks.length === 0) {
@@ -3213,7 +3121,6 @@
         });
       }
 
-      // الجديد في التجميعات
       homeLatestResourcesList.innerHTML = "";
       const latestRes = publicResources.slice(0, 3);
       if (latestRes.length === 0) {
@@ -3246,7 +3153,6 @@
       inappReminderBanner.style.display = userWidgetPrefs.showReminder ? (inappReminderBanner.style.display === "flex" ? "flex" : "none") : "none";
     }
 
-    // إدارة الملف الشخصي والتفضيلات
     btnOpenProfile.addEventListener("click", () => profileModal.classList.add("open"));
     btnCloseProfileModal.addEventListener("click", () => profileModal.classList.remove("open"));
 
@@ -3278,6 +3184,8 @@
     profileEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const newName = profileNameInput.value.trim();
+      const newGender = profileGenderInput.value;
+      const newSection = profileSectionInput.value.trim() || "عامة";
       const newBio = profileBioInput.value.trim();
       const newPhoto = profileAvatarUrl.value.trim() || profileAvatarPreview.src;
 
@@ -3292,6 +3200,8 @@
         await updateProfile(auth.currentUser, { displayName: newName, photoURL: newPhoto });
         await updateDoc(doc(db, "users", currentUser.uid), {
           displayName: newName,
+          gender: newGender,
+          section: newSection,
           bio: newBio,
           photoURL: newPhoto,
           widgetPrefs: newPrefs,
@@ -3307,7 +3217,6 @@
       }
     });
 
-    // استوديو تصدير صورة الجدول
     btnOpenExportStudio.addEventListener("click", () => {
       if (currentScheduleSlots.length === 0) {
         alert("الجدول فارغ حالياً! أضف محاضراتك أولاً لتتمكن من تنزيل الصورة.");
@@ -3696,8 +3605,6 @@
 
       mySubjects.forEach(sub => {
         let items = publicResources.filter(r => r.courseCode === sub.code);
-
-        // ترتيب بحيث المثبت يظهر بالأعلى دائماً
         items.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
 
         if (currentResFilter !== "all") {
@@ -3760,7 +3667,7 @@
       });
     }
 
-    // التنقل السفلي المتطور (الرئيسية في المنتصف مع Active Pill)
+    // التنقل السفلي الكلاسيكي المريح
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -3772,7 +3679,6 @@
         document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
         document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
         document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
-        document.getElementById("tab-content-gpa").style.display = target === "gpa" ? "block" : "none";
 
         if (target === "home") renderHomeDashboardUI();
       });
@@ -3870,20 +3776,61 @@
       taskModal.classList.remove("open");
     });
 
-    // بذر مواد المستوى الخامس الافتراضية
-    async function seedInitialLevel5(userId, isAllCompleted) {
-      const courses = [
-        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, attendedLectures: isAllCompleted ? 30 : 0, absences: 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
-        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 15, attendedLectures: isAllCompleted ? 15 : 0, absences: 0, color: "#0D9488", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: isAllCompleted }, { id: "c2", title: "Chapter 2: SQL DDL & DML", done: isAllCompleted }] },
-        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 45, attendedLectures: isAllCompleted ? 45 : 0, absences: 0, color: "#F43F5E", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Processes & Threads", done: isAllCompleted }, { id: "c2", title: "Chapter 2: CPU Scheduling", done: isAllCompleted }] },
-        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 45, attendedLectures: isAllCompleted ? 45 : 0, absences: 0, color: "#10B981", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Nodal & Mesh", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Superposition", done: isAllCompleted }] },
-        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 15, attendedLectures: isAllCompleted ? 15 : 0, absences: 0, color: "#0284C7", originLevel: "", chapters: [{ id: "c1", title: "الوحدة 1: السيرة الذاتية المهنية", done: isAllCompleted }] },
-        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 30, attendedLectures: isAllCompleted ? 30 : 0, absences: 0, color: "#F59E0B", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: isAllCompleted }] }
-      ];
+    function renderTasksUI() {
+      tasksContainer.innerHTML = "";
+      let filtered = currentTasks;
+      if (currentTaskFilter === "pending") filtered = currentTasks.filter(t => !t.completed);
+      if (currentTaskFilter === "done") filtered = currentTasks.filter(t => t.completed);
 
-      for (const c of courses) {
-        await addDoc(collection(db, "users", userId, "courses"), c);
+      if (filtered.length === 0) {
+        tasksContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:30px; font-size:13px;">لا توجد مهام في هذا القسم 🎉</p>`;
+        return;
       }
+
+      filtered.forEach(task => {
+        const item = document.createElement("div");
+        item.className = `task-card ${task.completed ? 'completed' : ''}`;
+        item.innerHTML = `
+          <div class="task-info">
+            <h4>${task.title}</h4>
+            <div class="task-meta">
+              <span class="task-badge-tag">${task.courseCode}</span>
+              <span>📅 ${task.dueDate}</span>
+              <span>🏷️ ${task.type}</span>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <input type="checkbox" ${task.completed ? 'checked' : ''} class="task-toggle" style="width:20px; height:20px; cursor:pointer;">
+            <button class="btn-del-task" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
+          </div>
+        `;
+
+        item.querySelector(".task-toggle").addEventListener("change", async (e) => {
+          await updateDoc(doc(db, "users", currentUser.uid, "tasks", task.id), {
+            completed: e.target.checked
+          });
+        });
+
+        item.querySelector(".btn-del-task").addEventListener("click", async () => {
+          await deleteDoc(doc(db, "users", currentUser.uid, "tasks", task.id));
+        });
+
+        tasksContainer.appendChild(item);
+      });
+    }
+
+    document.querySelectorAll(".filter-chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        currentTaskFilter = chip.getAttribute("data-filter");
+        renderTasksUI();
+      });
+    });
+
+    // بذر مواد المستوى الخامس (يبدأ الطالب بإضافتها بنفسه أو من القائمة)
+    async function seedInitialLevel5(userId, isAllCompleted) {
+      // تم جعل البدء بجدول نظيف ومخصص حسب اختيار الطالب
     }
   </script>
 
