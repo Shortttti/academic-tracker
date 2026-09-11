@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>جدولي الأكاديمي - كلية علوم وهندسة الحاسب</title>
   
-  <!-- وسوم تحويل الموقع لتطبيق آيفون وهاتف متكامل (PWA Capable) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="جدولي">
@@ -232,7 +231,6 @@
       text-align: center;
     }
 
-    /* الشريط العلوي */
     .app-header {
       background-color: var(--primary-dark);
       color: white;
@@ -295,7 +293,6 @@
       color: rgba(255, 255, 255, 0.85);
     }
 
-    /* شريط التنبيهات والإعلانات العامة من المشرف */
     .broadcast-banner {
       background: linear-gradient(135deg, #F59E0B, #D97706);
       color: white;
@@ -308,7 +305,6 @@
       box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
     }
 
-    /* ويدجت العداد التنازلي للاختبارات */
     .countdown-widget {
       background: linear-gradient(135deg, #0F766E, #085F56);
       color: white;
@@ -556,7 +552,6 @@
       display: block;
     }
 
-    /* حاسبة الحرمان 25% */
     .dn-calculator-box {
       background: var(--subtle-bg);
       border-radius: 12px;
@@ -751,7 +746,7 @@
       display: block;
     }
 
-    /* صفحة التجميعات والملخصات المحدثة */
+    /* صفحة التجميعات والملخصات */
     .admin-controls-card {
       background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(8, 95, 86, 0.15));
       border: 1.5px dashed var(--primary-teal);
@@ -777,7 +772,6 @@
       margin-top: 10px;
     }
 
-    /* قسم المراجعة الخاص بالأدمن */
     .pending-approval-box {
       background: #FFFBEB;
       border: 1.5px solid #FCD34D;
@@ -865,7 +859,7 @@
       margin-top: 2px;
     }
 
-    /* مؤقت غرس الإنجاز ولوحة الشرف */
+    /* مؤقت غرس الإنجاز المطور القابل للتعديل */
     .tree-timer-box {
       background: var(--card-bg);
       border-radius: 20px;
@@ -893,6 +887,32 @@
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+
+    /* خيارات الوقت المخصصة */
+    .timer-time-presets {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .preset-chip {
+      background: var(--subtle-bg);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .preset-chip.active {
+      background: var(--primary-teal);
+      color: white;
+      border-color: var(--primary-teal);
     }
 
     .tree-illustration-container {
@@ -934,7 +954,6 @@
       cursor: pointer;
     }
 
-    /* لوحة الشرف (Focus Leaderboard) */
     .leaderboard-card {
       background: var(--card-bg);
       border-radius: 16px;
@@ -971,7 +990,6 @@
       text-align: center;
     }
 
-    /* Tasks Page */
     .task-filter-bar {
       display: flex;
       gap: 8px;
@@ -1038,7 +1056,22 @@
       font-weight: bold;
     }
 
-    /* Bottom Nav */
+    /* تذييل الصفحة وحفظ حقوق الملكية */
+    .site-footer {
+      text-align: center;
+      padding: 20px 16px 85px 16px;
+      color: var(--text-muted);
+      font-size: 11.5px;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 20px;
+    }
+
+    .footer-brand {
+      font-weight: 800;
+      color: var(--primary-teal);
+      letter-spacing: 1px;
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1218,7 +1251,7 @@
   <!-- الشاشة الرئيسية للتطبيق -->
   <div id="main-app" class="app-container" style="display: none;">
     
-    <!-- شريط الإعلان والتنبيه العام من المشرف -->
+    <!-- شريط الإعلان والتنبيه العام -->
     <div id="global-broadcast-banner" class="broadcast-banner">
       <span id="broadcast-text">📢 تنبيه عام من المشرف</span>
       <span style="font-size: 11px; opacity: 0.85;">جامعة طيبة</span>
@@ -1244,7 +1277,7 @@
     <!-- تبويب 1: المقررات والإنجاز -->
     <main class="main-content" id="tab-content-courses">
       
-      <!-- ويدجت العداد التنازلي للاختبارات (تحكم كامل من المشرف) -->
+      <!-- ويدجت العداد التنازلي للاختبارات -->
       <div id="exam-countdown-box" class="countdown-widget">
         <div class="countdown-info">
           <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
@@ -1295,7 +1328,7 @@
       <!-- قائمة المواد -->
       <section class="courses-list" id="courses-container"></section>
 
-      <!-- قسم الترقية للمستوى التالي مقفل بتاريخ 7 يناير 2027 -->
+      <!-- قسم الترقية للمستوى التالي -->
       <div class="bottom-level-section">
         <h3 id="transition-section-title">🎓 إتمام الفصل والانتقال للمستوى التالي</h3>
         <p id="transition-section-desc">
@@ -1308,9 +1341,14 @@
           ⏳ ميزة الانتقال متاحة رسمياً بانتهاء الفصل في: 07 / 01 / 2027
         </span>
       </div>
+
+      <!-- تذييل حقوق الملكية -->
+      <footer class="site-footer">
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+      </footer>
     </main>
 
-    <!-- تبويب 2: التجميعات والملخصات (خانة مستقلة تماماً) -->
+    <!-- تبويب 2: التجميعات والملخصات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1319,7 +1357,7 @@
         </div>
       </div>
 
-      <!-- بطاقة تحكم المشرف (خاصة بالأدمن فقط) -->
+      <!-- بطاقة تحكم المشرف -->
       <div id="admin-resources-panel" class="admin-controls-card">
         <h3>👑 لوحة تحكم المشرف</h3>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
@@ -1336,18 +1374,16 @@
         </div>
       </div>
 
-      <!-- صندوق الملخصات بانتظار الاعتماد (يظهر فقط للأدمن للموافقة عليها) -->
+      <!-- صندوق الملخصات بانتظار الاعتماد -->
       <div id="admin-pending-approval-box" class="pending-approval-box">
         <h4>⏳ ملخصات أرسلها الطلاب بانتظار اعتمادك للنشر:</h4>
         <div id="pending-items-list"></div>
       </div>
 
-      <!-- زر الطالب لمشاركة تجميعة أو ملخص -->
       <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:12px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
         📤 مشاركة ملخص أو تجميعة مع زملائك في الدفعة
       </button>
 
-      <!-- شريط البحث والفلترة السريعة للتجميعات -->
       <div class="search-resources-bar">
         <input type="text" id="search-resources-input" placeholder="🔍 ابحث عن تجميعة، ملخص، أو كود مادة...">
         <div class="sort-bar" style="margin:0;">
@@ -1359,14 +1395,18 @@
         </div>
       </div>
 
-      <!-- قائمة التجميعات المعتمدة المعروضة لجميع الطلاب -->
       <div id="resources-global-container"></div>
+
+      <!-- تذييل حقوق الملكية -->
+      <footer class="site-footer">
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+      </footer>
     </main>
 
     <!-- تبويب 3: المهام ومؤقت غرس الإنجاز ولوحة الشرف -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
       
-      <!-- مؤقت غرس الإنجاز التفاعلي -->
+      <!-- مؤقت غرس الإنجاز التفاعلي القابل للتخصيص -->
       <div class="tree-timer-box">
         <div class="tree-timer-header">
           <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز</span>
@@ -1375,6 +1415,16 @@
             <span id="user-points-display">0 نقطة</span>
             <span style="font-size:11px; opacity:0.8;">(<span id="trees-grown-count">0</span> شجرة)</span>
           </div>
+        </div>
+
+        <!-- أزرار اختيار وتعديل وقت المذاكرة حسب الرغبة -->
+        <div class="timer-time-presets" id="timer-presets-container">
+          <span style="font-size:11px; color:var(--text-muted); width:100%; margin-bottom:4px; font-weight:700;">اختر مدة الجلسة:</span>
+          <button class="preset-chip" data-time="15">15 د</button>
+          <button class="preset-chip active" data-time="25">25 د (افتراضي)</button>
+          <button class="preset-chip" data-time="45">45 د</button>
+          <button class="preset-chip" data-time="60">60 د</button>
+          <button class="preset-chip" id="btn-custom-timer">مخصص ⏱️</button>
         </div>
 
         <div class="tree-illustration-container" id="tree-svg-container">
@@ -1395,7 +1445,7 @@
         </div>
       </div>
 
-      <!-- لوحة الشرف للمتصدرين (Leaderboard) -->
+      <!-- لوحة الشرف للمتصدرين -->
       <div class="leaderboard-card">
         <div class="leaderboard-header">
           <span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span>
@@ -1421,6 +1471,11 @@
       </div>
 
       <div id="tasks-container"></div>
+
+      <!-- تذييل حقوق الملكية -->
+      <footer class="site-footer">
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+      </footer>
     </main>
 
     <!-- تبويب 4: حاسبة المعدل -->
@@ -1432,6 +1487,11 @@
         </div>
       </div>
       <div id="gpa-calc-container" style="margin-top: 16px;"></div>
+
+      <!-- تذييل حقوق الملكية -->
+      <footer class="site-footer">
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+      </footer>
     </main>
 
     <!-- شريط التنقل السفلي -->
@@ -1685,7 +1745,7 @@
       </div>
     </div>
 
-    <!-- مودال الاقتراحات والشكاوى المربوط بـ Formspree -->
+    <!-- مودال الاقتراحات والشكاوى -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1727,7 +1787,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق البرمجي المتكامل -->
+  <!-- منطق التطبيق الكامل -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -1776,7 +1836,6 @@
     const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
 
-    // لائحة ساعات ومحاضرات جامعة طيبة المعتمدة
     const OFFICIAL_LEVEL_5_DATA = {
       "COE 225": { credits: 3, totalLectures: 30 },
       "COE 295": { credits: 2, totalLectures: 15 },
@@ -1870,7 +1929,6 @@
     const resourcesGlobalContainer = document.getElementById("resources-global-container");
     const searchResourcesInput = document.getElementById("search-resources-input");
 
-    // تنبيهات الأدمن والعدّاد
     const globalBroadcastBanner = document.getElementById("global-broadcast-banner");
     const broadcastText = document.getElementById("broadcast-text");
     const examCountdownBox = document.getElementById("exam-countdown-box");
@@ -1882,7 +1940,6 @@
     const btnAdminConfigAlerts = document.getElementById("btn-admin-config-alerts");
     const btnCloseAlertsModal = document.getElementById("btn-close-alerts-modal");
 
-    // رفع واعتماد الملخصات
     const studentSubmitResourceModal = document.getElementById("student-submit-resource-modal");
     const studentResourceForm = document.getElementById("student-resource-form");
     const btnStudentSubmitResource = document.getElementById("btn-student-submit-resource");
@@ -1906,7 +1963,6 @@
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // الوضع الليلي
     function initTheme() {
       const savedTheme = localStorage.getItem("app_theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -2116,7 +2172,6 @@
           renderTasksUI();
         });
 
-        // الاستماع للتجميعات المعتمدة وقيد المراجعة
         onSnapshot(collection(db, "public_resources"), (snapshot) => {
           publicResources = [];
           pendingResources = [];
@@ -2132,7 +2187,6 @@
           if (isAdmin) renderPendingApprovalsUI();
         });
 
-        // الاستماع لإعدادات الإعلانات والعداد التنازلي العام
         onSnapshot(doc(db, "system_configs", "alerts"), (snap) => {
           if (snap.exists()) {
             const cfg = snap.data();
@@ -2140,7 +2194,6 @@
           }
         });
 
-        // الاستماع للوحة الشرف
         listenToLeaderboard();
 
       } else {
@@ -2149,9 +2202,6 @@
       }
     });
 
-    // ==========================================
-    // إدارة الإعلانات والعداد التنازلي
-    // ==========================================
     function applySystemAlertsConfig(cfg) {
       if (cfg.broadcastActive && cfg.broadcastText) {
         broadcastText.textContent = `📢 ${cfg.broadcastText}`;
@@ -2213,9 +2263,6 @@
       alert("تم تحديث الإعلان والعدّاد لجميع الطلاب بنجاح! 🚀");
     });
 
-    // ==========================================
-    // إدارة لوحة الشرف (Leaderboard)
-    // ==========================================
     function listenToLeaderboard() {
       const q = query(collection(db, "users"), orderBy("points", "desc"), limit(5));
       onSnapshot(q, (snapshot) => {
@@ -2244,9 +2291,6 @@
       });
     }
 
-    // ==========================================
-    // رفع الملخصات واعتمادها
-    // ==========================================
     btnStudentSubmitResource.addEventListener("click", () => {
       studentSubmitResourceModal.classList.add("open");
     });
@@ -2303,9 +2347,6 @@
       });
     }
 
-    // ==========================================
-    // بحث وفلترة التجميعات
-    // ==========================================
     searchResourcesInput.addEventListener("input", () => renderPublicResourcesUI());
     document.querySelectorAll("[data-res-filter]").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -2710,17 +2751,56 @@
       else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
     }
 
-    // مؤقت غرس الإنجاز
-    const TOTAL_FOCUS_TIME = 25 * 60;
-    let timerDuration = TOTAL_FOCUS_TIME;
+    // ============================================================
+    // مؤقت غرس الإنجاز التفاعلي القابل لتعديل الوقت من الطالب
+    // ============================================================
+    let sessionMinutes = 25;
+    let totalFocusSeconds = sessionMinutes * 60;
+    let timerDuration = totalFocusSeconds;
     let timerInterval = null;
+
     const timerDisplay = document.getElementById("pomodoro-timer");
     const treeStatusText = document.getElementById("tree-status-text");
     const treeContainer = document.getElementById("tree-svg-container");
 
+    function setSessionDuration(minutes) {
+      if (timerInterval) {
+        if (!confirm("الجلسة تعمل حالياً، هل ترغب بإيقافها وتغيير الوقت؟")) return;
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      sessionMinutes = minutes;
+      totalFocusSeconds = sessionMinutes * 60;
+      timerDuration = totalFocusSeconds;
+      
+      const m = sessionMinutes.toString().padStart(2, '0');
+      timerDisplay.textContent = `${m}:00`;
+      renderTreeStage(timerDuration);
+    }
+
+    document.querySelectorAll(".preset-chip[data-time]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        document.querySelectorAll(".preset-chip").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        setSessionDuration(parseInt(chip.getAttribute("data-time")));
+      });
+    });
+
+    document.getElementById("btn-custom-timer").addEventListener("click", () => {
+      const input = prompt("أدخل مدة جلسة المذاكرة بالدقائق (مثال: 30 أو 50):", "30");
+      const min = parseInt(input);
+      if (min && min > 0 && min <= 180) {
+        document.querySelectorAll(".preset-chip").forEach(c => c.classList.remove("active"));
+        document.getElementById("btn-custom-timer").classList.add("active");
+        setSessionDuration(min);
+      } else if (input !== null) {
+        alert("الرجاء إدخال وقت صحيح بين 1 و 180 دقيقة.");
+      }
+    });
+
     function renderTreeStage(secondsLeft) {
-      const elapsed = TOTAL_FOCUS_TIME - secondsLeft;
-      const progressRatio = elapsed / TOTAL_FOCUS_TIME;
+      const elapsed = totalFocusSeconds - secondsLeft;
+      const progressRatio = totalFocusSeconds === 0 ? 0 : (elapsed / totalFocusSeconds);
 
       let treeSvg = "";
       if (progressRatio < 0.25) {
@@ -2782,15 +2862,17 @@
           timerInterval = null;
           renderTreeStage(0);
 
+          // احتساب النقاط بحسب مدة الجلسة الفعلية
+          const earnedPoints = sessionMinutes;
           if (currentUser) {
             const userRef = doc(db, "users", currentUser.uid);
             const userSnap = await getDoc(userRef);
-            const currentPoints = (userSnap.data()?.points || 0) + 25;
+            const currentPoints = (userSnap.data()?.points || 0) + earnedPoints;
             const currentTrees = (userSnap.data()?.treesGrown || 0) + 1;
             await updateDoc(userRef, { points: currentPoints, treesGrown: currentTrees });
           }
 
-          alert("🎉 أحسنت! أكملت 25 دقيقة تركيز وحصلت على +25 نقطة في رصيدك وشجرة جديدة!");
+          alert(`🎉 أحسنت! أكملت ${sessionMinutes} دقيقة تركيز وحصلت على +${earnedPoints} نقطة في رصيدك وشجرة جديدة!`);
         }
       }, 1000);
     });
@@ -2801,14 +2883,15 @@
     });
 
     document.getElementById("btn-timer-reset").addEventListener("click", () => {
-      if (timerDuration < TOTAL_FOCUS_TIME && timerDuration > 0) {
+      if (timerDuration < totalFocusSeconds && timerDuration > 0) {
         if (!confirm("هل ترغب بإلغاء جلسة التركيز الحالية؟ ستفقد تقدم الشجرة الحالية.")) return;
       }
       clearInterval(timerInterval);
       timerInterval = null;
-      timerDuration = TOTAL_FOCUS_TIME;
-      timerDisplay.textContent = "25:00";
-      renderTreeStage(TOTAL_FOCUS_TIME);
+      timerDuration = totalFocusSeconds;
+      const m = sessionMinutes.toString().padStart(2, '0');
+      timerDisplay.textContent = `${m}:00`;
+      renderTreeStage(totalFocusSeconds);
     });
 
     document.querySelectorAll(".nav-item").forEach(item => {
@@ -3056,7 +3139,6 @@
       }
     }
 
-    // بذر مواد المستوى الخامس الصحيحة بمحاضرات نظام جامعة طيبة
     async function seedInitialLevel5(userId, isAllCompleted) {
       const courses = [
         { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, attendedLectures: isAllCompleted ? 30 : 0, absences: 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
