@@ -375,11 +375,11 @@
       padding: 16px;
       flex: 1;
       margin-bottom: 85px;
-      animation: fadeIn 0.22s ease-out;
+      animation: fadeIn 0.2s ease-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -401,9 +401,7 @@
       margin-top: 2px;
     }
 
-    /* ========================================== */
-    /* كروت وخصائص صفحة الرئيسية (Home Dashboard) */
-    /* ========================================== */
+    /* كروت الصفحة الرئيسية */
     .home-hero-card {
       background: linear-gradient(135deg, var(--card-bg), var(--subtle-bg));
       border: 1px solid var(--border-subtle);
@@ -486,18 +484,50 @@
       font-weight: 700;
     }
 
-    .daily-quote-card {
-      background: linear-gradient(135deg, rgba(13, 148, 136, 0.08), rgba(8, 95, 86, 0.12));
-      border: 1px dashed var(--primary-teal);
-      border-radius: 14px;
-      padding: 12px 14px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary-teal);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    /* بطاقة استطلاع الرأي التفاعلي */
+    .poll-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--primary-teal);
+      border-radius: 16px;
+      padding: 16px;
       margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.06);
+    }
+
+    .poll-option-btn {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--subtle-bg);
+      color: var(--text-main);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: right;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .poll-option-btn:hover {
+      border-color: var(--primary-teal);
+    }
+
+    /* إشعار المحاضرة القادمة (In-app Reminder) */
+    .reminder-banner {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(16, 185, 129, 0.2);
     }
 
     .sort-bar {
@@ -966,6 +996,11 @@
       border-radius: 10px;
     }
 
+    .resource-link-item.pinned-resource {
+      border: 1.5px solid #F59E0B;
+      background: rgba(245, 158, 11, 0.04);
+    }
+
     .resource-link-item a {
       text-decoration: none;
       color: var(--text-main);
@@ -984,6 +1019,15 @@
       background: rgba(13, 148, 136, 0.15);
       color: var(--primary-teal);
       font-weight: 800;
+    }
+
+    .pinned-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #FEF3C7;
+      color: #92400E;
+      font-weight: 900;
     }
 
     .contributor-credit {
@@ -1290,21 +1334,22 @@
       letter-spacing: 1px;
     }
 
-    /* ========================================== */
-    /* شريط التنقل السفلي مع بروز زر الرئيسية */
-    /* ========================================== */
+    /* ============================================================ */
+    /* شريط التنقل السفلي المطور بنظام Floating Dock & Active Pill */
+    /* ============================================================ */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
       max-width: 480px;
-      height: 64px;
+      height: 68px;
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-around;
       align-items: center;
       z-index: 30;
+      padding-bottom: 4px;
     }
 
     .nav-item {
@@ -1313,11 +1358,12 @@
       align-items: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 9px;
+      font-size: 9.5px;
       font-weight: 700;
-      gap: 2px;
+      gap: 3px;
       flex: 1;
-      padding: 4px 0;
+      padding: 6px 0;
+      position: relative;
     }
 
     .nav-item.active {
@@ -1325,30 +1371,48 @@
     }
 
     .nav-item span.icon {
-      font-size: 16px;
+      font-size: 18px;
     }
 
-    /* زر الرئيسية البارز في المنتصف (Floating Center Action Button) */
+    /* كبسولة المؤشر النشط الناعمة (Active Pill Tracker) */
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      width: 32px;
+      height: 3px;
+      background: var(--primary-teal);
+      border-radius: 2px;
+      animation: pillPulse 0.3s ease;
+    }
+
+    @keyframes pillPulse {
+      0% { transform: scaleX(0.4); opacity: 0; }
+      100% { transform: scaleX(1); opacity: 1; }
+    }
+
+    /* زر الرئيسية البارز في المنتصف */
     .nav-item.nav-item-home {
       position: relative;
-      top: -12px;
+      top: -14px;
     }
 
     .nav-item-home .home-icon-circle {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: var(--primary-dark);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(8, 95, 86, 0.35);
+      box-shadow: 0 4px 14px rgba(8, 95, 86, 0.4);
       border: 3px solid var(--card-bg);
     }
 
-    .nav-item.active .home-icon-circle {
+    .nav-item.active.nav-item-home .home-icon-circle {
       background: var(--primary-teal);
+      transform: scale(1.05);
     }
 
     .modal-overlay {
@@ -1442,7 +1506,6 @@
       color: var(--primary-teal);
     }
 
-    /* أزرار التبديل لتفضيلات الودجات */
     .pref-switch-row {
       display: flex;
       justify-content: space-between;
@@ -1459,7 +1522,7 @@
 </head>
 <body>
 
-  <!-- شاشة الدخول والتسجيل -->
+  <!-- شاشة الدخول والتسجيل (محدثة لتشمل اختيار طالب/طالبة ورقم الشعبة) -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -1489,6 +1552,21 @@
         <div class="form-group" id="group-name" style="display: none;">
           <label>الاسم الكامل</label>
           <input type="text" id="auth-name" placeholder="اسم الطالب / الطالبة">
+        </div>
+
+        <!-- اختيار طالب / طالبة ورقم الشعبة -->
+        <div class="form-row" id="group-gender-section" style="display: none;">
+          <div class="form-group">
+            <label>التصنيف</label>
+            <select id="auth-gender">
+              <option value="طالبة">طالبة 👩‍🎓</option>
+              <option value="طالب">طالب 👨‍🎓</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>رقم الشعبة</label>
+            <input type="text" id="auth-section" placeholder="مثال: شعبة 1">
+          </div>
         </div>
 
         <div class="form-row" id="group-academic" style="display: none;">
@@ -1563,11 +1641,17 @@
     </header>
 
     <!-- ============================================================ -->
-    <!-- تبويب الصفحة الرئيسية (Home Dashboard) في المنتصف -->
+    <!-- تبويب 1: الصفحة الرئيسية (Home Dashboard) الافتتاحية -->
     <!-- ============================================================ -->
     <main class="main-content" id="tab-content-home">
       
-      <!-- كارت الترحيب الشخصي بالاسم والصورة -->
+      <!-- إشعار المحاضرة القادمة قبل موعدها (اختياري) -->
+      <div id="inapp-reminder-banner" class="reminder-banner">
+        <span id="reminder-banner-text">🔔 المحاضرة القادمة قريباً</span>
+        <span style="font-size: 10px; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 6px;">تنبيه</span>
+      </div>
+
+      <!-- كارت الترحيب الشخصي -->
       <div class="home-hero-card">
         <img id="home-hero-avatar-img" class="home-hero-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" alt="Avatar">
         <div class="home-hero-info">
@@ -1576,8 +1660,8 @@
         </div>
       </div>
 
-      <!-- بطاقة إرشادية وترحيبية خاصة للطلاب الجدد -->
-      <div id="new-user-welcome-box" class="daily-quote-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
+      <!-- بطاقة ترحيبية خاصة للطلاب الجدد -->
+      <div id="new-user-welcome-box" class="daily-quote-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8; margin-bottom:14px;">
         <span>👋</span>
         <div>
           <strong>مرحباً بك في منصة جدولي!</strong>
@@ -1585,13 +1669,17 @@
         </div>
       </div>
 
-      <!-- ويدجت الاقتباس التحفيزي اليومي (يمكن إخفاؤه من التفضيلات) -->
-      <div id="home-widget-quote" class="daily-quote-card">
-        <span>💡</span>
-        <span id="daily-quote-text">"الهندسة ليست مجرد أرقام وكود، بل شغف بحل أصعب التحديات."</span>
+      <!-- بطاقة استطلاع الرأي التفاعلي (إذا كان نشطاً من الأدمن) -->
+      <div id="home-active-poll-box" class="poll-card" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:12px; font-weight:800; color:var(--primary-teal);">📊 استطلاع رأي الدفعة</span>
+          <span style="font-size:10px; color:var(--text-muted);">مشاركتك تهمنا</span>
+        </div>
+        <h4 id="poll-question-title" style="font-size:13.5px; font-weight:800; margin-bottom:10px;">عنوان الاستطلاع يظهر هنا...</h4>
+        <div id="poll-options-container"></div>
       </div>
 
-      <!-- ويدجت مؤشر الحضور السريع ونقاط التركيز (اختياري) -->
+      <!-- مؤشر الحضور ونقاط التركيز -->
       <div id="home-widget-stats" class="home-quick-stat-grid">
         <div class="home-stat-card">
           <span class="stat-num" id="home-quick-attendance">0%</span>
@@ -1603,7 +1691,7 @@
         </div>
       </div>
 
-      <!-- قسم محاضرات اليوم الحية التلقائية -->
+      <!-- محاضرات اليوم -->
       <div class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1617,7 +1705,7 @@
         </div>
       </div>
 
-      <!-- قسم المهام والتكاليف العاجلة القادمة (اختياري) -->
+      <!-- المهام العاجلة -->
       <div id="home-widget-tasks" class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1631,7 +1719,7 @@
         </div>
       </div>
 
-      <!-- قسم الجديد في التجميعات والإعلانات (اختياري) -->
+      <!-- الجديد في التجميعات -->
       <div id="home-widget-news" class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1718,7 +1806,7 @@
       </footer>
     </main>
 
-    <!-- تبويب الجدول الدراسي الأسبوعي -->
+    <!-- تبويب الجدول الدراسي -->
     <main class="main-content" id="tab-content-schedule" style="display: none;">
       <div class="content-header">
         <div>
@@ -1743,7 +1831,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات -->
+    <!-- تبويب التجميعات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1762,7 +1850,15 @@
             ➕ إضافة رابط تجميعة
           </button>
           <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:12px; padding:8px; flex:1;">
-            ⚙️ ضبط الإعلان والعدّاد
+            ⚙️ إعلانات وعدّاد
+          </button>
+          <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:12px; padding:8px; flex:1;">
+            📊 استطلاع رأي
+          </button>
+        </div>
+        <div style="margin-top:10px;">
+          <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:12.5px; padding:9px;">
+            📥 تصدير بيانات الطلاب (Excel / CSV)
           </button>
         </div>
       </div>
@@ -1902,7 +1998,7 @@
     </main>
 
     <!-- ============================================================ -->
-    <!-- شريط التنقل السفلي المطور 5 تابات مع بروز زر الرئيسية بالنص -->
+    <!-- شريط التنقل السفلي المطور بنظام Floating Dock & Active Pill -->
     <!-- ============================================================ -->
     <nav class="bottom-nav">
       <div class="nav-item" data-target="courses">
@@ -1914,12 +2010,12 @@
         <span>الجدول</span>
       </div>
 
-      <!-- الزر المركزي البارز: الرئيسية (Home) -->
+      <!-- زر الرئيسية في المنتصف -->
       <div class="nav-item nav-item-home active" data-target="home">
         <div class="home-icon-circle">
           <span style="font-size: 20px;">🏠</span>
         </div>
-        <span style="font-weight: 800; font-size: 9.5px;">الرئيسية</span>
+        <span style="font-weight: 800; font-size: 9px;">الرئيسية</span>
       </div>
 
       <div class="nav-item" data-target="resources">
@@ -1932,7 +2028,7 @@
       </div>
     </nav>
 
-    <!-- استوديو تصميم صورة الجدول الدراسي -->
+    <!-- مودال استوديو تصميم صورة الجدول -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1961,7 +2057,7 @@
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي المتكامل وتخصيص الودجات -->
+    <!-- مودال الملف الشخصي وتفضيلات الودجات -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2005,14 +2101,9 @@
             </div>
           </div>
 
-          <!-- تفضيلات ودجات الصفحة الرئيسية (إظهار/إخفاء حسب الرغبة) -->
           <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
             <span style="font-size:12px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:6px;">⚙️ تخصيص بطاقات الصفحة الرئيسية:</span>
             
-            <div class="pref-switch-row">
-              <span>إظهار الاقتباس التحفيزي اليومي 💡</span>
-              <input type="checkbox" id="pref-show-quote" checked>
-            </div>
             <div class="pref-switch-row">
               <span>إظهار إحصائيات الحضور ونقاط التركيز 📊</span>
               <input type="checkbox" id="pref-show-stats" checked>
@@ -2025,6 +2116,10 @@
               <span>إظهار الجديد في التجميعات والإعلانات ✨</span>
               <input type="checkbox" id="pref-show-news" checked>
             </div>
+            <div class="pref-switch-row">
+              <span>تنبيهات المحاضرة القادمة قبل موعدها 🔔</span>
+              <input type="checkbox" id="pref-show-reminder" checked>
+            </div>
           </div>
 
           <button type="submit" class="btn-primary">حفظ وتطبيق التفضيلات ✅</button>
@@ -2032,7 +2127,32 @@
       </div>
     </div>
 
-    <!-- مودال إضافة محاضرة للجدول الأسبوعي -->
+    <!-- مودال إنشاء استطلاع رأي للأدمن -->
+    <div id="admin-poll-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>📊 طرح استطلاع رأي جديد للدفعة</h3>
+          <button id="btn-close-poll-modal" class="close-btn">&times;</button>
+        </div>
+        <form id="admin-poll-form">
+          <div class="form-group">
+            <label>سؤال الاستطلاع</label>
+            <input type="text" id="poll-title-input" required placeholder="مثال: متى تفضلون موعد الاختبار التعويضي؟">
+          </div>
+          <div class="form-group">
+            <label>الخيارات (كل خيار في سطر أو مفصولة بفواصل)</label>
+            <textarea id="poll-options-input" rows="3" required placeholder="الخيار الأول: الأحد القادم&#10;الخيار الثاني: الثلاثاء القادم"></textarea>
+          </div>
+          <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer; margin-bottom:12px;">
+            <input type="checkbox" id="poll-active-input" checked>
+            تفعيل وعرض الاستطلاع فوراً في الرئيسية لجميع الطلاب
+          </label>
+          <button type="submit" class="btn-primary">نشر الاستطلاع 🚀</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- مودال إضافة محاضرة للجدول -->
     <div id="slot-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2116,7 +2236,7 @@
       </div>
     </div>
 
-    <!-- مودال إضافة رابط تجميعة مباشر للأدمن -->
+    <!-- مودال إضافة رابط تجميعة مباشر للأدمن مع خيار التثبيت -->
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2145,6 +2265,10 @@
             <label>رابط الملف أو القناة (URL)</label>
             <input type="url" id="admin-res-url" required placeholder="https://drive.google.com/...">
           </div>
+          <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer; margin-bottom:12px;">
+            <input type="checkbox" id="admin-res-pinned">
+            ⭐ تثبيت هذا الرابط ليظهر دائماً في أعلى قائمة المادة
+          </label>
           <button type="submit" class="btn-primary">نشر الرابط لجميع الطلاب فوراً 🚀</button>
         </form>
       </div>
@@ -2427,21 +2551,13 @@
       ]
     };
 
-    // باقة اقتباسات هندسية تحفيزية
-    const ENGINEERING_QUOTES = [
-      "الهندسة ليست مجرد أرقام وكود، بل شغف بحل أصعب التحديات.",
-      "كل سطر كود تكتبه اليوم يبني مهندس المستقبل الذي تطمح أن تكونه.",
-      "العالم يصنعه أولئك الذين يجرؤون على التفكير كمهندسين.",
-      "التفوق ليس ضربة حظ، بل استمرار وانضباط في كل محاضرة وشابتر.",
-      "مهندس الحاسب يرى في الأخطاء البرمجية فرصة للابتكار والإبداع."
-    ];
-
     let currentUser = null;
     let currentCourses = [];
     let currentTasks = [];
     let currentScheduleSlots = [];
     let publicResources = [];
     let pendingResources = [];
+    let activePoll = null;
     let selectedColor = "#8B5CF6";
     let isRegisterMode = false;
     let currentTaskFilter = "all";
@@ -2454,12 +2570,11 @@
     let exportOrientation = "portrait";
     let exportTheme = "dark";
 
-    // تفضيلات ظهور الودجات الافتراضية
     let userWidgetPrefs = {
-      showQuote: true,
       showStats: true,
       showTasks: true,
-      showNews: true
+      showNews: true,
+      showReminder: true
     };
 
     // عناصر الصفحة
@@ -2472,7 +2587,10 @@
     const groupAcademic = document.getElementById("group-academic");
     const groupLevel = document.getElementById("group-level");
     const groupDefaultState = document.getElementById("group-default-state");
+    const groupGenderSection = document.getElementById("group-gender-section");
     const authName = document.getElementById("auth-name");
+    const authGender = document.getElementById("auth-gender");
+    const authSection = document.getElementById("auth-section");
     const authEmail = document.getElementById("auth-email");
     const authPass = document.getElementById("auth-pass");
     const authDefaultStatus = document.getElementById("auth-default-status");
@@ -2497,19 +2615,16 @@
     const profileAvatarUrl = document.getElementById("profile-avatar-url");
     const profileAvatarFile = document.getElementById("profile-avatar-file");
 
-    // تفضيلات الودجات
-    const prefShowQuote = document.getElementById("pref-show-quote");
     const prefShowStats = document.getElementById("pref-show-stats");
     const prefShowTasks = document.getElementById("pref-show-tasks");
     const prefShowNews = document.getElementById("pref-show-news");
+    const prefShowReminder = document.getElementById("pref-show-reminder");
 
     // عناصر الصفحة الرئيسية
     const homeHeroAvatarImg = document.getElementById("home-hero-avatar-img");
     const homeGreetingName = document.getElementById("home-greeting-name");
     const homeTodayDateText = document.getElementById("home-today-date-text");
     const newUserWelcomeBox = document.getElementById("new-user-welcome-box");
-    const homeWidgetQuote = document.getElementById("home-widget-quote");
-    const dailyQuoteText = document.getElementById("daily-quote-text");
     const homeWidgetStats = document.getElementById("home-widget-stats");
     const homeQuickAttendance = document.getElementById("home-quick-attendance");
     const homeQuickPoints = document.getElementById("home-quick-points");
@@ -2520,6 +2635,11 @@
     const homeUrgentTasksList = document.getElementById("home-urgent-tasks-list");
     const homeWidgetNews = document.getElementById("home-widget-news");
     const homeLatestResourcesList = document.getElementById("home-latest-resources-list");
+    const inappReminderBanner = document.getElementById("inapp-reminder-banner");
+    const reminderBannerText = document.getElementById("reminder-banner-text");
+    const homeActivePollBox = document.getElementById("home-active-poll-box");
+    const pollQuestionTitle = document.getElementById("poll-question-title");
+    const pollOptionsContainer = document.getElementById("poll-options-container");
 
     const coursesContainer = document.getElementById("courses-container");
     const tasksContainer = document.getElementById("tasks-container");
@@ -2533,6 +2653,13 @@
     const btnCloseAdminResModal = document.getElementById("btn-close-admin-res-modal");
     const resourcesGlobalContainer = document.getElementById("resources-global-container");
     const searchResourcesInput = document.getElementById("search-resources-input");
+
+    // استطلاع الرأي للأدمن
+    const adminPollModal = document.getElementById("admin-poll-modal");
+    const adminPollForm = document.getElementById("admin-poll-form");
+    const btnAdminCreatePoll = document.getElementById("btn-admin-create-poll");
+    const btnClosePollModal = document.getElementById("btn-close-poll-modal");
+    const btnAdminExportExcel = document.getElementById("btn-admin-export-excel");
 
     // الجدول وتصدير الصورة
     const scheduleDaysContainer = document.getElementById("schedule-days-container");
@@ -2572,7 +2699,6 @@
     const adminPendingApprovalBox = document.getElementById("admin-pending-approval-box");
     const pendingItemsList = document.getElementById("pending-items-list");
 
-    // خطة المذاكرة التجريبية
     const cramCourseSelect = document.getElementById("cram-course-select");
     const cramExamDate = document.getElementById("cram-exam-date");
     const btnGenerateCramPlan = document.getElementById("btn-generate-cram-plan");
@@ -2594,7 +2720,6 @@
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // الوضع الليلي
     function initTheme() {
       const savedTheme = localStorage.getItem("app_theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -2644,6 +2769,7 @@
       groupAcademic.style.display = "none";
       groupLevel.style.display = "none";
       groupDefaultState.style.display = "none";
+      groupGenderSection.style.display = "none";
       authSubmitBtn.textContent = "دخول";
       authError.textContent = "";
     });
@@ -2656,6 +2782,7 @@
       groupAcademic.style.display = "flex";
       groupLevel.style.display = "flex";
       groupDefaultState.style.display = "flex";
+      groupGenderSection.style.display = "flex";
       authSubmitBtn.textContent = "إنشاء الحساب وبدء الفصل";
       authError.textContent = "";
     });
@@ -2674,8 +2801,10 @@
           await setDoc(userDocRef, {
             displayName: user.displayName || "طالب/ـة",
             email: user.email,
+            gender: "طالبة",
+            section: "شعبة 1",
             photoURL: user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`,
-            bio: "مهندس/ـة حاسب آلي - جامعة طيبة",
+            bio: "مهندسة حاسب آلي - جامعة طيبة",
             university: "جامعة طيبة",
             major: "هندسة الحاسب",
             currentLevel: 5,
@@ -2708,7 +2837,10 @@
 
         if (isRegisterMode) {
           const name = authName.value.trim();
+          const gender = authGender.value;
+          const section = authSection.value.trim() || "عامة";
           if (!name) throw new Error("الرجاء إدخال الاسم.");
+          
           const defaultAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${Date.now()}`;
           const userCred = await createUserWithEmailAndPassword(auth, email, pass);
           await updateProfile(userCred.user, { displayName: name, photoURL: defaultAvatar });
@@ -2716,8 +2848,10 @@
           await setDoc(doc(db, "users", userCred.user.uid), {
             displayName: name,
             email: email,
+            gender: gender,
+            section: section,
             photoURL: defaultAvatar,
-            bio: "مهندس/ـة حاسب آلي - جامعة طيبة",
+            bio: `${gender === 'طالبة' ? 'مهندسة' : 'مهندس'} حاسب آلي - جامعة طيبة`,
             university: "جامعة طيبة",
             major: "هندسة الحاسب",
             currentLevel: 5,
@@ -2796,20 +2930,18 @@
             homeHeroAvatarImg.src = avatarUrl;
             profileAvatarPreview.src = avatarUrl;
             headerNameDisplay.textContent = (data.displayName || "حسابي").split(" ")[0];
-            homeGreetingName.textContent = `مرحباً بك يا مهندس/ـة ${data.displayName || ''} ✨`;
+            homeGreetingName.textContent = `أهلاً بك يا ${data.gender === 'طالبة' ? 'مهندسة' : 'مهندس'} ${data.displayName || ''} ✨`;
             profileNameInput.value = data.displayName || "";
             profileBioInput.value = data.bio || "";
             profileAvatarUrl.value = data.photoURL || "";
 
             userGreeting.textContent = data.displayName ? `${data.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
 
-            // قراءة تفضيلات الودجات
             if (data.widgetPrefs) {
               userWidgetPrefs = { ...userWidgetPrefs, ...data.widgetPrefs };
             }
             applyUserWidgetPrefsUI();
 
-            // إظهار رسالة الترحيب للجدد
             if (data.isNewUser) {
               newUserWelcomeBox.style.display = "flex";
             } else {
@@ -2871,6 +3003,16 @@
           }
         });
 
+        onSnapshot(doc(db, "system_configs", "active_poll"), (snap) => {
+          if (snap.exists()) {
+            activePoll = snap.data();
+            renderPollUI();
+          } else {
+            activePoll = null;
+            homeActivePollBox.style.display = "none";
+          }
+        });
+
         listenToLeaderboard();
 
       } else {
@@ -2879,20 +3021,110 @@
       }
     });
 
-    // ============================================================
-    // إدارة وبناء الصفحة الرئيسية (Home Dashboard)
-    // ============================================================
+    // ==========================================
+    // إدارة استطلاع الرأي (Poll)
+    // ==========================================
+    function renderPollUI() {
+      if (!activePoll || !activePoll.active) {
+        homeActivePollBox.style.display = "none";
+        return;
+      }
+      homeActivePollBox.style.display = "block";
+      pollQuestionTitle.textContent = activePoll.title;
+      pollOptionsContainer.innerHTML = "";
+
+      const votes = activePoll.votes || {};
+      const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
+
+      activePoll.options.forEach((opt, idx) => {
+        const count = votes[idx] || 0;
+        const percentage = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
+
+        const btn = document.createElement("button");
+        btn.className = "poll-option-btn";
+        btn.innerHTML = `
+          <span>${opt}</span>
+          <span style="font-size:11px; color:var(--primary-teal);">${count} أصوات (${percentage}%)</span>
+        `;
+        btn.addEventListener("click", async () => {
+          const userVoteKey = `voted_${currentUser.uid}`;
+          if (activePoll[userVoteKey]) {
+            alert("لقد قمت بالتصويت مسبقاً في هذا الاستطلاع!");
+            return;
+          }
+          votes[idx] = (votes[idx] || 0) + 1;
+          const updateObj = { votes };
+          updateObj[userVoteKey] = idx;
+          await updateDoc(doc(db, "system_configs", "active_poll"), updateObj);
+          alert("تم تسجيل صوتك بنجاح! شكراً لمشاركتك 🌟");
+        });
+        pollOptionsContainer.appendChild(btn);
+      });
+    }
+
+    btnAdminCreatePoll.addEventListener("click", () => {
+      adminPollModal.classList.add("open");
+    });
+    document.getElementById("btn-close-poll-modal").addEventListener("click", () => {
+      adminPollModal.classList.remove("open");
+    });
+
+    adminPollForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("poll-title-input").value.trim();
+      const rawOpts = document.getElementById("poll-options-input").value.trim().split("\n");
+      const options = rawOpts.map(o => o.trim()).filter(o => o.length > 0);
+      const active = document.getElementById("poll-active-input").checked;
+
+      if (options.length < 2) {
+        alert("الرجاء إدخال خيارين على الأقل للاستطلاع.");
+        return;
+      }
+
+      await setDoc(doc(db, "system_configs", "active_poll"), {
+        title,
+        options,
+        votes: {},
+        active,
+        createdAt: new Date().toISOString()
+      });
+
+      adminPollForm.reset();
+      adminPollModal.classList.remove("open");
+      alert("تم نشر استطلاع الرأي للطلاب بنجاح! 📊");
+    });
+
+    // ==========================================
+    // تصدير بيانات الطلاب كملف Excel / CSV للأدمن
+    // ==========================================
+    btnAdminExportExcel.addEventListener("click", async () => {
+      if (!isAdmin) return;
+      const snap = await getDocs(collection(db, "users"));
+      let csvContent = "\uFEFFالاسم,البريد الإلكتروني,التصنيف (طالب/طالبة),الشعبة,المستوى الحالي,نقاط التركيز\n";
+      
+      snap.forEach(d => {
+        const u = d.data();
+        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}"\n`;
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `طلاب_هندسة_الحسب_طيبة_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+
+    // ==========================================
+    // بناء وتحديث واجهة الصفحة الرئيسية (Home Dashboard)
+    // ==========================================
     function renderHomeDashboardUI() {
-      // 1. تقويم وتاريخ اليوم
       const now = new Date();
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       homeTodayDateText.textContent = `📅 ${now.toLocaleDateString('ar-SA', options)}`;
 
-      // 2. اقتباس عشوائي متجدد
-      const randomQuote = ENGINEERING_QUOTES[now.getDate() % ENGINEERING_QUOTES.length];
-      dailyQuoteText.textContent = `"${randomQuote}"`;
-
-      // 3. إحصائيات الحضور ونقاط التركيز
       let totalLecAll = 0;
       let attendedLecAll = 0;
       currentCourses.forEach(c => {
@@ -2903,21 +3135,20 @@
       homeQuickAttendance.textContent = `${pct}%`;
       homeQuickPoints.textContent = document.getElementById("user-points-display").textContent.replace(" نقطة", "") || "0";
 
-      // 4. فحص محاضرات اليوم (الأحد - الخميس)
+      // فحص محاضرات اليوم والتنبيه (In-App Reminder)
       const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
       const currentDayArabic = daysMap[now.getDay()];
 
       homeTodayLecturesList.innerHTML = "";
+      inappReminderBanner.style.display = "none";
 
       if (!currentDayArabic) {
-        // الجمعة أو السبت = عطلة نهاية الأسبوع
         homeTodayClassesHeading.textContent = "إجازة نهاية الأسبوع ☕";
         homeTodayClassesCount.textContent = "Off";
         homeTodayLecturesList.innerHTML = `
-          <div style="text-align:center; padding:16px 10px; background:var(--subtle-bg); border-radius:12px;">
-            <span style="font-size:24px;">🌴</span>
-            <p style="font-size:12.5px; font-weight:800; margin-top:4px;">استمتع بعطلة نهاية الأسبوع!</p>
-            <p style="font-size:11px; color:var(--text-muted);">لا توجد محاضرات مجدولة اليوم، خذ قسطاً من الراحة واستعد للأسبوع القادم.</p>
+          <div style="text-align:center; padding:14px; background:var(--subtle-bg); border-radius:12px;">
+            <span style="font-size:22px;">🌴</span>
+            <p style="font-size:12px; font-weight:800; margin-top:2px;">استمتع بعطلة نهاية الأسبوع واستعد للأسبوع القادم.</p>
           </div>
         `;
       } else {
@@ -2928,11 +3159,18 @@
 
         if (todaySlots.length === 0) {
           homeTodayLecturesList.innerHTML = `
-            <div style="text-align:center; padding:14px; background:var(--subtle-bg); border-radius:12px;">
+            <div style="text-align:center; padding:12px; background:var(--subtle-bg); border-radius:12px;">
               <p style="font-size:12px; color:var(--text-muted); font-weight:700;">لا توجد محاضرات مجدولة لك اليوم (${currentDayArabic}) ☕</p>
             </div>
           `;
         } else {
+          // فحص المحاضرة القادمة للتنبيه (إذا كانت مفعمة من التفضيلات)
+          if (userWidgetPrefs.showReminder && todaySlots.length > 0) {
+            const firstSlot = todaySlots[0];
+            reminderBannerText.textContent = `🔔 محاضرتك القادمة: ${firstSlot.courseName} الساعة ${firstSlot.startTime} في قاعة ${firstSlot.room}`;
+            inappReminderBanner.style.display = "flex";
+          }
+
           todaySlots.forEach(slot => {
             const row = document.createElement("div");
             row.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:12px; padding:10px 12px; margin-bottom:8px;";
@@ -2955,7 +3193,7 @@
         }
       }
 
-      // 5. المهام والتكاليف القريبة
+      // المهام العاجلة
       homeUrgentTasksList.innerHTML = "";
       const pendingTasks = currentTasks.filter(t => !t.completed).slice(0, 3);
       if (pendingTasks.length === 0) {
@@ -2975,7 +3213,7 @@
         });
       }
 
-      // 6. الجديد في التجميعات
+      // الجديد في التجميعات
       homeLatestResourcesList.innerHTML = "";
       const latestRes = publicResources.slice(0, 3);
       if (latestRes.length === 0) {
@@ -2996,28 +3234,21 @@
       }
     }
 
-    // تطبيق تفضيلات ظهور الودجات من حساب المستخدم
     function applyUserWidgetPrefsUI() {
-      prefShowQuote.checked = userWidgetPrefs.showQuote;
       prefShowStats.checked = userWidgetPrefs.showStats;
       prefShowTasks.checked = userWidgetPrefs.showTasks;
       prefShowNews.checked = userWidgetPrefs.showNews;
+      prefShowReminder.checked = userWidgetPrefs.showReminder;
 
-      homeWidgetQuote.style.display = userWidgetPrefs.showQuote ? "flex" : "none";
       homeWidgetStats.style.display = userWidgetPrefs.showStats ? "grid" : "none";
       homeWidgetTasks.style.display = userWidgetPrefs.showTasks ? "block" : "none";
       homeWidgetNews.style.display = userWidgetPrefs.showNews ? "block" : "none";
+      inappReminderBanner.style.display = userWidgetPrefs.showReminder ? (inappReminderBanner.style.display === "flex" ? "flex" : "none") : "none";
     }
 
-    // ============================================================
     // إدارة الملف الشخصي والتفضيلات
-    // ============================================================
-    btnOpenProfile.addEventListener("click", () => {
-      profileModal.classList.add("open");
-    });
-    btnCloseProfileModal.addEventListener("click", () => {
-      profileModal.classList.remove("open");
-    });
+    btnOpenProfile.addEventListener("click", () => profileModal.classList.add("open"));
+    btnCloseProfileModal.addEventListener("click", () => profileModal.classList.remove("open"));
 
     document.querySelectorAll(".quick-avatar-choice").forEach(img => {
       img.addEventListener("click", () => {
@@ -3029,9 +3260,7 @@
     });
 
     profileAvatarUrl.addEventListener("input", () => {
-      if (profileAvatarUrl.value.trim()) {
-        profileAvatarPreview.src = profileAvatarUrl.value.trim();
-      }
+      if (profileAvatarUrl.value.trim()) profileAvatarPreview.src = profileAvatarUrl.value.trim();
     });
 
     profileAvatarFile.addEventListener("change", (e) => {
@@ -3053,29 +3282,24 @@
       const newPhoto = profileAvatarUrl.value.trim() || profileAvatarPreview.src;
 
       const newPrefs = {
-        showQuote: prefShowQuote.checked,
         showStats: prefShowStats.checked,
         showTasks: prefShowTasks.checked,
-        showNews: prefShowNews.checked
+        showNews: prefShowNews.checked,
+        showReminder: prefShowReminder.checked
       };
 
       try {
-        await updateProfile(auth.currentUser, {
-          displayName: newName,
-          photoURL: newPhoto
-        });
-
+        await updateProfile(auth.currentUser, { displayName: newName, photoURL: newPhoto });
         await updateDoc(doc(db, "users", currentUser.uid), {
           displayName: newName,
           bio: newBio,
           photoURL: newPhoto,
           widgetPrefs: newPrefs,
-          isNewUser: false // إيقاف إشعار الترحيب بمجرد حفظ التفضيلات
+          isNewUser: false
         });
 
         userWidgetPrefs = newPrefs;
         applyUserWidgetPrefsUI();
-
         profileModal.classList.remove("open");
         alert("تم حفظ وتحديث ملفك الشخصي وتفضيلاتك بنجاح! 🎉");
       } catch (err) {
@@ -3083,9 +3307,7 @@
       }
     });
 
-    // ============================================================
-    // استوديو تصميم وتحميل صورة الجدول
-    // ============================================================
+    // استوديو تصدير صورة الجدول
     btnOpenExportStudio.addEventListener("click", () => {
       if (currentScheduleSlots.length === 0) {
         alert("الجدول فارغ حالياً! أضف محاضراتك أولاً لتتمكن من تنزيل الصورة.");
@@ -3093,9 +3315,7 @@
       }
       exportStudioModal.classList.add("open");
     });
-    btnCloseExportStudio.addEventListener("click", () => {
-      exportStudioModal.classList.remove("open");
-    });
+    btnCloseExportStudio.addEventListener("click", () => exportStudioModal.classList.remove("open"));
 
     btnOptPortrait.addEventListener("click", () => {
       btnOptPortrait.classList.add("active");
@@ -3124,7 +3344,6 @@
     btnExecuteDownload.addEventListener("click", () => {
       const isPortrait = (exportOrientation === "portrait");
       const isDark = (exportTheme === "dark");
-
       const width = isPortrait ? 1080 : 1920;
       const height = isPortrait ? 1920 : 1080;
 
@@ -3282,9 +3501,6 @@
       exportStudioModal.classList.remove("open");
     });
 
-    // ============================================================
-    // وظائف الجدول الأسبوعي
-    // ============================================================
     btnOpenSlotModal.addEventListener("click", () => {
       if (currentCourses.length === 0) {
         alert("الرجاء إضافة موادك أولاً في صفحة المقررات لتتمكن من جدولتها.");
@@ -3481,6 +3697,9 @@
       mySubjects.forEach(sub => {
         let items = publicResources.filter(r => r.courseCode === sub.code);
 
+        // ترتيب بحيث المثبت يظهر بالأعلى دائماً
+        items.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+
         if (currentResFilter !== "all") {
           items = items.filter(r => r.type === currentResFilter);
         }
@@ -3507,8 +3726,9 @@
                 لا توجد روابط مضافة بعد لهذه المادة. يمكنك مشاركة ملخصك عبر الزر أعلاه.
               </p>
             ` : items.map(item => `
-              <div class="resource-link-item">
+              <div class="resource-link-item ${item.pinned ? 'pinned-resource' : ''}">
                 <a href="${item.url}" target="_blank">
+                  ${item.pinned ? '<span class="pinned-badge">⭐ مثبت</span>' : ''}
                   <span class="resource-type-badge">${item.type}</span>
                   <div>
                     <span>${item.title}</span>
@@ -3540,610 +3760,7 @@
       });
     }
 
-    function applySystemAlertsConfig(cfg) {
-      if (cfg.broadcastActive && cfg.broadcastText) {
-        broadcastText.textContent = `📢 ${cfg.broadcastText}`;
-        globalBroadcastBanner.style.display = "flex";
-      } else {
-        globalBroadcastBanner.style.display = "none";
-      }
-
-      if (cfg.countdownActive && cfg.countdownDate) {
-        countdownTitle.textContent = `⏳ ${cfg.countdownTitle || 'اقتراب موعد الاختبار'}`;
-        const target = new Date(cfg.countdownDate);
-        countdownTargetDate.textContent = `الموعد: ${target.toLocaleDateString('ar-SA')}`;
-        examCountdownBox.style.display = "flex";
-
-        if (countdownInterval) clearInterval(countdownInterval);
-        const updateCountdown = () => {
-          const now = new Date().getTime();
-          const diff = target.getTime() - now;
-          if (diff <= 0) {
-            countdownTimerDigits.textContent = "انتهى الموعد!";
-            return;
-          }
-          const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-          countdownTimerDigits.textContent = `${d} يوم • ${h} ساعة • ${m} د`;
-        };
-        updateCountdown();
-        countdownInterval = setInterval(updateCountdown, 60000);
-      } else {
-        examCountdownBox.style.display = "none";
-      }
-    }
-
-    btnAdminConfigAlerts.addEventListener("click", async () => {
-      const snap = await getDoc(doc(db, "system_configs", "alerts"));
-      if (snap.exists()) {
-        const c = snap.data();
-        document.getElementById("cfg-broadcast-text").value = c.broadcastText || "";
-        document.getElementById("cfg-broadcast-active").checked = c.broadcastActive || false;
-        document.getElementById("cfg-countdown-title").value = c.countdownTitle || "";
-        document.getElementById("cfg-countdown-date").value = c.countdownDate || "";
-        document.getElementById("cfg-countdown-active").checked = c.countdownActive || false;
-      }
-      adminAlertsConfigModal.classList.add("open");
-    });
-    btnCloseAlertsModal.addEventListener("click", () => adminAlertsConfigModal.classList.remove("open"));
-
-    adminAlertsForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      await setDoc(doc(db, "system_configs", "alerts"), {
-        broadcastText: document.getElementById("cfg-broadcast-text").value.trim(),
-        broadcastActive: document.getElementById("cfg-broadcast-active").checked,
-        countdownTitle: document.getElementById("cfg-countdown-title").value.trim(),
-        countdownDate: document.getElementById("cfg-countdown-date").value,
-        countdownActive: document.getElementById("cfg-countdown-active").checked
-      });
-      adminAlertsConfigModal.classList.remove("open");
-      alert("تم تحديث الإعلان والعدّاد لجميع الطلاب بنجاح! 🚀");
-    });
-
-    function listenToLeaderboard() {
-      const q = query(collection(db, "users"), orderBy("points", "desc"), limit(5));
-      onSnapshot(q, (snapshot) => {
-        const listDiv = document.getElementById("leaderboard-list");
-        listDiv.innerHTML = "";
-        if (snapshot.empty) {
-          listDiv.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">ابدأ المذاكرة بالمؤقت لتتصدر القائمة!</p>`;
-          return;
-        }
-        let rank = 1;
-        snapshot.forEach(docSnap => {
-          const u = docSnap.data();
-          const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
-          const item = document.createElement("div");
-          item.className = "leaderboard-row";
-          item.innerHTML = `
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span class="leaderboard-rank">${medals[rank - 1] || rank}</span>
-              <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:24px; height:24px; border-radius:50%;">
-              <span>${u.displayName || 'طالب/ـة'}</span>
-            </div>
-            <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
-          `;
-          listDiv.appendChild(item);
-          rank++;
-        });
-      });
-    }
-
-    btnStudentSubmitResource.addEventListener("click", () => {
-      studentSubmitResourceModal.classList.add("open");
-    });
-    btnCloseSubmitResModal.addEventListener("click", () => {
-      studentSubmitResourceModal.classList.remove("open");
-    });
-
-    studentResourceForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      await addDoc(collection(db, "public_resources"), {
-        courseCode: document.getElementById("sub-res-course").value,
-        title: document.getElementById("sub-res-title").value.trim(),
-        type: document.getElementById("sub-res-type").value,
-        url: document.getElementById("sub-res-url").value.trim(),
-        contributorName: currentUser ? (currentUser.displayName || "طالب/ـة") : "مهندس/ـة",
-        status: "pending",
-        createdAt: new Date().toISOString()
-      });
-      studentResourceForm.reset();
-      studentSubmitResourceModal.classList.remove("open");
-      alert("شكراً لمساهمتك! تم إرسال الملخص وسيتم نشره للجميع فور اعتماده من المشرف ❤️");
-    });
-
-    function renderPendingApprovalsUI() {
-      if (pendingResources.length === 0) {
-        adminPendingApprovalBox.style.display = "none";
-        return;
-      }
-      adminPendingApprovalBox.style.display = "block";
-      pendingItemsList.innerHTML = "";
-      pendingResources.forEach(item => {
-        const row = document.createElement("div");
-        row.style.cssText = "background:white; border:1px solid #FDE68A; border-radius:10px; padding:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;";
-        row.innerHTML = `
-          <div>
-            <span style="font-size:12px; font-weight:800; color:#1E293B;">${item.title}</span>
-            <span style="font-size:11px; color:#92400E; display:block;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
-            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط ↗</a>
-          </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn-approve" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">اعتماد ✅</button>
-            <button class="btn-reject" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض ❌</button>
-          </div>
-        `;
-        row.querySelector(".btn-approve").addEventListener("click", async () => {
-          await updateDoc(doc(db, "public_resources", item.id), { status: "approved" });
-        });
-        row.querySelector(".btn-reject").addEventListener("click", async () => {
-          if (confirm("هل ترغب برفض وحذف هذا الرابط؟")) {
-            await deleteDoc(doc(db, "public_resources", item.id));
-          }
-        });
-        pendingItemsList.appendChild(row);
-      });
-    }
-
-    function updateLevelUIState() {
-      levelDisplayHeading.textContent = `إنجاز مواد المستوى ${currentLevel == 5 ? 'الخامس' : currentLevel}`;
-      
-      const now = new Date();
-      const isDateReached = now >= TRANSITION_UNLOCK_DATE;
-
-      if (currentLevel >= 6) {
-        btnTransitionLevel.textContent = `أنت حالياً في المستوى ${currentLevel} ✅`;
-        btnTransitionLevel.className = "btn-transition-stage locked";
-        btnTransitionLevel.disabled = true;
-        dateLockMessage.textContent = "تم إتمام الانتقال بنجاح.";
-        dateLockMessage.style.color = "green";
-      } else {
-        if (isDateReached) {
-          btnTransitionLevel.textContent = "إتمام المستوى الخامس والانتقال للمستوى السادس 🚀";
-          btnTransitionLevel.className = "btn-transition-stage unlocked";
-          btnTransitionLevel.disabled = false;
-          dateLockMessage.textContent = "🔓 ميزة الانتقال متاحة الآن!";
-          dateLockMessage.style.color = "green";
-        } else {
-          btnTransitionLevel.textContent = "الانتقال للمستوى السادس وبدء مرحلة جديدة 🔒";
-          btnTransitionLevel.className = "btn-transition-stage locked";
-          btnTransitionLevel.disabled = true;
-          dateLockMessage.textContent = "⏳ ميزة الانتقال متاحة رسمياً بانتهاء الفصل في: 07 / 01 / 2027";
-          dateLockMessage.style.color = "#D97706";
-        }
-      }
-    }
-
-    btnTransitionLevel.addEventListener("click", async () => {
-      if (confirm("هل أنت متأكد من الانتقال للمستوى السادس؟ سيتم مسح مواد المستوى الخامس وبدء مرحلة جديدة من الصفر.")) {
-        btnTransitionLevel.disabled = true;
-        btnTransitionLevel.textContent = "جاري تهيئة المستوى السادس...";
-
-        const coursesSnap = await getDocs(collection(db, "users", currentUser.uid, "courses"));
-        for (const d of coursesSnap.docs) {
-          await deleteDoc(doc(db, "users", currentUser.uid, "courses", d.id));
-        }
-
-        await setDoc(doc(db, "users", currentUser.uid), { currentLevel: 6 }, { merge: true });
-        currentLevel = 6;
-
-        for (const c of CURRICULUM_PLAN[6]) {
-          await addDoc(collection(db, "users", currentUser.uid, "courses"), {
-            name: c.name,
-            code: c.code,
-            credits: c.credits,
-            totalLectures: c.totalLectures,
-            attendedLectures: 0,
-            absences: 0,
-            color: c.color,
-            originLevel: "المستوى 6",
-            chapters: [
-              { id: "ch_1", title: "الشابتر 1", done: false },
-              { id: "ch_2", title: "الشابتر 2", done: false },
-              { id: "ch_3", title: "الشابتر 3", done: false }
-            ]
-          });
-        }
-
-        updateLevelUIState();
-        alert("مبارك انتقالك للمستوى السادس! تم تجهيز موادك الجديدة من الخطة بنجاح 🎉");
-      }
-    });
-
-    btnAdminAddResource.addEventListener("click", () => adminResourceModal.classList.add("open"));
-    btnCloseAdminResModal.addEventListener("click", () => adminResourceModal.classList.remove("open"));
-
-    adminResourceForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!isAdmin) {
-        alert("عذراً، هذه الصلاحية مخصصة للأدمن فقط.");
-        return;
-      }
-
-      await addDoc(collection(db, "public_resources"), {
-        courseCode: document.getElementById("admin-res-course").value,
-        title: document.getElementById("admin-res-title").value.trim(),
-        type: document.getElementById("admin-res-type").value,
-        url: document.getElementById("admin-res-url").value.trim(),
-        status: "approved",
-        contributorName: "مشرف النظام",
-        createdAt: new Date().toISOString()
-      });
-
-      adminResourceForm.reset();
-      adminResourceModal.classList.remove("open");
-      alert("تم نشر الرابط لجميع الطلاب بنجاح! 🚀");
-    });
-
-    document.querySelectorAll(".sort-pill").forEach(pill => {
-      pill.addEventListener("click", () => {
-        document.querySelectorAll(".sort-pill").forEach(p => p.classList.remove("active"));
-        pill.classList.add("active");
-        currentSort = pill.getAttribute("data-sort");
-        renderCoursesUI();
-      });
-    });
-
-    function renderCoursesUI() {
-      coursesContainer.innerHTML = "";
-      let totalLecAll = 0;
-      let attendedLecAll = 0;
-
-      let sorted = [...currentCourses];
-      if (currentSort === "credits") {
-        sorted.sort((a, b) => (b.credits || 3) - (a.credits || 3));
-      } else if (currentSort === "missed") {
-        sorted.sort((a, b) => {
-          const remA = (a.totalLectures || 0) - (a.attendedLectures || 0);
-          const remB = (b.totalLectures || 0) - (b.attendedLectures || 0);
-          return remB - remA;
-        });
-      } else if (currentSort === "name") {
-        sorted.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
-      }
-
-      sorted.forEach((course) => {
-        totalLecAll += (course.totalLectures || 0);
-        attendedLecAll += (course.attendedLectures || 0);
-
-        const remainingLec = Math.max(0, (course.totalLectures || 0) - (course.attendedLectures || 0));
-        const completedChapters = (course.chapters || []).filter(c => c.done).length;
-        const totalChapters = (course.chapters || []).length;
-
-        const totalLec = course.totalLectures || (course.credits === 4 ? 45 : (course.credits === 3 ? 30 : 15));
-        const maxAllowedAbsences = Math.floor(totalLec / 4);
-        const dnAbsenceThreshold = maxAllowedAbsences + 1;
-        const absences = course.absences || 0;
-
-        const absencePercentage = totalLec === 0 ? 0 : ((absences / totalLec) * 100).toFixed(1);
-        const remainingAbsences = maxAllowedAbsences - absences;
-
-        let statusTextClass = "dn-safe";
-        let statusPillClass = "dn-safe-pill";
-        let statusMessage = `المسموح: ${maxAllowedAbsences} غيابات (باقي لك ${remainingAbsences} قبل الحرمان)`;
-
-        if (absences >= dnAbsenceThreshold) {
-          statusTextClass = "dn-danger";
-          statusPillClass = "dn-danger-pill";
-          statusMessage = `🚨 تم تجاوز نسبة 25%! وقع الحرمان (DN) برصيد ${absences} غياب`;
-        } else if (absences === maxAllowedAbsences) {
-          statusTextClass = "dn-warn";
-          statusPillClass = "dn-warn-pill";
-          statusMessage = `⚠️ تحذير شديد! بلغت الحد الأقصى (${absences}/${maxAllowedAbsences}). الغياب القادم هو الحرمان!`;
-        } else if (remainingAbsences === 1) {
-          statusTextClass = "dn-warn";
-          statusPillClass = "dn-warn-pill";
-          statusMessage = `انتبه! باقي لك غياب واحد فقط قبل بلوغ الحد الأقصى`;
-        }
-
-        const originTagHtml = course.originLevel 
-          ? `<span class="origin-level-tag">${course.originLevel}</span>` 
-          : '';
-
-        const card = document.createElement("div");
-        card.className = "course-card";
-        card.innerHTML = `
-          <div class="course-card-header">
-            <div>
-              ${originTagHtml}
-              <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
-                ${course.name} (${course.code}) • ${course.credits} وحدات معتمدة
-              </span>
-            </div>
-            <span class="course-status-brief">
-              أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
-            </span>
-            <span class="course-expand-icon">▼</span>
-          </div>
-          <div class="course-card-body">
-            
-            <div class="dn-calculator-box">
-              <div class="dn-info">
-                <span class="dn-title">نظام الحرمان بجامعة طيبة (المحاضرات: ${totalLec} • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
-                <span class="dn-status ${statusTextClass}">${statusMessage}</span>
-                <div class="dn-percentage-pill ${statusPillClass}">
-                  نسبة الغياب: ${absencePercentage}% (${absences} غيابات من ${totalLec})
-                </div>
-              </div>
-              <div class="stepper-controls">
-                <button class="step-btn btn-dec-abs" title="إنقاص غياب">-</button>
-                <span style="font-size:14px; font-weight:800;">${absences}</span>
-                <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--primary-red); font-weight:900;">+</button>
-              </div>
-            </div>
-
-            <div class="quick-actions-bar">
-              <button class="btn-quick btn-mark-all-done">إنجاز الكل سريعاً ✨</button>
-              <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
-            </div>
-
-            <div class="stepper-row">
-              <span>المحاضرات التي تم حضورها:</span>
-              <div class="stepper-controls">
-                <button class="step-btn btn-dec">-</button>
-                <strong>${course.attendedLectures} / ${course.totalLectures}</strong>
-                <button class="step-btn btn-inc">+</button>
-              </div>
-            </div>
-
-            <div class="chapter-section-title">
-              <span>الشباتر المذاكرة (${completedChapters}/${totalChapters})</span>
-              <button class="btn-add-chapter-mini">+ إضافة شابتر</button>
-            </div>
-
-            <div class="chapters-wrapper">
-              ${(course.chapters || []).map(ch => `
-                <div class="chapter-item ${ch.done ? 'done' : ''}">
-                  <span>${ch.title}</span>
-                  <input type="checkbox" ${ch.done ? 'checked' : ''} class="ch-check">
-                </div>
-              `).join('')}
-            </div>
-
-            <div class="course-footer-links">
-              <button class="btn-delete-course">حذف المقرر</button>
-            </div>
-          </div>
-        `;
-
-        card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
-
-        card.querySelector(".btn-inc").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (course.attendedLectures < course.totalLectures) {
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-              attendedLectures: course.attendedLectures + 1
-            });
-          }
-        });
-
-        card.querySelector(".btn-dec").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (course.attendedLectures > 0) {
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-              attendedLectures: course.attendedLectures - 1
-            });
-          }
-        });
-
-        card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-            absences: (course.absences || 0) + 1
-          });
-        });
-
-        card.querySelector(".btn-dec-abs").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if ((course.absences || 0) > 0) {
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-              absences: course.absences - 1
-            });
-          }
-        });
-
-        card.querySelector(".btn-mark-all-done").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
-          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-            attendedLectures: course.totalLectures,
-            chapters: updatedChs
-          });
-        });
-
-        card.querySelector(".btn-reset-all").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: false }));
-          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-            attendedLectures: 0,
-            absences: 0,
-            chapters: updatedChs
-          });
-        });
-
-        card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
-          checkbox.addEventListener("change", async (e) => {
-            e.stopPropagation();
-            const chs = [...course.chapters];
-            chs[idx].done = checkbox.checked;
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
-          });
-        });
-
-        card.querySelector(".btn-add-chapter-mini").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const title = prompt("اسم الشابتر:");
-          if (title && title.trim()) {
-            const chs = [...(course.chapters || []), { id: `ch_${Date.now()}`, title: title.trim(), done: false }];
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
-          }
-        });
-
-        card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
-            await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
-          }
-        });
-
-        coursesContainer.appendChild(card);
-      });
-
-      const missed = totalLecAll - attendedLecAll;
-      const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
-
-      document.getElementById("missed-lectures-count").textContent = `${missed} محاضرات`;
-      document.getElementById("overall-progress-bar").style.width = `${pct}%`;
-      document.getElementById("overall-percent-label").textContent = `${pct}% نسبة المواكبة`;
-
-      const motiv = document.getElementById("motivational-text");
-      if (pct >= 85) motiv.textContent = "أداء ممتاز جداً! استمر بنفس الحماس 🔥";
-      else if (pct >= 50) motiv.textContent = "كأنها هجت شوي 🫣 يبيلك تاخذها وحدة وحدة";
-      else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
-    }
-
-    // مؤقت غرس الإنجاز
-    let sessionMinutes = 25;
-    let totalFocusSeconds = sessionMinutes * 60;
-    let timerDuration = totalFocusSeconds;
-    let timerInterval = null;
-
-    const timerDisplay = document.getElementById("pomodoro-timer");
-    const treeStatusText = document.getElementById("tree-status-text");
-    const treeContainer = document.getElementById("tree-svg-container");
-
-    function setSessionDuration(minutes) {
-      if (timerInterval) {
-        if (!confirm("الجلسة تعمل حالياً، هل ترغب بإيقافها وتغيير الوقت؟")) return;
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-      sessionMinutes = minutes;
-      totalFocusSeconds = sessionMinutes * 60;
-      timerDuration = totalFocusSeconds;
-      
-      const m = sessionMinutes.toString().padStart(2, '0');
-      timerDisplay.textContent = `${m}:00`;
-      renderTreeStage(timerDuration);
-    }
-
-    document.querySelectorAll(".preset-chip[data-time]").forEach(chip => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".preset-chip").forEach(c => c.classList.remove("active"));
-        chip.classList.add("active");
-        setSessionDuration(parseInt(chip.getAttribute("data-time")));
-      });
-    });
-
-    document.getElementById("btn-custom-timer").addEventListener("click", () => {
-      const input = prompt("أدخل مدة جلسة المذاكرة بالدقائق (مثال: 30 أو 50):", "30");
-      const min = parseInt(input);
-      if (min && min > 0 && min <= 180) {
-        document.querySelectorAll(".preset-chip").forEach(c => c.classList.remove("active"));
-        document.getElementById("btn-custom-timer").classList.add("active");
-        setSessionDuration(min);
-      } else if (input !== null) {
-        alert("الرجاء إدخال وقت صحيح بين 1 و 180 دقيقة.");
-      }
-    });
-
-    function renderTreeStage(secondsLeft) {
-      const elapsed = totalFocusSeconds - secondsLeft;
-      const progressRatio = totalFocusSeconds === 0 ? 0 : (elapsed / totalFocusSeconds);
-
-      let treeSvg = "";
-      if (progressRatio < 0.25) {
-        treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
-            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
-            <circle cx="50" cy="82" r="5" fill="#5D4037"/>
-            <path d="M50 78 Q52 74 50 70" stroke="#84CC16" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          </svg>`;
-        treeStatusText.textContent = "البذرة تُغرس في التربة... ركّز ولا تشتت ذهنك 🌱";
-      } else if (progressRatio < 0.60) {
-        treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
-            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
-            <path d="M50 82 Q50 65 50 55" stroke="#795548" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M50 65 Q40 60 42 52 Q48 55 50 62" fill="#84CC16"/>
-            <path d="M50 60 Q60 55 58 48 Q52 50 50 58" fill="#84CC16"/>
-          </svg>`;
-        treeStatusText.textContent = "شجرتك تكبر وتورق! استمر في التركيز 🌿";
-      } else if (progressRatio < 0.95) {
-        treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
-            <ellipse cx="50" cy="88" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
-            <path d="M50 85 L50 48" stroke="#5D4037" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="50" cy="40" r="18" fill="#10B981"/>
-            <circle cx="40" cy="46" r="13" fill="#059669"/>
-            <circle cx="60" cy="46" r="13" fill="#059669"/>
-          </svg>`;
-        treeStatusText.textContent = "أوشكت الشجرة على الإزهار! دقائق قليلة متبقية 🌳";
-      } else {
-        treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
-            <ellipse cx="50" cy="88" rx="38" ry="8" fill="#8D6E63" opacity="0.4"/>
-            <path d="M50 85 L50 45" stroke="#5D4037" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="50" cy="38" r="22" fill="#059669"/>
-            <circle cx="36" cy="45" r="15" fill="#10B981"/>
-            <circle cx="64" cy="45" r="15" fill="#10B981"/>
-            <circle cx="50" cy="22" r="14" fill="#34D399"/>
-            <circle cx="44" cy="32" r="3" fill="#FBBF24"/>
-            <circle cx="58" cy="36" r="3" fill="#FBBF24"/>
-            <circle cx="48" cy="48" r="3" fill="#FBBF24"/>
-          </svg>`;
-        treeStatusText.textContent = "مبارك! اكتملت شجرة إنجازك وأُضيفت النقاط لرصيدك 🌟";
-      }
-      treeContainer.innerHTML = treeSvg;
-    }
-
-    document.getElementById("btn-timer-start").addEventListener("click", () => {
-      if (timerInterval) return;
-      timerInterval = setInterval(async () => {
-        if (timerDuration > 0) {
-          timerDuration--;
-          const m = Math.floor(timerDuration / 60).toString().padStart(2, '0');
-          const s = (timerDuration % 60).toString().padStart(2, '0');
-          timerDisplay.textContent = `${m}:${s}`;
-          renderTreeStage(timerDuration);
-        } else {
-          clearInterval(timerInterval);
-          timerInterval = null;
-          renderTreeStage(0);
-
-          const earnedPoints = sessionMinutes;
-          if (currentUser) {
-            const userRef = doc(db, "users", currentUser.uid);
-            const userSnap = await getDoc(userRef);
-            const currentPoints = (userSnap.data()?.points || 0) + earnedPoints;
-            const currentTrees = (userSnap.data()?.treesGrown || 0) + 1;
-            await updateDoc(userRef, { points: currentPoints, treesGrown: currentTrees });
-          }
-
-          alert(`🎉 أحسنت! أكملت ${sessionMinutes} دقيقة تركيز وحصلت على +${earnedPoints} نقطة في رصيدك وشجرة جديدة!`);
-        }
-      }, 1000);
-    });
-
-    document.getElementById("btn-timer-pause").addEventListener("click", () => {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    });
-
-    document.getElementById("btn-timer-reset").addEventListener("click", () => {
-      if (timerDuration < totalFocusSeconds && timerDuration > 0) {
-        if (!confirm("هل ترغب بإلغاء جلسة التركيز الحالية؟ ستفقد تقدم الشجرة الحالية.")) return;
-      }
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerDuration = totalFocusSeconds;
-      const m = sessionMinutes.toString().padStart(2, '0');
-      timerDisplay.textContent = `${m}:00`;
-      renderTreeStage(totalFocusSeconds);
-    });
-
-    // التنقل السفلي السلس مع دعم الرئيسية في المنتصف
+    // التنقل السفلي المتطور (الرئيسية في المنتصف مع Active Pill)
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
@@ -4253,147 +3870,7 @@
       taskModal.classList.remove("open");
     });
 
-    function renderTasksUI() {
-      tasksContainer.innerHTML = "";
-      let filtered = currentTasks;
-      if (currentTaskFilter === "pending") filtered = currentTasks.filter(t => !t.completed);
-      if (currentTaskFilter === "done") filtered = currentTasks.filter(t => t.completed);
-
-      if (filtered.length === 0) {
-        tasksContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:30px; font-size:13px;">لا توجد مهام في هذا القسم 🎉</p>`;
-        return;
-      }
-
-      filtered.forEach(task => {
-        const item = document.createElement("div");
-        item.className = `task-card ${task.completed ? 'completed' : ''}`;
-        item.innerHTML = `
-          <div class="task-info">
-            <h4>${task.title}</h4>
-            <div class="task-meta">
-              <span class="task-badge-tag">${task.courseCode}</span>
-              <span>📅 ${task.dueDate}</span>
-              <span>🏷️ ${task.type}</span>
-            </div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <input type="checkbox" ${task.completed ? 'checked' : ''} class="task-toggle" style="width:20px; height:20px; cursor:pointer;">
-            <button class="btn-del-task" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
-          </div>
-        `;
-
-        item.querySelector(".task-toggle").addEventListener("change", async (e) => {
-          await updateDoc(doc(db, "users", currentUser.uid, "tasks", task.id), {
-            completed: e.target.checked
-          });
-        });
-
-        item.querySelector(".btn-del-task").addEventListener("click", async () => {
-          await deleteDoc(doc(db, "users", currentUser.uid, "tasks", task.id));
-        });
-
-        tasksContainer.appendChild(item);
-      });
-    }
-
-    document.querySelectorAll(".filter-chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
-        chip.classList.add("active");
-        currentTaskFilter = chip.getAttribute("data-filter");
-        renderTasksUI();
-      });
-    });
-
-    function updateTaskSelectOptions() {
-      taskCourseSelect.innerHTML = "";
-      if (currentCourses.length === 0) {
-        taskCourseSelect.innerHTML = `<option value="عام">عام</option>`;
-        return;
-      }
-      currentCourses.forEach(c => {
-        const opt = document.createElement("option");
-        opt.value = `${c.code}`;
-        opt.textContent = `${c.code} - ${c.name}`;
-        taskCourseSelect.appendChild(opt);
-      });
-    }
-
-    function renderGPACalculator() {
-      const gpaBox = document.getElementById("gpa-calc-container");
-      gpaBox.innerHTML = `
-        <div style="background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
-          <div style="background:var(--subtle-bg); padding:12px; border-radius:10px; margin-bottom:14px;">
-            <span style="font-size:12px; font-weight:700; color:var(--primary-teal);">حساب المعدل التراكمي الجديد (اختياري):</span>
-            <div style="display:flex; gap:10px; margin-top:6px;">
-              <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
-              <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
-            </div>
-          </div>
-
-          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">الدرجات التقديرية (الحساب بالوزن الفعلي لساعات كل مادة مسجلة):</p>
-          <div id="gpa-rows">
-            ${currentCourses.map(c => `
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <div>
-                  <span style="font-size:13px; font-weight:700;">${c.code}</span>
-                  <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits} وحدات معتمدة)</span>
-                </div>
-                <select class="grade-input" data-credits="${c.credits}" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12.5px;">
-                  <option value="5.0">A+ (5.00)</option>
-                  <option value="4.75">A (4.75)</option>
-                  <option value="4.5">B+ (4.50)</option>
-                  <option value="4.0">B (4.00)</option>
-                  <option value="3.5">C+ (3.50)</option>
-                  <option value="3.0">C (3.00)</option>
-                  <option value="2.5">D+ (2.50)</option>
-                  <option value="2.0">D (2.00)</option>
-                  <option value="1.0">F (1.00)</option>
-                </select>
-              </div>
-            `).join('')}
-          </div>
-          <button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل الفصلي والتراكمي</button>
-          <div id="gpa-result" style="text-align:center; margin-top:14px; font-weight:800;"></div>
-        </div>
-      `;
-
-      const btnCalc = document.getElementById("btn-calc-gpa");
-      if (btnCalc) {
-        btnCalc.addEventListener("click", () => {
-          const rows = document.querySelectorAll(".grade-input");
-          if (rows.length === 0) return;
-
-          let totalQualityPoints = 0;
-          let currentSemesterHours = 0;
-
-          rows.forEach(select => {
-            const points = parseFloat(select.value);
-            const credits = parseFloat(select.getAttribute("data-credits")) || 3;
-            totalQualityPoints += (points * credits);
-            currentSemesterHours += credits;
-          });
-
-          const semesterGPA = (totalQualityPoints / currentSemesterHours).toFixed(2);
-
-          const prevGPA = parseFloat(document.getElementById("prev-gpa").value);
-          const prevHours = parseFloat(document.getElementById("prev-hours").value);
-
-          let cumulativeText = "";
-          if (!isNaN(prevGPA) && !isNaN(prevHours) && prevHours > 0) {
-            const prevTotalPoints = prevGPA * prevHours;
-            const newCumulative = ((prevTotalPoints + totalQualityPoints) / (prevHours + currentSemesterHours)).toFixed(2);
-            cumulativeText = `<br><span style="color:#10B981; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
-          }
-
-          document.getElementById("gpa-result").innerHTML = `
-            <span style="color:var(--primary-teal); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
-            ${cumulativeText}
-          `;
-        });
-      }
-    }
-
+    // بذر مواد المستوى الخامس الافتراضية
     async function seedInitialLevel5(userId, isAllCompleted) {
       const courses = [
         { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, attendedLectures: isAllCompleted ? 30 : 0, absences: 0, color: "#8B5CF6", originLevel: "", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }] },
