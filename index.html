@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>جدولي الأكاديمي - كلية علوم وهندسة الحاسب</title>
+  <title>Academic Tracker - كلية علوم وهندسة الحاسب | جامعة طيبة</title>
   
-  <!-- إعدادات التثبيت كأيقونة تطبيق للهواتف الذكية (PWA Ready) -->
+  <!-- إعدادات وتجهيزات PWA وتثبيت التطبيق على الجوال -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="جدولي COE">
+  <meta name="apple-mobile-web-app-title" content="Academic Tracker">
+  <meta name="application-name" content="Academic Tracker">
   <meta name="theme-color" content="#0F766E">
   <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/bottts/svg?seed=COE&backgroundColor=0f766e">
 
-  <!-- الخط العربي المعتمد -->
+  <!-- تضمين Web App Manifest مضمن ذاتياً لضمان التثبيت الفوري -->
+  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Academic%20Tracker%20-%20%D8%AC%D8%A7%D9%85%D8%B9%D8%A9%20%D8%B7%D9%8A%D8%A8%D8%A9%22%2C%22short_name%22%3A%22Academic%20Tracker%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230F766E%22%2C%22theme_color%22%3A%22%230F766E%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fapi.dicebear.com%2F7.x%2Fbottts%2Fsvg%3Fseed%3DCOE%26backgroundColor%3D0f766e%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+
+  <!-- الخط العربي المعتمد والمحسن -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -348,8 +352,6 @@
       padding: 6px 0;
       border-bottom: 1px dashed rgba(146, 64, 14, 0.2);
     }
-
-    .admin-notif-row:last-child { border-bottom: none; }
 
     .live-class-banner {
       background: linear-gradient(135deg, #10B981, #059669);
@@ -1341,6 +1343,7 @@
       letter-spacing: 1px;
     }
 
+    /* شريط التنقل السفلي الكلاسيكي المحسن */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1494,13 +1497,13 @@
 </head>
 <body>
 
-  <!-- شاشة الدخول والتسجيل -->
+  <!-- شاشة الدخول والتسجيل (Google + Email فقط) -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
         <div class="logo-icon">💻</div>
-        <h2>بوابة جدولي الأكاديمي</h2>
-        <p>جامعة طيبة - هندسة الحاسب الآلي</p>
+        <h2>بوابة Academic Tracker</h2>
+        <p>جامعة طيبة - كلية علوم وهندسة الحاسب الآلي</p>
       </div>
 
       <div class="social-auth-btns">
@@ -1511,7 +1514,7 @@
             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
           </svg>
-          <span>الدخول عبر Google</span>
+          <span>الدخول المباشر عبر Google</span>
         </button>
       </div>
 
@@ -1525,19 +1528,20 @@
       <form id="auth-form">
         <div class="form-group" id="group-name" style="display: none;">
           <label>الاسم الكامل</label>
-          <input type="text" id="auth-name" placeholder="اسم الطالب / الطالبة">
+          <input type="text" id="auth-name" placeholder="اسم المهندس / المهندسة">
         </div>
 
         <div class="form-row" id="group-gender-section" style="display: none;">
           <div class="form-group">
-            <label>التصنيف</label>
+            <label>التصنيف (إلزامي)</label>
             <select id="auth-gender">
-              <option value="طالبة">طالبة 👩‍🎓</option>
-              <option value="طالب">طالب 👨‍🎓</option>
+              <option value="">-- اختر التصنيف --</option>
+              <option value="طالب">👨‍🎓 طالب</option>
+              <option value="طالبة">👩‍🎓 طالبة</option>
             </select>
           </div>
           <div class="form-group">
-            <label>رقم الدفعة</label>
+            <label>رقم الدفعة (إلزامي)</label>
             <input type="text" id="auth-section" placeholder="مثال: دفعة 22">
           </div>
         </div>
@@ -1556,7 +1560,7 @@
         <div class="form-group" id="group-level" style="display: none;">
           <label>المستوى الدراسي</label>
           <select id="auth-level" disabled>
-            <option selected>المستوى الخامس (ابدأ بإضافة موادك)</option>
+            <option selected>المستوى الخامس (المسار التخصصي)</option>
           </select>
         </div>
 
@@ -1570,6 +1574,11 @@
           <input type="password" id="auth-pass" required autocomplete="current-password" placeholder="••••••••">
         </div>
 
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 8px; margin-bottom: 12px;">
+          <input type="checkbox" id="auth-remember" checked style="width: 16px; height: 16px; cursor: pointer;">
+          <label for="auth-remember" style="margin: 0; cursor: pointer; font-size: 12px;">تذكرني / حفظ تسجيل الدخول</label>
+        </div>
+
         <button type="submit" id="auth-submit-btn" class="btn-primary">دخول</button>
       </form>
       <div id="auth-error" class="error-msg"></div>
@@ -1579,6 +1588,7 @@
   <!-- الشاشة الرئيسية للتطبيق -->
   <div id="main-app" class="app-container" style="display: none;">
     
+    <!-- شريط الإعلان العام من المشرف -->
     <div id="global-broadcast-banner" class="broadcast-banner">
       <span id="broadcast-text">📢 تنبيه عام من المشرف</span>
       <span style="font-size: 11px; opacity: 0.85;">جامعة طيبة</span>
@@ -1597,8 +1607,8 @@
         </div>
         <div class="header-branding">
           <div style="display: flex; align-items: center; gap: 6px; justify-content: flex-end;">
-            <span id="admin-badge" class="admin-badge">👑 لوحة المشرف</span>
-            <h1 class="brand-title">جدولي</h1>
+            <span id="admin-badge" class="admin-badge" onclick="switchTab('admin')">👑 لوحة المشرف</span>
+            <h1 class="brand-title">Academic Tracker</h1>
           </div>
           <span id="user-greeting" class="brand-subtitle">كلية علوم وهندسة الحاسب</span>
         </div>
@@ -1608,15 +1618,17 @@
     <!-- تبويب الصفحة الرئيسية (Home) في المنتصف -->
     <main class="main-content" id="tab-content-home">
       
+      <!-- بطاقة المحاضرة الآن - Live Class Alert -->
       <div id="live-class-banner" class="live-class-banner">
         <div>
-          <span style="font-size: 10px; background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 6px; font-weight: 900;">مباشر الآن 🟢</span>
+          <span style="font-size: 10px; background: rgba(0,0,0,0.25); padding: 2px 6px; border-radius: 6px; font-weight: 900;">المحاضرة الآن 🟢</span>
           <h4 id="live-class-title" style="font-size: 13.5px; font-weight: 800; margin-top: 4px;">أنت الآن في محاضرة: --</h4>
           <p id="live-class-room" style="font-size: 11.5px; opacity: 0.9;">قاعة: --</p>
         </div>
-        <span style="font-size: 20px;">🏫</span>
+        <span style="font-size: 24px;">🏫</span>
       </div>
 
+      <!-- إشعارات المشرف في الصفحة الرئيسية -->
       <div id="admin-dashboard-notif-card" class="admin-dashboard-notification">
         <div class="admin-notif-title">
           <span>🔔 تنبيهات المشرف اللحظية:</span>
@@ -1629,11 +1641,17 @@
           <span>تجميعات وملخصات بانتظار الاعتماد:</span>
           <strong id="notif-res-count" style="color:#D97706;">0</strong>
         </div>
-        <button class="btn-primary" style="background:#854D0E; font-size:11.5px; padding:6px; margin-top:8px;" onclick="switchTab('admin')">
-          الانتقال إلى لوحة الإشراف للمراجعة 👑
-        </button>
+        <div style="display: flex; gap: 8px; margin-top: 8px;">
+          <button class="btn-primary" style="background:#DC2626; font-size:11.5px; padding:6px; margin:0;" onclick="switchTab('admin')">
+            مراجعة الطلبات 📝
+          </button>
+          <button class="btn-primary" style="background:#D97706; font-size:11.5px; padding:6px; margin:0;" onclick="switchTab('admin')">
+            مراجعة التجميعات 📚
+          </button>
+        </div>
       </div>
 
+      <!-- بطاقة الترحيب الذكية Dynamic Greeting -->
       <div class="home-hero-card">
         <img id="home-hero-avatar-img" class="home-hero-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" alt="Avatar">
         <div class="home-hero-info">
@@ -1642,11 +1660,13 @@
         </div>
       </div>
 
+      <!-- بطاقة الترحيب للمستخدم الجديد -->
       <div id="new-user-welcome-box" class="poll-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
-        <strong>مرحباً بك في منصة جدولي الأكاديمي!</strong>
+        <strong>مرحباً بك في منصة Academic Tracker!</strong>
         <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</span>
       </div>
 
+      <!-- استطلاع رأي الدفعة المستهدف -->
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
           <span style="font-size:12px; font-weight:800; color:var(--primary-teal);">📊 استطلاع رأي الدفعة</span>
@@ -1656,6 +1676,7 @@
         <div id="poll-options-container"></div>
       </div>
 
+      <!-- الإحصائيات السريعة -->
       <div id="home-widget-stats" class="home-quick-stat-grid">
         <div class="home-stat-card">
           <span class="stat-num" id="home-quick-attendance">0%</span>
@@ -1667,6 +1688,7 @@
         </div>
       </div>
 
+      <!-- محاضرات اليوم من جدول الطالب -->
       <div class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1680,6 +1702,7 @@
         </div>
       </div>
 
+      <!-- المهام القريبة -->
       <div id="home-widget-tasks" class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1693,6 +1716,7 @@
         </div>
       </div>
 
+      <!-- الجديد في التجميعات -->
       <div id="home-widget-news" class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -1707,7 +1731,7 @@
       </div>
 
       <footer class="site-footer">
-        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة - كلية علوم وهندسة الحاسب
       </footer>
     </main>
 
@@ -1779,7 +1803,7 @@
       </footer>
     </main>
 
-    <!-- تبويب الجدول الدراسي -->
+    <!-- تبويب الجدول الدراسي الأسبوعي -->
     <main class="main-content" id="tab-content-schedule" style="display: none;">
       <div class="content-header">
         <div>
@@ -1793,7 +1817,7 @@
           ➕ إضافة محاضرة للجدول
         </button>
         <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 12.5px; padding: 10px;">
-          📥 تحميل الجدول الدراسي
+          📥 استوديو تصدير صورة HD
         </button>
       </div>
 
@@ -1804,17 +1828,17 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات (الافتراضي فارغ، روابط خارجية فقط) -->
+    <!-- تبويب التجميعات والملخصات (Dynamic Resource Binding) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
           <h2>التجميعات والملخصات</h2>
-          <p>تجميعات وسلايدات مخصصة للمواد المسجلة في جدولك حالياً</p>
+          <p>تجميعات وسلايدات مخصصة للمواد المسجلة في جدولك فقط (تُضاف وتُحذف ديناميكياً)</p>
         </div>
       </div>
 
       <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:12px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
-        📤 مشاركة رابط تجميعة مع زملائك (+15 نقطة ⭐)
+        📤 مشاركة رابط أو رفع ملف لتجميعة جديدة (+15 نقطة ⭐)
       </button>
 
       <div class="search-resources-bar">
@@ -1824,6 +1848,7 @@
           <button class="sort-pill" data-res-filter="تجميعات">تجميعات</button>
           <button class="sort-pill" data-res-filter="سلايدات">سلايدات</button>
           <button class="sort-pill" data-res-filter="ملخصات">ملخصات</button>
+          <button class="sort-pill" data-res-filter="ملف">ملفات مرفوعة</button>
           <button class="sort-pill" data-res-filter="قناة">قنوات</button>
         </div>
       </div>
@@ -1835,15 +1860,17 @@
       </footer>
     </main>
 
-    <!-- تبويب المهام ومؤقت غرس الإنجاز -->
+    <!-- تبويب المهام، المؤقت، وحاسبة المعدل -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
+      
+      <!-- Cram Planner -->
       <div class="cram-planner-card">
         <div class="cram-planner-header">
-          <span style="font-size:13px; font-weight:800;">⚡ مولّد خطة المذاكرة السريعة</span>
-          <span class="cram-pill-tag">خاصية تجريبية 🧪</span>
+          <span style="font-size:13px; font-weight:800;">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
+          <span class="cram-pill-tag">خاصية ذكية 🧪</span>
         </div>
         <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px;">
-          حددي موعد الاختبار والشباتر المتبقية لحساب معدل الإنجاز اليومي وختم المنهج:
+          حددي موعد الاختبار والشباتر المتبقية لحساب معدل الإنجاز اليومي لختم المنهج:
         </p>
         <div class="form-row">
           <div class="form-group" style="margin:0;">
@@ -1859,9 +1886,10 @@
         <div id="cram-result-box" style="margin-top:10px; font-size:12px; display:none; background:var(--subtle-bg); padding:10px; border-radius:10px;"></div>
       </div>
 
+      <!-- Pomodoro Focus Tree Timer -->
       <div class="tree-timer-box">
         <div class="tree-timer-header">
-          <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز</span>
+          <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز (Pomodoro)</span>
           <div class="tree-points-badge">
             <span>⭐</span>
             <span id="user-points-display">0 نقطة</span>
@@ -1896,6 +1924,7 @@
         </div>
       </div>
 
+      <!-- لوحة الشرف للمتصدرين -->
       <div class="leaderboard-card">
         <div class="leaderboard-header">
           <span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span>
@@ -1905,7 +1934,19 @@
         </div>
       </div>
 
-      <div class="content-header">
+      <!-- حاسبة المعدل الفصلي والتراكمي بسلم 5.00 -->
+      <div class="home-widget-box" style="margin-top: 16px;">
+        <div class="home-widget-header">
+          <div class="home-widget-title">
+            <span>🧮</span>
+            <span>حاسبة المعدل المعتمدة (سلم 5.00)</span>
+          </div>
+        </div>
+        <div id="gpa-calc-container"></div>
+      </div>
+
+      <!-- المهام والتكاليف -->
+      <div class="content-header" style="margin-top: 20px;">
         <div>
           <h2>المهام والتكاليف</h2>
           <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
@@ -1927,7 +1968,7 @@
       </footer>
     </main>
 
-    <!-- صفحة الإشراف المستقلة (Dedicated Admin Panel) -->
+    <!-- صفحة الإشراف المستقلة والمحمية بالكامل (Dedicated Admin Dashboard) -->
     <main class="main-content" id="tab-content-admin" style="display: none;">
       <div class="content-header">
         <div>
@@ -1937,6 +1978,8 @@
       </div>
 
       <div class="admin-dashboard-panel">
+        
+        <!-- إضافة مشرف جديد بالـ UID -->
         <div class="admin-section-box">
           <h3>👥 إضافة مشرف جديد للنظام</h3>
           <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">أدخلي User ID (UID) الخاص بالطالب لمنحه صلاحيات المشرف تلقائياً:</p>
@@ -1946,20 +1989,24 @@
           </div>
         </div>
 
+        <!-- مركز طلبات تعديل البيانات (التصنيف والدفعة) -->
         <div class="admin-section-box">
           <h3>📝 طلبات تعديل البيانات (الدفعة والتصنيف)</h3>
+          <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">الطلبات المرفوعة من الطلاب للموافقة والتطبيق الفوري:</p>
           <div id="admin-profile-requests-list">
             <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>
           </div>
         </div>
 
+        <!-- مراجعة واعتماد ملخصات وتجميعات الطلاب (+15 نقطة) -->
         <div class="admin-section-box">
-          <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة)</h3>
+          <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة مساهمة)</h3>
           <div id="admin-pending-resources-list">
             <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>
           </div>
         </div>
 
+        <!-- الأدوات السريعة وتصدير تقرير Google Sheets / Excel المنظم -->
         <div class="admin-section-box">
           <h3>⚡ الإجراءات والأدوات السريعة</h3>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
@@ -1976,33 +2023,35 @@
       </footer>
     </main>
 
-    <!-- شريط التنقل السفلي -->
+    <!-- شريط التنقل السفلي الكلاسيكي المحسن (الرئيسية في المنتصف) -->
     <nav class="bottom-nav">
-      <div class="nav-item" data-target="courses">
+      <div class="nav-item" data-target="courses" onclick="switchTab('courses')">
         <span class="icon">📊</span>
         <span>المقررات</span>
       </div>
-      <div class="nav-item" data-target="schedule">
+      <div class="nav-item" data-target="schedule" onclick="switchTab('schedule')">
         <span class="icon">🗓️</span>
         <span>الجدول</span>
       </div>
       
-      <div class="nav-item active" data-target="home">
+      <div class="nav-item active" data-target="home" onclick="switchTab('home')">
         <span class="icon">🏠</span>
         <span>الرئيسية</span>
       </div>
 
-      <div class="nav-item" data-target="resources">
+      <div class="nav-item" data-target="resources" onclick="switchTab('resources')">
         <span class="icon">📚</span>
         <span>التجميعات</span>
       </div>
-      <div class="nav-item" data-target="tasks">
+      <div class="nav-item" data-target="tasks" onclick="switchTab('tasks')">
         <span class="icon">🌳</span>
         <span>المهام</span>
       </div>
     </nav>
 
-    <!-- النوافذ المنبثقة -->
+    <!-- النوافذ المنبثقة (Modals) -->
+
+    <!-- استوديو تصميم وتصدير صورة الجدول HD -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2024,6 +2073,7 @@
       </div>
     </div>
 
+    <!-- الملف الشخصي وتفضيلات الودجات -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2073,6 +2123,7 @@
       </div>
     </div>
 
+    <!-- طلب تعديل التصنيف أو الدفعة -->
     <div id="request-change-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2083,8 +2134,8 @@
           <div class="form-group">
             <label>التصنيف المطلوب:</label>
             <select id="req-gender-select">
-              <option value="طالبة">طالبة 👩‍🎓</option>
-              <option value="طالب">طالب 👨‍🎓</option>
+              <option value="طالب">👨‍🎓 طالب</option>
+              <option value="طالبة">👩‍🎓 طالبة</option>
             </select>
           </div>
           <div class="form-group">
@@ -2100,6 +2151,7 @@
       </div>
     </div>
 
+    <!-- استطلاع رأي الدفعة (للأدمن) -->
     <div id="admin-poll-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2138,6 +2190,7 @@
       </div>
     </div>
 
+    <!-- إضافة محاضرة للجدول -->
     <div id="slot-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2184,10 +2237,11 @@
       </div>
     </div>
 
+    <!-- مشاركة ملخص أو تجميعة (يدعم الرابط ورفع الملفات) -->
     <div id="student-submit-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>📤 مشاركة رابط تجميعة</h3>
+          <h3>📤 مشاركة ملخص أو تجميعة</h3>
           <button id="btn-close-submit-res-modal" class="close-btn">&times;</button>
         </div>
         <form id="student-resource-form">
@@ -2196,12 +2250,23 @@
             <select id="sub-res-course" required></select>
           </div>
           <div class="form-group">
-            <label>عنوان الرابط أو التجميعة</label>
+            <label>عنوان التجميعة أو الملخص</label>
             <input type="text" id="sub-res-title" required placeholder="مثال: مراجعة شاملة لقوانين الميد">
           </div>
           <div class="form-group">
+            <label>طريقة المشاركة:</label>
+            <div class="option-selector-row" style="margin-bottom:6px;">
+              <button type="button" class="option-btn active" id="btn-sub-mode-link">🔗 رابط خارجي</button>
+              <button type="button" class="option-btn" id="btn-sub-mode-file">📄 رفع ملف (PDF/صور)</button>
+            </div>
+          </div>
+          <div class="form-group" id="sub-link-group">
             <label>رابط الملف (Google Drive / Telegram / Dropbox):</label>
-            <input type="url" id="sub-res-url" required placeholder="https://drive.google.com/...">
+            <input type="url" id="sub-res-url" placeholder="https://drive.google.com/...">
+          </div>
+          <div class="form-group" id="sub-file-group" style="display:none;">
+            <label>اختر الملف من جهازك (PDF أو صورة):</label>
+            <input type="file" id="sub-res-file" accept=".pdf,image/*" style="font-size:11.5px; padding:6px;">
           </div>
           <div class="form-group">
             <label>نوع المورد</label>
@@ -2209,14 +2274,16 @@
               <option value="ملخصات">ملخص شامل</option>
               <option value="تجميعات">تجميعات وكويزات سابقة</option>
               <option value="سلايدات">سلايدات وشروحات</option>
+              <option value="ملف">ملف مرفوع</option>
               <option value="قناة">قناة تيليجرام / قروب</option>
             </select>
           </div>
-          <button type="submit" class="btn-primary">إرسال الرابط للمراجعة والنشر 🚀</button>
+          <button type="submit" class="btn-primary">إرسال للمراجعة والنشر 🚀</button>
         </form>
       </div>
     </div>
 
+    <!-- إضافة رابط مباشر للأدمن مع خيار التثبيت -->
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2254,6 +2321,7 @@
       </div>
     </div>
 
+    <!-- ضبط الإعلانات والعداد التنازلي للاختبارات -->
     <div id="admin-alerts-config-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2294,6 +2362,7 @@
       </div>
     </div>
 
+    <!-- إضافة مقرر دراسي جديد -->
     <div id="course-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2358,6 +2427,7 @@
       </div>
     </div>
 
+    <!-- إضافة مهمة أو تكليف -->
     <div id="task-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2393,13 +2463,14 @@
       </div>
     </div>
 
+    <!-- صندوق الاقتراحات والشكاوى المباشر -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
           <h3 id="fb-modal-heading">📩 صندوق الاقتراحات والشكاوى</h3>
           <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
         </div>
-        <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">رأيك وملاحظاتك تساهم في تطوير التطبيق.</p>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">رأيك وملاحظاتك تساهم في تطوير وتحديث المنصة.</p>
         <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:13px; margin-bottom:10px;">تم استلام رسالتك بنجاح ووصلت للإدارة! شكراً لك ❤️</div>
         <div data-fs-error style="text-align:center; color:red; font-size:12px; margin-bottom:10px;"></div>
         <form id="feedback-form">
@@ -2427,19 +2498,21 @@
     </div>
   </div>
 
+  <!-- منطق التطبيق البرمجي المتكامل والشامل -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
       getAuth, 
       createUserWithEmailAndPassword, 
       signInWithEmailAndPassword, 
-      signInWithPopup,
-      GoogleAuthProvider,
+      signInWithPopup, 
+      GoogleAuthProvider, 
       signOut, 
       onAuthStateChanged, 
       updateProfile, 
       setPersistence, 
-      browserLocalPersistence
+      browserLocalPersistence, 
+      browserSessionPersistence 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
     import { 
       getFirestore, 
@@ -2556,6 +2629,7 @@
       showReminder: true
     };
 
+    // عناصر واجهة المستخدم
     const authScreen = document.getElementById("auth-screen");
     const mainApp = document.getElementById("main-app");
     const authForm = document.getElementById("auth-form");
@@ -2564,13 +2638,13 @@
     const groupName = document.getElementById("group-name");
     const groupAcademic = document.getElementById("group-academic");
     const groupLevel = document.getElementById("group-level");
-    const groupDefaultState = document.getElementById("group-default-state");
     const groupGenderSection = document.getElementById("group-gender-section");
     const authName = document.getElementById("auth-name");
     const authGender = document.getElementById("auth-gender");
     const authSection = document.getElementById("auth-section");
     const authEmail = document.getElementById("auth-email");
     const authPass = document.getElementById("auth-pass");
+    const authRemember = document.getElementById("auth-remember");
     const authSubmitBtn = document.getElementById("auth-submit-btn");
     const authError = document.getElementById("auth-error");
     const btnLogout = document.getElementById("btn-logout");
@@ -2600,7 +2674,6 @@
     const prefShowStats = document.getElementById("pref-show-stats");
     const prefShowTasks = document.getElementById("pref-show-tasks");
     const prefShowNews = document.getElementById("pref-show-news");
-    const prefShowReminder = document.getElementById("pref-show-reminder");
 
     const homeHeroAvatarImg = document.getElementById("home-hero-avatar-img");
     const homeGreetingName = document.getElementById("home-greeting-name");
@@ -2616,8 +2689,6 @@
     const homeUrgentTasksList = document.getElementById("home-urgent-tasks-list");
     const homeWidgetNews = document.getElementById("home-widget-news");
     const homeLatestResourcesList = document.getElementById("home-latest-resources-list");
-    const inappReminderBanner = document.getElementById("inapp-reminder-banner");
-    const reminderBannerText = document.getElementById("reminder-banner-text");
     const homeActivePollBox = document.getElementById("home-active-poll-box");
     const pollQuestionTitle = document.getElementById("poll-question-title");
     const pollTargetBadge = document.getElementById("poll-target-badge");
@@ -2631,7 +2702,6 @@
     const adminResourceModal = document.getElementById("admin-resource-modal");
     const adminResourceForm = document.getElementById("admin-resource-form");
     const btnAdminAddResource = document.getElementById("btn-admin-add-resource");
-    const btnCloseAdminResModal = document.getElementById("btn-close-admin-res-modal");
     const resourcesGlobalContainer = document.getElementById("resources-global-container");
     const searchResourcesInput = document.getElementById("search-resources-input");
 
@@ -2642,7 +2712,6 @@
     const adminPollModal = document.getElementById("admin-poll-modal");
     const adminPollForm = document.getElementById("admin-poll-form");
     const btnAdminCreatePoll = document.getElementById("btn-admin-create-poll");
-    const btnClosePollModal = document.getElementById("btn-close-poll-modal");
     const btnAdminExportExcel = document.getElementById("btn-admin-export-excel");
 
     const scheduleDaysContainer = document.getElementById("schedule-days-container");
@@ -2650,10 +2719,8 @@
     const slotForm = document.getElementById("slot-form");
     const slotCourseSelect = document.getElementById("slot-course-select");
     const btnOpenSlotModal = document.getElementById("btn-open-slot-modal");
-    const btnCloseSlotModal = document.getElementById("btn-close-slot-modal");
     const btnOpenExportStudio = document.getElementById("btn-open-export-studio");
     const exportStudioModal = document.getElementById("export-studio-modal");
-    const btnCloseExportStudio = document.getElementById("btn-close-export-studio");
     const btnOptPortrait = document.getElementById("btn-opt-portrait");
     const btnOptLandscape = document.getElementById("btn-opt-landscape");
     const btnOptDark = document.getElementById("btn-opt-dark");
@@ -2669,14 +2736,20 @@
     const adminAlertsConfigModal = document.getElementById("admin-alerts-config-modal");
     const adminAlertsForm = document.getElementById("admin-alerts-form");
     const btnAdminConfigAlerts = document.getElementById("btn-admin-config-alerts");
-    const btnCloseAlertsModal = document.getElementById("btn-close-alerts-modal");
 
     const studentSubmitResourceModal = document.getElementById("student-submit-resource-modal");
     const studentResourceForm = document.getElementById("student-resource-form");
     const btnStudentSubmitResource = document.getElementById("btn-student-submit-resource");
-    const btnCloseSubmitResModal = document.getElementById("btn-close-submit-res-modal");
     const subResCourse = document.getElementById("sub-res-course");
     const adminResCourse = document.getElementById("admin-res-course");
+
+    const btnSubModeLink = document.getElementById("btn-sub-mode-link");
+    const btnSubModeFile = document.getElementById("btn-sub-mode-file");
+    const subLinkGroup = document.getElementById("sub-link-group");
+    const subFileGroup = document.getElementById("sub-file-group");
+    const subResUrl = document.getElementById("sub-res-url");
+    const subResFile = document.getElementById("sub-res-file");
+    let studentShareMode = "link";
 
     const cramCourseSelect = document.getElementById("cram-course-select");
     const cramExamDate = document.getElementById("cram-exam-date");
@@ -2684,11 +2757,8 @@
     const cramResultBox = document.getElementById("cram-result-box");
 
     const btnOpenCourseModal = document.getElementById("btn-open-course-modal");
-    const btnCloseCourseModal = document.getElementById("btn-close-course-modal");
     const btnOpenTaskModal = document.getElementById("btn-open-task-modal");
-    const btnCloseTaskModal = document.getElementById("btn-close-task-modal");
     const btnOpenFeedback = document.getElementById("btn-open-feedback");
-    const btnCloseFeedbackModal = document.getElementById("btn-close-feedback-modal");
     const addCourseForm = document.getElementById("add-course-form");
     const addTaskForm = document.getElementById("add-task-form");
     const feedbackForm = document.getElementById("feedback-form");
@@ -2696,10 +2766,9 @@
     const quickCoursePreset = document.getElementById("quick-course-preset");
 
     const btnTransitionLevel = document.getElementById("btn-transition-level");
-    const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // وظيفة تبديل التبويبات الفعالة والمضمونة
+    // وظيفة تبديل التبويبات العامة لضمان عمل كافة الأزرار
     window.switchTab = function(target) {
       document.querySelectorAll(".nav-item").forEach(n => {
         if (n.getAttribute("data-target") === target) n.classList.add("active");
@@ -2778,6 +2847,23 @@
       });
     });
 
+    // تبديل أسلوب المشاركة (رابط خارجي أو ملف)
+    btnSubModeLink.addEventListener("click", () => {
+      btnSubModeLink.classList.add("active");
+      btnSubModeFile.classList.remove("active");
+      subLinkGroup.style.display = "block";
+      subFileGroup.style.display = "none";
+      studentShareMode = "link";
+    });
+
+    btnSubModeFile.addEventListener("click", () => {
+      btnSubModeFile.classList.add("active");
+      btnSubModeLink.classList.remove("active");
+      subLinkGroup.style.display = "none";
+      subFileGroup.style.display = "block";
+      studentShareMode = "file";
+    });
+
     function initTheme() {
       const savedTheme = localStorage.getItem("app_theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -2826,7 +2912,6 @@
       groupName.style.display = "none";
       groupAcademic.style.display = "none";
       groupLevel.style.display = "none";
-      groupDefaultState.style.display = "none";
       groupGenderSection.style.display = "none";
       authSubmitBtn.textContent = "دخول";
       authError.textContent = "";
@@ -2839,7 +2924,6 @@
       groupName.style.display = "flex";
       groupAcademic.style.display = "flex";
       groupLevel.style.display = "flex";
-      groupDefaultState.style.display = "flex";
       groupGenderSection.style.display = "flex";
       authSubmitBtn.textContent = "إنشاء الحساب وبدء الفصل";
       authError.textContent = "";
@@ -2848,7 +2932,8 @@
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
-        await setPersistence(auth, browserLocalPersistence);
+        const persistence = authRemember.checked ? browserLocalPersistence : browserSessionPersistence;
+        await setPersistence(auth, persistence);
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
         await handleSocialLogin(user);
@@ -2872,6 +2957,7 @@
           major: "هندسة الحاسب",
           currentLevel: 5,
           points: 0,
+          contributionPoints: 0,
           treesGrown: 0,
           widgetPrefs: userWidgetPrefs,
           isNewUser: true,
@@ -2892,13 +2978,18 @@
       const pass = authPass.value;
 
       try {
-        await setPersistence(auth, browserLocalPersistence);
+        const persistence = authRemember.checked ? browserLocalPersistence : browserSessionPersistence;
+        await setPersistence(auth, persistence);
 
         if (isRegisterMode) {
           const name = authName.value.trim();
           const gender = authGender.value;
-          const section = authSection.value.trim() || "دفعة عامة";
-          if (!name) throw new Error("الرجاء إدخال الاسم.");
+          const section = authSection.value.trim();
+
+          // التحقق الإلزامي من التصنيف ورقم الدفعة والاسم
+          if (!name) throw new Error("الرجاء إدخال الاسم الكامل.");
+          if (!gender) throw new Error("الرجاء تحديد التصنيف إجبارياً (طالب أو طالبة).");
+          if (!section) throw new Error("الرجاء إدخال رقم الدفعة إجبارياً.");
           
           const defaultAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${Date.now()}`;
           const userCred = await createUserWithEmailAndPassword(auth, email, pass);
@@ -2915,6 +3006,7 @@
             major: "هندسة الحاسب",
             currentLevel: 5,
             points: 0,
+            contributionPoints: 0,
             treesGrown: 0,
             widgetPrefs: userWidgetPrefs,
             isNewUser: true,
@@ -2965,8 +3057,11 @@
             profileAvatarPreview.src = avatarUrl;
             headerNameDisplay.textContent = (data.displayName || "حسابي").split(" ")[0];
             
-            const titlePrefix = data.gender === 'طالبة' ? 'مهندسة' : 'مهندس';
-            homeGreetingName.textContent = `أهلاً بك يا ${titlePrefix} ${data.displayName || ''} ✨`;
+            // نظام الترحيب الذكي Dynamic Greeting
+            const isFemale = (data.gender === 'طالبة');
+            homeGreetingName.textContent = isFemale 
+              ? `أهلاً بكِ يا مهندسة ${data.displayName || ''} ✨` 
+              : `أهلاً بك يا مهندس ${data.displayName || ''} ✨`;
             
             profileNameInput.value = data.displayName || "";
             profileGenderInput.value = data.gender || "طالبة";
@@ -2974,7 +3069,7 @@
             profileBioInput.value = data.bio || "";
             profileAvatarUrl.value = data.photoURL || "";
 
-            userGreeting.textContent = data.displayName ? `${data.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
+            userGreeting.textContent = data.displayName ? `${data.displayName} | كلية علوم وهندسة الحاسب` : "جامعة طيبة | كلية علوم وهندسة الحاسب";
 
             if (data.widgetPrefs) {
               userWidgetPrefs = { ...userWidgetPrefs, ...data.widgetPrefs };
@@ -3014,6 +3109,7 @@
           snapshot.forEach(d => currentScheduleSlots.push({ id: d.id, ...d.data() }));
           renderScheduleUI();
           renderHomeDashboardUI();
+          checkLiveCurrentClass();
         });
 
         onSnapshot(collection(db, "public_resources"), (snapshot) => {
@@ -3138,7 +3234,7 @@
       });
     }
 
-    // إدارة واعتماد تجميعات وملخصات الطلاب
+    // إدارة واعتماد تجميعات وملخصات الطلاب (+15 نقطة مساهمة مرة واحدة)
     function renderAdminPendingResourcesUI() {
       if (pendingResources.length === 0) {
         adminPendingResourcesList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>`;
@@ -3152,7 +3248,7 @@
           <div style="font-size:12px; margin-bottom:6px;">
             <strong style="color:var(--text-main);">${item.title}</strong>
             <span style="display:block; font-size:11px; color:#92400E;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
-            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط ↗</a>
+            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط/الملف ↗</a>
           </div>
           <div style="display:flex; gap:6px;">
             <button class="btn-approve-res" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">اعتماد ونشر (+15 نقطة) ✅</button>
@@ -3160,15 +3256,23 @@
           </div>
         `;
         row.querySelector(".btn-approve-res").addEventListener("click", async () => {
-          await updateDoc(doc(db, "public_resources", item.id), { status: "approved" });
-          if (item.contributorUid) {
+          // منع تكرار احتساب النقاط لنفس التجميعة
+          if (!item.rewardGranted && item.contributorUid) {
             const authorRef = doc(db, "users", item.contributorUid);
             const authorSnap = await getDoc(authorRef);
             if (authorSnap.exists()) {
               const currentPts = authorSnap.data().points || 0;
-              await updateDoc(authorRef, { points: currentPts + 15 });
+              const currentContrib = authorSnap.data().contributionPoints || 0;
+              await updateDoc(authorRef, { 
+                points: currentPts + 15,
+                contributionPoints: currentContrib + 15
+              });
             }
           }
+          await updateDoc(doc(db, "public_resources", item.id), { 
+            status: "approved",
+            rewardGranted: true
+          });
           alert("تم اعتماد الملخص بنجاح وإضافة +15 نقطة لرصيد الطالب المساهم ⭐");
         });
         row.querySelector(".btn-reject-res").addEventListener("click", async () => {
@@ -3209,7 +3313,7 @@
       }
     }
 
-    // فحص وقت المحاضرة الحالية وإظهار شريط المباشر
+    // فحص وقت المحاضرة الحالية وإظهار شريط المباشر (Live Class Alert)
     function checkLiveCurrentClass() {
       const now = new Date();
       const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
@@ -3247,6 +3351,7 @@
     }
     setInterval(checkLiveCurrentClass, 30000);
 
+    // استطلاع الرأي الذكي المخصص حسب الفئة والدفعة
     async function renderPollUI() {
       if (!activePoll || !activePoll.active) {
         homeActivePollBox.style.display = "none";
@@ -3289,7 +3394,7 @@
         `;
         btn.addEventListener("click", async () => {
           const userVoteKey = `voted_${currentUser.uid}`;
-          if (activePoll[userVoteKey]) {
+          if (activePoll[userVoteKey] !== undefined) {
             alert("لقد قمت بالتصويت مسبقاً في هذا الاستطلاع!");
             return;
           }
@@ -3332,23 +3437,24 @@
       alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
+    // تصدير تقرير الطلاب التفصيلي إلى CSV متوافق 100% مع Google Sheets و Excel بترميز UTF-8
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف (طالب/طالبة),رقم الدفعة,المستوى الحالي,رصيد النقاط,تاريخ التسجيل,آخر تسجيل دخول\n";
+      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الدفعة,المستوى,رصيد النقاط,نقاط المساهمة,تاريخ التسجيل,وقت آخر دخول\n";
       
       snap.forEach(d => {
         const u = d.data();
         const regDate = u.createdAt ? new Date(u.createdAt).toLocaleString('ar-SA') : 'غير متوفر';
         const loginDate = u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString('ar-SA') : 'غير متوفر';
-        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'دفعة عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${regDate}","${loginDate}"\n`;
+        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'دفعة عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${u.contributionPoints || 0}","${regDate}","${loginDate}"\n`;
       });
 
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", `تقرير_طلاب_هندسة_الحاسب_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("download", `تقرير_طلاب_Academic_Tracker_${new Date().toISOString().slice(0,10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -3373,7 +3479,6 @@
       const currentDayArabic = daysMap[now.getDay()];
 
       homeTodayLecturesList.innerHTML = "";
-      inappReminderBanner.style.display = "none";
 
       if (!currentDayArabic) {
         homeTodayClassesHeading.textContent = "إجازة نهاية الأسبوع ☕";
@@ -3397,12 +3502,6 @@
             </div>
           `;
         } else {
-          if (userWidgetPrefs.showReminder && todaySlots.length > 0) {
-            const firstSlot = todaySlots[0];
-            reminderBannerText.textContent = `🔔 محاضرتك القادمة: ${firstSlot.courseName} الساعة ${firstSlot.startTime} في قاعة ${firstSlot.room}`;
-            inappReminderBanner.style.display = "flex";
-          }
-
           todaySlots.forEach(slot => {
             const row = document.createElement("div");
             row.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:12px; padding:10px 12px; margin-bottom:8px;";
@@ -3468,12 +3567,10 @@
       prefShowStats.checked = userWidgetPrefs.showStats;
       prefShowTasks.checked = userWidgetPrefs.showTasks;
       prefShowNews.checked = userWidgetPrefs.showNews;
-      prefShowReminder.checked = userWidgetPrefs.showReminder;
 
       homeWidgetStats.style.display = userWidgetPrefs.showStats ? "grid" : "none";
       homeWidgetTasks.style.display = userWidgetPrefs.showTasks ? "block" : "none";
       homeWidgetNews.style.display = userWidgetPrefs.showNews ? "block" : "none";
-      inappReminderBanner.style.display = userWidgetPrefs.showReminder ? (inappReminderBanner.style.display === "flex" ? "flex" : "none") : "none";
     }
 
     document.querySelectorAll(".quick-avatar-choice").forEach(img => {
@@ -3511,7 +3608,7 @@
         showStats: prefShowStats.checked,
         showTasks: prefShowTasks.checked,
         showNews: prefShowNews.checked,
-        showReminder: prefShowReminder.checked
+        showReminder: true
       };
 
       try {
@@ -3706,7 +3803,7 @@
       ctx.textAlign = "center";
       ctx.fillStyle = isDark ? "rgba(255, 255, 255, 0.6)" : "rgba(0, 0, 0, 0.5)";
       ctx.font = "600 20px Cairo, sans-serif";
-      ctx.fillText("COE • J  © 2026 - صُمم لمهندسي جامعة طيبة", width / 2, height - 35);
+      ctx.fillText("Academic Tracker  © 2026 - صُمم لمهندسي جامعة طيبة", width / 2, height - 35);
 
       const link = document.createElement("a");
       link.download = `الجدول_الدراسي_${studentName.replace(/\s+/g, '_')}_${exportOrientation}_${exportTheme}.png`;
@@ -3883,7 +3980,7 @@
       });
     });
 
-    // الربط التلقائي والديناميكي التام: المقررات مرتبطة بالتجميعات وتبدأ فارغة تماماً
+    // Dynamic Resource Binding: تظهر مواد الطالب المسجلة فقط وتختفي عند حذفها
     function renderPublicResourcesUI() {
       resourcesGlobalContainer.innerHTML = "";
       const queryText = searchResourcesInput.value.trim().toLowerCase();
@@ -3950,14 +4047,23 @@
           </div>
         `;
 
+        // نظام التقييم 👍 مفيد مع منع تكرار التصويت
         groupDiv.querySelectorAll(".btn-upvote").forEach(btn => {
           btn.addEventListener("click", async () => {
             const id = btn.getAttribute("data-id");
             const resObj = publicResources.find(r => r.id === id);
-            if (resObj) {
-              const newVotes = (resObj.upvotes || 0) + 1;
-              await updateDoc(doc(db, "public_resources", id), { upvotes: newVotes });
+            if (!resObj) return;
+
+            const userVotedKey = `voted_res_${currentUser.uid}`;
+            if (resObj[userVotedKey]) {
+              alert("لقد قمت بتقييم هذه التجميعة مسبقاً!");
+              return;
             }
+
+            const newVotes = (resObj.upvotes || 0) + 1;
+            const updateData = { upvotes: newVotes };
+            updateData[userVotedKey] = true;
+            await updateDoc(doc(db, "public_resources", id), updateData);
           });
         });
 
@@ -3977,28 +4083,54 @@
       });
     }
 
+    // إرسال الملخص والتجميعة (يدعم الرابط ورفع الملف)
     studentResourceForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const resourceUrl = document.getElementById("sub-res-url").value.trim();
-      if (!resourceUrl) {
-        alert("الرجاء إدخال رابط الملف.");
-        return;
+      const courseCode = document.getElementById("sub-res-course").value;
+      const title = document.getElementById("sub-res-title").value.trim();
+      const type = document.getElementById("sub-res-type").value;
+
+      let finalUrl = "";
+
+      if (studentShareMode === "file") {
+        const file = subResFile.files[0];
+        if (!file) {
+          alert("الرجاء اختيار ملف PDF أو صورة من جهازك أولاً.");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = async (ev) => {
+          finalUrl = ev.target.result;
+          await sendResourcePayload(courseCode, title, "ملف", finalUrl);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        finalUrl = subResUrl.value.trim();
+        if (!finalUrl) {
+          alert("الرجاء إدخال رابط الملف.");
+          return;
+        }
+        await sendResourcePayload(courseCode, title, type, finalUrl);
       }
+    });
+
+    async function sendResourcePayload(courseCode, title, type, url) {
       await addDoc(collection(db, "public_resources"), {
-        courseCode: document.getElementById("sub-res-course").value,
-        title: document.getElementById("sub-res-title").value.trim(),
-        type: document.getElementById("sub-res-type").value,
-        url: resourceUrl,
+        courseCode,
+        title,
+        type,
+        url,
         contributorName: currentUser ? (currentUser.displayName || "طالب/ـة") : "مهندس/ـة",
         contributorUid: currentUser ? currentUser.uid : null,
         upvotes: 0,
+        rewardGranted: false,
         status: "pending",
         createdAt: new Date().toISOString()
       });
       studentResourceForm.reset();
       studentSubmitResourceModal.classList.remove("open");
-      alert("شكراً لمساهمتك! تم إرسال الملخص وسيتم نشره للدفعة فور اعتماده من المشرف مع +15 نقطة ⭐");
-    });
+      alert("شكراً لمساهمتك! تم إرسال الملف وسيتم نشره للدفعة فور اعتماده من المشرف مع +15 نقطة مساهمة ⭐");
+    }
 
     adminResourceForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -4016,6 +4148,7 @@
         status: "approved",
         contributorName: "مشرف النظام",
         upvotes: 0,
+        rewardGranted: true,
         createdAt: new Date().toISOString()
       });
 
@@ -4470,7 +4603,7 @@
       });
     }
 
-    // مؤقت غرس الإنجاز
+    // مؤقت غرس الإنجاز Pomodoro Focus Tree
     let sessionMinutes = 25;
     let totalFocusSeconds = sessionMinutes * 60;
     let timerDuration = totalFocusSeconds;
@@ -4609,6 +4742,80 @@
       timerDisplay.textContent = `${m}:00`;
       renderTreeStage(totalFocusSeconds);
     });
+
+    // حاسبة المعدل الفصلي والتراكمي بسلم 5.00
+    function renderGPACalculator() {
+      const gpaBox = document.getElementById("gpa-calc-container");
+      if (!gpaBox) return;
+      gpaBox.innerHTML = `
+        <div style="background:var(--subtle-bg); padding:12px; border-radius:10px; margin-bottom:14px; border:1px solid var(--border-subtle);">
+          <span style="font-size:12px; font-weight:700; color:var(--primary-teal);">حساب المعدل التراكمي الجديد (اختياري):</span>
+          <div style="display:flex; gap:10px; margin-top:6px;">
+            <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
+            <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
+          </div>
+        </div>
+
+        <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">الدرجات التقديرية بالوزن الفعلي لساعات موادك المسجلة:</p>
+        <div id="gpa-rows">
+          ${currentCourses.length === 0 ? '<p style="font-size:12px; color:var(--text-muted); text-align:center;">أضف مقررات أولاً لحساب معدلها</p>' : currentCourses.map(c => `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <div>
+                <span style="font-size:13px; font-weight:700;">${c.code}</span>
+                <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits} وحدات)</span>
+              </div>
+              <select class="grade-input" data-credits="${c.credits}" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12.5px;">
+                <option value="5.0">A+ (5.00)</option>
+                <option value="4.75">A (4.75)</option>
+                <option value="4.5">B+ (4.50)</option>
+                <option value="4.0">B (4.00)</option>
+                <option value="3.5">C+ (3.50)</option>
+                <option value="3.0">C (3.00)</option>
+                <option value="2.5">D+ (2.50)</option>
+                <option value="2.0">D (2.00)</option>
+                <option value="1.0">F (1.00)</option>
+              </select>
+            </div>
+          `).join('')}
+        </div>
+        ${currentCourses.length > 0 ? '<button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل الفصلي والتراكمي</button>' : ''}
+        <div id="gpa-result" style="text-align:center; margin-top:14px; font-weight:800;"></div>
+      `;
+
+      const btnCalc = document.getElementById("btn-calc-gpa");
+      if (btnCalc) {
+        btnCalc.addEventListener("click", () => {
+          const rows = document.querySelectorAll(".grade-input");
+          if (rows.length === 0) return;
+
+          let totalQualityPoints = 0;
+          let currentSemesterHours = 0;
+
+          rows.forEach(select => {
+            const points = parseFloat(select.value);
+            const credits = parseFloat(select.getAttribute("data-credits")) || 3;
+            totalQualityPoints += (points * credits);
+            currentSemesterHours += credits;
+          });
+
+          const semesterGPA = (totalQualityPoints / currentSemesterHours).toFixed(2);
+          const prevGPA = parseFloat(document.getElementById("prev-gpa").value);
+          const prevHours = parseFloat(document.getElementById("prev-hours").value);
+
+          let cumulativeText = "";
+          if (!isNaN(prevGPA) && !isNaN(prevHours) && prevHours > 0) {
+            const prevTotalPoints = prevGPA * prevHours;
+            const newCumulative = ((prevTotalPoints + totalQualityPoints) / (prevHours + currentSemesterHours)).toFixed(2);
+            cumulativeText = `<br><span style="color:#10B981; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
+          }
+
+          document.getElementById("gpa-result").innerHTML = `
+            <span style="color:var(--primary-teal); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
+            ${cumulativeText}
+          `;
+        });
+      }
+    }
 
     function updateLevelUIState() {
       levelDisplayHeading.textContent = `إنجاز المقررات الدراسية`;
