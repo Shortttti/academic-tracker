@@ -581,7 +581,7 @@
       font-weight: bold;
     }
 
-    /* Pomodoro Timer Widget */
+    /* Pomodoro Timer */
     .pomodoro-box {
       background: white;
       border-radius: 16px;
@@ -716,7 +716,7 @@
 </head>
 <body>
 
-  <!-- شاشة التسجيل والدخول المحايدة لجامعة طيبة -->
+  <!-- شاشة التسجيل والدخول -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -800,7 +800,6 @@
 
     <!-- تبويب 1: صفحة المواد والإنجاز -->
     <main class="main-content" id="tab-content-courses">
-      <!-- شريط الترقية للمستوى التالي -->
       <div class="level-banner" id="level-banner-box">
         <div class="level-banner-info">
           <h4 id="current-level-title">المستوى الدراسي: الخامس</h4>
@@ -816,7 +815,6 @@
         </div>
       </div>
 
-      <!-- كارت الملخص التراكمي -->
       <section class="summary-card">
         <div class="summary-top">
           <div class="summary-info">
@@ -845,7 +843,6 @@
 
     <!-- تبويب 2: المهام والواجبات المربوطة بالمواد ومؤقت المذاكرة -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
-      <!-- مؤقت بومودورو للتركيز والمذاكرة -->
       <div class="pomodoro-box">
         <span style="font-size:12px; font-weight:700; color:var(--text-muted);">⏱️ مؤقت التركيز للمذاكرة (Pomodoro)</span>
         <div class="timer-display" id="pomodoro-timer">25:00</div>
@@ -950,7 +947,7 @@
       </div>
     </div>
 
-    <!-- مودال إضافة مهمة جديدة وتحديد المادة -->
+    <!-- مودال إضافة مهمة جديدة -->
     <div id="task-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1020,7 +1017,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق مع Firebase Firestore و Authentication -->
+  <!-- منطق التطبيق الكامل مع Firebase و Formspree -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -1045,7 +1042,7 @@
       onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
-    // مفاتيح مشروعك
+    // إعدادات Firebase الخاصة بمشروعك
     const firebaseConfig = {
       apiKey: "AIzaSyAuCWmbCIyzUcuhNe4-scxqvGU9mjzhDXg",
       authDomain: "my-study-tracker-1a084.firebaseapp.com",
@@ -1059,6 +1056,9 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+
+    // الرابط الفعلي الخاص بكِ على Formspree لاستلام الرسائل على الإيميل مباشرة
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgjwqzr";
 
     let currentUser = null;
     let currentCourses = [];
@@ -1171,14 +1171,13 @@
 
     btnLogout.addEventListener("click", () => signOut(auth));
 
-    // مراقبة تسجيل الدخول
+    // مراقبة الجلسة
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
         authScreen.style.display = "none";
         mainApp.style.display = "flex";
 
-        // جلب مستوى الطالب
         const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists()) {
           const data = userDoc.data();
@@ -1190,7 +1189,6 @@
 
         userGreeting.textContent = user.displayName ? `${user.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
 
-        // استماع المقررات
         onSnapshot(collection(db, "users", user.uid, "courses"), (snapshot) => {
           currentCourses = [];
           snapshot.forEach(d => currentCourses.push({ id: d.id, ...d.data() }));
@@ -1199,7 +1197,6 @@
           renderGPACalculator();
         });
 
-        // استماع المهام
         onSnapshot(collection(db, "users", user.uid, "tasks"), (snapshot) => {
           currentTasks = [];
           snapshot.forEach(d => currentTasks.push({ id: d.id, ...d.data() }));
@@ -1242,7 +1239,7 @@
       });
     });
 
-    // ميزة الترقية للمستوى السادس عند انتهاء الفصل
+    // الترقية للمستوى السادس
     btnUpgradeLevel.addEventListener("click", async () => {
       if (confirm("هل أتممت المستوى الخامس وترغب بالترقية ونقل جدولك للمستوى السادس؟")) {
         await setDoc(doc(db, "users", currentUser.uid), { currentLevel: 6 }, { merge: true });
@@ -1251,46 +1248,60 @@
         btnUpgradeLevel.textContent = "أنت في المستوى السادس ✅";
         btnUpgradeLevel.disabled = true;
 
-        // بذر مواد المستوى السادس
         await seedTaibahCoursesLevel6(currentUser.uid);
         alert("تمت الترقية بنجاح وإضافة مقررات المستوى السادس إلى لوحتك 🚀");
       }
     });
 
-    // إرسال الاقتراحات والشكاوى الآلية
+    // إرسال الاقتراحات والشكاوى مباشرة إلى بريدك عبر Formspree
     feedbackForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const statusBox = document.getElementById("fb-msg-status");
-      statusBox.textContent = "جاري الحفظ والإرسال...";
+      statusBox.textContent = "جاري إرسال الاقتراح إلى بريدك...";
+      statusBox.style.color = "#085F56";
 
       const fbData = {
-        senderName: currentUser.displayName || "طالب/ـة",
-        senderEmail: currentUser.email || "غير معروف",
+        name: currentUser ? (currentUser.displayName || "طالب/ـة") : "مستخدم عام",
+        email: currentUser ? currentUser.email : "غير مسجل",
         type: document.getElementById("fb-type").value,
         subject: document.getElementById("fb-subject").value.trim(),
-        content: document.getElementById("fb-content").value.trim(),
-        createdAt: new Date().toISOString()
+        message: document.getElementById("fb-content").value.trim()
       };
 
       try {
-        // حفظ الشكوى في Firestore
-        await addDoc(collection(db, "feedbacks"), fbData);
+        // إرسال فوري إلى بريدك الإلكتروني
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(fbData)
+        });
 
-        // فتح نافذة الإرسال المباشر للبريد الإلكتروني للرد المباشر
-        const mailtoLink = `mailto:${currentUser.email}?subject=${encodeURIComponent(`[${fbData.type}] ${fbData.subject}`)}&body=${encodeURIComponent(`المرسل: ${fbData.senderName} (${fbData.senderEmail})\n\nالرسالة:\n${fbData.content}`)}`;
-        
-        statusBox.style.color = "green";
-        statusBox.textContent = "تم تسجيل اقتراحك بنجاح وسنعمل عليه في التحديث القادم! شكراً لك ❤️";
+        // حفظ نسخة في Firestore
+        if (currentUser) {
+          await addDoc(collection(db, "feedbacks"), {
+            ...fbData,
+            createdAt: new Date().toISOString()
+          });
+        }
 
-        setTimeout(() => {
-          feedbackForm.reset();
-          feedbackModal.classList.remove("open");
-          statusBox.textContent = "";
-        }, 1800);
+        if (response.ok) {
+          statusBox.style.color = "green";
+          statusBox.textContent = "تم إرسال اقتراحك بنجاح ووصل إلى البريد! شكراً لك ❤️";
+          setTimeout(() => {
+            feedbackForm.reset();
+            feedbackModal.classList.remove("open");
+            statusBox.textContent = "";
+          }, 2000);
+        } else {
+          throw new Error("فشل الإرسال إلى البريد");
+        }
 
       } catch (err) {
         statusBox.style.color = "red";
-        statusBox.textContent = "حدث خطأ أثناء الإرسال، حاول مجدداً.";
+        statusBox.textContent = "حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.";
       }
     });
 
@@ -1322,7 +1333,7 @@
       courseModal.classList.remove("open");
     });
 
-    // إضافة مهمة جديدة وربطها بمادة
+    // إضافة مهمة
     addTaskForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const title = document.getElementById("task-title-input").value.trim();
@@ -1554,7 +1565,6 @@
       const gpaBox = document.getElementById("gpa-calc-container");
       gpaBox.innerHTML = `
         <div style="background:white; border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
-          <!-- السجل التراكمي السابق (اختياري) -->
           <div style="background:#F8FAFC; padding:12px; border-radius:10px; margin-bottom:14px;">
             <span style="font-size:12px; font-weight:700; color:var(--primary-dark);">حساب المعدل التراكمي الجديد (اختياري):</span>
             <div style="display:flex; gap:10px; margin-top:6px;">
@@ -1609,7 +1619,6 @@
 
           const semesterGPA = (totalQualityPoints / currentSemesterHours).toFixed(2);
 
-          // حساب التراكمي إن وجد
           const prevGPA = parseFloat(document.getElementById("prev-gpa").value);
           const prevHours = parseFloat(document.getElementById("prev-hours").value);
 
@@ -1628,7 +1637,7 @@
       }
     }
 
-    // مؤقت Pomodoro التفاعلي
+    // مؤقت Pomodoro
     let timerDuration = 25 * 60;
     let timerInterval = null;
     const timerDisplay = document.getElementById("pomodoro-timer");
@@ -1661,7 +1670,7 @@
       timerDisplay.textContent = "25:00";
     });
 
-    // بذر مواد المستوى الخامس (حسب جدولك الحقيقي)
+    // مواد المستوى الخامس
     async function seedTaibahCoursesLevel5(userId, isAllCompleted) {
       const courses = [
         { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 24, attendedLectures: isAllCompleted ? 24 : 0, color: "#8B5CF6", chapters: [{ id: "c1", title: "Chapter 1: Memory & Cache", done: isAllCompleted }, { id: "c2", title: "Chapter 2: Pipelining Datapath", done: isAllCompleted }, { id: "c3", title: "Chapter 3: Pipeline Hazards", done: isAllCompleted }] },
@@ -1677,7 +1686,7 @@
       }
     }
 
-    // بذر مواد المستوى السادس عند الترقية (الخطة الرسمية لهندسة الحاسب)
+    // مواد المستوى السادس
     async function seedTaibahCoursesLevel6(userId) {
       const level6Courses = [
         { name: "الأنظمة المدمجة", code: "COE 321", credits: 4, totalLectures: 28, attendedLectures: 0, color: "#6366F1", chapters: [{ id: "c1", title: "Chapter 1: Microcontroller Architecture", done: false }, { id: "c2", title: "Chapter 2: GPIO & Interfacing", done: false }] },
