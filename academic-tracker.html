@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>جدولي - تتبع الإنجاز الدراسي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-dark: #085F56;
+      --primary-teal: #0D9488;
+      --primary-red: #DC2626;
+      --red-soft: #FDE8E8;
+      --bg-page: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border-subtle: #E2E8F0;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --font-family: 'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #CBD5E1;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .app-container, .auth-wrapper {
+      width: 100%;
+      max-width: 480px;
+      background-color: var(--bg-page);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    /* Auth Screen */
+    .auth-wrapper {
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .auth-card {
+      background: white;
+      padding: 28px 24px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .logo-icon {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .auth-logo h2 {
+      font-size: 22px;
+      color: var(--primary-dark);
+      font-weight: 800;
+    }
+
+    .auth-logo p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .auth-tabs {
+      display: flex;
+      border-bottom: 2px solid var(--border-subtle);
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      color: var(--primary-dark);
+      border-bottom: 2.5px solid var(--primary-dark);
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+    }
+
+    .form-group input {
+      padding: 12px 14px;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary-teal);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .form-options {
+      margin-bottom: 16px;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 13px;
+      background-color: var(--primary-dark);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:active {
+      opacity: 0.9;
+    }
+
+    .error-msg {
+      color: var(--primary-red);
+      font-size: 12px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* App Header */
+    .app-header {
+      background-color: var(--primary-dark);
+      color: white;
+      padding: 16px 20px 18px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .badge-lang {
+      background: white;
+      color: var(--primary-dark);
+      padding: 3px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .btn-header-action {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .header-branding {
+      text-align: left;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 18px 16px;
+      flex: 1;
+    }
+
+    .content-header h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .content-header p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Summary Card */
+    .summary-card {
+      background: white;
+      border: 1px solid #FECACA;
+      border-radius: 18px;
+      padding: 18px;
+      margin: 16px 0;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.03);
+    }
+
+    .summary-top {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .summary-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .summary-value-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 4px 0;
+    }
+
+    .summary-value-wrapper h3 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary-red);
+    }
+
+    .summary-arrow-icon {
+      background: #DC2626;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .summary-subtext {
+      font-size: 12px;
+      color: #1E293B;
+      margin-top: 2px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background-color: #FEE2E2;
+      border-radius: 8px;
+      margin: 14px 0 10px 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary-red);
+      border-radius: 8px;
+      transition: width 0.4s ease;
+    }
+
+    .progress-pill {
+      background-color: var(--red-soft);
+      text-align: center;
+      padding: 8px;
+      border-radius: 10px;
+    }
+
+    .progress-pill span {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--primary-red);
+    }
+
+    .btn-add-course {
+      width: 100%;
+      padding: 12px;
+      background: white;
+      border: 1.5px dashed var(--primary-teal);
+      color: var(--primary-teal);
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+
+    .btn-add-course:hover {
+      background: #F0FDFA;
+    }
+
+    /* Course Cards */
+    .course-card {
+      background: white;
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .course-card-header {
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .course-badge {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .course-status-brief {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .course-expand-icon {
+      font-size: 12px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .course-card.expanded .course-expand-icon {
+      transform: rotate(180deg);
+    }
+
+    .course-card-body {
+      display: none;
+      padding: 0 16px 16px 16px;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    .course-card.expanded .course-card-body {
+      display: block;
+    }
+
+    .stepper-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0 8px 0;
+    }
+
+    .stepper-row span {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .stepper-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-subtle);
+      background: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .chapter-section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 12px 0 6px 0;
+    }
+
+    .btn-add-chapter-mini {
+      background: none;
+      border: none;
+      color: var(--primary-teal);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .chapter-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      background: #F8FAFC;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .chapter-item.done {
+      text-decoration: line-through;
+      color: #94A3B8;
+    }
+
+    .btn-delete-course {
+      background: none;
+      border: none;
+      color: var(--primary-red);
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 12px;
+      display: block;
+      text-align: left;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 99;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 24px 24px 0 0;
+      padding: 24px;
+      animation: slideUp 0.25s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .color-palette {
+      display: flex;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .color-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-block;
+      border: 2px solid transparent;
+    }
+
+    .color-dot.active {
+      border-color: #0F172A;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- شاشة الدخول والتسجيل -->
+  <div id="auth-screen" class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="logo-icon">📚</div>
+        <h2>جدولي الأكاديمي</h2>
+        <p>متابعة المواد وإنجاز الشباتر والمحاضرات لحظياً</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button id="tab-login" class="tab-btn active">تسجيل الدخول</button>
+        <button id="tab-register" class="tab-btn">حساب جديد</button>
+      </div>
+
+      <form id="auth-form">
+        <div class="form-group" id="group-name" style="display: none;">
+          <label>الاسم الكامل</label>
+          <input type="text" id="auth-name" placeholder="أدخل اسمك الكريم">
+        </div>
+
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="auth-email" required placeholder="example@domain.com">
+        </div>
+
+        <div class="form-group">
+          <label>كلمة المرور</label>
+          <input type="password" id="auth-pass" required placeholder="••••••••">
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox-container">
+            <input type="checkbox" id="remember-me" checked>
+            تذكر بياناتي للدخول السريع
+          </label>
+        </div>
+
+        <button type="submit" id="auth-submit-btn" class="btn-primary">دخول</button>
+      </form>
+      <div id="auth-error" class="error-msg"></div>
+    </div>
+  </div>
+
+  <!-- الشاشة الرئيسية للتطبيق -->
+  <div id="main-app" class="app-container" style="display: none;">
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="header-actions">
+          <span class="badge-lang">EN</span>
+          <button id="btn-logout" class="btn-header-action">تسجيل خروج</button>
+        </div>
+        <div class="header-branding">
+          <h1 class="brand-title">جدولي</h1>
+          <span id="user-greeting" class="brand-subtitle">كلية علوم وهندسة الحاسب الآلي</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="content-header">
+        <h2>إنجاز المواد</h2>
+        <p>المحاضرات والشباتر التي أخذت حتى اليوم، مرتبة حسب المادة</p>
+      </div>
+
+      <section class="summary-card">
+        <div class="summary-top">
+          <div class="summary-info">
+            <span class="summary-label">إجمالي المتراكم</span>
+            <div class="summary-value-wrapper">
+              <h3 id="missed-lectures-count">0 محاضرات</h3>
+              <div class="summary-arrow-icon">↑</div>
+            </div>
+            <p id="motivational-text" class="summary-subtext">جاري تحليل الإنجاز...</p>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="overall-progress-bar" class="progress-fill" style="width: 0%;"></div>
+        </div>
+
+        <div class="progress-pill">
+          <span id="overall-percent-label">0% نسبة المواكبة</span>
+        </div>
+      </section>
+
+      <button id="btn-open-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد</button>
+
+      <section class="courses-list" id="courses-container"></section>
+    </main>
+
+    <!-- نافذة إضافة مادة جديدة -->
+    <div id="course-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>إضافة مقرر دراسي جديد</h3>
+          <button id="btn-close-modal" class="close-btn">&times;</button>
+        </div>
+        <form id="add-course-form">
+          <div class="form-group">
+            <label>اسم المادة</label>
+            <input type="text" id="course-name-input" required placeholder="مثال: نظم التشغيل">
+          </div>
+          <div class="form-group">
+            <label>رمز المادة</label>
+            <input type="text" id="course-code-input" required placeholder="مثال: CS 226">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>إجمالي المحاضرات</label>
+              <input type="number" id="course-lectures-input" required min="1" value="20">
+            </div>
+            <div class="form-group">
+              <label>عدد الشباتر</label>
+              <input type="number" id="course-chapters-input" required min="1" value="5">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>لون المادة</label>
+            <div class="color-palette" id="color-palette">
+              <span class="color-dot active" data-color="#8B5CF6" style="background: #8B5CF6;"></span>
+              <span class="color-dot" data-color="#0D9488" style="background: #0D9488;"></span>
+              <span class="color-dot" data-color="#F43F5E" style="background: #F43F5E;"></span>
+              <span class="color-dot" data-color="#10B981" style="background: #10B981;"></span>
+              <span class="color-dot" data-color="#0284C7" style="background: #0284C7;"></span>
+              <span class="color-dot" data-color="#F59E0B" style="background: #F59E0B;"></span>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">حفظ المادة</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- كود ربط Firebase المحدث والمنطق البرمجي -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      signOut, 
+      onAuthStateChanged, 
+      updateProfile, 
+      setPersistence, 
+      browserLocalPersistence, 
+      browserSessionPersistence 
+    } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    import { 
+      getFirestore, 
+      collection, 
+      doc, 
+      addDoc, 
+      updateDoc, 
+      deleteDoc, 
+      setDoc, 
+      onSnapshot 
+    } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+    // إعدادات مشروع Firebase الخاصة بك
+    const firebaseConfig = {
+      apiKey: "AIzaSyAuCWmbCIyzUcuhNe4-scxqvGU9mjzhDXg",
+      authDomain: "my-study-tracker-1a084.firebaseapp.com",
+      projectId: "my-study-tracker-1a084",
+      storageBucket: "my-study-tracker-1a084.firebasestorage.app",
+      messagingSenderId: "439333538406",
+      appId: "1:439333538406:web:1bd730409d890753f43ba7",
+      measurementId: "G-PPGDXQD5XM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let currentCourses = [];
+    let unsubscribeCourses = null;
+    let selectedColor = "#8B5CF6";
+    let isRegisterMode = false;
+
+    // عناصر الواجهة
+    const authScreen = document.getElementById("auth-screen");
+    const mainApp = document.getElementById("main-app");
+    const authForm = document.getElementById("auth-form");
+    const tabLogin = document.getElementById("tab-login");
+    const tabRegister = document.getElementById("tab-register");
+    const groupName = document.getElementById("group-name");
+    const authName = document.getElementById("auth-name");
+    const authEmail = document.getElementById("auth-email");
+    const authPass = document.getElementById("auth-pass");
+    const rememberMe = document.getElementById("remember-me");
+    const authSubmitBtn = document.getElementById("auth-submit-btn");
+    const authError = document.getElementById("auth-error");
+    const btnLogout = document.getElementById("btn-logout");
+    const userGreeting = document.getElementById("user-greeting");
+
+    const coursesContainer = document.getElementById("courses-container");
+    const courseModal = document.getElementById("course-modal");
+    const btnOpenModal = document.getElementById("btn-open-modal");
+    const btnCloseModal = document.getElementById("btn-close-modal");
+    const addCourseForm = document.getElementById("add-course-form");
+
+    // قراءة الإيميل المحفوظ مسبقاً
+    authEmail.value = localStorage.getItem("tracker_email") || "";
+
+    tabLogin.addEventListener("click", () => {
+      isRegisterMode = false;
+      tabLogin.classList.add("active");
+      tabRegister.classList.remove("active");
+      groupName.style.display = "none";
+      authSubmitBtn.textContent = "دخول";
+      authError.textContent = "";
+    });
+
+    tabRegister.addEventListener("click", () => {
+      isRegisterMode = true;
+      tabRegister.classList.add("active");
+      tabLogin.classList.remove("active");
+      groupName.style.display = "flex";
+      authSubmitBtn.textContent = "إنشاء الحساب";
+      authError.textContent = "";
+    });
+
+    authForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      authError.textContent = "";
+      authSubmitBtn.disabled = true;
+
+      const email = authEmail.value.trim();
+      const pass = authPass.value;
+      const persistence = rememberMe.checked ? browserLocalPersistence : browserSessionPersistence;
+
+      try {
+        await setPersistence(auth, persistence);
+        if (rememberMe.checked) {
+          localStorage.setItem("tracker_email", email);
+        } else {
+          localStorage.removeItem("tracker_email");
+        }
+
+        if (isRegisterMode) {
+          const name = authName.value.trim();
+          if (!name) throw new Error("الرجاء إدخال الاسم.");
+          const userCred = await createUserWithEmailAndPassword(auth, email, pass);
+          await updateProfile(userCred.user, { displayName: name });
+          await setDoc(doc(db, "users", userCred.user.uid), {
+            displayName: name,
+            email: email,
+            createdAt: new Date().toISOString()
+          });
+          await seedDefaultCourses(userCred.user.uid);
+        } else {
+          await signInWithEmailAndPassword(auth, email, pass);
+        }
+      } catch (err) {
+        authError.textContent = err.message || "فشلت عملية المصادقة";
+      } finally {
+        authSubmitBtn.disabled = false;
+      }
+    });
+
+    btnLogout.addEventListener("click", async () => {
+      if (unsubscribeCourses) unsubscribeCourses();
+      await signOut(auth);
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+      if (user) {
+        authScreen.style.display = "none";
+        mainApp.style.display = "flex";
+        userGreeting.textContent = user.displayName ? `مرحباً، ${user.displayName}` : "كلية علوم وهندسة الحاسب الآلي";
+
+        const coursesRef = collection(db, "users", user.uid, "courses");
+        unsubscribeCourses = onSnapshot(coursesRef, (snapshot) => {
+          currentCourses = [];
+          snapshot.forEach((d) => currentCourses.push({ id: d.id, ...d.data() }));
+          renderUI();
+        });
+      } else {
+        mainApp.style.display = "none";
+        authScreen.style.display = "flex";
+      }
+    });
+
+    btnOpenModal.addEventListener("click", () => courseModal.classList.add("open"));
+    btnCloseModal.addEventListener("click", () => courseModal.classList.remove("open"));
+
+    document.querySelectorAll(".color-dot").forEach(dot => {
+      dot.addEventListener("click", () => {
+        document.querySelectorAll(".color-dot").forEach(d => d.classList.remove("active"));
+        dot.classList.add("active");
+        selectedColor = dot.getAttribute("data-color");
+      });
+    });
+
+    addCourseForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("course-name-input").value.trim();
+      const code = document.getElementById("course-code-input").value.trim();
+      const totalLectures = parseInt(document.getElementById("course-lectures-input").value) || 10;
+      const chapterCount = parseInt(document.getElementById("course-chapters-input").value) || 5;
+
+      const chapters = [];
+      for (let i = 1; i <= chapterCount; i++) {
+        chapters.push({ id: `ch_${Date.now()}_${i}`, title: `الشابتر ${i}`, done: false });
+      }
+
+      await addDoc(collection(db, "users", currentUser.uid, "courses"), {
+        name,
+        code,
+        totalLectures,
+        attendedLectures: 0,
+        color: selectedColor,
+        chapters
+      });
+
+      addCourseForm.reset();
+      courseModal.classList.remove("open");
+    });
+
+    function renderUI() {
+      coursesContainer.innerHTML = "";
+      let totalLecAll = 0;
+      let attendedLecAll = 0;
+
+      currentCourses.forEach((course) => {
+        totalLecAll += course.totalLectures || 0;
+        attendedLecAll += course.attendedLectures || 0;
+
+        const remainingLec = (course.totalLectures || 0) - (course.attendedLectures || 0);
+        const completedChapters = (course.chapters || []).filter(c => c.done).length;
+        const totalChapters = (course.chapters || []).length;
+
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.innerHTML = `
+          <div class="course-card-header">
+            <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
+              ${course.name}
+            </span>
+            <span class="course-status-brief">
+              أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
+            </span>
+            <span class="course-expand-icon">▼</span>
+          </div>
+          <div class="course-card-body">
+            <div class="stepper-row">
+              <span>المحاضرات المنجزة:</span>
+              <div class="stepper-controls">
+                <button class="step-btn btn-dec">-</button>
+                <strong>${course.attendedLectures} / ${course.totalLectures}</strong>
+                <button class="step-btn btn-inc">+</button>
+              </div>
+            </div>
+
+            <div class="chapter-section-title">
+              <span>الشباتر المذاكرة (${completedChapters}/${totalChapters})</span>
+              <button class="btn-add-chapter-mini">+ إضافة شابتر</button>
+            </div>
+
+            <div class="chapters-wrapper">
+              ${(course.chapters || []).map(ch => `
+                <div class="chapter-item ${ch.done ? 'done' : ''}">
+                  <span>${ch.title}</span>
+                  <input type="checkbox" ${ch.done ? 'checked' : ''} class="ch-check">
+                </div>
+              `).join('')}
+            </div>
+
+            <button class="btn-delete-course">حذف المقرر</button>
+          </div>
+        `;
+
+        card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
+
+        card.querySelector(".btn-inc").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (course.attendedLectures < course.totalLectures) {
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+              attendedLectures: course.attendedLectures + 1
+            });
+          }
+        });
+
+        card.querySelector(".btn-dec").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (course.attendedLectures > 0) {
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+              attendedLectures: course.attendedLectures - 1
+            });
+          }
+        });
+
+        card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
+          checkbox.addEventListener("change", async (e) => {
+            e.stopPropagation();
+            const chs = [...course.chapters];
+            chs[idx].done = checkbox.checked;
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
+          });
+        });
+
+        card.querySelector(".btn-add-chapter-mini").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const title = prompt("اسم الشابتر الجديد:");
+          if (title && title.trim()) {
+            const chs = [...(course.chapters || []), { id: `ch_${Date.now()}`, title: title.trim(), done: false }];
+            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
+          }
+        });
+
+        card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          if (confirm(`حذف مادة ${course.name}؟`)) {
+            await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
+          }
+        });
+
+        coursesContainer.appendChild(card);
+      });
+
+      const missed = totalLecAll - attendedLecAll;
+      const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
+
+      document.getElementById("missed-lectures-count").textContent = `${missed} محاضرات`;
+      document.getElementById("overall-progress-bar").style.width = `${pct}%`;
+      document.getElementById("overall-percent-label").textContent = `${pct}% نسبة المواكبة`;
+
+      const motiv = document.getElementById("motivational-text");
+      if (pct >= 80) motiv.textContent = "وضعك ممتاز جداً 🔥 استمر بنفس العزيمة!";
+      else if (pct >= 50) motiv.textContent = "كأنها هجت شوي 🫣 يبيلك تاخذها وحدة وحدة";
+      else motiv.textContent = "شد حيلك يا بطل 🚨 تحتاج جدول مكثف لتدارك المتأخر";
+    }
+
+    async function seedDefaultCourses(userId) {
+      const defaults = [
+        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", totalLectures: 5, attendedLectures: 3, color: "#8B5CF6", chapters: [{ id: "c1", title: "Chapter 1: Memory Hierarchy", done: true }, { id: "c2", title: "Chapter 2: Pipelining", done: true }] },
+        { name: "قواعد البيانات للمهندسين", code: "COE 295", totalLectures: 5, attendedLectures: 4, color: "#0D9488", chapters: [{ id: "c1", title: "Chapter 1: Relational Model", done: true }, { id: "c2", title: "Chapter 2: SQL & Constraints", done: true }] },
+        { name: "نظم التشغيل", code: "CS 226", totalLectures: 3, attendedLectures: 2, color: "#F43F5E", chapters: [{ id: "c1", title: "Chapter 1: Threads & Concurrency", done: true }] },
+        { name: "دوائر كهربائية (1)", code: "EE 201", totalLectures: 6, attendedLectures: 6, color: "#10B981", chapters: [{ id: "c1", title: "Chapter 1: Nodal Analysis", done: true }] },
+        { name: "التخطيط المهني", code: "GS 311", totalLectures: 8, attendedLectures: 5, color: "#0284C7", chapters: [{ id: "c1", title: "الوحدة الأولى: السيرة الذاتية", done: true }] },
+        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", totalLectures: 1, attendedLectures: 0, color: "#F59E0B", chapters: [{ id: "c1", title: "Chapter 1: Probability Laws", done: false }] }
+      ];
+      for (const d of defaults) {
+        await addDoc(collection(db, "users", userId, "courses"), d);
+      }
+    }
+  </script>
+</body>
+</html>
