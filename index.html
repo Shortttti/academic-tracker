@@ -109,6 +109,13 @@
       color: var(--text-muted);
     }
 
+    .social-auth-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
     .btn-social {
       width: 100%;
       display: flex;
@@ -124,7 +131,6 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-      margin-bottom: 12px;
     }
 
     .btn-social:active { transform: scale(0.98); }
@@ -276,6 +282,8 @@
       border-radius: 20px;
     }
 
+    .user-profile-btn:active { transform: scale(0.96); }
+
     .user-avatar-mini {
       width: 28px;
       height: 28px;
@@ -313,7 +321,6 @@
       color: rgba(255, 255, 255, 0.85);
     }
 
-    /* شارات وتنبيهات الإدارة في الرئيسية */
     .admin-dashboard-notification {
       background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
       border: 1.5px solid #FCD34D;
@@ -344,7 +351,6 @@
 
     .admin-notif-row:last-child { border-bottom: none; }
 
-    /* بطاقة المحاضرة الحالية الآن */
     .live-class-banner {
       background: linear-gradient(135deg, #10B981, #059669);
       color: white;
@@ -541,6 +547,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    .reminder-banner {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(16, 185, 129, 0.2);
     }
 
     .sort-bar {
@@ -924,7 +944,6 @@
       display: block;
     }
 
-    /* صفحة التجميعات */
     .search-resources-bar {
       margin-bottom: 14px;
       display: flex;
@@ -1010,22 +1029,6 @@
       margin-top: 2px;
     }
 
-    .btn-upvote {
-      background: var(--subtle-bg);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 4px 8px;
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .btn-upvote:active { transform: scale(0.95); }
-
-    /* صفحة الإشراف المستقلة (Dedicated Admin Panel) */
     .admin-dashboard-panel {
       display: flex;
       flex-direction: column;
@@ -1058,7 +1061,6 @@
       border: 1px solid var(--border-subtle);
     }
 
-    /* صفحة الجدول الدراسي */
     .timetable-controls-bar {
       display: flex;
       gap: 8px;
@@ -1352,7 +1354,6 @@
       letter-spacing: 1px;
     }
 
-    /* شريط التنقل السفلي */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -1630,7 +1631,7 @@
         <span style="font-size: 20px;">🏫</span>
       </div>
 
-      <!-- كارت إشعارات المشرف الخاصة بطلبات الطلاب المعلقة -->
+      <!-- كارت إشعارات المشرف -->
       <div id="admin-dashboard-notif-card" class="admin-dashboard-notification">
         <div class="admin-notif-title">
           <span>🔔 تنبيهات المشرف اللحظية:</span>
@@ -1813,7 +1814,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات (فارغ تماماً حتى يتم إضافة المواد) -->
+    <!-- تبويب التجميعات والملخصات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1950,7 +1951,6 @@
 
       <div class="admin-dashboard-panel">
         
-        <!-- إضافة مشرف جديد -->
         <div class="admin-section-box">
           <h3>👥 إضافة مشرف جديد للنظام</h3>
           <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">أدخلي User ID (UID) الخاص بالطالب لمنحه صلاحيات المشرف تلقائياً:</p>
@@ -1960,7 +1960,6 @@
           </div>
         </div>
 
-        <!-- طلبات تعديل البيانات (التصنيف والدفعة) -->
         <div class="admin-section-box">
           <h3>📝 طلبات تعديل البيانات (الدفعة والتصنيف)</h3>
           <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">طلبات التعديل المرفوعة من الطلاب للموافقة والتطبيق الفوري:</p>
@@ -1969,7 +1968,6 @@
           </div>
         </div>
 
-        <!-- مراجعة واعتماد ملخصات وتجميعات الطلاب -->
         <div class="admin-section-box">
           <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة)</h3>
           <div id="admin-pending-resources-list">
@@ -1977,7 +1975,6 @@
           </div>
         </div>
 
-        <!-- الإجراءات السريعة وتصدير Google Sheet -->
         <div class="admin-section-box">
           <h3>⚡ الإجراءات والأدوات السريعة</h3>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
@@ -2148,7 +2145,7 @@
       </div>
     </div>
 
-    <!-- مودال إنشاء استطلاع رأي للأدمن مع تحديد الدفعة والفئة -->
+    <!-- مودال إنشاء استطلاع رأي للأدمن -->
     <div id="admin-poll-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
