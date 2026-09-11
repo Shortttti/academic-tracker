@@ -859,7 +859,94 @@
       margin-top: 2px;
     }
 
-    /* مؤقت غرس الإنجاز المطور القابل للتعديل */
+    /* ============================================================ */
+    /* صفحة الجدول الدراسي الأسبوعي (Timetable) */
+    /* ============================================================ */
+    .timetable-controls-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .timetable-day-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .timetable-day-header {
+      padding: 10px 14px;
+      background: var(--subtle-bg);
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .timetable-day-header.active-day {
+      background: rgba(13, 148, 136, 0.15);
+      color: var(--primary-teal);
+      border-color: rgba(13, 148, 136, 0.3);
+    }
+
+    .timetable-lectures-list {
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .timetable-slot-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .timetable-slot-info h4 {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .timetable-slot-info p {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* مولّد خطة المذاكرة التجريبي (Cram Planner) */
+    .cram-planner-card {
+      background: var(--card-bg);
+      border: 1.5px dashed var(--primary-teal);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .cram-planner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .cram-pill-tag {
+      background: #FEF3C7;
+      color: #92400E;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    /* مؤقت غرس الإنجاز المطور */
     .tree-timer-box {
       background: var(--card-bg);
       border-radius: 20px;
@@ -889,7 +976,6 @@
       gap: 4px;
     }
 
-    /* خيارات الوقت المخصصة */
     .timer-time-presets {
       display: flex;
       justify-content: center;
@@ -1056,7 +1142,6 @@
       font-weight: bold;
     }
 
-    /* تذييل الصفحة وحفظ حقوق الملكية */
     .site-footer {
       text-align: center;
       padding: 20px 16px 85px 16px;
@@ -1092,7 +1177,7 @@
       align-items: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 700;
       gap: 2px;
     }
@@ -1102,7 +1187,7 @@
     }
 
     .nav-item span.icon {
-      font-size: 17px;
+      font-size: 16px;
     }
 
     .modal-overlay {
@@ -1248,10 +1333,9 @@
     </div>
   </div>
 
-  <!-- الشاشة الرئيسية للتطبيق -->
+  <!-- الشاشة الرئيسية -->
   <div id="main-app" class="app-container" style="display: none;">
     
-    <!-- شريط الإعلان والتنبيه العام -->
     <div id="global-broadcast-banner" class="broadcast-banner">
       <span id="broadcast-text">📢 تنبيه عام من المشرف</span>
       <span style="font-size: 11px; opacity: 0.85;">جامعة طيبة</span>
@@ -1277,7 +1361,6 @@
     <!-- تبويب 1: المقررات والإنجاز -->
     <main class="main-content" id="tab-content-courses">
       
-      <!-- ويدجت العداد التنازلي للاختبارات -->
       <div id="exam-countdown-box" class="countdown-widget">
         <div class="countdown-info">
           <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
@@ -1314,7 +1397,6 @@
         </div>
       </section>
 
-      <!-- شريط ترتيب المواد -->
       <div class="sort-bar">
         <span class="sort-label">ترتيب حسب:</span>
         <button class="sort-pill active" data-sort="default">الافتراضي</button>
@@ -1328,7 +1410,7 @@
       <!-- قائمة المواد -->
       <section class="courses-list" id="courses-container"></section>
 
-      <!-- قسم الترقية للمستوى التالي -->
+      <!-- قسم الترقية للمستوى التالي مقفل بتاريخ 7 يناير 2027 -->
       <div class="bottom-level-section">
         <h3 id="transition-section-title">🎓 إتمام الفصل والانتقال للمستوى التالي</h3>
         <p id="transition-section-desc">
@@ -1342,28 +1424,52 @@
         </span>
       </div>
 
-      <!-- تذييل حقوق الملكية -->
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
       </footer>
     </main>
 
-    <!-- تبويب 2: التجميعات والملخصات -->
+    <!-- تبويب 2: الجدول الدراسي الأسبوعي (مرن، سلس، ويبدأ فارغاً) -->
+    <main class="main-content" id="tab-content-schedule" style="display: none;">
+      <div class="content-header">
+        <div>
+          <h2>الجدول الدراسي الأسبوعي</h2>
+          <p>أوقات المحاضرات، القاعات، والمباني لجميع أيام الأسبوع</p>
+        </div>
+      </div>
+
+      <!-- أزرار التحكم بالجدول وتصدير الصورة الفخمة -->
+      <div class="timetable-controls-bar">
+        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.2; font-size: 12.5px; padding: 10px;">
+          ➕ إضافة محاضرة للجدول
+        </button>
+        <button id="btn-export-schedule-img" class="btn-primary" style="flex: 1; background: #0F766E; font-size: 12.5px; padding: 10px;">
+          📸 حفظ كصورة أنيقة
+        </button>
+      </div>
+
+      <!-- أيام الأسبوع (الأحد إلى الخميس) -->
+      <div id="schedule-days-container"></div>
+
+      <footer class="site-footer">
+        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
+      </footer>
+    </main>
+
+    <!-- تبويب 3: التجميعات والملخصات (تظهر فقط لمواد الطالب المضافة) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
           <h2>التجميعات والملخصات</h2>
-          <p>بنك السلايدات والاختبارات السابقة لجميع مواد هندسة الحاسب</p>
+          <p>تجميعات وسلايدات مخصصة للمواد المسجلة في جدولك حالياً</p>
         </div>
       </div>
 
-      <!-- بطاقة تحكم المشرف -->
       <div id="admin-resources-panel" class="admin-controls-card">
         <h3>👑 لوحة تحكم المشرف</h3>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
           إدارة التجميعات، اعتماد ملخصات الطلاب، وضبط شريط الإعلانات والعداد التنازلي.
         </p>
-        
         <div class="admin-action-btn-row">
           <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12px; padding:8px; flex:1;">
             ➕ إضافة رابط تجميعة
@@ -1374,7 +1480,6 @@
         </div>
       </div>
 
-      <!-- صندوق الملخصات بانتظار الاعتماد -->
       <div id="admin-pending-approval-box" class="pending-approval-box">
         <h4>⏳ ملخصات أرسلها الطلاب بانتظار اعتمادك للنشر:</h4>
         <div id="pending-items-list"></div>
@@ -1385,7 +1490,7 @@
       </button>
 
       <div class="search-resources-bar">
-        <input type="text" id="search-resources-input" placeholder="🔍 ابحث عن تجميعة، ملخص، أو كود مادة...">
+        <input type="text" id="search-resources-input" placeholder="🔍 ابحث في تجميعات موادك الحالية...">
         <div class="sort-bar" style="margin:0;">
           <button class="sort-pill active" data-res-filter="all">الكل</button>
           <button class="sort-pill" data-res-filter="تجميعات">تجميعات</button>
@@ -1395,18 +1500,41 @@
         </div>
       </div>
 
+      <!-- الحاوية المرتبطة بمواد الطالب فقط -->
       <div id="resources-global-container"></div>
 
-      <!-- تذييل حقوق الملكية -->
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
       </footer>
     </main>
 
-    <!-- تبويب 3: المهام ومؤقت غرس الإنجاز ولوحة الشرف -->
+    <!-- تبويب 4: المهام ومؤقت غرس الإنجاز وخطة المذاكرة التجريبية -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
       
-      <!-- مؤقت غرس الإنجاز التفاعلي القابل للتخصيص -->
+      <!-- مولّد خطة المذاكرة السريعة (خاصية تجريبية 🧪) -->
+      <div class="cram-planner-card">
+        <div class="cram-planner-header">
+          <span style="font-size:13px; font-weight:800;">⚡ مولّد خطة المذاكرة السريعة</span>
+          <span class="cram-pill-tag">خاصية تجريبية 🧪</span>
+        </div>
+        <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px;">
+          حددي موعد الاختبار والشباتر المتبقية لحساب معدل الإنجاز اليومي وختم المنهج بدون ضغط:
+        </p>
+        <div class="form-row">
+          <div class="form-group" style="margin:0;">
+            <select id="cram-course-select" style="font-size:12px; padding:8px;"></select>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <input type="date" id="cram-exam-date" style="font-size:12px; padding:8px;">
+          </div>
+        </div>
+        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:8px; padding:8px; font-size:12px;">
+          احسب وتوليد الخطة الذكية 📊
+        </button>
+        <div id="cram-result-box" style="margin-top:10px; font-size:12px; display:none; background:var(--subtle-bg); padding:10px; border-radius:10px;"></div>
+      </div>
+
+      <!-- مؤقت غرس الإنجاز التفاعلي -->
       <div class="tree-timer-box">
         <div class="tree-timer-header">
           <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز</span>
@@ -1417,7 +1545,6 @@
           </div>
         </div>
 
-        <!-- أزرار اختيار وتعديل وقت المذاكرة حسب الرغبة -->
         <div class="timer-time-presets" id="timer-presets-container">
           <span style="font-size:11px; color:var(--text-muted); width:100%; margin-bottom:4px; font-weight:700;">اختر مدة الجلسة:</span>
           <button class="preset-chip" data-time="15">15 د</button>
@@ -1472,13 +1599,12 @@
 
       <div id="tasks-container"></div>
 
-      <!-- تذييل حقوق الملكية -->
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
       </footer>
     </main>
 
-    <!-- تبويب 4: حاسبة المعدل -->
+    <!-- تبويب 5: حاسبة المعدل -->
     <main class="main-content" id="tab-content-gpa" style="display: none;">
       <div class="content-header">
         <div>
@@ -1488,17 +1614,20 @@
       </div>
       <div id="gpa-calc-container" style="margin-top: 16px;"></div>
 
-      <!-- تذييل حقوق الملكية -->
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
       </footer>
     </main>
 
-    <!-- شريط التنقل السفلي -->
+    <!-- شريط التنقل السفلي المطور 5 تابات سلسة -->
     <nav class="bottom-nav">
       <div class="nav-item active" data-target="courses">
         <span class="icon">📊</span>
         <span>المقررات</span>
+      </div>
+      <div class="nav-item" data-target="schedule">
+        <span class="icon">🗓️</span>
+        <span>الجدول</span>
       </div>
       <div class="nav-item" data-target="resources">
         <span class="icon">📚</span>
@@ -1514,7 +1643,54 @@
       </div>
     </nav>
 
-    <!-- مودال رفع الطالب لملخص أو تجميعة -->
+    <!-- مودال إضافة محاضرة للجدول الأسبوعي -->
+    <div id="slot-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>➕ إضافة محاضرة للجدول الأسبوعي</h3>
+          <button id="btn-close-slot-modal" class="close-btn">&times;</button>
+        </div>
+        <form id="slot-form">
+          <div class="form-group">
+            <label>المقرر:</label>
+            <select id="slot-course-select" required></select>
+          </div>
+          <div class="form-group">
+            <label>اليوم:</label>
+            <select id="slot-day-select" required>
+              <option value="الأحد">الأحد</option>
+              <option value="الإثنين">الإثنين</option>
+              <option value="الثلاثاء">الثلاثاء</option>
+              <option value="الأربعاء">الأربعاء</option>
+              <option value="الخميس">الخميس</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>وقت البداية</label>
+              <input type="time" id="slot-start-time" required value="08:30">
+            </div>
+            <div class="form-group">
+              <label>وقت النهاية</label>
+              <input type="time" id="slot-end-time" required value="09:45">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>رقم القاعة</label>
+              <input type="text" id="slot-room" placeholder="مثال: 228GC006">
+            </div>
+            <div class="form-group">
+              <label>المبنى / الدور</label>
+              <input type="text" id="slot-building" placeholder="مثال: مبنى 228 الأرضي">
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">إضافة إلى الجدول الأسبوعي 🗓️</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- مودال رفع الطالب لملخص -->
     <div id="student-submit-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1527,16 +1703,7 @@
         <form id="student-resource-form">
           <div class="form-group">
             <label>المقرر التابع له:</label>
-            <select id="sub-res-course" required>
-              <option value="COE 225">تنظيم وبناء الحاسب الآلي (2) - COE 225</option>
-              <option value="COE 295">قواعد البيانات للمهندسين - COE 295</option>
-              <option value="CS 226">نظم التشغيل - CS 226</option>
-              <option value="EE 201">دوائر كهربائية (1) - EE 201</option>
-              <option value="GS 311">التخطيط المهني - GS 311</option>
-              <option value="STAT 301">الاحتمالات والإحصاء للمهندسين - STAT 301</option>
-              <option value="المستوى 6">مواد المستوى 6 القادمة</option>
-              <option value="عام">تجميعات وروابط عامة</option>
-            </select>
+            <select id="sub-res-course" required></select>
           </div>
           <div class="form-group">
             <label>عنوان الملخص أو التجميعة</label>
@@ -1560,7 +1727,7 @@
       </div>
     </div>
 
-    <!-- مودال خاص بالأدمن لإضافة رابط مباشر -->
+    <!-- مودال إضافة رابط تجميعة مباشر للأدمن -->
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1570,16 +1737,7 @@
         <form id="admin-resource-form">
           <div class="form-group">
             <label>المقرر التابع له:</label>
-            <select id="admin-res-course" required>
-              <option value="COE 225">تنظيم وبناء الحاسب الآلي (2) - COE 225</option>
-              <option value="COE 295">قواعد البيانات للمهندسين - COE 295</option>
-              <option value="CS 226">نظم التشغيل - CS 226</option>
-              <option value="EE 201">دوائر كهربائية (1) - EE 201</option>
-              <option value="GS 311">التخطيط المهني - GS 311</option>
-              <option value="STAT 301">الاحتمالات والإحصاء للمهندسين - STAT 301</option>
-              <option value="المستوى 6">مواد المستوى 6 القادمة</option>
-              <option value="عام">تجميعات وروابط عامة</option>
-            </select>
+            <select id="admin-res-course" required></select>
           </div>
           <div class="form-group">
             <label>عنوان الرابط</label>
@@ -1603,7 +1761,7 @@
       </div>
     </div>
 
-    <!-- مودال تحكم الأدمن في شريط الإعلانات والعداد التنازلي -->
+    <!-- مودال تحكم الأدمن في الإعلانات والعدّاد -->
     <div id="admin-alerts-config-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -1750,7 +1908,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h3 id="fb-modal-heading">📩 صندوق الاقتراحات والشكاوى</h3>
-          <button id="btn-close-feedback-modal" class="close-btn" type="button">&times;</button>
+          <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
           رأيك وملاحظاتك تساهم في تطوير التطبيق. تُرسل رسالتك آلياً إلى إدارة النظام.
@@ -1787,7 +1945,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق الكامل -->
+  <!-- سكربت التطبيق الكامل -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -1810,11 +1968,11 @@
       updateDoc, 
       deleteDoc, 
       setDoc, 
-      getDoc,
-      getDocs,
-      query,
-      orderBy,
-      limit,
+      getDoc, 
+      getDocs, 
+      query, 
+      orderBy, 
+      limit, 
       onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
@@ -1883,6 +2041,7 @@
     let currentUser = null;
     let currentCourses = [];
     let currentTasks = [];
+    let currentScheduleSlots = [];
     let publicResources = [];
     let pendingResources = [];
     let selectedColor = "#8B5CF6";
@@ -1929,6 +2088,16 @@
     const resourcesGlobalContainer = document.getElementById("resources-global-container");
     const searchResourcesInput = document.getElementById("search-resources-input");
 
+    // الجدول الدراسي
+    const scheduleDaysContainer = document.getElementById("schedule-days-container");
+    const slotModal = document.getElementById("slot-modal");
+    const slotForm = document.getElementById("slot-form");
+    const slotCourseSelect = document.getElementById("slot-course-select");
+    const btnOpenSlotModal = document.getElementById("btn-open-slot-modal");
+    const btnCloseSlotModal = document.getElementById("btn-close-slot-modal");
+    const btnExportScheduleImg = document.getElementById("btn-export-schedule-img");
+
+    // الإعلانات والعدّاد
     const globalBroadcastBanner = document.getElementById("global-broadcast-banner");
     const broadcastText = document.getElementById("broadcast-text");
     const examCountdownBox = document.getElementById("exam-countdown-box");
@@ -1940,12 +2109,21 @@
     const btnAdminConfigAlerts = document.getElementById("btn-admin-config-alerts");
     const btnCloseAlertsModal = document.getElementById("btn-close-alerts-modal");
 
+    // رفع واعتماد الملخصات
     const studentSubmitResourceModal = document.getElementById("student-submit-resource-modal");
     const studentResourceForm = document.getElementById("student-resource-form");
     const btnStudentSubmitResource = document.getElementById("btn-student-submit-resource");
     const btnCloseSubmitResModal = document.getElementById("btn-close-submit-res-modal");
+    const subResCourse = document.getElementById("sub-res-course");
+    const adminResCourse = document.getElementById("admin-res-course");
     const adminPendingApprovalBox = document.getElementById("admin-pending-approval-box");
     const pendingItemsList = document.getElementById("pending-items-list");
+
+    // خطة المذاكرة التجريبية
+    const cramCourseSelect = document.getElementById("cram-course-select");
+    const cramExamDate = document.getElementById("cram-exam-date");
+    const btnGenerateCramPlan = document.getElementById("btn-generate-cram-plan");
+    const cramResultBox = document.getElementById("cram-result-box");
 
     const btnOpenCourseModal = document.getElementById("btn-open-course-modal");
     const btnCloseCourseModal = document.getElementById("btn-close-course-modal");
@@ -1963,6 +2141,7 @@
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
+    // الوضع الليلي
     function initTheme() {
       const savedTheme = localStorage.getItem("app_theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -2155,6 +2334,7 @@
 
         userGreeting.textContent = user.displayName ? `${user.displayName} | هندسة الحاسب` : "جامعة طيبة | هندسة الحاسب";
 
+        // مراقبة المقررات
         onSnapshot(collection(db, "users", user.uid, "courses"), async (snapshot) => {
           currentCourses = [];
           snapshot.forEach(d => currentCourses.push({ id: d.id, ...d.data() }));
@@ -2162,16 +2342,26 @@
           await syncTaibahCourseRules(user.uid, currentCourses);
 
           renderCoursesUI();
-          updateTaskSelectOptions();
+          updateAllCourseDropdowns();
           renderGPACalculator();
+          renderPublicResourcesUI(); // تحديث التجميعات تلقائياً لتطابق مقررات الطالب الحالية فقط
         });
 
+        // مراقبة المهام
         onSnapshot(collection(db, "users", user.uid, "tasks"), (snapshot) => {
           currentTasks = [];
           snapshot.forEach(d => currentTasks.push({ id: d.id, ...d.data() }));
           renderTasksUI();
         });
 
+        // مراقبة جدول الطالب الأسبوعي
+        onSnapshot(collection(db, "users", user.uid, "schedule"), (snapshot) => {
+          currentScheduleSlots = [];
+          snapshot.forEach(d => currentScheduleSlots.push({ id: d.id, ...d.data() }));
+          renderScheduleUI();
+        });
+
+        // مراقبة التجميعات العامة
         onSnapshot(collection(db, "public_resources"), (snapshot) => {
           publicResources = [];
           pendingResources = [];
@@ -2202,6 +2392,370 @@
       }
     });
 
+    // ============================================================
+    // إدارة الجدول الدراسي الأسبوعي (مرن، وسلس، وتصدير الصورة)
+    // ============================================================
+    btnOpenSlotModal.addEventListener("click", () => {
+      if (currentCourses.length === 0) {
+        alert("الرجاء إضافة موادك أولاً في صفحة المقررات لتتمكن من جدولتها.");
+        return;
+      }
+      slotModal.classList.add("open");
+    });
+    btnCloseSlotModal.addEventListener("click", () => slotModal.classList.remove("open"));
+
+    slotForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const courseId = slotCourseSelect.value;
+      const selectedC = currentCourses.find(c => c.id === courseId);
+      if (!selectedC) return;
+
+      const day = document.getElementById("slot-day-select").value;
+      const startTime = document.getElementById("slot-start-time").value;
+      const endTime = document.getElementById("slot-end-time").value;
+      const room = document.getElementById("slot-room").value.trim() || "غير محدد";
+      const building = document.getElementById("slot-building").value.trim() || "الحرم الرئيسي";
+
+      await addDoc(collection(db, "users", currentUser.uid, "schedule"), {
+        courseId,
+        courseName: selectedC.name,
+        courseCode: selectedC.code,
+        color: selectedC.color || "#0D9488",
+        day,
+        startTime,
+        endTime,
+        room,
+        building,
+        createdAt: new Date().toISOString()
+      });
+
+      slotForm.reset();
+      slotModal.classList.remove("open");
+    });
+
+    function renderScheduleUI() {
+      scheduleDaysContainer.innerHTML = "";
+
+      const daysOfWeek = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس"];
+      
+      // معرفة اليوم الحالي لتظليله تلقائياً
+      const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
+      const todayArabic = daysMap[new Date().getDay()];
+
+      let totalSlotsCount = 0;
+
+      daysOfWeek.forEach(day => {
+        const slotsForDay = currentScheduleSlots.filter(s => s.day === day);
+        slotsForDay.sort((a, b) => a.startTime.localeCompare(b.startTime));
+        totalSlotsCount += slotsForDay.length;
+
+        const isToday = (day === todayArabic);
+
+        const dayCard = document.createElement("div");
+        dayCard.className = "timetable-day-card";
+        dayCard.innerHTML = `
+          <div class="timetable-day-header ${isToday ? 'active-day' : ''}">
+            <span>${isToday ? '📍 اليوم: ' : ''}${day}</span>
+            <span style="font-size:11px; font-weight:700;">${slotsForDay.length} محاضرات</span>
+          </div>
+          <div class="timetable-lectures-list">
+            ${slotsForDay.length === 0 ? `
+              <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:6px 0;">لا توجد محاضرات مجدولة لهذا اليوم (Off) ☕</p>
+            ` : slotsForDay.map(slot => `
+              <div class="timetable-slot-item">
+                <div class="timetable-slot-info">
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <span style="width:8px; height:8px; border-radius:50%; background:${slot.color};"></span>
+                    <h4>${slot.courseName} (${slot.courseCode})</h4>
+                  </div>
+                  <p>⏰ من ${slot.startTime} إلى ${slot.endTime} • قاعة: ${slot.room} (${slot.building})</p>
+                </div>
+                <button class="btn-del-slot" data-id="${slot.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:13px;" title="حذف من الجدول">✕</button>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        dayCard.querySelectorAll(".btn-del-slot").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const slotId = btn.getAttribute("data-id");
+            await deleteDoc(doc(db, "users", currentUser.uid, "schedule", slotId));
+          });
+        });
+
+        scheduleDaysContainer.appendChild(dayCard);
+      });
+
+      if (totalSlotsCount === 0) {
+        scheduleDaysContainer.insertAdjacentHTML("afterbegin", `
+          <div style="text-align:center; padding:20px; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle); margin-bottom:14px;">
+            <p style="font-size:13px; font-weight:700; color:var(--text-muted);">جدولك الدراسي فارغ حالياً 📋</p>
+            <p style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">اضغط على زر "➕ إضافة محاضرة" بالأعلى لجدولة مواعيد وقاعات محاضراتك بكل سهولة.</p>
+          </div>
+        `);
+      }
+    }
+
+    // تصدير وتوليد بطاقة الجدول الأنيقة كصورة Canvas
+    btnExportScheduleImg.addEventListener("click", () => {
+      if (currentScheduleSlots.length === 0) {
+        alert("الجدول فارغ حالياً! أضف محاضراتك أولاً لتصدير صورة الجدول.");
+        return;
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 1350;
+      const ctx = canvas.getContext("2d");
+
+      // خلفية متدرجة فخمة
+      const grad = ctx.createLinearGradient(0, 0, 0, 1350);
+      grad.addColorStop(0, "#085F56");
+      grad.addColorStop(0.2, "#0F766E");
+      grad.addColorStop(1, "#042F2E");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1080, 1350);
+
+      // الهيدر والاسم
+      ctx.fillStyle = "#FFFFFF";
+      ctx.textAlign = "center";
+      ctx.font = "900 48px Cairo, sans-serif";
+      ctx.fillText("الجدول الدراسي الأسبوعي", 540, 90);
+
+      ctx.font = "700 28px Cairo, sans-serif";
+      ctx.fillStyle = "#CCFBF1";
+      const studentName = currentUser ? (currentUser.displayName || "مهندس/ـة الحاسب") : "جامعة طيبة";
+      ctx.fillText(`${studentName} • كلية علوم وهندسة الحاسب`, 540, 140);
+
+      // رسم الأيام
+      const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس"];
+      let currentY = 190;
+
+      days.forEach(day => {
+        const slots = currentScheduleSlots.filter(s => s.day === day).sort((a, b) => a.startTime.localeCompare(b.startTime));
+        
+        ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
+        ctx.beginPath();
+        ctx.roundRect(60, currentY, 960, 42, 8);
+        ctx.fill();
+
+        ctx.fillStyle = "#FEF08A";
+        ctx.textAlign = "right";
+        ctx.font = "900 24px Cairo, sans-serif";
+        ctx.fillText(`📅 ${day}`, 990, currentY + 30);
+        currentY += 52;
+
+        if (slots.length === 0) {
+          ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+          ctx.font = "600 20px Cairo, sans-serif";
+          ctx.fillText("لا توجد محاضرات (إجازة / Off)", 980, currentY + 22);
+          currentY += 40;
+        } else {
+          slots.forEach(s => {
+            ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+            ctx.beginPath();
+            ctx.roundRect(60, currentY, 960, 56, 10);
+            ctx.fill();
+
+            // المادة والوقت
+            ctx.fillStyle = "#0F172A";
+            ctx.font = "800 22px Cairo, sans-serif";
+            ctx.fillText(`${s.courseName} (${s.courseCode})`, 990, currentY + 36);
+
+            ctx.fillStyle = "#0D9488";
+            ctx.textAlign = "left";
+            ctx.font = "700 20px Cairo, sans-serif";
+            ctx.fillText(`⏰ ${s.startTime} - ${s.endTime}  |  قاعة: ${s.room}`, 80, currentY + 36);
+            ctx.textAlign = "right";
+
+            currentY += 66;
+          });
+        }
+        currentY += 16;
+      });
+
+      // الفوتر والحقوق
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.textAlign = "center";
+      ctx.font = "600 20px Cairo, sans-serif";
+      ctx.fillText("COE • J  © 2026 - صُمم خصيصاً لمهندسي جامعة طيبة", 540, 1310);
+
+      // تنزيل الصورة تلقائياً
+      const link = document.createElement("a");
+      link.download = `جدولي_الدراسي_${studentName}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+
+    // ============================================================
+    // مولّد خطة المذاكرة السريعة (خاصية تجريبية 🧪)
+    // ============================================================
+    btnGenerateCramPlan.addEventListener("click", () => {
+      const courseId = cramCourseSelect.value;
+      const examDateStr = cramExamDate.value;
+      const course = currentCourses.find(c => c.id === courseId);
+
+      if (!course) {
+        alert("الرجاء اختيار مادة.");
+        return;
+      }
+      if (!examDateStr) {
+        alert("الرجاء تحديد تاريخ الاختبار.");
+        return;
+      }
+
+      const examDate = new Date(examDateStr);
+      const today = new Date();
+      const diffTime = examDate.getTime() - today.getTime();
+      const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (daysRemaining <= 0) {
+        alert("تاريخ الاختبار يجب أن يكون في تاريخ قادم.");
+        return;
+      }
+
+      const unstudiedChapters = (course.chapters || []).filter(c => !c.done).length;
+      const totalCh = (course.chapters || []).length;
+      const dailyChapters = (unstudiedChapters / daysRemaining).toFixed(1);
+
+      cramResultBox.style.display = "block";
+      cramResultBox.innerHTML = `
+        <div style="font-weight:800; color:var(--text-main); margin-bottom:4px;">
+          📊 الخطة الذكية لمقرر ${course.name}:
+        </div>
+        <p>• الأيام المتبقية حتى الاختبار: <strong>${daysRemaining} يوم</strong></p>
+        <p>• الشباتر المتبقية للمذاكرة: <strong>${unstudiedChapters} من أصل ${totalCh} شباتر</strong></p>
+        <p style="color:var(--primary-teal); font-weight:800; margin-top:4px;">
+          🎯 معدل الإنجاز المطلوب: مذاكرة <strong>${dailyChapters} شابتر يومياً</strong> لختم المادة قبل موعد الاختبار بكل راحة!
+        </p>
+      `;
+    });
+
+    // ==========================================
+    // تحديث القوائم المنسدلة للمواد تلقائياً
+    // ==========================================
+    function updateAllCourseDropdowns() {
+      const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse];
+      selects.forEach(sel => {
+        if (!sel) return;
+        const prevVal = sel.value;
+        sel.innerHTML = "";
+        if (currentCourses.length === 0) {
+          sel.innerHTML = `<option value="">-- لا توجد مواد مضافة --</option>`;
+          return;
+        }
+        currentCourses.forEach(c => {
+          const opt = document.createElement("option");
+          opt.value = (sel === slotCourseSelect || sel === cramCourseSelect) ? c.id : c.code;
+          opt.textContent = `${c.code} - ${c.name}`;
+          sel.appendChild(opt);
+        });
+        if (sel === subResCourse || sel === adminResCourse) {
+          const optGen = document.createElement("option");
+          optGen.value = "عام";
+          optGen.textContent = "روابط وتجميعات عامة";
+          sel.appendChild(optGen);
+        }
+        if (prevVal) sel.value = prevVal;
+      });
+    }
+
+    // ============================================================
+    // عرض التجميعات المرتبطة فقط بمواد الطالب الحالية
+    // ============================================================
+    searchResourcesInput.addEventListener("input", () => renderPublicResourcesUI());
+    document.querySelectorAll("[data-res-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-res-filter]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentResFilter = btn.getAttribute("data-res-filter");
+        renderPublicResourcesUI();
+      });
+    });
+
+    function renderPublicResourcesUI() {
+      resourcesGlobalContainer.innerHTML = "";
+      const queryText = searchResourcesInput.value.trim().toLowerCase();
+
+      // حصر العرض فقط على المواد المضافة في جدول الطالب حالياً + الروابط العامة
+      const mySubjects = currentCourses.map(c => ({ code: c.code, name: c.name }));
+      mySubjects.push({ code: "عام", name: "روابط وتجميعات عامة" });
+
+      if (currentCourses.length === 0) {
+        resourcesGlobalContainer.innerHTML = `
+          <div style="text-align:center; padding:30px 16px; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle);">
+            <p style="font-size:13px; font-weight:700; color:var(--text-muted);">لا توجد مقررات في حسابك حالياً 📚</p>
+            <p style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">أضف موادك في صفحة "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</p>
+          </div>
+        `;
+        return;
+      }
+
+      mySubjects.forEach(sub => {
+        let items = publicResources.filter(r => r.courseCode === sub.code);
+
+        if (currentResFilter !== "all") {
+          items = items.filter(r => r.type === currentResFilter);
+        }
+        if (queryText) {
+          items = items.filter(r => 
+            r.title.toLowerCase().includes(queryText) || 
+            sub.name.toLowerCase().includes(queryText) || 
+            sub.code.toLowerCase().includes(queryText)
+          );
+        }
+
+        if (items.length === 0 && queryText) return;
+
+        const groupDiv = document.createElement("div");
+        groupDiv.className = "resource-course-group";
+        groupDiv.innerHTML = `
+          <div class="resource-group-header">
+            <span>📖 ${sub.name} (${sub.code})</span>
+            <span style="font-size:11px; font-weight:700; color:var(--text-muted);">${items.length} روابط</span>
+          </div>
+          <div class="resource-items-list">
+            ${items.length === 0 ? `
+              <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">
+                لا توجد روابط مضافة بعد لهذه المادة. يمكنك مشاركة ملخصك عبر الزر أعلاه.
+              </p>
+            ` : items.map(item => `
+              <div class="resource-link-item">
+                <a href="${item.url}" target="_blank">
+                  <span class="resource-type-badge">${item.type}</span>
+                  <div>
+                    <span>${item.title}</span>
+                    ${item.contributorName ? `<span class="contributor-credit">مساهمة من: ${item.contributorName}</span>` : ''}
+                  </div>
+                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <a href="${item.url}" target="_blank" style="color:var(--primary-teal); font-size:12px; font-weight:800; text-decoration:none;">فتح ↗</a>
+                  ${isAdmin ? `<button class="btn-del-resource" data-id="${item.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:12px;" title="حذف الرابط">🗑️</button>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        if (isAdmin) {
+          groupDiv.querySelectorAll(".btn-del-resource").forEach(btn => {
+            btn.addEventListener("click", async (e) => {
+              e.preventDefault();
+              const id = btn.getAttribute("data-id");
+              if (confirm("هل ترغب بحذف هذا الرابط من قائمة جميع الطلاب؟")) {
+                await deleteDoc(doc(db, "public_resources", id));
+              }
+            });
+          });
+        }
+
+        resourcesGlobalContainer.appendChild(groupDiv);
+      });
+    }
+
+    // ==========================================
+    // بقية وظائف النظام ومؤقت غرس الإنجاز
+    // ==========================================
     function applySystemAlertsConfig(cfg) {
       if (cfg.broadcastActive && cfg.broadcastText) {
         broadcastText.textContent = `📢 ${cfg.broadcastText}`;
@@ -2344,93 +2898,6 @@
           }
         });
         pendingItemsList.appendChild(row);
-      });
-    }
-
-    searchResourcesInput.addEventListener("input", () => renderPublicResourcesUI());
-    document.querySelectorAll("[data-res-filter]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll("[data-res-filter]").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        currentResFilter = btn.getAttribute("data-res-filter");
-        renderPublicResourcesUI();
-      });
-    });
-
-    function renderPublicResourcesUI() {
-      resourcesGlobalContainer.innerHTML = "";
-      const queryText = searchResourcesInput.value.trim().toLowerCase();
-
-      const subjects = [
-        { code: "COE 225", name: "تنظيم وبناء الحاسب الآلي (2)" },
-        { code: "COE 295", name: "قواعد البيانات للمهندسين" },
-        { code: "CS 226", name: "نظم التشغيل" },
-        { code: "EE 201", name: "دوائر كهربائية (1)" },
-        { code: "GS 311", name: "التخطيط المهني" },
-        { code: "STAT 301", name: "الاحتمالات والإحصاء للمهندسين" },
-        { code: "المستوى 6", name: "مواد المستوى السادس القادمة" },
-        { code: "عام", name: "روابط وتجميعات عامة" }
-      ];
-
-      subjects.forEach(sub => {
-        let items = publicResources.filter(r => r.courseCode === sub.code);
-
-        if (currentResFilter !== "all") {
-          items = items.filter(r => r.type === currentResFilter);
-        }
-        if (queryText) {
-          items = items.filter(r => 
-            r.title.toLowerCase().includes(queryText) || 
-            sub.name.toLowerCase().includes(queryText) || 
-            sub.code.toLowerCase().includes(queryText)
-          );
-        }
-
-        if (items.length === 0 && queryText) return;
-
-        const groupDiv = document.createElement("div");
-        groupDiv.className = "resource-course-group";
-        groupDiv.innerHTML = `
-          <div class="resource-group-header">
-            <span>📖 ${sub.name} (${sub.code})</span>
-            <span style="font-size:11px; font-weight:700; color:var(--text-muted);">${items.length} روابط</span>
-          </div>
-          <div class="resource-items-list">
-            ${items.length === 0 ? `
-              <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">
-                لا توجد روابط مطابقة. يمكنك مشاركة ملخص بالضغط على الزر أعلاه.
-              </p>
-            ` : items.map(item => `
-              <div class="resource-link-item">
-                <a href="${item.url}" target="_blank">
-                  <span class="resource-type-badge">${item.type}</span>
-                  <div>
-                    <span>${item.title}</span>
-                    ${item.contributorName ? `<span class="contributor-credit">مساهمة من: ${item.contributorName}</span>` : ''}
-                  </div>
-                </a>
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <a href="${item.url}" target="_blank" style="color:var(--primary-teal); font-size:12px; font-weight:800; text-decoration:none;">فتح ↗</a>
-                  ${isAdmin ? `<button class="btn-del-resource" data-id="${item.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:12px;" title="حذف الرابط">🗑️</button>` : ''}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-
-        if (isAdmin) {
-          groupDiv.querySelectorAll(".btn-del-resource").forEach(btn => {
-            btn.addEventListener("click", async (e) => {
-              e.preventDefault();
-              const id = btn.getAttribute("data-id");
-              if (confirm("هل ترغب بحذف هذا الرابط من قائمة جميع الطلاب؟")) {
-                await deleteDoc(doc(db, "public_resources", id));
-              }
-            });
-          });
-        }
-
-        resourcesGlobalContainer.appendChild(groupDiv);
       });
     }
 
@@ -2751,9 +3218,7 @@
       else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
     }
 
-    // ============================================================
-    // مؤقت غرس الإنجاز التفاعلي القابل لتعديل الوقت من الطالب
-    // ============================================================
+    // مؤقت غرس الإنجاز التفاعلي
     let sessionMinutes = 25;
     let totalFocusSeconds = sessionMinutes * 60;
     let timerDuration = totalFocusSeconds;
@@ -2862,7 +3327,6 @@
           timerInterval = null;
           renderTreeStage(0);
 
-          // احتساب النقاط بحسب مدة الجلسة الفعلية
           const earnedPoints = sessionMinutes;
           if (currentUser) {
             const userRef = doc(db, "users", currentUser.uid);
@@ -2894,12 +3358,14 @@
       renderTreeStage(totalFocusSeconds);
     });
 
+    // التنقل السفلي بين 5 تبويبات
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
         item.classList.add("active");
         const target = item.getAttribute("data-target");
         document.getElementById("tab-content-courses").style.display = target === "courses" ? "block" : "none";
+        document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
         document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
         document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
         document.getElementById("tab-content-gpa").style.display = target === "gpa" ? "block" : "none";
@@ -3049,20 +3515,6 @@
         renderTasksUI();
       });
     });
-
-    function updateTaskSelectOptions() {
-      taskCourseSelect.innerHTML = "";
-      if (currentCourses.length === 0) {
-        taskCourseSelect.innerHTML = `<option value="عام">عام</option>`;
-        return;
-      }
-      currentCourses.forEach(c => {
-        const opt = document.createElement("option");
-        opt.value = `${c.code}`;
-        opt.textContent = `${c.code} - ${c.name}`;
-        taskCourseSelect.appendChild(opt);
-      });
-    }
 
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
