@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>جدولي الأكاديمي - كلية علوم وهندسة الحاسب</title>
+  
+  <!-- وسوم تحويل الموقع لتطبيق آيفون وهاتف متكامل (PWA Capable) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="جدولي">
+  <meta name="theme-color" content="#085F56">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -225,6 +232,7 @@
       text-align: center;
     }
 
+    /* الشريط العلوي */
     .app-header {
       background-color: var(--primary-dark);
       color: white;
@@ -285,6 +293,56 @@
     .brand-subtitle {
       font-size: 11px;
       color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* شريط التنبيهات والإعلانات العامة من المشرف */
+    .broadcast-banner {
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      color: white;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 800;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+    }
+
+    /* ويدجت العداد التنازلي للاختبارات */
+    .countdown-widget {
+      background: linear-gradient(135deg, #0F766E, #085F56);
+      color: white;
+      padding: 14px 16px;
+      border-radius: 16px;
+      margin-bottom: 14px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(8, 95, 86, 0.15);
+    }
+
+    .countdown-info h4 {
+      font-size: 13.5px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .countdown-info p {
+      font-size: 11px;
+      color: #CCFBF1;
+      margin-top: 2px;
+    }
+
+    .countdown-timer-digits {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .main-content {
@@ -498,7 +556,7 @@
       display: block;
     }
 
-    /* صندوق نظام الحرمان بجامعة طيبة */
+    /* حاسبة الحرمان 25% */
     .dn-calculator-box {
       background: var(--subtle-bg);
       border-radius: 12px;
@@ -539,10 +597,8 @@
 
     .dn-safe { color: #10B981; }
     .dn-safe-pill { background: rgba(16, 185, 129, 0.15); color: #059669; }
-
     .dn-warn { color: #D97706; }
     .dn-warn-pill { background: #FEF3C7; color: #B45309; }
-
     .dn-danger { color: #DC2626; }
     .dn-danger-pill { background: #FEE2E2; color: #B91C1C; }
 
@@ -695,7 +751,7 @@
       display: block;
     }
 
-    /* صفحة التجميعات والملخصات */
+    /* صفحة التجميعات والملخصات المحدثة */
     .admin-controls-card {
       background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(8, 95, 86, 0.15));
       border: 1.5px dashed var(--primary-teal);
@@ -713,6 +769,36 @@
       align-items: center;
       gap: 6px;
       margin-bottom: 4px;
+    }
+
+    .admin-action-btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    /* قسم المراجعة الخاص بالأدمن */
+    .pending-approval-box {
+      background: #FFFBEB;
+      border: 1.5px solid #FCD34D;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .pending-approval-box h4 {
+      font-size: 13px;
+      font-weight: 800;
+      color: #92400E;
+      margin-bottom: 8px;
+    }
+
+    .search-resources-bar {
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .resource-course-group {
@@ -771,7 +857,15 @@
       font-weight: 800;
     }
 
-    /* مؤقت غرس الإنجاز */
+    .contributor-credit {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-weight: 600;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* مؤقت غرس الإنجاز ولوحة الشرف */
     .tree-timer-box {
       background: var(--card-bg);
       border-radius: 20px;
@@ -838,6 +932,43 @@
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
+    }
+
+    /* لوحة الشرف (Focus Leaderboard) */
+    .leaderboard-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 16px;
+    }
+
+    .leaderboard-header {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .leaderboard-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      background: var(--subtle-bg);
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .leaderboard-rank {
+      font-weight: 900;
+      width: 24px;
+      text-align: center;
     }
 
     /* Tasks Page */
@@ -1084,8 +1215,15 @@
     </div>
   </div>
 
-  <!-- الشاشة الرئيسية -->
+  <!-- الشاشة الرئيسية للتطبيق -->
   <div id="main-app" class="app-container" style="display: none;">
+    
+    <!-- شريط الإعلان والتنبيه العام من المشرف -->
+    <div id="global-broadcast-banner" class="broadcast-banner">
+      <span id="broadcast-text">📢 تنبيه عام من المشرف</span>
+      <span style="font-size: 11px; opacity: 0.85;">جامعة طيبة</span>
+    </div>
+
     <header class="app-header">
       <div class="header-inner">
         <div class="header-actions">
@@ -1105,6 +1243,16 @@
 
     <!-- تبويب 1: المقررات والإنجاز -->
     <main class="main-content" id="tab-content-courses">
+      
+      <!-- ويدجت العداد التنازلي للاختبارات (تحكم كامل من المشرف) -->
+      <div id="exam-countdown-box" class="countdown-widget">
+        <div class="countdown-info">
+          <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
+          <p id="countdown-target-date">متبقي على الموعد المحدد</p>
+        </div>
+        <div class="countdown-timer-digits" id="countdown-timer-digits">-- ي -- س</div>
+      </div>
+
       <div class="content-header">
         <div>
           <h2 id="level-display-heading">إنجاز مواد المستوى الخامس</h2>
@@ -1162,7 +1310,7 @@
       </div>
     </main>
 
-    <!-- تبويب 2: التجميعات والملخصات (خانة مخصصة مستقلة) -->
+    <!-- تبويب 2: التجميعات والملخصات (خانة مستقلة تماماً) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1171,23 +1319,54 @@
         </div>
       </div>
 
-      <!-- بطاقة تحكم الأدمن -->
+      <!-- بطاقة تحكم المشرف (خاصة بالأدمن فقط) -->
       <div id="admin-resources-panel" class="admin-controls-card">
-        <h3>👑 لوحة تحكم المشرف (إدارة التجميعات)</h3>
+        <h3>👑 لوحة تحكم المشرف</h3>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
-          بصفتك الأدمن، أي رابط تضيفينه هنا سينزل فوراً لجميع الطلاب في التطبيق.
+          إدارة التجميعات، اعتماد ملخصات الطلاب، وضبط شريط الإعلانات والعداد التنازلي.
         </p>
-        <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12.5px; padding:9px;">
-          ➕ إضافة رابط تجميعة / ملخص جديد لجميع الطلاب
-        </button>
+        
+        <div class="admin-action-btn-row">
+          <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12px; padding:8px; flex:1;">
+            ➕ إضافة رابط تجميعة
+          </button>
+          <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:12px; padding:8px; flex:1;">
+            ⚙️ ضبط الإعلان والعدّاد
+          </button>
+        </div>
       </div>
 
-      <!-- قائمة التجميعات والملخصات لجميع المقررات -->
+      <!-- صندوق الملخصات بانتظار الاعتماد (يظهر فقط للأدمن للموافقة عليها) -->
+      <div id="admin-pending-approval-box" class="pending-approval-box">
+        <h4>⏳ ملخصات أرسلها الطلاب بانتظار اعتمادك للنشر:</h4>
+        <div id="pending-items-list"></div>
+      </div>
+
+      <!-- زر الطالب لمشاركة تجميعة أو ملخص -->
+      <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:12px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
+        📤 مشاركة ملخص أو تجميعة مع زملائك في الدفعة
+      </button>
+
+      <!-- شريط البحث والفلترة السريعة للتجميعات -->
+      <div class="search-resources-bar">
+        <input type="text" id="search-resources-input" placeholder="🔍 ابحث عن تجميعة، ملخص، أو كود مادة...">
+        <div class="sort-bar" style="margin:0;">
+          <button class="sort-pill active" data-res-filter="all">الكل</button>
+          <button class="sort-pill" data-res-filter="تجميعات">تجميعات</button>
+          <button class="sort-pill" data-res-filter="سلايدات">سلايدات</button>
+          <button class="sort-pill" data-res-filter="ملخصات">ملخصات</button>
+          <button class="sort-pill" data-res-filter="قناة">قنوات</button>
+        </div>
+      </div>
+
+      <!-- قائمة التجميعات المعتمدة المعروضة لجميع الطلاب -->
       <div id="resources-global-container"></div>
     </main>
 
-    <!-- تبويب 3: المهام ومؤقت غرس الإنجاز -->
+    <!-- تبويب 3: المهام ومؤقت غرس الإنجاز ولوحة الشرف -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
+      
+      <!-- مؤقت غرس الإنجاز التفاعلي -->
       <div class="tree-timer-box">
         <div class="tree-timer-header">
           <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز</span>
@@ -1213,6 +1392,16 @@
           <button id="btn-timer-start" class="btn-timer" style="background:#0F766E; color:white;">غرس وبدء 🌱</button>
           <button id="btn-timer-pause" class="btn-timer" style="background:var(--subtle-bg); color:var(--text-main);">إيقاف ⏸️</button>
           <button id="btn-timer-reset" class="btn-timer" style="background:#FEE2E2; color:#DC2626;">تراجع 🔄</button>
+        </div>
+      </div>
+
+      <!-- لوحة الشرف للمتصدرين (Leaderboard) -->
+      <div class="leaderboard-card">
+        <div class="leaderboard-header">
+          <span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span>
+        </div>
+        <div id="leaderboard-list">
+          <p style="font-size:12px; color:var(--text-muted); text-align:center;">جاري تحميل المتصدرين...</p>
         </div>
       </div>
 
@@ -1265,11 +1454,57 @@
       </div>
     </nav>
 
-    <!-- مودال خاص بالأدمن لإضافة رابط تجميعة لجميع الطلاب -->
+    <!-- مودال رفع الطالب لملخص أو تجميعة -->
+    <div id="student-submit-resource-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>📤 مشاركة ملخص أو تجميعة</h3>
+          <button id="btn-close-submit-res-modal" class="close-btn">&times;</button>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
+          سيتم إرسال الملف لمشرف النظام ليعتمده، وسينزل باسمك في قائمة التجميعات للدفعة ❤️
+        </p>
+        <form id="student-resource-form">
+          <div class="form-group">
+            <label>المقرر التابع له:</label>
+            <select id="sub-res-course" required>
+              <option value="COE 225">تنظيم وبناء الحاسب الآلي (2) - COE 225</option>
+              <option value="COE 295">قواعد البيانات للمهندسين - COE 295</option>
+              <option value="CS 226">نظم التشغيل - CS 226</option>
+              <option value="EE 201">دوائر كهربائية (1) - EE 201</option>
+              <option value="GS 311">التخطيط المهني - GS 311</option>
+              <option value="STAT 301">الاحتمالات والإحصاء للمهندسين - STAT 301</option>
+              <option value="المستوى 6">مواد المستوى 6 القادمة</option>
+              <option value="عام">تجميعات وروابط عامة</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>عنوان الملخص أو التجميعة</label>
+            <input type="text" id="sub-res-title" required placeholder="مثال: شيت مراجعة شامل لقوانين الميد">
+          </div>
+          <div class="form-group">
+            <label>نوع المورد</label>
+            <select id="sub-res-type">
+              <option value="ملخصات">ملخص شامل</option>
+              <option value="تجميعات">تجميعات وكويزات سابقة</option>
+              <option value="سلايدات">سلايدات وشروحات</option>
+              <option value="قناة">قناة تيليجرام / قروب</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>رابط الملف (Google Drive / Telegram / Dropbox)</label>
+            <input type="url" id="sub-res-url" required placeholder="https://drive.google.com/...">
+          </div>
+          <button type="submit" class="btn-primary">إرسال الملخص للمراجعة والنشر 🚀</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- مودال خاص بالأدمن لإضافة رابط مباشر -->
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>➕ إضافة رابط تجميعة (لجميع الطلاب)</h3>
+          <h3>➕ إضافة رابط تجميعة مباشر (للأدمن)</h3>
           <button id="btn-close-admin-res-modal" class="close-btn">&times;</button>
         </div>
         <form id="admin-resource-form">
@@ -1301,9 +1536,50 @@
           </div>
           <div class="form-group">
             <label>رابط الملف أو القناة (URL)</label>
-            <input type="url" id="admin-res-url" required placeholder="https://drive.google.com/... أو https://t.me/...">
+            <input type="url" id="admin-res-url" required placeholder="https://drive.google.com/...">
           </div>
           <button type="submit" class="btn-primary">نشر الرابط لجميع الطلاب فوراً 🚀</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- مودال تحكم الأدمن في شريط الإعلانات والعداد التنازلي -->
+    <div id="admin-alerts-config-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>⚙️ ضبط الإعلان العام والعدّاد التنازلي</h3>
+          <button id="btn-close-alerts-modal" class="close-btn">&times;</button>
+        </div>
+        <form id="admin-alerts-form">
+          <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
+            <h4 style="font-size:13px; font-weight:800; margin-bottom:6px;">📢 شريط الإعلان العام (أعلى الشاشة):</h4>
+            <div class="form-group">
+              <label>نص الإعلان</label>
+              <input type="text" id="cfg-broadcast-text" placeholder="مثال: تنويه: تم رفع تجميعات كويز نظم التشغيل">
+            </div>
+            <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer;">
+              <input type="checkbox" id="cfg-broadcast-active">
+              تفعيل وإظهار الإعلان لجميع الطلاب
+            </label>
+          </div>
+
+          <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
+            <h4 style="font-size:13px; font-weight:800; margin-bottom:6px;">⏳ العداد التنازلي للاختبارات:</h4>
+            <div class="form-group">
+              <label>عنوان الحدث</label>
+              <input type="text" id="cfg-countdown-title" placeholder="مثال: موعد اختبارات الميدتيرم">
+            </div>
+            <div class="form-group">
+              <label>تاريخ ووقت الاختبار</label>
+              <input type="datetime-local" id="cfg-countdown-date">
+            </div>
+            <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer;">
+              <input type="checkbox" id="cfg-countdown-active">
+              تفعيل وإظهار العداد التنازلي للجميع
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary">حفظ وتحديث الإعدادات للجميع ✅</button>
         </form>
       </div>
     </div>
@@ -1409,15 +1685,15 @@
       </div>
     </div>
 
-    <!-- مودال الاقتراحات ومشاركة الملخصات -->
+    <!-- مودال الاقتراحات والشكاوى المربوط بـ Formspree -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 id="fb-modal-heading">📩 صندوق الاقتراحات ومشاركة الملخصات</h3>
+          <h3 id="fb-modal-heading">📩 صندوق الاقتراحات والشكاوى</h3>
           <button id="btn-close-feedback-modal" class="close-btn" type="button">&times;</button>
         </div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-          رسالتك تُرسل آلياً إلى إدارة المنصة؛ سواء كان اقتراحاً أو رابط ملخص ترغب بمشاركته.
+          رأيك وملاحظاتك تساهم في تطوير التطبيق. تُرسل رسالتك آلياً إلى إدارة النظام.
         </p>
         <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:13px; margin-bottom:10px;">
           تم استلام رسالتك بنجاح ووصلت للإدارة! شكراً لمساهمتك ❤️
@@ -1430,7 +1706,6 @@
           <div class="form-group">
             <label>نوع الرسالة</label>
             <select name="category" id="fb-type" data-fs-field>
-              <option value="مشاركة ملخص أو تجميعات">مشاركة ملخص أو تجميعات 📚</option>
               <option value="اقتراح ميزة جديدة">اقتراح ميزة جديدة 💡</option>
               <option value="إبلاغ عن خلل أو مشكلة">إبلاغ عن خلل أو مشكلة 🐛</option>
               <option value="استفسار عام">استفسار عام 💬</option>
@@ -1442,8 +1717,8 @@
             <span data-fs-error="subject" style="color:red; font-size:11px;"></span>
           </div>
           <div class="form-group">
-            <label>الرسالة ورابط الملخص</label>
-            <textarea id="fb-content" name="message" rows="4" required placeholder="اكتب تفاصيل الاقتراح أو ضع رابط الملف..." data-fs-field></textarea>
+            <label>الرسالة</label>
+            <textarea id="fb-content" name="message" rows="4" required placeholder="اكتب تفاصيل الاقتراح..." data-fs-field></textarea>
             <span data-fs-error="message" style="color:red; font-size:11px;"></span>
           </div>
           <button type="submit" class="btn-primary" data-fs-submit-btn>إرسال للإدارة فوراً 🚀</button>
@@ -1452,7 +1727,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق الكامل مع Firebase Firestore و معادلة حرمان جامعة طيبة -->
+  <!-- منطق التطبيق البرمجي المتكامل -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -1477,6 +1752,9 @@
       setDoc, 
       getDoc,
       getDocs,
+      query,
+      orderBy,
+      limit,
       onSnapshot 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
@@ -1498,12 +1776,7 @@
     const ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
 
-    // ============================================================
-    // جدول ساعات ومحاضرات جامعة طيبة المعتمد:
-    // 4 ساعات = 45 محاضرة (11 غياب مسموح، 12 حرمان)
-    // 3 ساعات = 30 محاضرة (7 غيابات مسموحة، 8 حرمان)
-    // 2 ساعات = 15 محاضرة (3 غيابات مسموحة، 4 حرمان)
-    // ============================================================
+    // لائحة ساعات ومحاضرات جامعة طيبة المعتمدة
     const OFFICIAL_LEVEL_5_DATA = {
       "COE 225": { credits: 3, totalLectures: 30 },
       "COE 295": { credits: 2, totalLectures: 15 },
@@ -1552,12 +1825,15 @@
     let currentCourses = [];
     let currentTasks = [];
     let publicResources = [];
+    let pendingResources = [];
     let selectedColor = "#8B5CF6";
     let isRegisterMode = false;
     let currentTaskFilter = "all";
+    let currentResFilter = "all";
     let currentLevel = 5;
     let currentSort = "default";
     let isAdmin = false;
+    let countdownInterval = null;
 
     // عناصر الصفحة
     const authScreen = document.getElementById("auth-screen");
@@ -1592,6 +1868,27 @@
     const btnAdminAddResource = document.getElementById("btn-admin-add-resource");
     const btnCloseAdminResModal = document.getElementById("btn-close-admin-res-modal");
     const resourcesGlobalContainer = document.getElementById("resources-global-container");
+    const searchResourcesInput = document.getElementById("search-resources-input");
+
+    // تنبيهات الأدمن والعدّاد
+    const globalBroadcastBanner = document.getElementById("global-broadcast-banner");
+    const broadcastText = document.getElementById("broadcast-text");
+    const examCountdownBox = document.getElementById("exam-countdown-box");
+    const countdownTitle = document.getElementById("countdown-title");
+    const countdownTargetDate = document.getElementById("countdown-target-date");
+    const countdownTimerDigits = document.getElementById("countdown-timer-digits");
+    const adminAlertsConfigModal = document.getElementById("admin-alerts-config-modal");
+    const adminAlertsForm = document.getElementById("admin-alerts-form");
+    const btnAdminConfigAlerts = document.getElementById("btn-admin-config-alerts");
+    const btnCloseAlertsModal = document.getElementById("btn-close-alerts-modal");
+
+    // رفع واعتماد الملخصات
+    const studentSubmitResourceModal = document.getElementById("student-submit-resource-modal");
+    const studentResourceForm = document.getElementById("student-resource-form");
+    const btnStudentSubmitResource = document.getElementById("btn-student-submit-resource");
+    const btnCloseSubmitResModal = document.getElementById("btn-close-submit-res-modal");
+    const adminPendingApprovalBox = document.getElementById("admin-pending-approval-box");
+    const pendingItemsList = document.getElementById("pending-items-list");
 
     const btnOpenCourseModal = document.getElementById("btn-open-course-modal");
     const btnCloseCourseModal = document.getElementById("btn-close-course-modal");
@@ -1748,9 +2045,6 @@
 
     btnLogout.addEventListener("click", () => signOut(auth));
 
-    // ============================================================
-    // مزامنة الساعات والمحاضرات الصحيحة لنظام جامعة طيبة قسراً
-    // ============================================================
     async function syncTaibahCourseRules(userId, coursesList) {
       for (const c of coursesList) {
         const official = OFFICIAL_LEVEL_5_DATA[c.code];
@@ -1822,17 +2116,282 @@
           renderTasksUI();
         });
 
+        // الاستماع للتجميعات المعتمدة وقيد المراجعة
         onSnapshot(collection(db, "public_resources"), (snapshot) => {
           publicResources = [];
-          snapshot.forEach(d => publicResources.push({ id: d.id, ...d.data() }));
+          pendingResources = [];
+          snapshot.forEach(d => {
+            const data = { id: d.id, ...d.data() };
+            if (data.status === "pending") {
+              pendingResources.push(data);
+            } else {
+              publicResources.push(data);
+            }
+          });
           renderPublicResourcesUI();
+          if (isAdmin) renderPendingApprovalsUI();
         });
+
+        // الاستماع لإعدادات الإعلانات والعداد التنازلي العام
+        onSnapshot(doc(db, "system_configs", "alerts"), (snap) => {
+          if (snap.exists()) {
+            const cfg = snap.data();
+            applySystemAlertsConfig(cfg);
+          }
+        });
+
+        // الاستماع للوحة الشرف
+        listenToLeaderboard();
 
       } else {
         mainApp.style.display = "none";
         authScreen.style.display = "flex";
       }
     });
+
+    // ==========================================
+    // إدارة الإعلانات والعداد التنازلي
+    // ==========================================
+    function applySystemAlertsConfig(cfg) {
+      if (cfg.broadcastActive && cfg.broadcastText) {
+        broadcastText.textContent = `📢 ${cfg.broadcastText}`;
+        globalBroadcastBanner.style.display = "flex";
+      } else {
+        globalBroadcastBanner.style.display = "none";
+      }
+
+      if (cfg.countdownActive && cfg.countdownDate) {
+        countdownTitle.textContent = `⏳ ${cfg.countdownTitle || 'اقتراب موعد الاختبار'}`;
+        const target = new Date(cfg.countdownDate);
+        countdownTargetDate.textContent = `الموعد: ${target.toLocaleDateString('ar-SA')}`;
+        examCountdownBox.style.display = "flex";
+
+        if (countdownInterval) clearInterval(countdownInterval);
+        const updateCountdown = () => {
+          const now = new Date().getTime();
+          const diff = target.getTime() - now;
+          if (diff <= 0) {
+            countdownTimerDigits.textContent = "انتهى الموعد!";
+            return;
+          }
+          const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          countdownTimerDigits.textContent = `${d} يوم • ${h} ساعة • ${m} د`;
+        };
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 60000);
+      } else {
+        examCountdownBox.style.display = "none";
+      }
+    }
+
+    btnAdminConfigAlerts.addEventListener("click", async () => {
+      const snap = await getDoc(doc(db, "system_configs", "alerts"));
+      if (snap.exists()) {
+        const c = snap.data();
+        document.getElementById("cfg-broadcast-text").value = c.broadcastText || "";
+        document.getElementById("cfg-broadcast-active").checked = c.broadcastActive || false;
+        document.getElementById("cfg-countdown-title").value = c.countdownTitle || "";
+        document.getElementById("cfg-countdown-date").value = c.countdownDate || "";
+        document.getElementById("cfg-countdown-active").checked = c.countdownActive || false;
+      }
+      adminAlertsConfigModal.classList.add("open");
+    });
+    btnCloseAlertsModal.addEventListener("click", () => adminAlertsConfigModal.classList.remove("open"));
+
+    adminAlertsForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await setDoc(doc(db, "system_configs", "alerts"), {
+        broadcastText: document.getElementById("cfg-broadcast-text").value.trim(),
+        broadcastActive: document.getElementById("cfg-broadcast-active").checked,
+        countdownTitle: document.getElementById("cfg-countdown-title").value.trim(),
+        countdownDate: document.getElementById("cfg-countdown-date").value,
+        countdownActive: document.getElementById("cfg-countdown-active").checked
+      });
+      adminAlertsConfigModal.classList.remove("open");
+      alert("تم تحديث الإعلان والعدّاد لجميع الطلاب بنجاح! 🚀");
+    });
+
+    // ==========================================
+    // إدارة لوحة الشرف (Leaderboard)
+    // ==========================================
+    function listenToLeaderboard() {
+      const q = query(collection(db, "users"), orderBy("points", "desc"), limit(5));
+      onSnapshot(q, (snapshot) => {
+        const listDiv = document.getElementById("leaderboard-list");
+        listDiv.innerHTML = "";
+        if (snapshot.empty) {
+          listDiv.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">ابدأ المذاكرة بالمؤقت لتتصدر القائمة!</p>`;
+          return;
+        }
+        let rank = 1;
+        snapshot.forEach(docSnap => {
+          const u = docSnap.data();
+          const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
+          const item = document.createElement("div");
+          item.className = "leaderboard-row";
+          item.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="leaderboard-rank">${medals[rank - 1] || rank}</span>
+              <span>${u.displayName || 'طالب/ـة'}</span>
+            </div>
+            <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
+          `;
+          listDiv.appendChild(item);
+          rank++;
+        });
+      });
+    }
+
+    // ==========================================
+    // رفع الملخصات واعتمادها
+    // ==========================================
+    btnStudentSubmitResource.addEventListener("click", () => {
+      studentSubmitResourceModal.classList.add("open");
+    });
+    btnCloseSubmitResModal.addEventListener("click", () => {
+      studentSubmitResourceModal.classList.remove("open");
+    });
+
+    studentResourceForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await addDoc(collection(db, "public_resources"), {
+        courseCode: document.getElementById("sub-res-course").value,
+        title: document.getElementById("sub-res-title").value.trim(),
+        type: document.getElementById("sub-res-type").value,
+        url: document.getElementById("sub-res-url").value.trim(),
+        contributorName: currentUser ? (currentUser.displayName || "طالب/ـة") : "مهندس/ـة",
+        status: "pending",
+        createdAt: new Date().toISOString()
+      });
+      studentResourceForm.reset();
+      studentSubmitResourceModal.classList.remove("open");
+      alert("شكراً لمساهمتك! تم إرسال الملخص وسيتم نشره للجميع فور اعتماده من المشرف ❤️");
+    });
+
+    function renderPendingApprovalsUI() {
+      if (pendingResources.length === 0) {
+        adminPendingApprovalBox.style.display = "none";
+        return;
+      }
+      adminPendingApprovalBox.style.display = "block";
+      pendingItemsList.innerHTML = "";
+      pendingResources.forEach(item => {
+        const row = document.createElement("div");
+        row.style.cssText = "background:white; border:1px solid #FDE68A; border-radius:10px; padding:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;";
+        row.innerHTML = `
+          <div>
+            <span style="font-size:12px; font-weight:800; color:#1E293B;">${item.title}</span>
+            <span style="font-size:11px; color:#92400E; display:block;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
+            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط ↗</a>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn-approve" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">اعتماد ✅</button>
+            <button class="btn-reject" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض ❌</button>
+          </div>
+        `;
+        row.querySelector(".btn-approve").addEventListener("click", async () => {
+          await updateDoc(doc(db, "public_resources", item.id), { status: "approved" });
+        });
+        row.querySelector(".btn-reject").addEventListener("click", async () => {
+          if (confirm("هل ترغب برفض وحذف هذا الرابط؟")) {
+            await deleteDoc(doc(db, "public_resources", item.id));
+          }
+        });
+        pendingItemsList.appendChild(row);
+      });
+    }
+
+    // ==========================================
+    // بحث وفلترة التجميعات
+    // ==========================================
+    searchResourcesInput.addEventListener("input", () => renderPublicResourcesUI());
+    document.querySelectorAll("[data-res-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-res-filter]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentResFilter = btn.getAttribute("data-res-filter");
+        renderPublicResourcesUI();
+      });
+    });
+
+    function renderPublicResourcesUI() {
+      resourcesGlobalContainer.innerHTML = "";
+      const queryText = searchResourcesInput.value.trim().toLowerCase();
+
+      const subjects = [
+        { code: "COE 225", name: "تنظيم وبناء الحاسب الآلي (2)" },
+        { code: "COE 295", name: "قواعد البيانات للمهندسين" },
+        { code: "CS 226", name: "نظم التشغيل" },
+        { code: "EE 201", name: "دوائر كهربائية (1)" },
+        { code: "GS 311", name: "التخطيط المهني" },
+        { code: "STAT 301", name: "الاحتمالات والإحصاء للمهندسين" },
+        { code: "المستوى 6", name: "مواد المستوى السادس القادمة" },
+        { code: "عام", name: "روابط وتجميعات عامة" }
+      ];
+
+      subjects.forEach(sub => {
+        let items = publicResources.filter(r => r.courseCode === sub.code);
+
+        if (currentResFilter !== "all") {
+          items = items.filter(r => r.type === currentResFilter);
+        }
+        if (queryText) {
+          items = items.filter(r => 
+            r.title.toLowerCase().includes(queryText) || 
+            sub.name.toLowerCase().includes(queryText) || 
+            sub.code.toLowerCase().includes(queryText)
+          );
+        }
+
+        if (items.length === 0 && queryText) return;
+
+        const groupDiv = document.createElement("div");
+        groupDiv.className = "resource-course-group";
+        groupDiv.innerHTML = `
+          <div class="resource-group-header">
+            <span>📖 ${sub.name} (${sub.code})</span>
+            <span style="font-size:11px; font-weight:700; color:var(--text-muted);">${items.length} روابط</span>
+          </div>
+          <div class="resource-items-list">
+            ${items.length === 0 ? `
+              <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">
+                لا توجد روابط مطابقة. يمكنك مشاركة ملخص بالضغط على الزر أعلاه.
+              </p>
+            ` : items.map(item => `
+              <div class="resource-link-item">
+                <a href="${item.url}" target="_blank">
+                  <span class="resource-type-badge">${item.type}</span>
+                  <div>
+                    <span>${item.title}</span>
+                    ${item.contributorName ? `<span class="contributor-credit">مساهمة من: ${item.contributorName}</span>` : ''}
+                  </div>
+                </a>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <a href="${item.url}" target="_blank" style="color:var(--primary-teal); font-size:12px; font-weight:800; text-decoration:none;">فتح ↗</a>
+                  ${isAdmin ? `<button class="btn-del-resource" data-id="${item.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:12px;" title="حذف الرابط">🗑️</button>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        if (isAdmin) {
+          groupDiv.querySelectorAll(".btn-del-resource").forEach(btn => {
+            btn.addEventListener("click", async (e) => {
+              e.preventDefault();
+              const id = btn.getAttribute("data-id");
+              if (confirm("هل ترغب بحذف هذا الرابط من قائمة جميع الطلاب؟")) {
+                await deleteDoc(doc(db, "public_resources", id));
+              }
+            });
+          });
+        }
+
+        resourcesGlobalContainer.appendChild(groupDiv);
+      });
+    }
 
     function updateLevelUIState() {
       levelDisplayHeading.textContent = `إنجاز مواد المستوى ${currentLevel == 5 ? 'الخامس' : currentLevel}`;
@@ -1909,83 +2468,20 @@
         return;
       }
 
-      const courseCode = document.getElementById("admin-res-course").value;
-      const title = document.getElementById("admin-res-title").value.trim();
-      const type = document.getElementById("admin-res-type").value;
-      const url = document.getElementById("admin-res-url").value.trim();
-
       await addDoc(collection(db, "public_resources"), {
-        courseCode,
-        title,
-        type,
-        url,
+        courseCode: document.getElementById("admin-res-course").value,
+        title: document.getElementById("admin-res-title").value.trim(),
+        type: document.getElementById("admin-res-type").value,
+        url: document.getElementById("admin-res-url").value.trim(),
+        status: "approved",
+        contributorName: "مشرف النظام",
         createdAt: new Date().toISOString()
       });
 
       adminResourceForm.reset();
       adminResourceModal.classList.remove("open");
-      alert("تم نشر الرابط بنجاح ليظهر لجميع الطلاب في التطبيق! 🚀");
+      alert("تم نشر الرابط لجميع الطلاب بنجاح! 🚀");
     });
-
-    function renderPublicResourcesUI() {
-      resourcesGlobalContainer.innerHTML = "";
-
-      const subjects = [
-        { code: "COE 225", name: "تنظيم وبناء الحاسب الآلي (2)" },
-        { code: "COE 295", name: "قواعد البيانات للمهندسين" },
-        { code: "CS 226", name: "نظم التشغيل" },
-        { code: "EE 201", name: "دوائر كهربائية (1)" },
-        { code: "GS 311", name: "التخطيط المهني" },
-        { code: "STAT 301", name: "الاحتمالات والإحصاء للمهندسين" },
-        { code: "المستوى 6", name: "مواد المستوى السادس القادمة" },
-        { code: "عام", name: "روابط وتجميعات عامة" }
-      ];
-
-      subjects.forEach(sub => {
-        const items = publicResources.filter(r => r.courseCode === sub.code);
-
-        const groupDiv = document.createElement("div");
-        groupDiv.className = "resource-course-group";
-        groupDiv.innerHTML = `
-          <div class="resource-group-header">
-            <span>📖 ${sub.name} (${sub.code})</span>
-            <span style="font-size:11px; font-weight:700; color:var(--text-muted);">${items.length} روابط</span>
-          </div>
-          <div class="resource-items-list">
-            ${items.length === 0 ? `
-              <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">
-                لا توجد روابط مضافة بعد. سيقوم الأدمن بإضافتها قريباً.
-              </p>
-            ` : items.map(item => `
-              <div class="resource-link-item">
-                <a href="${item.url}" target="_blank">
-                  <span class="resource-type-badge">${item.type}</span>
-                  <span>${item.title}</span>
-                </a>
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <a href="${item.url}" target="_blank" style="color:var(--primary-teal); font-size:12px; font-weight:800; text-decoration:none;">فتح ↗</a>
-                  ${isAdmin ? `<button class="btn-del-resource" data-id="${item.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:12px;" title="حذف الرابط">🗑️</button>` : ''}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-
-        if (isAdmin) {
-          groupDiv.querySelectorAll(".btn-del-resource").forEach(btn => {
-            btn.addEventListener("click", async (e) => {
-              e.preventDefault();
-              const id = btn.getAttribute("data-id");
-              if (confirm("هل ترغب بحذف هذا الرابط من قائمة جميع الطلاب؟")) {
-                await deleteDoc(doc(db, "public_resources", id));
-              }
-            });
-          });
-        }
-
-        resourcesGlobalContainer.appendChild(groupDiv);
-      });
-    }
 
     document.querySelectorAll(".sort-pill").forEach(pill => {
       pill.addEventListener("click", () => {
@@ -1996,9 +2492,6 @@
       });
     });
 
-    // ============================================================
-    // رسم واجهة المواد وتطبيق معادلة حرمان جامعة طيبة بدقة متناهية
-    // ============================================================
     function renderCoursesUI() {
       coursesContainer.innerHTML = "";
       let totalLecAll = 0;
@@ -2025,14 +2518,11 @@
         const completedChapters = (course.chapters || []).filter(c => c.done).length;
         const totalChapters = (course.chapters || []).length;
 
-        // تطبيق معادلة جامعة طيبة:
-        // عدد المحاضرات ÷ 4 = عدد الغيابات المسموح فيها (بدون فواصل)
         const totalLec = course.totalLectures || (course.credits === 4 ? 45 : (course.credits === 3 ? 30 : 15));
-        const maxAllowedAbsences = Math.floor(totalLec / 4); // 45/4=11, 30/4=7, 15/4=3
-        const dnAbsenceThreshold = maxAllowedAbsences + 1;  // 12 حرمان، 8 حرمان، 4 حرمان
+        const maxAllowedAbsences = Math.floor(totalLec / 4);
+        const dnAbsenceThreshold = maxAllowedAbsences + 1;
         const absences = course.absences || 0;
 
-        // حساب النسبة المئوية: (عدد الغيابات ÷ عدد المحاضرات) × 100
         const absencePercentage = totalLec === 0 ? 0 : ((absences / totalLec) * 100).toFixed(1);
         const remainingAbsences = maxAllowedAbsences - absences;
 
@@ -2075,13 +2565,12 @@
           </div>
           <div class="course-card-body">
             
-            <!-- نظام الحرمان حسب لائحة جامعة طيبة -->
             <div class="dn-calculator-box">
               <div class="dn-info">
-                <span class="dn-title">نظام الحرمان بجامعة طيبة (إجمالي المحاضرات: ${totalLec} • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
+                <span class="dn-title">نظام الحرمان بجامعة طيبة (المحاضرات: ${totalLec} • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
                 <span class="dn-status ${statusTextClass}">${statusMessage}</span>
                 <div class="dn-percentage-pill ${statusPillClass}">
-                  نسبة الغياب الحالية: ${absencePercentage}% (${absences} غيابات من ${totalLec})
+                  نسبة الغياب: ${absencePercentage}% (${absences} غيابات من ${totalLec})
                 </div>
               </div>
               <div class="stepper-controls">
@@ -2145,7 +2634,6 @@
           }
         });
 
-        // رصد وإنقاص الغياب
         card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
           e.stopPropagation();
           await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
@@ -2222,7 +2710,7 @@
       else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
     }
 
-    // مؤقت غرس الإنجاز التفاعلي
+    // مؤقت غرس الإنجاز
     const TOTAL_FOCUS_TIME = 25 * 60;
     let timerDuration = TOTAL_FOCUS_TIME;
     let timerInterval = null;
@@ -2382,7 +2870,6 @@
       const credits = parseInt(document.getElementById("course-credits-input").value) || 3;
       const originLevel = document.getElementById("course-origin-level-input").value.trim();
       
-      // التعيين التلقائي حسب ساعات جامعة طيبة
       const defaultLec = credits === 4 ? 45 : (credits === 3 ? 30 : 15);
       const totalLectures = parseInt(document.getElementById("course-lectures-input").value) || defaultLec;
       const chapterCount = parseInt(document.getElementById("course-chapters-input").value) || 5;
