@@ -15,7 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
-    /* لوحة الألوان الاحترافية الجديدة المنسقة بعناية (فاتح وداكن) */
     :root {
       --primary-dark: #0F766E;
       --primary-teal: #14B8A6;
@@ -1020,8 +1019,8 @@
 
     .contributor-credit {
       font-size: 10px;
-      color: var(--text-muted);
-      font-weight: 600;
+      color: var(--primary-teal);
+      font-weight: 800;
       display: block;
       margin-top: 2px;
     }
@@ -1321,14 +1320,14 @@
     }
 
     /* ========================================== */
-    /* شريط التنقل السفلي الاحترافي (الرئيسية بالنص مع فوكس فخم) */
+    /* شريط التنقل السفلي الكلاسيكي مع فوكس نقي وواضح */
     /* ========================================== */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
       max-width: 480px;
-      height: 66px;
+      height: 64px;
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
       display: flex;
@@ -1366,7 +1365,7 @@
     }
 
     .nav-item span.icon {
-      font-size: 20px;
+      font-size: 19px;
     }
 
     .modal-overlay {
@@ -1480,7 +1479,7 @@
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
-        <div class="logo-icon">🎓</div>
+        <div class="logo-icon">💻</div>
         <h2>بوابة جدولي الأكاديمي</h2>
         <p>جامعة طيبة - هندسة الحاسب الآلي</p>
       </div>
@@ -1616,7 +1615,7 @@
 
       <div id="new-user-welcome-box" class="poll-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
         <strong>مرحباً بك في منصة جدولي الأكاديمي!</strong>
-        <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتبدأ متابعة حضورك، جدولك، وتجميعات موادك بكل سهولة.</span>
+        <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</span>
       </div>
 
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
@@ -1776,7 +1775,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات (الافتراضي فارغ تماماً بدون مواد حتى يتم إضافتها) -->
+    <!-- تبويب التجميعات والملخصات (الافتراضي فارغ تماماً بدون مواد حتى يتم إضافتها في المقررات) -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -1943,7 +1942,7 @@
     </main>
 
     <!-- ============================================================ -->
-    <!-- شريط التنقل السفلي الاحترافي (الرئيسية في المنتصف مع فوكس نقي) -->
+    <!-- شريط التنقل السفلي الاحترافي (الرئيسية في المنتصف مع فوكس واشح نقي) -->
     <!-- ============================================================ -->
     <nav class="bottom-nav">
       <div class="nav-item" data-target="courses">
@@ -2000,7 +1999,7 @@
       </div>
     </div>
 
-    <!-- مودال الملف الشخصي (الاسم، التصنيف، الشعبة مقفلة ولا تُعدل إلا عبر المشرف) -->
+    <!-- مودال الملف الشخصي (إمكانية تعديل الاسم، قفل التصنيف والشعبة) -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2014,22 +2013,22 @@
           </div>
 
           <div class="form-group">
-            <label>الاسم الكامل (محمي - للتعديل يرجى مراسلة المشرف)</label>
-            <input type="text" id="profile-name-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
+            <label>الاسم الكامل</label>
+            <input type="text" id="profile-name-input" required placeholder="اسمك الكريم">
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label>التصنيف</label>
+              <label>التصنيف (محمي)</label>
               <input type="text" id="profile-gender-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
             </div>
             <div class="form-group">
-              <label>رقم الشعبة</label>
+              <label>رقم الشعبة (محمي)</label>
               <input type="text" id="profile-section-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
             </div>
           </div>
           <p style="font-size:11px; color:#D97706; margin-bottom:12px; font-weight:700;">
-            ℹ️ ملاحظة: لتغيير الاسم، التصنيف، أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
+            ℹ️ ملاحظة: لتغيير التصنيف أو الشعبة يرجى إرسال طلب تعديل مع السبب عبر زر "📩" بالأعلى.
           </p>
 
           <div class="form-group">
@@ -2424,7 +2423,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق البرمجي المتكامل بدون أي نقصان -->
+  <!-- منطق التطبيق الكامل بدون أي نقصان -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -2762,6 +2761,7 @@
       authError.textContent = "";
     });
 
+    // تسجيل الدخول عبر Apple ID
     btnAppleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
@@ -2797,6 +2797,7 @@
       }
     });
 
+    // تسجيل الدخول عبر Google
     btnGoogleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
@@ -3082,11 +3083,11 @@
       alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
-    // تصدير تقرير الطلاب التفصيلي إلى Excel مرتب
+    // تصدير تقرير الطلاب التفصيلي إلى Excel منسق واحترافي
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الشعبة,المستوى الحالي,رصيد النقاط,تاريخ التسجيل,آخر تسجيل دخول\n";
+      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف (طالب/طالبة),رقم الشعبة,المستوى الحالي,رصيد النقاط,تاريخ التسجيل,آخر تسجيل دخول\n";
       
       snap.forEach(d => {
         const u = d.data();
@@ -3255,9 +3256,10 @@
       }
     });
 
-    // حفظ التعديلات في الملف الشخصي (الاسم والتصنيف والشعبة مقفولة للمستخدم)
+    // حفظ تعديلات الملف الشخصي (الاسم متاح للتعديل، الشعبة والتصنيف محميان)
     profileEditForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const newName = profileNameInput.value.trim();
       const newBio = profileBioInput.value.trim();
       const newPhoto = profileAvatarUrl.value.trim() || profileAvatarPreview.src;
 
@@ -3269,8 +3271,9 @@
       };
 
       try {
-        await updateProfile(auth.currentUser, { photoURL: newPhoto });
+        await updateProfile(auth.currentUser, { displayName: newName, photoURL: newPhoto });
         await updateDoc(doc(db, "users", currentUser.uid), {
+          displayName: newName,
           bio: newBio,
           photoURL: newPhoto,
           widgetPrefs: newPrefs
@@ -3654,6 +3657,7 @@
       });
     });
 
+    // ربط التجميعات بالمقررات الحالية (الافتراضي فارغ تماماً)
     function renderPublicResourcesUI() {
       resourcesGlobalContainer.innerHTML = "";
       const queryText = searchResourcesInput.value.trim().toLowerCase();
@@ -3707,7 +3711,7 @@
                   <span class="resource-type-badge">${item.type}</span>
                   <div>
                     <span>${item.title}</span>
-                    ${item.contributorName ? `<span class="contributor-credit">مساهمة من: ${item.contributorName}</span>` : ''}
+                    ${item.contributorName ? `<span class="contributor-credit">مساهمة من: ${item.contributorName} (+15 نقطة ⭐)</span>` : ''}
                   </div>
                 </a>
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -3836,6 +3840,7 @@
         type: document.getElementById("sub-res-type").value,
         url: document.getElementById("sub-res-url").value.trim(),
         contributorName: currentUser ? (currentUser.displayName || "طالب/ـة") : "مهندس/ـة",
+        contributorUid: currentUser.uid,
         status: "pending",
         createdAt: new Date().toISOString()
       });
@@ -3844,6 +3849,7 @@
       alert("شكراً لمساهمتك! تم إرسال الملخص وسيتم نشره للجميع فور اعتماده من المشرف ❤️");
     });
 
+    // اعتماد الملخصات ومنح صاحب المساهمة +15 نقطة
     function renderPendingApprovalsUI() {
       if (pendingResources.length === 0) {
         adminPendingApprovalBox.style.display = "none";
@@ -3867,7 +3873,19 @@
         `;
         row.querySelector(".btn-approve").addEventListener("click", async () => {
           await updateDoc(doc(db, "public_resources", item.id), { status: "approved" });
+          
+          // منح الطالب المساهم +15 نقطة تقديراً لمساهمته
+          if (item.contributorUid) {
+            const authorRef = doc(db, "users", item.contributorUid);
+            const authorSnap = await getDoc(authorRef);
+            if (authorSnap.exists()) {
+              const currentPts = authorSnap.data().points || 0;
+              await updateDoc(authorRef, { points: currentPts + 15 });
+            }
+          }
+          alert("تم اعتماد الملخص بنجاح ومنح الطالب المساهم +15 نقطة ⭐");
         });
+
         row.querySelector(".btn-reject").addEventListener("click", async () => {
           if (confirm("هل ترغب برفض وحذف هذا الرابط؟")) {
             await deleteDoc(doc(db, "public_resources", item.id));
@@ -4274,7 +4292,7 @@
       renderTreeStage(totalFocusSeconds);
     });
 
-    // التنقل السفلي مع فوكس واضح ونقي للصفحة النشطة وتخفيف إضاءة الباقين
+    // التنقل السفلي مع فوكس صافي
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
