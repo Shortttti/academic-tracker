@@ -152,6 +152,9 @@
       border-bottom: 1px solid var(--border-subtle);
     }
 
+    .auth-divider:not(:empty)::before { margin-left: .5em; }
+    .auth-divider:not(:empty)::after { margin-right: .5em; }
+
     .auth-tabs {
       display: flex;
       border-bottom: 2px solid var(--border-subtle);
@@ -344,6 +347,8 @@
       border-bottom: 1px dashed rgba(146, 64, 14, 0.2);
     }
 
+    .admin-notif-row:last-child { border-bottom: none; }
+
     .live-class-banner {
       background: linear-gradient(135deg, #10B981, #059669);
       color: white;
@@ -378,6 +383,20 @@
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 4px 12px rgba(8, 95, 86, 0.15);
+    }
+
+    .countdown-info h4 {
+      font-size: 13.5px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .countdown-info p {
+      font-size: 11px;
+      color: #CCFBF1;
+      margin-top: 2px;
     }
 
     .countdown-timer-digits {
@@ -3033,7 +3052,17 @@
       }
     });
 
-    // استطلاع الرأي
+    function updateAdminNotificationCard() {
+      const notifCard = document.getElementById("admin-dashboard-notif-card");
+      if (isAdmin && (profileChangeRequests.length > 0 || pendingResources.length > 0)) {
+        document.getElementById("notif-req-count").textContent = profileChangeRequests.length;
+        document.getElementById("notif-res-count").textContent = pendingResources.length;
+        notifCard.style.display = "block";
+      } else {
+        notifCard.style.display = "none";
+      }
+    }
+
     async function renderPollUI() {
       if (!activePoll || !activePoll.active) {
         homeActivePollBox.style.display = "none";
@@ -3787,6 +3816,100 @@
       });
     }
 
+    function applySystemAlertsConfig(cfg) {
+      if (cfg.broadcastActive && cfg.broadcastText) {
+        broadcastText.textContent = `📢 ${cfg.broadcastText}`;
+        globalBroadcastBanner.style.display = "flex";
+      } else {
+        globalBroadcastBanner.style.display = "none";
+      }
+
+      if (cfg.countdownActive && cfg.countdownDate) {
+        countdownTitle.textContent = `⏳ ${cfg.countdownTitle || 'اقتراب موعد الاختبار'}`;
+        const target = new Date(cfg.countdownDate);
+        countdownTargetDate.textContent = `الموعد: ${target.toLocaleDateString('ar-SA')}`;
+        examCountdownBox.style.display = "flex";
+
+        if (countdownInterval) clearInterval(countdownInterval);
+        const updateCountdown = () => {
+          const now = new Date().getTime();
+          const diff = target.getTime() - now;
+          if (diff <= 0) {
+            countdownTimerDigits.textContent = "انتهى الموعد!";
+            return;
+          }
+          const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          countdownTimerDigits.textContent = `${d} يوم • ${h} ساعة • ${m} د`;
+        };
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 60000);
+      } else {
+        examCountdownBox.style.display = "none";
+      }
+    }
+
+    btnAdminConfigAlerts.addEventListener("click", async () => {
+      const snap = await getDoc(doc(db, "system_configs", "alerts"));
+      if (snap.exists()) {
+        const c = snap.data();
+        document.getElementById("cfg-broadcast-text").value = c.broadcastText || "";
+        document.getElementById("cfg-broadcast-active").checked = c.broadcastActive || false;
+        document.getElementById("cfg-countdown-title").value = c.countdownTitle || "";
+        document.getElementById("cfg-countdown-date").value = c.countdownDate || "";
+        document.getElementById("cfg-countdown-active").checked = c.countdownActive || false;
+      }
+      adminAlertsConfigModal.classList.add("open");
+    });
+    btnCloseAlertsModal.addEventListener("click", () => adminAlertsConfigModal.classList.remove("open"));
+
+    adminAlertsForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await setDoc(doc(db, "system_configs", "alerts"), {
+        broadcastText: document.getElementById("cfg-broadcast-text").value.trim(),
+        broadcastActive: document.getElementById("cfg-broadcast-active").checked,
+        countdownTitle: document.getElementById("cfg-countdown-title").value.trim(),
+        countdownDate: document.getElementById("cfg-countdown-date").value,
+        countdownActive: document.getElementById("cfg-countdown-active").checked
+      });
+      adminAlertsConfigModal.classList.remove("open");
+      alert("تم تحديث الإعلان والعدّاد لجميع الطلاب بنجاح! 🚀");
+    });
+
+    function listenToLeaderboard() {
+      const q = query(collection(db, "users"), orderBy("points", "desc"), limit(5));
+      onSnapshot(q, (snapshot) => {
+        const listDiv = document.getElementById("leaderboard-list");
+        listDiv.innerHTML = "";
+        if (snapshot.empty) {
+          listDiv.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">ابدأ المذاكرة بالمؤقت لتتصدر القائمة!</p>`;
+          return;
+        }
+        let rank = 1;
+        snapshot.forEach(docSnap => {
+          const u = docSnap.data();
+          const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
+          const item = document.createElement("div");
+          item.className = "leaderboard-row";
+          item.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="leaderboard-rank">${medals[rank - 1] || rank}</span>
+              <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:24px; height:24px; border-radius:50%;">
+              <span>${u.displayName || 'طالب/ـة'}</span>
+            </div>
+            <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
+          `;
+          listDiv.appendChild(item);
+          rank++;
+        });
+      });
+    }
+
+    btnStudentSubmitResource.addEventListener("click", () => studentSubmitResourceModal.classList.add("open"));
+    btnCloseSubmitResModal.addEventListener("click", () => studentSubmitResourceModal.classList.remove("open"));
+
+    // التنقل السفلي مع فوكس نقي
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
         document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
