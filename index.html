@@ -1013,6 +1013,21 @@
       margin-top: 2px;
     }
 
+    .btn-upvote {
+      background: var(--subtle-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-upvote:active { transform: scale(0.95); }
+
     .admin-dashboard-panel {
       display: flex;
       flex-direction: column;
@@ -1612,7 +1627,6 @@
     <!-- تبويب الصفحة الرئيسية (Home) في المنتصف -->
     <main class="main-content" id="tab-content-home">
       
-      <!-- إشعار المحاضرة الحالية الآن -->
       <div id="live-class-banner" class="live-class-banner">
         <div>
           <span style="font-size: 10px; background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 6px; font-weight: 900;">مباشر الآن 🟢</span>
@@ -1622,7 +1636,6 @@
         <span style="font-size: 20px;">🏫</span>
       </div>
 
-      <!-- كارت إشعارات المشرف -->
       <div id="admin-dashboard-notif-card" class="admin-dashboard-notification">
         <div class="admin-notif-title">
           <span>🔔 تنبيهات المشرف اللحظية:</span>
@@ -1934,22 +1947,7 @@
       </footer>
     </main>
 
-    <!-- تبويب حاسبة المعدل -->
-    <main class="main-content" id="tab-content-gpa" style="display: none;">
-      <div class="content-header">
-        <div>
-          <h2>حاسبة المعدل المعتمدة</h2>
-          <p>حساب المعدل الفصلي والتراكمي الفعلي بسلم 5.00 وفق الساعات المعتمدة في خطتك</p>
-        </div>
-      </div>
-      <div id="gpa-calc-container" style="margin-top: 16px;"></div>
-
-      <footer class="site-footer">
-        <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
-      </footer>
-    </main>
-
-    <!-- صفحة الإشراف المستقلة (Dedicated Admin Panel) -->
+    <!-- صفحة الإشراف المستقلة -->
     <main class="main-content" id="tab-content-admin" style="display: none;">
       <div class="content-header">
         <div>
@@ -2024,7 +2022,7 @@
       </div>
     </nav>
 
-    <!-- النوافذ المنبثقة (Modals) -->
+    <!-- النوافذ المنبثقة -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2474,8 +2472,7 @@
       onAuthStateChanged, 
       updateProfile, 
       setPersistence, 
-      browserLocalPersistence,
-      browserSessionPersistence
+      browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
     import { 
       getFirestore, 
@@ -2595,7 +2592,6 @@
       showReminder: true
     };
 
-    // عناصر DOM
     const authScreen = document.getElementById("auth-screen");
     const mainApp = document.getElementById("main-app");
     const authForm = document.getElementById("auth-form");
@@ -2738,7 +2734,6 @@
     const dateLockMessage = document.getElementById("date-lock-message");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // إغلاق النوافذ بالنقر بالخارج أو Esc
     document.querySelectorAll(".modal-overlay").forEach(overlay => {
       overlay.addEventListener("click", (e) => {
         if (e.target === overlay) overlay.classList.remove("open");
@@ -2817,7 +2812,6 @@
       authError.textContent = "";
     });
 
-    // احداث تسجيل الدخول
     btnAppleLogin.addEventListener("click", async () => {
       authError.textContent = "";
       try {
@@ -3157,7 +3151,6 @@
       alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
-    // تصدير تقرير الطلاب التفصيلي بتنسيق متناسق لـ Google Sheets
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
@@ -3916,609 +3909,6 @@
     btnStudentSubmitResource.addEventListener("click", () => studentSubmitResourceModal.classList.add("open"));
     btnCloseSubmitResModal.addEventListener("click", () => studentSubmitResourceModal.classList.remove("open"));
 
-    // إرسال المساهمة مع دعم رفع الملفات
-    const btnSubModeLink = document.getElementById("btn-sub-mode-link");
-    const btnSubModeFile = document.getElementById("btn-sub-mode-file");
-    const subLinkGroup = document.getElementById("sub-link-group");
-    const subFileGroup = document.getElementById("sub-file-group");
-    const subResUrl = document.getElementById("sub-res-url");
-    const subResFile = document.getElementById("sub-res-file");
-    let studentShareMode = "link";
-
-    btnSubModeLink.addEventListener("click", () => {
-      btnSubModeLink.classList.add("active");
-      btnSubModeFile.classList.remove("active");
-      subLinkGroup.style.display = "block";
-      subFileGroup.style.display = "none";
-      studentShareMode = "link";
-    });
-
-    btnSubModeFile.addEventListener("click", () => {
-      btnSubModeFile.classList.add("active");
-      btnSubModeLink.classList.remove("active");
-      subLinkGroup.style.display = "none";
-      subFileGroup.style.display = "block";
-      studentShareMode = "file";
-    });
-
-    studentResourceForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      let resourceUrl = subResUrl.value.trim();
-
-      if (studentShareMode === "file") {
-        const file = subResFile.files[0];
-        if (!file) {
-          alert("الرجاء اختيار ملف لرفعه.");
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = async (ev) => {
-          await submitResourceToFirestore(ev.target.result);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        if (!resourceUrl) {
-          alert("الرجاء إدخال رابط الملف.");
-          return;
-        }
-        await submitResourceToFirestore(resourceUrl);
-      }
-    });
-
-    async function submitResourceToFirestore(finalUrl) {
-      await addDoc(collection(db, "public_resources"), {
-        courseCode: document.getElementById("sub-res-course").value,
-        title: document.getElementById("sub-res-title").value.trim(),
-        type: studentShareMode === "file" ? "ملف" : document.getElementById("sub-res-type").value,
-        url: finalUrl,
-        contributorName: currentUser ? (currentUser.displayName || "طالب/ـة") : "مهندس/ـة",
-        contributorUid: currentUser ? currentUser.uid : null,
-        upvotes: 0,
-        status: "pending",
-        createdAt: new Date().toISOString()
-      });
-      studentResourceForm.reset();
-      studentSubmitResourceModal.classList.remove("open");
-      alert("شكراً لمساهمتك! تم إرسال الملخص وسيتم نشره للدفعة فور اعتماده من المشرف مع +15 نقطة ⭐");
-    }
-
-    function renderAdminProfileRequestsUI() {
-      if (profileChangeRequests.length === 0) {
-        adminProfileRequestsList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>`;
-        return;
-      }
-      adminProfileRequestsList.innerHTML = "";
-      profileChangeRequests.forEach(req => {
-        const row = document.createElement("div");
-        row.className = "request-item-card";
-        row.innerHTML = `
-          <div style="font-size:12px; margin-bottom:6px;">
-            <strong>الطالب:</strong> ${req.studentName} (${req.studentEmail})<br>
-            <strong>التعديل المطلوب:</strong> تصنيف [${req.requestedGender}] • [${req.requestedSection}]<br>
-            <span style="color:var(--text-muted);">السبب: ${req.reason}</span>
-          </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn-approve-req" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">قبول وتعديل ✅</button>
-            <button class="btn-reject-req" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض ❌</button>
-          </div>
-        `;
-        row.querySelector(".btn-approve-req").addEventListener("click", async () => {
-          await updateDoc(doc(db, "users", req.uid), {
-            gender: req.requestedGender,
-            section: req.requestedSection
-          });
-          await updateDoc(doc(db, "profile_change_requests", req.id), { status: "approved" });
-          alert(`تم قبول الطلب وتحديث بيانات ${req.studentName} بنجاح!`);
-        });
-        row.querySelector(".btn-reject-req").addEventListener("click", async () => {
-          await updateDoc(doc(db, "profile_change_requests", req.id), { status: "rejected" });
-          alert("تم رفض طلب التعديل.");
-        });
-        adminProfileRequestsList.appendChild(row);
-      });
-    }
-
-    function renderAdminPendingResourcesUI() {
-      if (pendingResources.length === 0) {
-        adminPendingResourcesList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>`;
-        return;
-      }
-      adminPendingResourcesList.innerHTML = "";
-      pendingResources.forEach(item => {
-        const row = document.createElement("div");
-        row.className = "request-item-card";
-        row.innerHTML = `
-          <div style="font-size:12px; margin-bottom:6px;">
-            <strong style="color:var(--text-main);">${item.title}</strong>
-            <span style="display:block; font-size:11px; color:#92400E;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
-            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط ↗</a>
-          </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn-approve-res" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">اعتماد ونشر (+15 نقطة) ✅</button>
-            <button class="btn-reject-res" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض وحذف ❌</button>
-          </div>
-        `;
-        row.querySelector(".btn-approve-res").addEventListener("click", async () => {
-          await updateDoc(doc(db, "public_resources", item.id), { status: "approved" });
-          if (item.contributorUid) {
-            const authorRef = doc(db, "users", item.contributorUid);
-            const authorSnap = await getDoc(authorRef);
-            if (authorSnap.exists()) {
-              const currentPts = authorSnap.data().points || 0;
-              await updateDoc(authorRef, { points: currentPts + 15 });
-            }
-          }
-          alert("تم اعتماد الملخص بنجاح وإضافة +15 نقطة لرصيد الطالب المساهم ⭐");
-        });
-        row.querySelector(".btn-reject-res").addEventListener("click", async () => {
-          if (confirm("هل ترغب برفض وحذف هذا الرابط؟")) {
-            await deleteDoc(doc(db, "public_resources", item.id));
-          }
-        });
-        adminPendingResourcesList.appendChild(row);
-      });
-    }
-
-    // طلب تعديل التصنيف أو الدفعة
-    btnOpenRequestChange.addEventListener("click", () => {
-      profileModal.classList.remove("open");
-      requestChangeModal.classList.add("open");
-    });
-    btnCloseRequestModal.addEventListener("click", () => requestChangeModal.classList.remove("open"));
-
-    requestChangeForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      await addDoc(collection(db, "profile_change_requests"), {
-        uid: currentUser.uid,
-        studentName: currentUser.displayName || "طالب/ـة",
-        studentEmail: currentUser.email,
-        requestedGender: document.getElementById("req-gender-select").value,
-        requestedSection: document.getElementById("req-section-input").value.trim(),
-        reason: document.getElementById("req-reason-input").value.trim(),
-        status: "pending",
-        createdAt: new Date().toISOString()
-      });
-      requestChangeForm.reset();
-      requestChangeModal.classList.remove("open");
-      alert("تم إرسال طلب التعديل إلى المشرف بنجاح وسيقوم بمراجعته واعتماده مباشرة! 🚀");
-    });
-
-    // فحص المحاضرة الحالية مباشرة
-    function checkLiveCurrentClass() {
-      const now = new Date();
-      const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
-      const currentDayArabic = daysMap[now.getDay()];
-      const liveBanner = document.getElementById("live-class-banner");
-
-      if (!currentDayArabic || currentScheduleSlots.length === 0) {
-        liveBanner.style.display = "none";
-        return;
-      }
-
-      const currentMinutes = now.getHours() * 60 + now.getMinutes();
-      const todaySlots = currentScheduleSlots.filter(s => s.day === currentDayArabic);
-
-      let activeSlot = null;
-      for (const slot of todaySlots) {
-        const [sh, sm] = slot.startTime.split(":").map(Number);
-        const [eh, em] = slot.endTime.split(":").map(Number);
-        const startTotal = sh * 60 + sm;
-        const endTotal = eh * 60 + em;
-
-        if (currentMinutes >= startTotal && currentMinutes <= endTotal) {
-          activeSlot = slot;
-          break;
-        }
-      }
-
-      if (activeSlot) {
-        document.getElementById("live-class-title").textContent = `أنت الآن في محاضرة: ${activeSlot.courseName} (${activeSlot.courseCode})`;
-        document.getElementById("live-class-room").textContent = `قاعة: ${activeSlot.room} • ${activeSlot.building} (تنتهي الساعة ${activeSlot.endTime})`;
-        liveBanner.style.display = "flex";
-      } else {
-        liveBanner.style.display = "none";
-      }
-    }
-
-    setInterval(checkLiveCurrentClass, 30000);
-
-    function updateLevelUIState() {
-      levelDisplayHeading.textContent = `إنجاز المقررات الدراسية`;
-    }
-
-    btnAdminAddResource.addEventListener("click", () => adminResourceModal.classList.add("open"));
-    btnCloseAdminResModal.addEventListener("click", () => adminResourceModal.classList.remove("open"));
-
-    adminResourceForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!isAdmin) {
-        alert("عذراً، هذه الصلاحية مخصصة للأدمن فقط.");
-        return;
-      }
-
-      await addDoc(collection(db, "public_resources"), {
-        courseCode: document.getElementById("admin-res-course").value,
-        title: document.getElementById("admin-res-title").value.trim(),
-        type: document.getElementById("admin-res-type").value,
-        url: document.getElementById("admin-res-url").value.trim(),
-        pinned: document.getElementById("admin-res-pinned").checked,
-        status: "approved",
-        contributorName: "مشرف النظام",
-        createdAt: new Date().toISOString()
-      });
-
-      adminResourceForm.reset();
-      adminResourceModal.classList.remove("open");
-      alert("تم نشر الرابط لجميع الطلاب بنجاح! 🚀");
-    });
-
-    document.querySelectorAll(".sort-pill").forEach(pill => {
-      pill.addEventListener("click", () => {
-        document.querySelectorAll(".sort-pill").forEach(p => p.classList.remove("active"));
-        pill.classList.add("active");
-        currentSort = pill.getAttribute("data-sort");
-        renderCoursesUI();
-      });
-    });
-
-    function renderCoursesUI() {
-      coursesContainer.innerHTML = "";
-      let totalLecAll = 0;
-      let attendedLecAll = 0;
-
-      let sorted = [...currentCourses];
-      if (currentSort === "credits") {
-        sorted.sort((a, b) => (b.credits || 3) - (a.credits || 3));
-      } else if (currentSort === "missed") {
-        sorted.sort((a, b) => {
-          const remA = (a.totalLectures || 0) - (a.attendedLectures || 0);
-          const remB = (b.totalLectures || 0) - (b.attendedLectures || 0);
-          return remB - remA;
-        });
-      } else if (currentSort === "name") {
-        sorted.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
-      }
-
-      sorted.forEach((course) => {
-        totalLecAll += (course.totalLectures || 0);
-        attendedLecAll += (course.attendedLectures || 0);
-
-        const remainingLec = Math.max(0, (course.totalLectures || 0) - (course.attendedLectures || 0));
-        const completedChapters = (course.chapters || []).filter(c => c.done).length;
-        const totalChapters = (course.chapters || []).length;
-
-        const totalLec = course.totalLectures || (course.credits === 4 ? 45 : (course.credits === 3 ? 30 : 15));
-        const maxAllowedAbsences = Math.floor(totalLec / 4);
-        const dnAbsenceThreshold = maxAllowedAbsences + 1;
-        const absences = course.absences || 0;
-
-        const absencePercentage = totalLec === 0 ? 0 : ((absences / totalLec) * 100).toFixed(1);
-        const remainingAbsences = maxAllowedAbsences - absences;
-
-        let statusTextClass = "dn-safe";
-        let statusPillClass = "dn-safe-pill";
-        let statusMessage = `المسموح: ${maxAllowedAbsences} غيابات (باقي لك ${remainingAbsences} قبل الحرمان)`;
-
-        if (absences >= dnAbsenceThreshold) {
-          statusTextClass = "dn-danger";
-          statusPillClass = "dn-danger-pill";
-          statusMessage = `🚨 تم تجاوز نسبة 25%! وقع الحرمان (DN) برصيد ${absences} غياب`;
-        } else if (absences === maxAllowedAbsences) {
-          statusTextClass = "dn-warn";
-          statusPillClass = "dn-warn-pill";
-          statusMessage = `⚠️ تحذير شديد! بلغت الحد الأقصى (${absences}/${maxAllowedAbsences}). الغياب القادم هو الحرمان!`;
-        } else if (remainingAbsences === 1) {
-          statusTextClass = "dn-warn";
-          statusPillClass = "dn-warn-pill";
-          statusMessage = `انتبه! باقي لك غياب واحد فقط قبل بلوغ الحد الأقصى`;
-        }
-
-        const originTagHtml = course.originLevel 
-          ? `<span class="origin-level-tag">${course.originLevel}</span>` 
-          : '';
-
-        const card = document.createElement("div");
-        card.className = "course-card";
-        card.innerHTML = `
-          <div class="course-card-header">
-            <div>
-              ${originTagHtml}
-              <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
-                ${course.name} (${course.code}) • ${course.credits} وحدات معتمدة
-              </span>
-            </div>
-            <span class="course-status-brief">
-              أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
-            </span>
-            <span class="course-expand-icon">▼</span>
-          </div>
-          <div class="course-card-body">
-            
-            <div class="dn-calculator-box">
-              <div class="dn-info">
-                <span class="dn-title">نظام الحرمان بجامعة طيبة (المحاضرات: ${totalLec} • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
-                <span class="dn-status ${statusTextClass}">${statusMessage}</span>
-                <div class="dn-percentage-pill ${statusPillClass}">
-                  نسبة الغياب: ${absencePercentage}% (${absences} غيابات من ${totalLec})
-                </div>
-              </div>
-              <div class="stepper-controls">
-                <button class="step-btn btn-dec-abs" title="إنقاص غياب">-</button>
-                <span style="font-size:14px; font-weight:800;">${absences}</span>
-                <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--primary-red); font-weight:900;">+</button>
-              </div>
-            </div>
-
-            <div class="quick-actions-bar">
-              <button class="btn-quick btn-mark-all-done">إنجاز الكل سريعاً ✨</button>
-              <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
-            </div>
-
-            <div class="stepper-row">
-              <span>المحاضرات التي تم حضورها:</span>
-              <div class="stepper-controls">
-                <button class="step-btn btn-dec">-</button>
-                <strong>${course.attendedLectures} / ${course.totalLectures}</strong>
-                <button class="step-btn btn-inc">+</button>
-              </div>
-            </div>
-
-            <div class="chapter-section-title">
-              <span>الشباتر المذاكرة (${completedChapters}/${totalChapters})</span>
-              <button class="btn-add-chapter-mini">+ إضافة شابتر</button>
-            </div>
-
-            <div class="chapters-wrapper">
-              ${(course.chapters || []).map(ch => `
-                <div class="chapter-item ${ch.done ? 'done' : ''}">
-                  <span>${ch.title}</span>
-                  <input type="checkbox" ${ch.done ? 'checked' : ''} class="ch-check">
-                </div>
-              `).join('')}
-            </div>
-
-            <div class="course-footer-links">
-              <button class="btn-delete-course">حذف المقرر</button>
-            </div>
-          </div>
-        `;
-
-        card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
-
-        card.querySelector(".btn-inc").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (course.attendedLectures < course.totalLectures) {
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-              attendedLectures: course.attendedLectures + 1
-            });
-          }
-        });
-
-        card.querySelector(".btn-dec").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (course.attendedLectures > 0) {
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-              attendedLectures: course.attendedLectures - 1
-            });
-          }
-        });
-
-        card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-            absences: (course.absences || 0) + 1
-          });
-        });
-
-        card.querySelector(".btn-dec-abs").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if ((course.absences || 0) > 0) {
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-              absences: course.absences - 1
-            });
-          }
-        });
-
-        card.querySelector(".btn-mark-all-done").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
-          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-            attendedLectures: course.totalLectures,
-            chapters: updatedChs
-          });
-        });
-
-        card.querySelector(".btn-reset-all").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const updatedChs = (course.chapters || []).map(c => ({ ...c, done: false }));
-          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
-            attendedLectures: 0,
-            absences: 0,
-            chapters: updatedChs
-          });
-        });
-
-        card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
-          checkbox.addEventListener("change", async (e) => {
-            e.stopPropagation();
-            const chs = [...course.chapters];
-            chs[idx].done = checkbox.checked;
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
-          });
-        });
-
-        card.querySelector(".btn-add-chapter-mini").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const title = prompt("اسم الشابتر:");
-          if (title && title.trim()) {
-            const chs = [...(course.chapters || []), { id: `ch_${Date.now()}`, title: title.trim(), done: false }];
-            await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
-          }
-        });
-
-        card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
-          e.stopPropagation();
-          if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
-            await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
-          }
-        });
-
-        coursesContainer.appendChild(card);
-      });
-
-      const missed = totalLecAll - attendedLecAll;
-      const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
-
-      document.getElementById("missed-lectures-count").textContent = `${missed} محاضرات`;
-      document.getElementById("overall-progress-bar").style.width = `${pct}%`;
-      document.getElementById("overall-percent-label").textContent = `${pct}% نسبة المواكبة`;
-
-      const motiv = document.getElementById("motivational-text");
-      if (pct >= 85) motiv.textContent = "أداء ممتاز جداً! استمر بنفس الحماس 🔥";
-      else if (pct >= 50) motiv.textContent = "كأنها هجت شوي 🫣 يبيلك تاخذها وحدة وحدة";
-      else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
-    }
-
-    // مؤقت غرس الإنجاز
-    let sessionMinutes = 25;
-    let totalFocusSeconds = sessionMinutes * 60;
-    let timerDuration = totalFocusSeconds;
-    let timerInterval = null;
-
-    const timerDisplay = document.getElementById("pomodoro-timer");
-    const treeStatusText = document.getElementById("tree-status-text");
-    const treeContainer = document.getElementById("tree-svg-container");
-
-    function setSessionDuration(minutes) {
-      if (timerInterval) {
-        if (!confirm("الجلسة تعمل حالياً، هل ترغب بإيقافها وتغيير الوقت؟")) return;
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-      sessionMinutes = minutes;
-      totalFocusSeconds = sessionMinutes * 60;
-      timerDuration = totalFocusSeconds;
-      
-      const m = sessionMinutes.toString().padStart(2, '0');
-      timerDisplay.textContent = `${m}:00`;
-      renderTreeStage(timerDuration);
-    }
-
-    document.querySelectorAll(".preset-chip[data-time]").forEach(chip => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".preset-chip").forEach(c => c.classList.remove("active"));
-        chip.classList.add("active");
-        setSessionDuration(parseInt(chip.getAttribute("data-time")));
-      });
-    });
-
-    document.getElementById("btn-custom-timer").addEventListener("click", () => {
-      const input = prompt("أدخل مدة جلسة المذاكرة بالدقائق (مثال: 30 أو 50):", "30");
-      const min = parseInt(input);
-      if (min && min > 0 && min <= 180) {
-        document.querySelectorAll(".preset-chip").forEach(c => c.classList.remove("active"));
-        document.getElementById("btn-custom-timer").classList.add("active");
-        setSessionDuration(min);
-      } else if (input !== null) {
-        alert("الرجاء إدخال وقت صحيح بين 1 و 180 دقيقة.");
-      }
-    });
-
-    function renderTreeStage(secondsLeft) {
-      const elapsed = totalFocusSeconds - secondsLeft;
-      const progressRatio = totalFocusSeconds === 0 ? 0 : (elapsed / totalFocusSeconds);
-
-      let treeSvg = "";
-      if (progressRatio < 0.25) {
-        treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
-            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
-            <circle cx="50" cy="82" r="5" fill="#5D4037"/>
-            <path d="M50 78 Q52 74 50 70" stroke="#84CC16" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          </svg>`;
-        treeStatusText.textContent = "البذرة تُغرس في التربة... ركّز ولا تشتت ذهنك 🌱";
-      } else if (progressRatio < 0.60) {
-        treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
-            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
-            <path d="M50 82 Q50 65 50 55" stroke="#795548" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M50 65 Q40 60 42 52 Q48 55 50 62" fill="#84CC16"/>
-            <path d="M50 60 Q60 55 58 48 Q52 50 50 58" fill="#84CC16"/>
-          </svg>`;
-        treeStatusText.textContent = "شجرتك تكبر وتورق! استمر في التركيز 🌿";
-      } else if (progressRatio < 0.95) {
-        treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
-            <ellipse cx="50" cy="88" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
-            <path d="M50 85 L50 48" stroke="#5D4037" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="50" cy="40" r="18" fill="#10B981"/>
-            <circle cx="40" cy="46" r="13" fill="#059669"/>
-            <circle cx="60" cy="46" r="13" fill="#059669"/>
-          </svg>`;
-        treeStatusText.textContent = "أوشكت الشجرة على الإزهار! دقائق قليلة متبقية 🌳";
-      } else {
-        treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
-            <ellipse cx="50" cy="88" rx="38" ry="8" fill="#8D6E63" opacity="0.4"/>
-            <path d="M50 85 L50 45" stroke="#5D4037" stroke-width="6" stroke-linecap="round"/>
-            <circle cx="50" cy="38" r="22" fill="#059669"/>
-            <circle cx="36" cy="45" r="15" fill="#10B981"/>
-            <circle cx="64" cy="45" r="15" fill="#10B981"/>
-            <circle cx="50" cy="22" r="14" fill="#34D399"/>
-            <circle cx="44" cy="32" r="3" fill="#FBBF24"/>
-            <circle cx="58" cy="36" r="3" fill="#FBBF24"/>
-            <circle cx="48" cy="48" r="3" fill="#FBBF24"/>
-          </svg>`;
-        treeStatusText.textContent = "مبارك! اكتملت شجرة إنجازك وأُضيفت النقاط لرصيدك 🌟";
-      }
-      treeContainer.innerHTML = treeSvg;
-    }
-
-    document.getElementById("btn-timer-start").addEventListener("click", () => {
-      if (timerInterval) return;
-      timerInterval = setInterval(async () => {
-        if (timerDuration > 0) {
-          timerDuration--;
-          const m = Math.floor(timerDuration / 60).toString().padStart(2, '0');
-          const s = (timerDuration % 60).toString().padStart(2, '0');
-          timerDisplay.textContent = `${m}:${s}`;
-          renderTreeStage(timerDuration);
-        } else {
-          clearInterval(timerInterval);
-          timerInterval = null;
-          renderTreeStage(0);
-
-          const earnedPoints = sessionMinutes;
-          if (currentUser) {
-            const userRef = doc(db, "users", currentUser.uid);
-            const userSnap = await getDoc(userRef);
-            const currentPoints = (userSnap.data()?.points || 0) + earnedPoints;
-            const currentTrees = (userSnap.data()?.treesGrown || 0) + 1;
-            await updateDoc(userRef, { points: currentPoints, treesGrown: currentTrees });
-          }
-
-          alert(`🎉 أحسنت! أكملت ${sessionMinutes} دقيقة تركيز وحصلت على +${earnedPoints} نقطة في رصيدك وشجرة جديدة!`);
-        }
-      }, 1000);
-    });
-
-    document.getElementById("btn-timer-pause").addEventListener("click", () => {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    });
-
-    document.getElementById("btn-timer-reset").addEventListener("click", () => {
-      if (timerDuration < totalFocusSeconds && timerDuration > 0) {
-        if (!confirm("هل ترغب بإلغاء جلسة التركيز الحالية؟ ستفقد تقدم الشجرة الحالية.")) return;
-      }
-      clearInterval(timerInterval);
-      timerInterval = null;
-      timerDuration = totalFocusSeconds;
-      const m = sessionMinutes.toString().padStart(2, '0');
-      timerDisplay.textContent = `${m}:00`;
-      renderTreeStage(totalFocusSeconds);
-    });
-
     // التنقل السفلي مع فوكس نقي
     document.querySelectorAll(".nav-item").forEach(item => {
       item.addEventListener("click", () => {
@@ -4531,7 +3921,6 @@
         document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
         document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
         document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
-        document.getElementById("tab-content-gpa").style.display = target === "gpa" ? "block" : "none";
         document.getElementById("tab-content-admin").style.display = "none";
 
         if (target === "home") renderHomeDashboardUI();
@@ -4694,81 +4083,6 @@
         opt.textContent = `${c.code} - ${c.name}`;
         taskCourseSelect.appendChild(opt);
       });
-    }
-
-    function renderGPACalculator() {
-      const gpaBox = document.getElementById("gpa-calc-container");
-      gpaBox.innerHTML = `
-        <div style="background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:14px; padding:16px;">
-          <div style="background:var(--subtle-bg); padding:12px; border-radius:10px; margin-bottom:14px;">
-            <span style="font-size:12px; font-weight:700; color:var(--primary-teal);">حساب المعدل التراكمي الجديد (اختياري):</span>
-            <div style="display:flex; gap:10px; margin-top:6px;">
-              <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
-              <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
-            </div>
-          </div>
-
-          <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">الدرجات التقديرية (الحساب بالوزن الفعلي لساعات كل مادة مسجلة):</p>
-          <div id="gpa-rows">
-            ${currentCourses.map(c => `
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <div>
-                  <span style="font-size:13px; font-weight:700;">${c.code}</span>
-                  <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits} وحدات معتمدة)</span>
-                </div>
-                <select class="grade-input" data-credits="${c.credits}" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12.5px;">
-                  <option value="5.0">A+ (5.00)</option>
-                  <option value="4.75">A (4.75)</option>
-                  <option value="4.5">B+ (4.50)</option>
-                  <option value="4.0">B (4.00)</option>
-                  <option value="3.5">C+ (3.50)</option>
-                  <option value="3.0">C (3.00)</option>
-                  <option value="2.5">D+ (2.50)</option>
-                  <option value="2.0">D (2.00)</option>
-                  <option value="1.0">F (1.00)</option>
-                </select>
-              </div>
-            `).join('')}
-          </div>
-          <button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل الفصلي والتراكمي</button>
-          <div id="gpa-result" style="text-align:center; margin-top:14px; font-weight:800;"></div>
-        </div>
-      `;
-
-      const btnCalc = document.getElementById("btn-calc-gpa");
-      if (btnCalc) {
-        btnCalc.addEventListener("click", () => {
-          const rows = document.querySelectorAll(".grade-input");
-          if (rows.length === 0) return;
-
-          let totalQualityPoints = 0;
-          let currentSemesterHours = 0;
-
-          rows.forEach(select => {
-            const points = parseFloat(select.value);
-            const credits = parseFloat(select.getAttribute("data-credits")) || 3;
-            totalQualityPoints += (points * credits);
-            currentSemesterHours += credits;
-          });
-
-          const semesterGPA = (totalQualityPoints / currentSemesterHours).toFixed(2);
-
-          const prevGPA = parseFloat(document.getElementById("prev-gpa").value);
-          const prevHours = parseFloat(document.getElementById("prev-hours").value);
-
-          let cumulativeText = "";
-          if (!isNaN(prevGPA) && !isNaN(prevHours) && prevHours > 0) {
-            const prevTotalPoints = prevGPA * prevHours;
-            const newCumulative = ((prevTotalPoints + totalQualityPoints) / (prevHours + currentSemesterHours)).toFixed(2);
-            cumulativeText = `<br><span style="color:#10B981; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
-          }
-
-          document.getElementById("gpa-result").innerHTML = `
-            <span style="color:var(--primary-teal); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
-            ${cumulativeText}
-          `;
-        });
-      }
     }
   </script>
 
