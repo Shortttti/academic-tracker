@@ -3267,26 +3267,124 @@
       }
     });
 
-    function renderAdminProfileRequestsUI() {
-      if (profileChangeRequests.length === 0) {
-        adminProfileRequestsList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>`;
-        return;
-      }
-      adminProfileRequestsList.innerHTML = "";
-      profileChangeRequests.forEach(req => {
-        const row = document.createElement("div");
-        row.className = "request-item-card";
-        row.innerHTML = `
-          <div style="font-size:11.5px; margin-bottom:5px;">
-            <strong>الطالب:</strong> ${req.studentName} (${req.studentEmail})<br>
-            <strong>التعديل المطلوب:</strong> تصنيف [${req.requestedGender}] • [${req.requestedSection}]<br>
-            <span style="color:var(--text-muted);">السبب: ${req.reason}</span>
+    async function updateAdminDashboardAnalytics() {
+    const usersSnap = await getDocs(collection(db, "users"));
+    document.getElementById("kpi-total-students").textContent = usersSnap.size;
+
+    let totalPts = 0;
+    usersSnap.forEach(d => {
+      totalPts += (d.data().contributionPoints || 0);
+    });
+    document.getElementById("kpi-total-points").textContent = totalPts;
+
+    const approvedRes = publicResources.filter(r => r.status === "approved");
+    document.getElementById("kpi-total-resources").textContent = approvedRes.length;
+    document.getElementById("kpi-pending-reqs").textContent = profileChangeRequests.filter(r => r.status === "pending").length;
+
+    const riskList = document.getElementById("admin-dn-risk-list");
+    riskList.innerHTML = "";
+    let riskCount = 0;
+
+    for (const uDoc of usersSnap.docs) {
+      const u = uDoc.data();
+      const cSnap = await getDocs(collection(db, "users", uDoc.id, "courses"));
+      cSnap.forEach(cDoc => {
+        const c = cDoc.data();
+        const totalLec = c.totalLectures || 30;
+        const maxAbs = Math.floor(totalLec / 4);
+        const absences = c.absences || 0;
+        if (absences >= maxAbs - 1 && absences > 0) {
+          riskCount++;
+          const row = document.createElement("div");
+          row.className = "request-item-card";
+          row.style.border = "1px solid #FECACA";
+          row.innerHTML = `
+            <div style="font-size:11px;">
+              <strong>${u.displayName || 'طالب/ـة'}</strong> (${u.section || 'دفعة عامة'}) - مقرر: <strong>${c.name} (${c.code})</strong><br>
+              <span style="color:#DC2626; font-weight:bold;">الغيابات: ${absences} من أصل ${maxAbs} مسموحة</span> (نسبة الغياب: ${((absences/totalLec)*100).toFixed(1)}%)
+            </div>
+          `;
+          riskList.appendChild(row);
+        }
+      });
+    }
+
+    if (riskCount === 0) {
+      riskList.innerHTML = `<p style="font-size:11px; color:var(--text-muted); text-align:center;">لا يوجد طلاب في مرحلة الخطر حالياً 🌟</p>`;
+    }
+
+    const pollBox = document.getElementById("admin-poll-analysis-box");
+    if (activePoll && activePoll.active) {
+      const votes = activePoll.votes || {};
+      const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
+      let html = `<strong style="font-size:12px; display:block; margin-bottom:6px;">السؤال: ${activePoll.title} (إجمالي الأصوات: ${totalVotes})</strong>`;
+
+      activePoll.options.forEach((opt, idx) => {
+        const count = votes[idx] || 0;
+        const pct = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
+        html += `
+          <div style="margin-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:bold;">
+              <span>${opt}</span>
+              <span>${count} أصوات (${pct}%)</span>
+            </div>
+            <div style="width:100%; height:6px; background:#E2E8F0; border-radius:6px; overflow:hidden; margin-top:2px;">
+              <div style="width:${pct}%; height:100%; background:var(--primary-teal); border-radius:6px;"></div>
+            </div>
           </div>
+        `;
+      });
+      pollBox.innerHTML = html;
+    } else {
+      pollBox.innerHTML = `<p style="font-size:11px; color:var(--text-muted); text-align:center;">لا يوجد استطلاع نشط حالياً للتحليل.</p>`;
+    }
+
+    const auditBox = document.getElementById("admin-audit-log-list");
+    auditBox.innerHTML = `
+      <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• جاهزية النظام متصلة بقاعدة البيانات السحابية (Firestore).</div>
+      <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• تم مزامنة طلبات التعديل والتجميعات لحظياً.</div>
+      <div style="padding:4px 0;">• آخر فحص للنظام: ${new Date().toLocaleTimeString('ar-SA')}</div>
+    `;
+  }
+
+  document.getElementById("filter-req-pending")?.addEventListener("click", () => {
+    document.getElementById("filter-req-pending").classList.add("active");
+    document.getElementById("filter-req-all").classList.remove("active");
+    renderAdminProfileRequestsUI("pending");
+  });
+  document.getElementById("filter-req-all")?.addEventListener("click", () => {
+    document.getElementById("filter-req-all").classList.add("active");
+    document.getElementById("filter-req-pending").classList.remove("active");
+    renderAdminProfileRequestsUI("all");
+  });
+
+  function renderAdminProfileRequestsUI(filter = "pending") {
+    let list = profileChangeRequests;
+    if (filter === "pending") list = list.filter(r => r.status === "pending");
+
+    if (list.length === 0) {
+      adminProfileRequestsList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد طلبات معلقة حالياً 🎉</p>`;
+      return;
+    }
+    adminProfileRequestsList.innerHTML = "";
+    list.forEach(req => {
+      const row = document.createElement("div");
+      row.className = "request-item-card";
+      row.innerHTML = `
+        <div style="font-size:11.5px; margin-bottom:5px;">
+          <strong>الطالب:</strong> ${req.studentName} (${req.studentEmail})<br>
+          <strong>التعديل المطلوب:</strong> تصنيف [${req.requestedGender}] • [${req.requestedSection}]<br>
+          <span style="color:var(--text-muted);">السبب: ${req.reason}</span><br>
+          <span style="font-size:10px; color:var(--primary-teal);">الحالة: ${req.status === 'pending' ? 'بانتظار المراجعة' : req.status}</span>
+        </div>
+        ${req.status === 'pending' ? `
           <div style="display:flex; gap:6px;">
             <button class="btn-approve-req" style="background:#10B981; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">قبول وتعديل ✅</button>
             <button class="btn-reject-req" style="background:#EF4444; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">رفض ❌</button>
           </div>
-        `;
+        ` : ''}
+      `;
+      if (req.status === 'pending') {
         row.querySelector(".btn-approve-req").addEventListener("click", async () => {
           await updateDoc(doc(db, "users", req.uid), {
             gender: req.requestedGender,
@@ -3299,9 +3397,10 @@
           await updateDoc(doc(db, "profile_change_requests", req.id), { status: "rejected" });
           alert("تم رفض طلب التعديل.");
         });
-        adminProfileRequestsList.appendChild(row);
-      });
-    }
+      }
+      adminProfileRequestsList.appendChild(row);
+    });
+  }
 
     function renderAdminPendingResourcesUI() {
       if (pendingResources.length === 0) {
@@ -3501,17 +3600,33 @@
       alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
-    btnAdminExportExcel.addEventListener("click", async () => {
-      if (!isAdmin) return;
-      const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الدفعة,المستوى,رصيد النقاط,نقاط المساهمة,تاريخ التسجيل,وقت آخر دخول\n";
-      
-      snap.forEach(d => {
-        const u = d.data();
-        const regDate = u.createdAt ? new Date(u.createdAt).toLocaleString('ar-SA') : 'غير متوفر';
-        const loginDate = u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString('ar-SA') : 'غير متوفر';
-        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'دفعة عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${u.contributionPoints || 0}","${regDate}","${loginDate}"\n`;
-      });
+   btnAdminExportExcel.addEventListener("click", async () => {
+  if (!isAdmin) return;
+  const snap = await getDocs(collection(db, "users"));
+  let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الدفعة,المستوى,رصيد النقاط,نقاط المساهمة,تاريخ التسجيل,وقت آخر دخول\n";
+
+  snap.forEach(d => {
+    const u = d.data();
+    const regDate = u.createdAt ? new Date(u.createdAt).toLocaleString('ar-SA') : 'غير متوفر';
+    const loginDate = u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString('ar-SA') : 'غير متوفر';
+    csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'دفعة عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${u.contributionPoints || 0}","${regDate}","${loginDate}"\n`;
+  });
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", `سجل_طلاب_Academic_Tracker_${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  setTimeout(() => {
+    if (confirm("تم تحميل الملف المنظم بنجاح! هل ترغب في فتح Google Sheets الآن لرفع وعرض البيانات مباشرة؟")) {
+      window.open("https://sheets.new", "_blank");
+    }
+  }, 500);
+});
 
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
@@ -4244,35 +4359,35 @@
       }
     }
 
-    function listenToLeaderboard() {
-      const q = query(collection(db, "users"), orderBy("points", "desc"), limit(5));
-      onSnapshot(q, (snapshot) => {
-        const listDiv = document.getElementById("leaderboard-list");
-        listDiv.innerHTML = "";
-        if (snapshot.empty) {
-          listDiv.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">ابدأ المذاكرة بالمؤقت لتتصدر القائمة!</p>`;
-          return;
-        }
-        let rank = 1;
-        snapshot.forEach(docSnap => {
-          const u = docSnap.data();
-          const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
-          const item = document.createElement("div");
-          item.className = "leaderboard-row";
-          item.innerHTML = `
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span class="leaderboard-rank">${medals[rank - 1] || rank}</span>
-              <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:22px; height:22px; border-radius:50%;">
-              <span>${u.displayName || 'طالب/ـة'}</span>
-            </div>
-            <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
-          `;
-          listDiv.appendChild(item);
-          rank++;
-        });
-      });
+   function listenToLeaderboard() {
+  const q = query(collection(db, "users"), orderBy("points", "desc"), limit(5));
+  onSnapshot(q, (snapshot) => {
+    const listDiv = document.getElementById("leaderboard-list");
+    listDiv.innerHTML = "";
+    if (snapshot.empty) {
+      listDiv.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">ابدأ المذاكرة بالمؤقت لتتصدر القائمة!</p>`;
+      return;
     }
-
+    let rank = 1;
+    snapshot.forEach(docSnap => {
+      const u = docSnap.data();
+      const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
+      const isCertified = (u.contributionPoints || 0) >= 45;
+      const item = document.createElement("div");
+      item.className = "leaderboard-row";
+      item.innerHTML = `
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span class="leaderboard-rank">${medals[rank - 1] || rank}</span>
+          <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:22px; height:22px; border-radius:50%;">
+          <span>${u.displayName || 'طالب/ـة'} ${isCertified ? '<span title="مساهم معتمد" style="font-size:11px;">🎖️</span>' : ''}</span>
+        </div>
+        <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
+      `;
+      listDiv.appendChild(item);
+      rank++;
+    });
+  });
+}
     feedbackForm.addEventListener("submit", async () => {
       if (currentUser) {
         try {
