@@ -1038,6 +1038,33 @@
       flex-direction: column;
       gap: 12px;
     }
+    .admin-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .admin-kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .admin-kpi-card span.num {
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--primary-teal);
+      display: block;
+    }
+
+    .admin-kpi-card span.label {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
 
     .admin-section-box {
       background: var(--card-bg);
@@ -2000,7 +2027,7 @@
       </footer>
     </main>
 
-    <!-- صفحة الإشراف المستقلة والمحمية بالكامل (Dedicated Admin Dashboard) -->
+<!-- صفحة الإشراف المستقلة والمحمية بالكامل (Dedicated Admin Dashboard) -->
     <main class="main-content" id="tab-content-admin" style="display: none;">
       <div class="content-header">
         <div>
@@ -2011,6 +2038,43 @@
 
       <div class="admin-dashboard-panel">
         
+        <!-- بطاقات المؤشرات الرقمية العلوية (Admin KPIs) -->
+        <div class="admin-kpi-grid">
+          <div class="admin-kpi-card">
+            <span class="num" id="kpi-total-students">0</span>
+            <span class="label">إجمالي الطلاب المسجلين</span>
+          </div>
+          <div class="admin-kpi-card">
+            <span class="num" id="kpi-pending-reqs" style="color:#DC2626;">0</span>
+            <span class="label">طلبات التعديل المعلقة</span>
+          </div>
+          <div class="admin-kpi-card">
+            <span class="num" id="kpi-total-resources" style="color:#0D9488;">0</span>
+            <span class="label">التجميعات المعتمدة</span>
+          </div>
+          <div class="admin-kpi-card">
+            <span class="num" id="kpi-total-points" style="color:#D97706;">0</span>
+            <span class="label">نقاط المساهمة الممنوحة</span>
+          </div>
+        </div>
+
+        <!-- رادار كشف التعثر والغيابات القريبة من الحرمان 25% -->
+        <div class="admin-section-box" style="border: 1.5px solid #FECACA;">
+          <h3 style="color:#DC2626;">🚨 رادار كشف الطلاب المهددين بالحرمان (DN Alerts)</h3>
+          <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">الطلاب الذين تجاوزت غياباتهم 15% أو اقتربوا من نسبة الحرمان 25%:</p>
+          <div id="admin-dn-risk-list">
+            <p style="font-size:11px; color:var(--text-muted); text-align:center;">لا يوجد طلاب في مرحلة الخطر حالياً 🌟</p>
+          </div>
+        </div>
+
+        <!-- التحليل البياني التفاعلي لنتائج الاستطلاعات -->
+        <div class="admin-section-box">
+          <h3>📊 تحليل نتائج الاستطلاع النشط</h3>
+          <div id="admin-poll-analysis-box">
+            <p style="font-size:11px; color:var(--text-muted); text-align:center;">لا يوجد استطلاع نشط حالياً للتحليل.</p>
+          </div>
+        </div>
+
         <!-- إضافة مشرف جديد بالـ UID -->
         <div class="admin-section-box">
           <h3>👥 إضافة مشرف جديد للنظام</h3>
@@ -2021,10 +2085,13 @@
           </div>
         </div>
 
-        <!-- مركز طلبات تعديل البيانات (التصنيف والدفعة) -->
+        <!-- مركز طلبات تعديل البيانات مع التصفية السريعة -->
         <div class="admin-section-box">
-          <h3>📝 طلبات تعديل البيانات (الدفعة والتصنيف)</h3>
-          <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:8px;">الطلبات المرفوعة من الطلاب للموافقة والتطبيق الفوري:</p>
+          <h3>📝 مركز طلبات تعديل البيانات (الدفعة والتصنيف)</h3>
+          <div class="sort-bar" style="margin-bottom:8px;">
+            <button class="sort-pill active" id="filter-req-pending">المعلقة ⏳</button>
+            <button class="sort-pill" id="filter-req-all">الكل 📋</button>
+          </div>
           <div id="admin-profile-requests-list">
             <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>
           </div>
@@ -2045,9 +2112,18 @@
             <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:11.5px; padding:8px; margin:0;">➕ إضافة تجميعة</button>
             <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:11.5px; padding:8px; margin:0;">⚙️ إعلانات وعدّاد</button>
             <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:11.5px; padding:8px; margin:0;">📊 استطلاع رأي</button>
-            <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:11.5px; padding:8px; margin:0;">📊 تصدير Google Sheet</button>
+            <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:11.5px; padding:8px; margin:0;">📊 فتح وتصدير Google Sheet</button>
           </div>
         </div>
+
+        <!-- سجل العمليات الإشرافية Audit Activity Log -->
+        <div class="admin-section-box">
+          <h3>📜 سجل العمليات الأخير (Audit Log)</h3>
+          <div id="admin-audit-log-list" style="display:flex; flex-direction:column; gap:4px; font-size:10.5px; color:var(--text-muted);">
+            <p style="text-align:center;">جاري مزامنة آخر الأنشطة...</p>
+          </div>
+        </div>
+
       </div>
 
       <footer class="site-footer">
