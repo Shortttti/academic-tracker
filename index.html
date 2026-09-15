@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Academic Tracker - كلية علوم وهندسة الحاسب | جامعة طيبة</title>
   
-  <!-- إعدادات وتجهيزات PWA وتثبيت التطبيق على الجوال -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Academic Tracker">
@@ -13,12 +12,10 @@
   <meta name="theme-color" content="#0F766E">
   <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/bottts/svg?seed=COE&backgroundColor=0f766e">
 
-  <!-- تضمين Web App Manifest مضمن ذاتياً لضمان التثبيت الفوري -->
   <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Academic%20Tracker%20-%20%D8%AC%D8%A7%D9%85%D8%B9%D8%A9%20%D8%B7%D9%8A%D8%A8%D8%A9%22%2C%22short_name%22%3A%22Academic%20Tracker%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230F766E%22%2C%22theme_color%22%3A%22%230F766E%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fapi.dicebear.com%2F7.x%2Fbottts%2Fsvg%3Fseed%3DCOE%26backgroundColor%3D0f766e%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 
-  <!-- الخط العربي المعتمد والمحسن -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
@@ -77,18 +74,18 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       position: relative;
     }
 
     .auth-wrapper {
       justify-content: center;
-      padding: 24px;
+      padding: 20px;
     }
 
     .auth-card {
       background: var(--card-bg);
-      padding: 28px 22px;
+      padding: 24px 20px;
       border-radius: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.06);
       border: 1px solid var(--border-subtle);
@@ -96,22 +93,22 @@
 
     .auth-logo {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .logo-icon {
-      font-size: 38px;
-      margin-bottom: 6px;
+      font-size: 34px;
+      margin-bottom: 4px;
     }
 
     .auth-logo h2 {
-      font-size: 21px;
+      font-size: 20px;
       color: var(--primary-teal);
       font-weight: 800;
     }
 
     .auth-logo p {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--text-muted);
     }
 
@@ -119,7 +116,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .btn-social {
@@ -132,8 +129,8 @@
       color: var(--text-main);
       border: 1.5px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 11px;
-      font-size: 13.5px;
+      padding: 10px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0,0,0,0.02);
@@ -146,9 +143,9 @@
       display: flex;
       align-items: center;
       text-align: center;
-      margin: 14px 0;
+      margin: 12px 0;
       color: var(--text-muted);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
     }
 
@@ -158,21 +155,18 @@
       border-bottom: 1px solid var(--border-subtle);
     }
 
-    .auth-divider:not(:empty)::before { margin-left: .5em; }
-    .auth-divider:not(:empty)::after { margin-right: .5em; }
-
     .auth-tabs {
       display: flex;
       border-bottom: 2px solid var(--border-subtle);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .tab-btn {
       flex: 1;
       background: none;
       border: none;
-      padding: 10px;
-      font-size: 14.5px;
+      padding: 9px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
@@ -184,23 +178,23 @@
     }
 
     .form-group {
-      margin-bottom: 13px;
+      margin-bottom: 12px;
       display: flex;
       flex-direction: column;
     }
 
     .form-group label {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
       color: var(--text-muted);
     }
 
     .form-group input, .form-group select, .form-group textarea {
-      padding: 11px 13px;
+      padding: 10px 12px;
       border: 1.5px solid var(--border-subtle);
       border-radius: 12px;
-      font-size: 13.5px;
+      font-size: 13px;
       outline: none;
       background-color: var(--card-bg);
       color: var(--text-main);
@@ -212,7 +206,7 @@
 
     .form-row {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     .form-row .form-group {
@@ -221,30 +215,30 @@
 
     .btn-primary {
       width: 100%;
-      padding: 12px;
+      padding: 11px;
       background-color: var(--primary-dark);
       color: white;
       border: none;
       border-radius: 12px;
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 6px;
+      margin-top: 4px;
     }
 
     .btn-primary:active { transform: scale(0.98); }
 
     .error-msg {
       color: var(--primary-red);
-      font-size: 12px;
-      margin-top: 10px;
+      font-size: 11.5px;
+      margin-top: 8px;
       text-align: center;
     }
 
     .app-header {
       background-color: var(--primary-dark);
       color: white;
-      padding: 12px 16px;
+      padding: 10px 14px;
       position: sticky;
       top: 0;
       z-index: 20;
@@ -258,7 +252,7 @@
 
     .header-actions {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       align-items: center;
     }
 
@@ -266,14 +260,14 @@
       background: rgba(255, 255, 255, 0.2);
       color: white;
       border: none;
-      padding: 5px 10px;
-      border-radius: 14px;
-      font-size: 11.5px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
       cursor: pointer;
       font-weight: bold;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
     }
 
     .btn-header-action:active { transform: scale(0.95); }
@@ -281,7 +275,7 @@
     .user-profile-btn {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
       background: rgba(255, 255, 255, 0.15);
       padding: 3px 8px 3px 4px;
@@ -289,8 +283,8 @@
     }
 
     .user-avatar-mini {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       object-fit: cover;
       background: #0F766E;
@@ -300,10 +294,10 @@
     .admin-badge {
       background: #FEF08A;
       color: #854D0E;
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 900;
-      padding: 2px 7px;
-      border-radius: 10px;
+      padding: 2px 6px;
+      border-radius: 8px;
       display: none;
       align-items: center;
       gap: 3px;
@@ -315,94 +309,111 @@
     }
 
     .brand-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       line-height: 1.2;
     }
 
     .brand-subtitle {
-      font-size: 11px;
+      font-size: 10.5px;
       color: rgba(255, 255, 255, 0.85);
     }
 
     .admin-dashboard-notification {
       background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
       border: 1.5px solid #FCD34D;
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 14px;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
       display: none;
     }
 
     .admin-notif-title {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 900;
       color: #92400E;
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 8px;
+      gap: 5px;
+      margin-bottom: 6px;
     }
 
     .admin-notif-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
-      padding: 6px 0;
+      font-size: 11.5px;
+      padding: 4px 0;
       border-bottom: 1px dashed rgba(146, 64, 14, 0.2);
     }
+
+    .admin-notif-row:last-child { border-bottom: none; }
 
     .live-class-banner {
       background: linear-gradient(135deg, #10B981, #059669);
       color: white;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 14px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: none;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+      box-shadow: 0 3px 12px rgba(16, 185, 129, 0.2);
     }
 
     .broadcast-banner {
       background: linear-gradient(135deg, #F59E0B, #D97706);
       color: white;
-      padding: 10px 16px;
-      font-size: 12px;
+      padding: 8px 14px;
+      font-size: 11.5px;
       font-weight: 800;
       display: none;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+      box-shadow: 0 2px 6px rgba(217, 119, 6, 0.2);
     }
 
     .countdown-widget {
       background: linear-gradient(135deg, #0F766E, #085F56);
       color: white;
-      padding: 14px 16px;
-      border-radius: 16px;
-      margin-bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 12px;
       display: none;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 4px 12px rgba(8, 95, 86, 0.15);
+      box-shadow: 0 3px 10px rgba(8, 95, 86, 0.15);
+    }
+
+    .countdown-info h4 {
+      font-size: 12.5px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .countdown-info p {
+      font-size: 10.5px;
+      color: #CCFBF1;
+      margin-top: 1px;
     }
 
     .countdown-timer-digits {
       background: rgba(0, 0, 0, 0.2);
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-size: 14px;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: 13px;
       font-weight: 900;
       letter-spacing: 1px;
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
+    /* تحسين المقاس للهاتف لتقليل الطول */
     .main-content {
-      padding: 16px;
+      padding: 12px;
       flex: 1;
-      margin-bottom: 85px;
+      margin-bottom: 70px;
       animation: fadeIn 0.2s ease-out;
     }
 
@@ -415,98 +426,98 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .content-header h2 {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 800;
     }
 
     .content-header p {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .home-hero-card {
       background: linear-gradient(135deg, var(--card-bg), var(--subtle-bg));
       border: 1px solid var(--border-subtle);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 14px;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
     }
 
     .home-hero-avatar {
-      width: 52px;
-      height: 52px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       border: 2px solid var(--primary-teal);
       background: #0F766E;
     }
 
     .home-hero-info h3 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
     }
 
     .home-hero-info p {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .home-widget-box {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 14px;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
     }
 
     .home-widget-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .home-widget-title {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .home-quick-stat-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 14px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .home-stat-card {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      padding: 12px;
+      border-radius: 12px;
+      padding: 10px;
       text-align: center;
     }
 
     .home-stat-card span.stat-num {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 900;
       color: var(--primary-teal);
       display: block;
     }
 
     .home-stat-card span.stat-label {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
       font-weight: 700;
     }
@@ -514,24 +525,24 @@
     .poll-card {
       background: var(--card-bg);
       border: 1.5px solid var(--primary-teal);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.06);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 10px rgba(13, 148, 136, 0.05);
     }
 
     .poll-option-btn {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
       border: 1px solid var(--border-subtle);
       background: var(--subtle-bg);
       color: var(--text-main);
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
       text-align: right;
-      margin-top: 8px;
+      margin-top: 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -540,14 +551,14 @@
     .sort-bar {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin: 10px 0 14px 0;
+      gap: 6px;
+      margin: 8px 0 10px 0;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
     }
 
     .sort-label {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       color: var(--text-muted);
       white-space: nowrap;
@@ -556,9 +567,9 @@
     .sort-pill {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 16px;
+      font-size: 10.5px;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
@@ -574,10 +585,10 @@
     .summary-card {
       background: var(--card-bg);
       border: 1px solid #FECACA;
-      border-radius: 18px;
-      padding: 18px;
-      margin: 12px 0 16px 0;
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.03);
+      border-radius: 16px;
+      padding: 14px;
+      margin: 8px 0 12px 0;
+      box-shadow: 0 3px 10px rgba(220, 38, 38, 0.03);
     }
 
     .summary-top {
@@ -586,7 +597,7 @@
     }
 
     .summary-label {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
       font-weight: 600;
     }
@@ -595,11 +606,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 4px 0;
+      margin: 2px 0;
     }
 
     .summary-value-wrapper h3 {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--primary-red);
     }
@@ -607,74 +618,74 @@
     .summary-arrow-icon {
       background: #DC2626;
       color: white;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 15px;
       font-weight: bold;
     }
 
     .summary-subtext {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-main);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .progress-track {
       width: 100%;
-      height: 8px;
+      height: 6px;
       background-color: var(--red-soft);
-      border-radius: 8px;
-      margin: 14px 0 10px 0;
+      border-radius: 6px;
+      margin: 10px 0 8px 0;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
       background-color: var(--primary-red);
-      border-radius: 8px;
+      border-radius: 6px;
       transition: width 0.4s ease;
     }
 
     .progress-pill {
       background-color: var(--red-soft);
       text-align: center;
-      padding: 8px;
-      border-radius: 10px;
+      padding: 6px;
+      border-radius: 8px;
     }
 
     .progress-pill span {
-      font-size: 13px;
+      font-size: 11.5px;
       font-weight: 800;
       color: var(--primary-red);
     }
 
     .btn-add-course {
       width: 100%;
-      padding: 11px;
+      padding: 9px;
       background: var(--card-bg);
       border: 1.5px dashed var(--primary-teal);
       color: var(--primary-teal);
-      border-radius: 14px;
-      font-size: 13px;
+      border-radius: 12px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .course-card {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       overflow: hidden;
     }
 
     .course-card-header {
-      padding: 14px 16px;
+      padding: 12px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -682,30 +693,30 @@
     }
 
     .course-badge {
-      padding: 4px 10px;
-      border-radius: 10px;
-      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 11px;
       font-weight: 700;
     }
 
     .origin-level-tag {
       background: #FEF3C7;
       color: #92400E;
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 6px;
+      font-size: 9.5px;
+      padding: 2px 5px;
+      border-radius: 5px;
       margin-left: 4px;
       font-weight: 800;
     }
 
     .course-status-brief {
-      font-size: 11.5px;
+      font-size: 10.5px;
       color: var(--text-muted);
       font-weight: 600;
     }
 
     .course-expand-icon {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
       transition: transform 0.2s ease;
     }
@@ -716,7 +727,7 @@
 
     .course-card-body {
       display: none;
-      padding: 0 16px 16px 16px;
+      padding: 0 14px 14px 14px;
       border-top: 1px solid var(--border-subtle);
     }
 
@@ -724,42 +735,43 @@
       display: block;
     }
 
-    .dn-calculator-box {
+    /* تصميم مدمج وأصغر لنظام الحرمان والغيابات */
+    .dn-calculator-box-compact {
       background: var(--subtle-bg);
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin: 10px 0 12px 0;
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin: 8px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border: 1px solid var(--border-subtle);
+      font-size: 11px;
     }
 
-    .dn-info {
+    .dn-info-compact {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
 
-    .dn-title {
-      font-size: 11.5px;
+    .dn-title-compact {
+      font-size: 10px;
       font-weight: 700;
       color: var(--text-muted);
     }
 
-    .dn-status {
-      font-size: 12.5px;
+    .dn-status-compact {
+      font-size: 11px;
       font-weight: 800;
     }
 
-    .dn-percentage-pill {
-      font-size: 11px;
-      font-weight: 900;
-      padding: 2px 8px;
-      border-radius: 6px;
+    .dn-percentage-pill-compact {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 5px;
       display: inline-block;
       width: fit-content;
-      margin-top: 2px;
     }
 
     .dn-safe { color: #10B981; }
@@ -773,23 +785,24 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 0 8px 0;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border-subtle);
     }
 
     .stepper-row span {
-      font-size: 12.5px;
+      font-size: 11.5px;
       font-weight: 700;
     }
 
     .stepper-controls {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .step-btn {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       border: 1px solid var(--border-subtle);
       background: var(--card-bg);
@@ -801,14 +814,14 @@
     .quick-actions-bar {
       display: flex;
       gap: 6px;
-      margin: 8px 0 10px 0;
+      margin: 8px 0;
     }
 
     .btn-quick {
       flex: 1;
-      padding: 6px 8px;
-      border-radius: 8px;
-      font-size: 11px;
+      padding: 5px 6px;
+      border-radius: 6px;
+      font-size: 10.5px;
       font-weight: 700;
       border: 1px solid var(--border-subtle);
       background: var(--subtle-bg);
@@ -820,16 +833,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      margin: 8px 0 6px 0;
+      margin: 8px 0 4px 0;
     }
 
     .btn-add-chapter-mini {
       background: none;
       border: none;
       color: var(--primary-teal);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
     }
@@ -838,11 +851,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 10px;
+      padding: 6px 8px;
       background: var(--subtle-bg);
-      border-radius: 8px;
-      margin-bottom: 6px;
-      font-size: 12.5px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 11.5px;
     }
 
     .chapter-item.done {
@@ -854,8 +867,8 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin-top: 12px;
-      padding-top: 10px;
+      margin-top: 8px;
+      padding-top: 6px;
       border-top: 1px dashed var(--border-subtle);
     }
 
@@ -863,37 +876,37 @@
       background: none;
       border: none;
       color: var(--primary-red);
-      font-size: 11.5px;
+      font-size: 11px;
       cursor: pointer;
     }
 
     .bottom-level-section {
       background: var(--card-bg);
       border: 1.5px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 16px;
-      margin-top: 24px;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 16px;
       text-align: center;
     }
 
     .bottom-level-section h3 {
-      font-size: 15px;
+      font-size: 13.5px;
       font-weight: 800;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .bottom-level-section p {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       line-height: 1.4;
     }
 
     .btn-transition-stage {
       width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 13px;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 12px;
       font-weight: 800;
       border: none;
       cursor: pointer;
@@ -911,32 +924,32 @@
     }
 
     .date-lock-hint {
-      font-size: 11px;
+      font-size: 10.5px;
       color: #D97706;
       font-weight: 700;
-      margin-top: 6px;
+      margin-top: 4px;
       display: block;
     }
 
     .search-resources-bar {
-      margin-bottom: 14px;
+      margin-bottom: 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
 
     .resource-course-group {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       overflow: hidden;
     }
 
     .resource-group-header {
-      padding: 12px 16px;
+      padding: 10px 14px;
       background: var(--subtle-bg);
-      font-size: 13.5px;
+      font-size: 12.5px;
       font-weight: 800;
       display: flex;
       justify-content: space-between;
@@ -945,10 +958,10 @@
     }
 
     .resource-items-list {
-      padding: 10px 14px;
+      padding: 8px 12px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
 
     .resource-link-item {
@@ -957,8 +970,8 @@
       align-items: center;
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      padding: 10px 12px;
-      border-radius: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
     }
 
     .resource-link-item.pinned-resource {
@@ -969,34 +982,34 @@
     .resource-link-item a {
       text-decoration: none;
       color: var(--text-main);
-      font-size: 12.5px;
+      font-size: 11.5px;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       flex: 1;
     }
 
     .resource-type-badge {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 6px;
+      font-size: 9.5px;
+      padding: 2px 5px;
+      border-radius: 5px;
       background: rgba(13, 148, 136, 0.15);
       color: var(--primary-teal);
       font-weight: 800;
     }
 
     .pinned-badge {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 6px;
+      font-size: 9.5px;
+      padding: 2px 5px;
+      border-radius: 5px;
       background: #FEF3C7;
       color: #92400E;
       font-weight: 900;
     }
 
     .contributor-credit {
-      font-size: 10.5px;
+      font-size: 9.5px;
       color: var(--primary-teal);
       font-weight: 800;
       display: block;
@@ -1006,14 +1019,14 @@
     .btn-upvote {
       background: var(--subtle-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 4px 8px;
-      font-size: 11px;
+      border-radius: 6px;
+      padding: 3px 6px;
+      font-size: 10px;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
     }
 
     .btn-upvote:active { transform: scale(0.95); }
@@ -1021,53 +1034,53 @@
     .admin-dashboard-panel {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
     .admin-section-box {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
 
     .admin-section-box h3 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 900;
       color: var(--primary-teal);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .request-item-card {
       background: var(--subtle-bg);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 8px;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 6px;
       border: 1px solid var(--border-subtle);
     }
 
     .timetable-controls-bar {
       display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
+      gap: 6px;
+      margin-bottom: 12px;
     }
 
     .timetable-day-card {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 14px;
-      margin-bottom: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
       overflow: hidden;
     }
 
     .timetable-day-header {
-      padding: 10px 14px;
+      padding: 8px 12px;
       background: var(--subtle-bg);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       display: flex;
       justify-content: space-between;
@@ -1082,10 +1095,10 @@
     }
 
     .timetable-lectures-list {
-      padding: 10px 12px;
+      padding: 8px 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
 
     .timetable-slot-item {
@@ -1094,88 +1107,88 @@
       align-items: center;
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 10px 12px;
+      border-radius: 8px;
+      padding: 8px 10px;
     }
 
     .timetable-slot-info h4 {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
     }
 
     .timetable-slot-info p {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .cram-planner-card {
       background: var(--card-bg);
       border: 1.5px dashed var(--primary-teal);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 18px;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 14px;
     }
 
     .cram-planner-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .cram-pill-tag {
       background: #FEF3C7;
       color: #92400E;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 900;
-      padding: 2px 8px;
-      border-radius: 6px;
+      padding: 2px 6px;
+      border-radius: 5px;
     }
 
     .tree-timer-box {
       background: var(--card-bg);
-      border-radius: 20px;
-      padding: 20px;
+      border-radius: 16px;
+      padding: 16px;
       text-align: center;
       border: 1px solid var(--border-subtle);
-      margin-bottom: 18px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.02);
     }
 
     .tree-timer-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .tree-points-badge {
       background: #FEF3C7;
       color: #92400E;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 16px;
+      font-size: 11.5px;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
     }
 
     .timer-time-presets {
       display: flex;
       justify-content: center;
-      gap: 6px;
-      margin-bottom: 12px;
+      gap: 5px;
+      margin-bottom: 10px;
       flex-wrap: wrap;
     }
 
     .preset-chip {
       background: var(--subtle-bg);
       border: 1px solid var(--border-subtle);
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 11.5px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       color: var(--text-muted);
@@ -1188,93 +1201,93 @@
     }
 
     .tree-illustration-container {
-      width: 140px;
-      height: 140px;
-      margin: 0 auto 10px auto;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 6px auto;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .timer-display {
-      font-size: 42px;
+      font-size: 36px;
       font-weight: 900;
       color: var(--primary-teal);
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       line-height: 1;
     }
 
     .tree-status-text {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
-      margin: 6px 0 14px 0;
+      margin: 4px 0 10px 0;
       font-weight: 600;
     }
 
     .timer-controls {
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .btn-timer {
-      padding: 8px 20px;
-      border-radius: 12px;
+      padding: 7px 16px;
+      border-radius: 10px;
       border: none;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
     }
 
     .leaderboard-card {
       background: var(--card-bg);
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 14px;
+      padding: 12px;
       border: 1px solid var(--border-subtle);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .leaderboard-header {
-      font-size: 14px;
+      font-size: 12.5px;
       font-weight: 800;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 12px;
+      gap: 5px;
+      margin-bottom: 8px;
     }
 
     .leaderboard-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 10px;
-      border-radius: 10px;
-      margin-bottom: 6px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      margin-bottom: 4px;
       background: var(--subtle-bg);
-      font-size: 12.5px;
+      font-size: 11.5px;
       font-weight: 700;
     }
 
     .leaderboard-rank {
       font-weight: 900;
-      width: 24px;
+      width: 20px;
       text-align: center;
     }
 
     .task-filter-bar {
       display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 6px;
+      margin-bottom: 10px;
     }
 
     .filter-chip {
       flex: 1;
-      padding: 8px;
-      border-radius: 10px;
+      padding: 6px;
+      border-radius: 8px;
       border: 1px solid var(--border-subtle);
       background: var(--card-bg);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
@@ -1290,9 +1303,9 @@
     .task-card {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1304,7 +1317,7 @@
     }
 
     .task-info h4 {
-      font-size: 13.5px;
+      font-size: 12.5px;
       font-weight: 700;
     }
 
@@ -1314,27 +1327,27 @@
 
     .task-meta {
       display: flex;
-      gap: 8px;
-      margin-top: 4px;
-      font-size: 11px;
+      gap: 6px;
+      margin-top: 3px;
+      font-size: 10px;
       color: var(--text-muted);
     }
 
     .task-badge-tag {
       background: var(--subtle-bg);
       color: var(--text-main);
-      padding: 2px 6px;
-      border-radius: 6px;
+      padding: 1px 5px;
+      border-radius: 5px;
       font-weight: bold;
     }
 
     .site-footer {
       text-align: center;
-      padding: 20px 16px 85px 16px;
+      padding: 16px 14px 65px 14px;
       color: var(--text-muted);
-      font-size: 11.5px;
+      font-size: 11px;
       border-top: 1px solid var(--border-subtle);
-      margin-top: 20px;
+      margin-top: 16px;
     }
 
     .footer-brand {
@@ -1343,13 +1356,12 @@
       letter-spacing: 1px;
     }
 
-    /* شريط التنقل السفلي الكلاسيكي المحسن */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
       max-width: 480px;
-      height: 64px;
+      height: 58px;
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
       display: flex;
@@ -1357,7 +1369,7 @@
       align-items: center;
       z-index: 30;
       padding-bottom: 2px;
-      box-shadow: 0 -4px 15px rgba(0,0,0,0.04);
+      box-shadow: 0 -3px 12px rgba(0,0,0,0.03);
     }
 
     .nav-item {
@@ -1366,11 +1378,11 @@
       align-items: center;
       color: var(--text-muted);
       cursor: pointer;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
-      gap: 3px;
+      gap: 2px;
       flex: 1;
-      padding: 8px 0;
+      padding: 6px 0;
       opacity: 0.55;
     }
 
@@ -1382,12 +1394,12 @@
     }
 
     .nav-item.active span.icon {
-      filter: drop-shadow(0 2px 6px rgba(13, 148, 136, 0.4));
-      transform: scale(1.1);
+      filter: drop-shadow(0 2px 5px rgba(13, 148, 136, 0.35));
+      transform: scale(1.08);
     }
 
     .nav-item span.icon {
-      font-size: 19px;
+      font-size: 18px;
     }
 
     .modal-overlay {
@@ -1409,8 +1421,8 @@
       color: var(--text-main);
       width: 100%;
       max-width: 480px;
-      border-radius: 24px 24px 0 0;
-      padding: 24px;
+      border-radius: 22px 22px 0 0;
+      padding: 20px;
       animation: slideUp 0.25s ease-out;
       max-height: 85vh;
       overflow-y: auto;
@@ -1425,26 +1437,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .close-btn {
       background: none;
       border: none;
-      font-size: 24px;
+      font-size: 22px;
       cursor: pointer;
       color: var(--text-muted);
     }
 
     .color-palette {
       display: flex;
-      gap: 12px;
-      margin-top: 6px;
+      gap: 10px;
+      margin-top: 5px;
     }
 
     .color-dot {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       cursor: pointer;
       display: inline-block;
@@ -1458,18 +1470,18 @@
 
     .option-selector-row {
       display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 6px;
+      margin-bottom: 12px;
     }
 
     .option-btn {
       flex: 1;
-      padding: 10px;
-      border-radius: 12px;
+      padding: 8px;
+      border-radius: 10px;
       border: 1.5px solid var(--border-subtle);
       background: var(--card-bg);
       color: var(--text-main);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
@@ -1485,19 +1497,44 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 0;
+      padding: 6px 0;
       border-bottom: 1px solid var(--border-subtle);
     }
 
     .pref-switch-row span {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
+    }
+
+    /* شبكة خيارات أفتارات الروبوتات الموسعة */
+    .robot-avatar-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      justify-items: center;
+      margin-top: 6px;
+    }
+
+    .quick-avatar-choice {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: #E2E8F0;
+      padding: 2px;
+      border: 1.5px solid transparent;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .quick-avatar-choice:active, .quick-avatar-choice:hover {
+      transform: scale(1.1);
+      border-color: var(--primary-teal);
     }
   </style>
 </head>
 <body>
 
-  <!-- شاشة الدخول والتسجيل (Google + Email فقط) -->
+  <!-- شاشة الدخول والتسجيل -->
   <div id="auth-screen" class="auth-wrapper">
     <div class="auth-card">
       <div class="auth-logo">
@@ -1588,7 +1625,6 @@
   <!-- الشاشة الرئيسية للتطبيق -->
   <div id="main-app" class="app-container" style="display: none;">
     
-    <!-- شريط الإعلان العام من المشرف -->
     <div id="global-broadcast-banner" class="broadcast-banner">
       <span id="broadcast-text">📢 تنبيه عام من المشرف</span>
       <span style="font-size: 11px; opacity: 0.85;">جامعة طيبة</span>
@@ -1599,7 +1635,7 @@
         <div class="header-actions">
           <div id="btn-open-profile" class="user-profile-btn" title="الملف الشخصي">
             <img id="header-avatar" class="user-avatar-mini" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" alt="Avatar">
-            <span id="header-name-display" style="font-size:11.5px; font-weight:bold;">حسابي</span>
+            <span id="header-name-display" style="font-size:11px; font-weight:bold;">حسابي</span>
           </div>
           <button id="btn-toggle-theme" class="btn-header-action" title="تبديل الوضع">🌙</button>
           <button id="btn-open-feedback" class="btn-header-action" title="اقتراح أو شكوى">📩</button>
@@ -1618,14 +1654,23 @@
     <!-- تبويب الصفحة الرئيسية (Home) في المنتصف -->
     <main class="main-content" id="tab-content-home">
       
+      <!-- إعلانات المشرف والعد التنازلي (تم نقله إلى الرئيسية) -->
+      <div id="exam-countdown-box" class="countdown-widget">
+        <div class="countdown-info">
+          <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
+          <p id="countdown-target-date">متبقي على الموعد المحدد</p>
+        </div>
+        <div class="countdown-timer-digits" id="countdown-timer-digits">-- ي -- س</div>
+      </div>
+
       <!-- بطاقة المحاضرة الآن - Live Class Alert -->
       <div id="live-class-banner" class="live-class-banner">
         <div>
-          <span style="font-size: 10px; background: rgba(0,0,0,0.25); padding: 2px 6px; border-radius: 6px; font-weight: 900;">المحاضرة الآن 🟢</span>
-          <h4 id="live-class-title" style="font-size: 13.5px; font-weight: 800; margin-top: 4px;">أنت الآن في محاضرة: --</h4>
-          <p id="live-class-room" style="font-size: 11.5px; opacity: 0.9;">قاعة: --</p>
+          <span style="font-size: 9.5px; background: rgba(0,0,0,0.25); padding: 2px 6px; border-radius: 6px; font-weight: 900;">المحاضرة الآن 🟢</span>
+          <h4 id="live-class-title" style="font-size: 13px; font-weight: 800; margin-top: 3px;">أنت الآن في محاضرة: --</h4>
+          <p id="live-class-room" style="font-size: 11px; opacity: 0.9;">قاعة: --</p>
         </div>
-        <span style="font-size: 24px;">🏫</span>
+        <span style="font-size: 22px;">🏫</span>
       </div>
 
       <!-- إشعارات المشرف في الصفحة الرئيسية -->
@@ -1641,11 +1686,11 @@
           <span>تجميعات وملخصات بانتظار الاعتماد:</span>
           <strong id="notif-res-count" style="color:#D97706;">0</strong>
         </div>
-        <div style="display: flex; gap: 8px; margin-top: 8px;">
-          <button class="btn-primary" style="background:#DC2626; font-size:11.5px; padding:6px; margin:0;" onclick="switchTab('admin')">
+        <div style="display: flex; gap: 6px; margin-top: 6px;">
+          <button class="btn-primary" style="background:#DC2626; font-size:11px; padding:5px; margin:0;" onclick="switchTab('admin')">
             مراجعة الطلبات 📝
           </button>
-          <button class="btn-primary" style="background:#D97706; font-size:11.5px; padding:6px; margin:0;" onclick="switchTab('admin')">
+          <button class="btn-primary" style="background:#D97706; font-size:11px; padding:5px; margin:0;" onclick="switchTab('admin')">
             مراجعة التجميعات 📚
           </button>
         </div>
@@ -1660,23 +1705,20 @@
         </div>
       </div>
 
-      <!-- بطاقة الترحيب للمستخدم الجديد -->
       <div id="new-user-welcome-box" class="poll-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
         <strong>مرحباً بك في منصة Academic Tracker!</strong>
-        <span style="font-size:11.5px; display:block; opacity:0.9; margin-top:4px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</span>
+        <span style="font-size:11px; display:block; opacity:0.9; margin-top:2px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</span>
       </div>
 
-      <!-- استطلاع رأي الدفعة المستهدف -->
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-          <span style="font-size:12px; font-weight:800; color:var(--primary-teal);">📊 استطلاع رأي الدفعة</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:11.5px; font-weight:800; color:var(--primary-teal);">📊 استطلاع رأي الدفعة</span>
           <span id="poll-target-badge" class="resource-type-badge">مخصص</span>
         </div>
-        <h4 id="poll-question-title" style="font-size:13.5px; font-weight:800; margin-bottom:10px;">عنوان الاستطلاع...</h4>
+        <h4 id="poll-question-title" style="font-size:13px; font-weight:800; margin-bottom:8px;">عنوان الاستطلاع...</h4>
         <div id="poll-options-container"></div>
       </div>
 
-      <!-- الإحصائيات السريعة -->
       <div id="home-widget-stats" class="home-quick-stat-grid">
         <div class="home-stat-card">
           <span class="stat-num" id="home-quick-attendance">0%</span>
@@ -1688,45 +1730,42 @@
         </div>
       </div>
 
-      <!-- محاضرات اليوم من جدول الطالب -->
       <div class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
             <span>📍</span>
             <span id="home-today-classes-heading">محاضرات اليوم</span>
           </div>
-          <span id="home-today-classes-count" style="font-size:11px; font-weight:700; color:var(--text-muted);">0 محاضرات</span>
+          <span id="home-today-classes-count" style="font-size:10.5px; font-weight:700; color:var(--text-muted);">0 محاضرات</span>
         </div>
         <div id="home-today-lectures-list">
-          <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">جاري تحميل محاضراتك...</p>
+          <p style="font-size:11.5px; color:var(--text-muted); text-align:center; padding:8px 0;">جاري تحميل محاضراتك...</p>
         </div>
       </div>
 
-      <!-- المهام القريبة -->
       <div id="home-widget-tasks" class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
             <span>📝</span>
             <span>المهام والتكاليف القريبة</span>
           </div>
-          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('tasks')">عرض الكل ↗</span>
+          <span style="font-size:10.5px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('tasks')">عرض الكل ↗</span>
         </div>
         <div id="home-urgent-tasks-list">
-          <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد مهام معلقة حالياً 🎉</p>
+          <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد مهام معلقة حالياً 🎉</p>
         </div>
       </div>
 
-      <!-- الجديد في التجميعات -->
       <div id="home-widget-news" class="home-widget-box">
         <div class="home-widget-header">
           <div class="home-widget-title">
             <span>✨</span>
             <span>الجديد في التجميعات</span>
           </div>
-          <span style="font-size:11px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('resources')">تصفح ↗</span>
+          <span style="font-size:10.5px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('resources')">تصفح ↗</span>
         </div>
         <div id="home-latest-resources-list">
-          <p style="font-size:12px; color:var(--text-muted); text-align:center;">جلب أحدث الملخصات...</p>
+          <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">جلب أحدث الملخصات...</p>
         </div>
       </div>
 
@@ -1737,14 +1776,6 @@
 
     <!-- تبويب المقررات -->
     <main class="main-content" id="tab-content-courses" style="display: none;">
-      <div id="exam-countdown-box" class="countdown-widget">
-        <div class="countdown-info">
-          <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
-          <p id="countdown-target-date">متبقي على الموعد المحدد</p>
-        </div>
-        <div class="countdown-timer-digits" id="countdown-timer-digits">-- ي -- س</div>
-      </div>
-
       <div class="content-header">
         <div>
           <h2 id="level-display-heading">إنجاز المقررات الدراسية</h2>
@@ -1813,10 +1844,10 @@
       </div>
 
       <div class="timetable-controls-bar">
-        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 12.5px; padding: 10px;">
+        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 11.5px; padding: 9px;">
           ➕ إضافة محاضرة للجدول
         </button>
-        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 12.5px; padding: 10px;">
+        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 11.5px; padding: 9px;">
           📥 استوديو تصدير صورة HD
         </button>
       </div>
@@ -1837,8 +1868,8 @@
         </div>
       </div>
 
-      <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:12px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
-        📤 مشاركة رابط أو رفع ملف لتجميعة جديدة (+15 نقطة ⭐)
+      <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:10px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
+        📤 مشاركة رابط تجميعة جديدة (+15 نقطة ⭐)
       </button>
 
       <div class="search-resources-bar">
@@ -1848,7 +1879,6 @@
           <button class="sort-pill" data-res-filter="تجميعات">تجميعات</button>
           <button class="sort-pill" data-res-filter="سلايدات">سلايدات</button>
           <button class="sort-pill" data-res-filter="ملخصات">ملخصات</button>
-          <button class="sort-pill" data-res-filter="ملف">ملفات مرفوعة</button>
           <button class="sort-pill" data-res-filter="قناة">قنوات</button>
         </div>
       </div>
@@ -1866,39 +1896,39 @@
       <!-- Cram Planner -->
       <div class="cram-planner-card">
         <div class="cram-planner-header">
-          <span style="font-size:13px; font-weight:800;">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
+          <span style="font-size:12px; font-weight:800;">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
           <span class="cram-pill-tag">خاصية ذكية 🧪</span>
         </div>
-        <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px;">
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">
           حددي موعد الاختبار والشباتر المتبقية لحساب معدل الإنجاز اليومي لختم المنهج:
         </p>
         <div class="form-row">
           <div class="form-group" style="margin:0;">
-            <select id="cram-course-select" style="font-size:12px; padding:8px;"></select>
+            <select id="cram-course-select" style="font-size:11.5px; padding:7px;"></select>
           </div>
           <div class="form-group" style="margin:0;">
-            <input type="date" id="cram-exam-date" style="font-size:12px; padding:8px;">
+            <input type="date" id="cram-exam-date" style="font-size:11.5px; padding:7px;">
           </div>
         </div>
-        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:8px; padding:8px; font-size:12px;">
+        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:6px; padding:7px; font-size:11.5px;">
           احسب وتوليد الخطة الذكية 📊
         </button>
-        <div id="cram-result-box" style="margin-top:10px; font-size:12px; display:none; background:var(--subtle-bg); padding:10px; border-radius:10px;"></div>
+        <div id="cram-result-box" style="margin-top:8px; font-size:11.5px; display:none; background:var(--subtle-bg); padding:8px; border-radius:8px;"></div>
       </div>
 
       <!-- Pomodoro Focus Tree Timer -->
       <div class="tree-timer-box">
         <div class="tree-timer-header">
-          <span style="font-size:13px; font-weight:800;">🌱 مؤقت غرس الإنجاز (Pomodoro)</span>
+          <span style="font-size:12.5px; font-weight:800;">🌱 مؤقت غرس الإنجاز (Pomodoro)</span>
           <div class="tree-points-badge">
             <span>⭐</span>
             <span id="user-points-display">0 نقطة</span>
-            <span style="font-size:11px; opacity:0.8;">(<span id="trees-grown-count">0</span> شجرة)</span>
+            <span style="font-size:10.5px; opacity:0.8;">(<span id="trees-grown-count">0</span> شجرة)</span>
           </div>
         </div>
 
         <div class="timer-time-presets" id="timer-presets-container">
-          <span style="font-size:11px; color:var(--text-muted); width:100%; margin-bottom:4px; font-weight:700;">اختر مدة الجلسة:</span>
+          <span style="font-size:10.5px; color:var(--text-muted); width:100%; margin-bottom:3px; font-weight:700;">اختر مدة الجلسة:</span>
           <button class="preset-chip" data-time="15">15 د</button>
           <button class="preset-chip active" data-time="25">25 د (افتراضي)</button>
           <button class="preset-chip" data-time="45">45 د</button>
@@ -1907,7 +1937,7 @@
         </div>
 
         <div class="tree-illustration-container" id="tree-svg-container">
-          <svg viewBox="0 0 100 100" width="100" height="100">
+          <svg viewBox="0 0 100 100" width="90" height="90">
             <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
             <circle cx="50" cy="82" r="5" fill="#5D4037"/>
             <path d="M50 78 Q52 72 50 68" stroke="#4CAF50" stroke-width="2.5" fill="none" stroke-linecap="round"/>
@@ -1930,12 +1960,12 @@
           <span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span>
         </div>
         <div id="leaderboard-list">
-          <p style="font-size:12px; color:var(--text-muted); text-align:center;">جاري تحميل المتصدرين...</p>
+          <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">جاري تحميل المتصدرين...</p>
         </div>
       </div>
 
       <!-- حاسبة المعدل الفصلي والتراكمي بسلم 5.00 -->
-      <div class="home-widget-box" style="margin-top: 16px;">
+      <div class="home-widget-box" style="margin-top: 12px;">
         <div class="home-widget-header">
           <div class="home-widget-title">
             <span>🧮</span>
@@ -1946,14 +1976,14 @@
       </div>
 
       <!-- المهام والتكاليف -->
-      <div class="content-header" style="margin-top: 20px;">
+      <div class="content-header" style="margin-top: 16px;">
         <div>
           <h2>المهام والتكاليف</h2>
           <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
         </div>
       </div>
 
-      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 6px;">+ إضافة مهمة أو تكليف جديد</button>
+      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة أو تكليف جديد</button>
 
       <div class="task-filter-bar">
         <div class="filter-chip active" data-filter="all">الكل</div>
@@ -1982,19 +2012,19 @@
         <!-- إضافة مشرف جديد بالـ UID -->
         <div class="admin-section-box">
           <h3>👥 إضافة مشرف جديد للنظام</h3>
-          <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">أدخلي User ID (UID) الخاص بالطالب لمنحه صلاحيات المشرف تلقائياً:</p>
-          <div style="display:flex; gap:8px;">
-            <input type="text" id="new-admin-uid-input" placeholder="ألصقي الـ UID هنا..." style="flex:1;">
-            <button id="btn-add-admin-submit" class="btn-primary" style="width:auto; padding:10px 16px; margin:0;">إضافة مشرف ➕</button>
+          <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:8px;">أدخلي User ID (UID) الخاص بالطالب لمنحه صلاحيات المشرف تلقائياً:</p>
+          <div style="display:flex; gap:6px;">
+            <input type="text" id="new-admin-uid-input" placeholder="ألصقي الـ UID هنا..." style="flex:1; font-size:12px; padding:8px;">
+            <button id="btn-add-admin-submit" class="btn-primary" style="width:auto; padding:8px 14px; margin:0; font-size:12px;">إضافة مشرف ➕</button>
           </div>
         </div>
 
         <!-- مركز طلبات تعديل البيانات (التصنيف والدفعة) -->
         <div class="admin-section-box">
           <h3>📝 طلبات تعديل البيانات (الدفعة والتصنيف)</h3>
-          <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">الطلبات المرفوعة من الطلاب للموافقة والتطبيق الفوري:</p>
+          <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:8px;">الطلبات المرفوعة من الطلاب للموافقة والتطبيق الفوري:</p>
           <div id="admin-profile-requests-list">
-            <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>
+            <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>
           </div>
         </div>
 
@@ -2002,18 +2032,18 @@
         <div class="admin-section-box">
           <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة مساهمة)</h3>
           <div id="admin-pending-resources-list">
-            <p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>
+            <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>
           </div>
         </div>
 
         <!-- الأدوات السريعة وتصدير تقرير Google Sheets / Excel المنظم -->
         <div class="admin-section-box">
           <h3>⚡ الإجراءات والأدوات السريعة</h3>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-            <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:12px; padding:10px; margin:0;">➕ إضافة تجميعة</button>
-            <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:12px; padding:10px; margin:0;">⚙️ إعلانات وعدّاد</button>
-            <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:12px; padding:10px; margin:0;">📊 استطلاع رأي</button>
-            <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:12px; padding:10px; margin:0;">📊 تصدير Google Sheet</button>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
+            <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:11.5px; padding:8px; margin:0;">➕ إضافة تجميعة</button>
+            <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:11.5px; padding:8px; margin:0;">⚙️ إعلانات وعدّاد</button>
+            <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:11.5px; padding:8px; margin:0;">📊 استطلاع رأي</button>
+            <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:11.5px; padding:8px; margin:0;">📊 تصدير Google Sheet</button>
           </div>
         </div>
       </div>
@@ -2023,7 +2053,7 @@
       </footer>
     </main>
 
-    <!-- شريط التنقل السفلي الكلاسيكي المحسن (الرئيسية في المنتصف) -->
+    <!-- شريط التنقل السفلي الكلاسيكي المحسن -->
     <nav class="bottom-nav">
       <div class="nav-item" data-target="courses" onclick="switchTab('courses')">
         <span class="icon">📊</span>
@@ -2049,8 +2079,6 @@
       </div>
     </nav>
 
-    <!-- النوافذ المنبثقة (Modals) -->
-
     <!-- استوديو تصميم وتصدير صورة الجدول HD -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
@@ -2058,13 +2086,13 @@
           <h3>🎨 استوديو تصميم صورة الجدول</h3>
           <button id="btn-close-export-studio" class="close-btn">&times;</button>
         </div>
-        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">خصص شكل وتنسيق الصورة لتناسب شاشة قفل الآيفون أو شاشة الكمبيوتر:</p>
-        <label style="font-size:12px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:6px;">اتجاه الصورة:</label>
+        <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:12px;">خصص شكل وتنسيق الصورة لتناسب شاشة قفل الآيفون أو شاشة الكمبيوتر:</p>
+        <label style="font-size:11.5px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:4px;">اتجاه الصورة:</label>
         <div class="option-selector-row">
           <button class="option-btn active" id="btn-opt-portrait">📱 عمودي (خلفية جوال)</button>
           <button class="option-btn" id="btn-opt-landscape">🖥️ أفقي (كمبيوتر / طباعة)</button>
         </div>
-        <label style="font-size:12px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:6px;">نمط التصميم والألوان:</label>
+        <label style="font-size:11.5px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:4px;">نمط التصميم والألوان:</label>
         <div class="option-selector-row">
           <button class="option-btn active" id="btn-opt-dark">🌙 داكن فخم (Dark)</button>
           <button class="option-btn" id="btn-opt-light">☀️ فاتح نقي (Light)</button>
@@ -2073,7 +2101,7 @@
       </div>
     </div>
 
-    <!-- الملف الشخصي وتفضيلات الودجات -->
+    <!-- الملف الشخصي (مع خيارات أفتارات روبوتات موسعة) -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2081,10 +2109,29 @@
           <button id="btn-close-profile-modal" class="close-btn">&times;</button>
         </div>
         <form id="profile-edit-form">
-          <div style="text-align:center; margin-bottom:14px;">
-            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:68px; height:68px; border-radius:50%; object-fit:cover; border:3px solid var(--primary-teal); background:#0F766E; margin-bottom:6px;" alt="Avatar">
-            <span style="font-size:11px; color:var(--text-muted); display:block;">تخصيص الصورة الشخصية</span>
+          <div style="text-align:center; margin-bottom:12px;">
+            <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:62px; height:62px; border-radius:50%; object-fit:cover; border:2.5px solid var(--primary-teal); background:#0F766E; margin-bottom:4px;" alt="Avatar">
+            <span style="font-size:10.5px; color:var(--text-muted); display:block;">تخصيص الصورة الشخصية</span>
           </div>
+
+          <div style="margin-bottom:12px; background:var(--subtle-bg); padding:8px; border-radius:10px;">
+            <span style="font-size:11px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:4px; text-align:center;">اختر روبوتك المفضل 🤖:</span>
+            <div class="robot-avatar-grid">
+              <img class="quick-avatar-choice" data-seed="tech" src="https://api.dicebear.com/7.x/bottts/svg?seed=tech" alt="Bot 1">
+              <img class="quick-avatar-choice" data-seed="cyber" src="https://api.dicebear.com/7.x/bottts/svg?seed=cyber" alt="Bot 2">
+              <img class="quick-avatar-choice" data-seed="coder" src="https://api.dicebear.com/7.x/bottts/svg?seed=coder" alt="Bot 3">
+              <img class="quick-avatar-choice" data-seed="engineer" src="https://api.dicebear.com/7.x/bottts/svg?seed=engineer" alt="Bot 4">
+              <img class="quick-avatar-choice" data-seed="matrix" src="https://api.dicebear.com/7.x/bottts/svg?seed=matrix" alt="Bot 5">
+              <img class="quick-avatar-choice" data-seed="alpha" src="https://api.dicebear.com/7.x/bottts/svg?seed=alpha" alt="Bot 6">
+              <img class="quick-avatar-choice" data-seed="spark" src="https://api.dicebear.com/7.x/bottts/svg?seed=spark" alt="Bot 7">
+              <img class="quick-avatar-choice" data-seed="titan" src="https://api.dicebear.com/7.x/bottts/svg?seed=titan" alt="Bot 8">
+              <img class="quick-avatar-choice" data-seed="zenith" src="https://api.dicebear.com/7.x/bottts/svg?seed=zenith" alt="Bot 9">
+              <img class="quick-avatar-choice" data-seed="nexus" src="https://api.dicebear.com/7.x/bottts/svg?seed=nexus" alt="Bot 10">
+              <img class="quick-avatar-choice" data-seed="nova" src="https://api.dicebear.com/7.x/bottts/svg?seed=nova" alt="Bot 11">
+              <img class="quick-avatar-choice" data-seed="pulse" src="https://api.dicebear.com/7.x/bottts/svg?seed=pulse" alt="Bot 12">
+            </div>
+          </div>
+
           <div class="form-group">
             <label>الاسم الكامل (متاح للتعديل)</label>
             <input type="text" id="profile-name-input" required placeholder="اسمك الكريم">
@@ -2099,7 +2146,7 @@
               <input type="text" id="profile-section-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
             </div>
           </div>
-          <button type="button" id="btn-open-request-change" class="btn-primary" style="background:#D97706; padding:8px; font-size:12px; margin-bottom:14px;">📝 طلب تعديل التصنيف أو الدفعة من المشرف</button>
+          <button type="button" id="btn-open-request-change" class="btn-primary" style="background:#D97706; padding:7px; font-size:11.5px; margin-bottom:10px;">📝 طلب تعديل التصنيف أو الدفعة من المشرف</button>
           <div class="form-group">
             <label>النبذة التعريفية (Bio)</label>
             <input type="text" id="profile-bio-input" placeholder="مثال: طالبة هندسة حاسب - جامعة طيبة">
@@ -2110,10 +2157,10 @@
           </div>
           <div class="form-group">
             <label>أو رفع صورة من جهازك:</label>
-            <input type="file" id="profile-avatar-file" accept="image/*" style="font-size:11.5px; padding:6px;">
+            <input type="file" id="profile-avatar-file" accept="image/*" style="font-size:11px; padding:5px;">
           </div>
-          <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
-            <span style="font-size:12px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:6px;">⚙️ تخصيص بطاقات الرئيسية:</span>
+          <div style="background:var(--subtle-bg); padding:10px; border-radius:10px; margin-bottom:10px;">
+            <span style="font-size:11.5px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:4px;">⚙️ تخصيص بطاقات الرئيسية:</span>
             <div class="pref-switch-row"><span>إظهار إحصائيات الحضور ونقاط التركيز 📊</span><input type="checkbox" id="pref-show-stats" checked></div>
             <div class="pref-switch-row"><span>إظهار المهام والتكاليف القريبة 📝</span><input type="checkbox" id="pref-show-tasks" checked></div>
             <div class="pref-switch-row"><span>إظهار الجديد في التجميعات والإعلانات ✨</span><input type="checkbox" id="pref-show-news" checked></div>
@@ -2181,7 +2228,7 @@
             <label>الخيارات (كل خيار في سطر)</label>
             <textarea id="poll-options-input" rows="3" required placeholder="الخيار الأول: الأحد القادم&#10;الخيار الثاني: الثلاثاء القادم"></textarea>
           </div>
-          <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer; margin-bottom:12px;">
+          <label style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700; cursor:pointer; margin-bottom:10px;">
             <input type="checkbox" id="poll-active-input" checked>
             تفعيل وعرض الاستطلاع فوراً في الرئيسية
           </label>
@@ -2237,11 +2284,11 @@
       </div>
     </div>
 
-    <!-- مشاركة ملخص أو تجميعة (يدعم الرابط ورفع الملفات) -->
+    <!-- مشاركة ملخص أو تجميعة -->
     <div id="student-submit-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>📤 مشاركة ملخص أو تجميعة</h3>
+          <h3>📤 مشاركة رابط تجميعة</h3>
           <button id="btn-close-submit-res-modal" class="close-btn">&times;</button>
         </div>
         <form id="student-resource-form">
@@ -2254,19 +2301,8 @@
             <input type="text" id="sub-res-title" required placeholder="مثال: مراجعة شاملة لقوانين الميد">
           </div>
           <div class="form-group">
-            <label>طريقة المشاركة:</label>
-            <div class="option-selector-row" style="margin-bottom:6px;">
-              <button type="button" class="option-btn active" id="btn-sub-mode-link">🔗 رابط خارجي</button>
-              <button type="button" class="option-btn" id="btn-sub-mode-file">📄 رفع ملف (PDF/صور)</button>
-            </div>
-          </div>
-          <div class="form-group" id="sub-link-group">
             <label>رابط الملف (Google Drive / Telegram / Dropbox):</label>
-            <input type="url" id="sub-res-url" placeholder="https://drive.google.com/...">
-          </div>
-          <div class="form-group" id="sub-file-group" style="display:none;">
-            <label>اختر الملف من جهازك (PDF أو صورة):</label>
-            <input type="file" id="sub-res-file" accept=".pdf,image/*" style="font-size:11.5px; padding:6px;">
+            <input type="url" id="sub-res-url" required placeholder="https://drive.google.com/...">
           </div>
           <div class="form-group">
             <label>نوع المورد</label>
@@ -2274,11 +2310,10 @@
               <option value="ملخصات">ملخص شامل</option>
               <option value="تجميعات">تجميعات وكويزات سابقة</option>
               <option value="سلايدات">سلايدات وشروحات</option>
-              <option value="ملف">ملف مرفوع</option>
               <option value="قناة">قناة تيليجرام / قروب</option>
             </select>
           </div>
-          <button type="submit" class="btn-primary">إرسال للمراجعة والنشر 🚀</button>
+          <button type="submit" class="btn-primary">إرسال الرابط للمراجعة والنشر 🚀</button>
         </form>
       </div>
     </div>
@@ -2312,7 +2347,7 @@
             <label>رابط الملف أو القناة (URL)</label>
             <input type="url" id="admin-res-url" required placeholder="https://drive.google.com/...">
           </div>
-          <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer; margin-bottom:12px;">
+          <label style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700; cursor:pointer; margin-bottom:10px;">
             <input type="checkbox" id="admin-res-pinned">
             ⭐ تثبيت هذا الرابط ليظهر دائماً في أعلى قائمة المادة
           </label>
@@ -2329,20 +2364,20 @@
           <button id="btn-close-alerts-modal" class="close-btn">&times;</button>
         </div>
         <form id="admin-alerts-form">
-          <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
-            <h4 style="font-size:13px; font-weight:800; margin-bottom:6px;">📢 شريط الإعلان العام (أعلى الشاشة):</h4>
+          <div style="background:var(--subtle-bg); padding:10px; border-radius:10px; margin-bottom:12px;">
+            <h4 style="font-size:12px; font-weight:800; margin-bottom:4px;">📢 شريط الإعلان العام (أعلى الشاشة):</h4>
             <div class="form-group">
               <label>نص الإعلان</label>
               <input type="text" id="cfg-broadcast-text" placeholder="مثال: تنويه: تم رفع تجميعات كويز نظم التشغيل">
             </div>
-            <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer;">
+            <label style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700; cursor:pointer;">
               <input type="checkbox" id="cfg-broadcast-active">
               تفعيل وإظهار الإعلان لجميع الطلاب
             </label>
           </div>
 
-          <div style="background:var(--subtle-bg); padding:12px; border-radius:12px; margin-bottom:14px;">
-            <h4 style="font-size:13px; font-weight:800; margin-bottom:6px;">⏳ العداد التنازلي للاختبارات:</h4>
+          <div style="background:var(--subtle-bg); padding:10px; border-radius:10px; margin-bottom:12px;">
+            <h4 style="font-size:12px; font-weight:800; margin-bottom:4px;">⏳ العداد التنازلي للاختبارات:</h4>
             <div class="form-group">
               <label>عنوان الحدث</label>
               <input type="text" id="cfg-countdown-title" placeholder="مثال: موعد اختبارات الميدتيرم">
@@ -2351,7 +2386,7 @@
               <label>تاريخ ووقت الاختبار</label>
               <input type="datetime-local" id="cfg-countdown-date">
             </div>
-            <label style="display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; cursor:pointer;">
+            <label style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:700; cursor:pointer;">
               <input type="checkbox" id="cfg-countdown-active">
               تفعيل وإظهار العداد التنازلي للجميع
             </label>
@@ -2463,16 +2498,16 @@
       </div>
     </div>
 
-    <!-- صندوق الاقتراحات والشكاوى المباشر -->
+    <!-- صندوق الاقتراحات والشكاوى -->
     <div id="feedback-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
           <h3 id="fb-modal-heading">📩 صندوق الاقتراحات والشكاوى</h3>
           <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
         </div>
-        <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">رأيك وملاحظاتك تساهم في تطوير وتحديث المنصة.</p>
-        <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:13px; margin-bottom:10px;">تم استلام رسالتك بنجاح ووصلت للإدارة! شكراً لك ❤️</div>
-        <div data-fs-error style="text-align:center; color:red; font-size:12px; margin-bottom:10px;"></div>
+        <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px;">رأيك وملاحظاتك تساهم في تطوير وتحديث المنصة.</p>
+        <div data-fs-success style="display:none; text-align:center; color:green; font-weight:bold; font-size:12px; margin-bottom:8px;">تم استلام رسالتك بنجاح ووصلت للإدارة! شكراً لك ❤️</div>
+        <div data-fs-error style="text-align:center; color:red; font-size:11.5px; margin-bottom:8px;"></div>
         <form id="feedback-form">
           <input type="hidden" id="fb-sender-name" name="name" value="طالب/ـة">
           <input type="hidden" id="fb-sender-email" name="email" value="student@taibahu.edu.sa">
@@ -2498,7 +2533,7 @@
     </div>
   </div>
 
-  <!-- منطق التطبيق البرمجي المتكامل والشامل -->
+  <!-- JavaScript Logic & Firebase Integration -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
     import { 
@@ -2549,15 +2584,6 @@
     let adminUIDs = [INITIAL_ADMIN_UID];
 
     const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
-
-    const OFFICIAL_LEVEL_5_DATA = {
-      "COE 225": { credits: 3, totalLectures: 30 },
-      "COE 295": { credits: 2, totalLectures: 15 },
-      "CS 226":  { credits: 4, totalLectures: 45 },
-      "EE 201":  { credits: 4, totalLectures: 45 },
-      "GS 311":  { credits: 2, totalLectures: 15 },
-      "STAT 301":{ credits: 3, totalLectures: 30 }
-    };
 
     const CURRICULUM_PLAN = {
       5: [
@@ -2618,6 +2644,7 @@
     let currentSort = "default";
     let isAdmin = false;
     let countdownInterval = null;
+    let expandedCourseId = null; // متغير لحفظ حالة المادة المفتوحة لكي لا تغلق عند الضغط
 
     let exportOrientation = "portrait";
     let exportTheme = "dark";
@@ -2625,11 +2652,10 @@
     let userWidgetPrefs = {
       showStats: true,
       showTasks: true,
-      showNews: true,
-      showReminder: true
+      showNews: true
     };
 
-    // عناصر واجهة المستخدم
+    // عناصر الواجهة
     const authScreen = document.getElementById("auth-screen");
     const mainApp = document.getElementById("main-app");
     const authForm = document.getElementById("auth-form");
@@ -2655,7 +2681,6 @@
 
     const btnOpenProfile = document.getElementById("btn-open-profile");
     const profileModal = document.getElementById("profile-modal");
-    const btnCloseProfileModal = document.getElementById("btn-close-profile-modal");
     const profileEditForm = document.getElementById("profile-edit-form");
     const headerAvatar = document.getElementById("header-avatar");
     const headerNameDisplay = document.getElementById("header-name-display");
@@ -2668,7 +2693,6 @@
     const profileAvatarFile = document.getElementById("profile-avatar-file");
     const btnOpenRequestChange = document.getElementById("btn-open-request-change");
     const requestChangeModal = document.getElementById("request-change-modal");
-    const btnCloseRequestModal = document.getElementById("btn-close-request-modal");
     const requestChangeForm = document.getElementById("request-change-form");
 
     const prefShowStats = document.getElementById("pref-show-stats");
@@ -2743,14 +2767,6 @@
     const subResCourse = document.getElementById("sub-res-course");
     const adminResCourse = document.getElementById("admin-res-course");
 
-    const btnSubModeLink = document.getElementById("btn-sub-mode-link");
-    const btnSubModeFile = document.getElementById("btn-sub-mode-file");
-    const subLinkGroup = document.getElementById("sub-link-group");
-    const subFileGroup = document.getElementById("sub-file-group");
-    const subResUrl = document.getElementById("sub-res-url");
-    const subResFile = document.getElementById("sub-res-file");
-    let studentShareMode = "link";
-
     const cramCourseSelect = document.getElementById("cram-course-select");
     const cramExamDate = document.getElementById("cram-exam-date");
     const btnGenerateCramPlan = document.getElementById("btn-generate-cram-plan");
@@ -2765,10 +2781,9 @@
     const taskCourseSelect = document.getElementById("task-course-select");
     const quickCoursePreset = document.getElementById("quick-course-preset");
 
-    const btnTransitionLevel = document.getElementById("btn-transition-level");
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // وظيفة تبديل التبويبات العامة لضمان عمل كافة الأزرار
+    // وظيفة تبديل التبويبات العامة
     window.switchTab = function(target) {
       document.querySelectorAll(".nav-item").forEach(n => {
         if (n.getAttribute("data-target") === target) n.classList.add("active");
@@ -2785,7 +2800,7 @@
       if (target === "home") renderHomeDashboardUI();
     };
 
-    // معالجة فتح المودالات وتأكيد ربط جميع الأزرار
+    // ربط النقر للأزرار والمودالات
     btnOpenProfile.addEventListener("click", () => profileModal.classList.add("open"));
     btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
     btnOpenTaskModal.addEventListener("click", () => taskModal.classList.add("open"));
@@ -2830,7 +2845,7 @@
       requestChangeModal.classList.add("open");
     });
 
-    // إغلاق النوافذ بالضغط خارج المودال أو زر Esc أو زر ×
+    // إغلاق النوافذ بالضغط خارجها أو Esc أو زر ×
     document.querySelectorAll(".modal-overlay").forEach(overlay => {
       overlay.addEventListener("click", (e) => {
         if (e.target === overlay) overlay.classList.remove("open");
@@ -2845,23 +2860,6 @@
       btn.addEventListener("click", () => {
         document.querySelectorAll(".modal-overlay.open").forEach(o => o.classList.remove("open"));
       });
-    });
-
-    // تبديل أسلوب المشاركة (رابط خارجي أو ملف)
-    btnSubModeLink.addEventListener("click", () => {
-      btnSubModeLink.classList.add("active");
-      btnSubModeFile.classList.remove("active");
-      subLinkGroup.style.display = "block";
-      subFileGroup.style.display = "none";
-      studentShareMode = "link";
-    });
-
-    btnSubModeFile.addEventListener("click", () => {
-      btnSubModeFile.classList.add("active");
-      btnSubModeLink.classList.remove("active");
-      subLinkGroup.style.display = "none";
-      subFileGroup.style.display = "block";
-      studentShareMode = "file";
     });
 
     function initTheme() {
@@ -2986,7 +2984,6 @@
           const gender = authGender.value;
           const section = authSection.value.trim();
 
-          // التحقق الإلزامي من التصنيف ورقم الدفعة والاسم
           if (!name) throw new Error("الرجاء إدخال الاسم الكامل.");
           if (!gender) throw new Error("الرجاء تحديد التصنيف إجبارياً (طالب أو طالبة).");
           if (!section) throw new Error("الرجاء إدخال رقم الدفعة إجبارياً.");
@@ -3057,7 +3054,6 @@
             profileAvatarPreview.src = avatarUrl;
             headerNameDisplay.textContent = (data.displayName || "حسابي").split(" ")[0];
             
-            // نظام الترحيب الذكي Dynamic Greeting
             const isFemale = (data.gender === 'طالبة');
             homeGreetingName.textContent = isFemale 
               ? `أهلاً بكِ يا مهندسة ${data.displayName || ''} ✨` 
@@ -3169,7 +3165,7 @@
       }
     });
 
-    // إضافة مشرف جديد بالـ UID
+    // إضافة مشرف جديد
     btnAddAdminSubmit.addEventListener("click", async () => {
       const newUid = newAdminUidInput.value.trim();
       if (!newUid) {
@@ -3197,10 +3193,10 @@
       }
     });
 
-    // إدارة ومراجعة طلبات تعديل البيانات
+    // إدارة طلبات تعديل البيانات
     function renderAdminProfileRequestsUI() {
       if (profileChangeRequests.length === 0) {
-        adminProfileRequestsList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>`;
+        adminProfileRequestsList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>`;
         return;
       }
       adminProfileRequestsList.innerHTML = "";
@@ -3208,14 +3204,14 @@
         const row = document.createElement("div");
         row.className = "request-item-card";
         row.innerHTML = `
-          <div style="font-size:12px; margin-bottom:6px;">
+          <div style="font-size:11.5px; margin-bottom:5px;">
             <strong>الطالب:</strong> ${req.studentName} (${req.studentEmail})<br>
             <strong>التعديل المطلوب:</strong> تصنيف [${req.requestedGender}] • [${req.requestedSection}]<br>
             <span style="color:var(--text-muted);">السبب: ${req.reason}</span>
           </div>
           <div style="display:flex; gap:6px;">
-            <button class="btn-approve-req" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">قبول وتعديل ✅</button>
-            <button class="btn-reject-req" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض ❌</button>
+            <button class="btn-approve-req" style="background:#10B981; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">قبول وتعديل ✅</button>
+            <button class="btn-reject-req" style="background:#EF4444; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">رفض ❌</button>
           </div>
         `;
         row.querySelector(".btn-approve-req").addEventListener("click", async () => {
@@ -3234,10 +3230,10 @@
       });
     }
 
-    // إدارة واعتماد تجميعات وملخصات الطلاب (+15 نقطة مساهمة مرة واحدة)
+    // إدارة واعتماد تجميعات وملخصات الطلاب
     function renderAdminPendingResourcesUI() {
       if (pendingResources.length === 0) {
-        adminPendingResourcesList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>`;
+        adminPendingResourcesList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>`;
         return;
       }
       adminPendingResourcesList.innerHTML = "";
@@ -3245,18 +3241,17 @@
         const row = document.createElement("div");
         row.className = "request-item-card";
         row.innerHTML = `
-          <div style="font-size:12px; margin-bottom:6px;">
+          <div style="font-size:11.5px; margin-bottom:5px;">
             <strong style="color:var(--text-main);">${item.title}</strong>
-            <span style="display:block; font-size:11px; color:#92400E;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
-            <a href="${item.url}" target="_blank" style="font-size:11px; color:#0284C7;">معاينة الرابط/الملف ↗</a>
+            <span style="display:block; font-size:10.5px; color:#92400E;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
+            <a href="${item.url}" target="_blank" style="font-size:10.5px; color:#0284C7;">معاينة الرابط ↗</a>
           </div>
           <div style="display:flex; gap:6px;">
-            <button class="btn-approve-res" style="background:#10B981; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">اعتماد ونشر (+15 نقطة) ✅</button>
-            <button class="btn-reject-res" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">رفض وحذف ❌</button>
+            <button class="btn-approve-res" style="background:#10B981; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">اعتماد ونشر (+15 نقطة) ✅</button>
+            <button class="btn-reject-res" style="background:#EF4444; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">رفض وحذف ❌</button>
           </div>
         `;
         row.querySelector(".btn-approve-res").addEventListener("click", async () => {
-          // منع تكرار احتساب النقاط لنفس التجميعة
           if (!item.rewardGranted && item.contributorUid) {
             const authorRef = doc(db, "users", item.contributorUid);
             const authorSnap = await getDoc(authorRef);
@@ -3313,7 +3308,6 @@
       }
     }
 
-    // فحص وقت المحاضرة الحالية وإظهار شريط المباشر (Live Class Alert)
     function checkLiveCurrentClass() {
       const now = new Date();
       const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
@@ -3351,7 +3345,6 @@
     }
     setInterval(checkLiveCurrentClass, 30000);
 
-    // استطلاع الرأي الذكي المخصص حسب الفئة والدفعة
     async function renderPollUI() {
       if (!activePoll || !activePoll.active) {
         homeActivePollBox.style.display = "none";
@@ -3437,7 +3430,6 @@
       alert("تم نشر استطلاع الرأي للفئة المحددة بنجاح! 📊");
     });
 
-    // تصدير تقرير الطلاب التفصيلي إلى CSV متوافق 100% مع Google Sheets و Excel بترميز UTF-8
     btnAdminExportExcel.addEventListener("click", async () => {
       if (!isAdmin) return;
       const snap = await getDocs(collection(db, "users"));
@@ -3484,9 +3476,9 @@
         homeTodayClassesHeading.textContent = "إجازة نهاية الأسبوع ☕";
         homeTodayClassesCount.textContent = "Off";
         homeTodayLecturesList.innerHTML = `
-          <div style="text-align:center; padding:14px; background:var(--subtle-bg); border-radius:12px;">
-            <span style="font-size:22px;">🌴</span>
-            <p style="font-size:12px; font-weight:800; margin-top:2px;">استمتع بعطلة نهاية الأسبوع واستعد للأسبوع القادم.</p>
+          <div style="text-align:center; padding:12px; background:var(--subtle-bg); border-radius:10px;">
+            <span style="font-size:20px;">🌴</span>
+            <p style="font-size:11.5px; font-weight:800; margin-top:2px;">استمتع بعطلة نهاية الأسبوع واستعد للأسبوع القادم.</p>
           </div>
         `;
       } else {
@@ -3497,25 +3489,25 @@
 
         if (todaySlots.length === 0) {
           homeTodayLecturesList.innerHTML = `
-            <div style="text-align:center; padding:12px; background:var(--subtle-bg); border-radius:12px;">
-              <p style="font-size:12px; color:var(--text-muted); font-weight:700;">لا توجد محاضرات مجدولة لك اليوم (${currentDayArabic}) ☕</p>
+            <div style="text-align:center; padding:10px; background:var(--subtle-bg); border-radius:10px;">
+              <p style="font-size:11.5px; color:var(--text-muted); font-weight:700;">لا توجد محاضرات مجدولة لك اليوم (${currentDayArabic}) ☕</p>
             </div>
           `;
         } else {
           todaySlots.forEach(slot => {
             const row = document.createElement("div");
-            row.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:12px; padding:10px 12px; margin-bottom:8px;";
+            row.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--border-subtle); border-radius:10px; padding:8px 10px; margin-bottom:6px;";
             row.innerHTML = `
               <div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="width:8px; height:8px; border-radius:50%; background:${slot.color};"></span>
-                  <strong style="font-size:13px;">${slot.courseName} (${slot.courseCode})</strong>
+                <div style="display:flex; align-items:center; gap:5px;">
+                  <span style="width:7px; height:7px; border-radius:50%; background:${slot.color};"></span>
+                  <strong style="font-size:12px;">${slot.courseName} (${slot.courseCode})</strong>
                 </div>
-                <span style="font-size:11px; color:var(--text-muted); display:block; margin-top:2px;">
+                <span style="font-size:10.5px; color:var(--text-muted); display:block; margin-top:1px;">
                   📍 قاعة: ${slot.room} • ${slot.building}
                 </span>
               </div>
-              <span style="font-size:12px; font-weight:800; color:var(--primary-teal); background:rgba(13,148,136,0.1); padding:4px 8px; border-radius:8px;">
+              <span style="font-size:11.5px; font-weight:800; color:var(--primary-teal); background:rgba(13,148,136,0.1); padding:3px 7px; border-radius:6px;">
                 ⏰ ${slot.startTime}
               </span>
             `;
@@ -3527,15 +3519,15 @@
       homeUrgentTasksList.innerHTML = "";
       const pendingTasks = currentTasks.filter(t => !t.completed).slice(0, 3);
       if (pendingTasks.length === 0) {
-        homeUrgentTasksList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px 0;">لا توجد مهام معلقة حالياً 🎉</p>`;
+        homeUrgentTasksList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center; padding:6px 0;">لا توجد مهام معلقة حالياً 🎉</p>`;
       } else {
         pendingTasks.forEach(task => {
           const tRow = document.createElement("div");
-          tRow.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--subtle-bg); padding:8px 12px; border-radius:10px; margin-bottom:6px; font-size:12px;";
+          tRow.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--subtle-bg); padding:7px 10px; border-radius:8px; margin-bottom:5px; font-size:11.5px;";
           tRow.innerHTML = `
             <div>
               <strong>${task.title}</strong>
-              <span style="font-size:10.5px; color:var(--text-muted); display:block;">${task.courseCode} • 📅 ${task.dueDate}</span>
+              <span style="font-size:10px; color:var(--text-muted); display:block;">${task.courseCode} • 📅 ${task.dueDate}</span>
             </div>
             <span class="resource-type-badge">${task.type}</span>
           `;
@@ -3546,15 +3538,15 @@
       homeLatestResourcesList.innerHTML = "";
       const latestRes = publicResources.slice(0, 3);
       if (latestRes.length === 0) {
-        homeLatestResourcesList.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:8px 0;">لا توجد تجميعات منشورة مؤخراً.</p>`;
+        homeLatestResourcesList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center; padding:6px 0;">لا توجد تجميعات منشورة مؤخراً.</p>`;
       } else {
         latestRes.forEach(r => {
           const rRow = document.createElement("div");
-          rRow.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--subtle-bg); padding:8px 12px; border-radius:10px; margin-bottom:6px; font-size:12px;";
+          rRow.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:var(--subtle-bg); padding:7px 10px; border-radius:8px; margin-bottom:5px; font-size:11.5px;";
           rRow.innerHTML = `
             <div>
               <strong style="color:var(--text-main);">${r.title}</strong>
-              <span style="font-size:10px; color:var(--text-muted); display:block;">مقرر: ${r.courseCode}</span>
+              <span style="font-size:9.5px; color:var(--text-muted); display:block;">مقرر: ${r.courseCode}</span>
             </div>
             <a href="${r.url}" target="_blank" style="color:var(--primary-teal); font-weight:bold; text-decoration:none; font-size:11px;">فتح ↗</a>
           `;
@@ -3607,8 +3599,7 @@
       const newPrefs = {
         showStats: prefShowStats.checked,
         showTasks: prefShowTasks.checked,
-        showNews: prefShowNews.checked,
-        showReminder: true
+        showNews: prefShowNews.checked
       };
 
       try {
@@ -3867,17 +3858,17 @@
           </div>
           <div class="timetable-lectures-list">
             ${slotsForDay.length === 0 ? `
-              <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:6px 0;">لا توجد محاضرات مجدولة لهذا اليوم (Off) ☕</p>
+              <p style="font-size:11.5px; color:var(--text-muted); text-align:center; padding:6px 0;">لا توجد محاضرات مجدولة لهذا اليوم (Off) ☕</p>
             ` : slotsForDay.map(slot => `
               <div class="timetable-slot-item">
                 <div class="timetable-slot-info">
-                  <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="width:10px; height:10px; border-radius:50%; background:${slot.color};"></span>
+                  <div style="display:flex; align-items:center; gap:5px;">
+                    <span style="width:8px; height:8px; border-radius:50%; background:${slot.color};"></span>
                     <h4>${slot.courseName} (${slot.courseCode})</h4>
                   </div>
                   <p>⏰ من ${slot.startTime} إلى ${slot.endTime} • قاعة: ${slot.room} (${slot.building})</p>
                 </div>
-                <button class="btn-del-slot" data-id="${slot.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:13px;" title="حذف من الجدول">✕</button>
+                <button class="btn-del-slot" data-id="${slot.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:12px;" title="حذف من الجدول">✕</button>
               </div>
             `).join('')}
           </div>
@@ -3895,9 +3886,9 @@
 
       if (totalSlotsCount === 0) {
         scheduleDaysContainer.insertAdjacentHTML("afterbegin", `
-          <div style="text-align:center; padding:20px; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle); margin-bottom:14px;">
-            <p style="font-size:13px; font-weight:700; color:var(--text-muted);">جدولك الدراسي فارغ حالياً 📋</p>
-            <p style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">اضغط على زر "➕ إضافة محاضرة" بالأعلى لجدولة مواعيد وقاعات محاضراتك بكل سهولة.</p>
+          <div style="text-align:center; padding:16px; background:var(--card-bg); border-radius:12px; border:1px solid var(--border-subtle); margin-bottom:12px;">
+            <p style="font-size:12.5px; font-weight:700; color:var(--text-muted);">جدولك الدراسي فارغ حالياً 📋</p>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:3px;">اضغط على زر "➕ إضافة محاضرة" بالأعلى لجدولة مواعيد وقاعات محاضراتك بكل سهولة.</p>
           </div>
         `);
       }
@@ -3933,12 +3924,12 @@
 
       cramResultBox.style.display = "block";
       cramResultBox.innerHTML = `
-        <div style="font-weight:800; color:var(--text-main); margin-bottom:4px;">
+        <div style="font-weight:800; color:var(--text-main); margin-bottom:3px;">
           📊 الخطة الذكية لمقرر ${course.name}:
         </div>
         <p>• الأيام المتبقية حتى الاختبار: <strong>${daysRemaining} يوم</strong></p>
         <p>• الشباتر المتبقية للمذاكرة: <strong>${unstudiedChapters} من أصل ${totalCh} شباتر</strong></p>
-        <p style="color:var(--primary-teal); font-weight:800; margin-top:4px;">
+        <p style="color:var(--primary-teal); font-weight:800; margin-top:3px;">
           🎯 معدل الإنجاز المطلوب: مذاكرة <strong>${dailyChapters} شابتر يومياً</strong> لختم المادة قبل موعد الاختبار بكل راحة!
         </p>
       `;
@@ -3990,9 +3981,9 @@
 
       if (currentCourses.length === 0) {
         resourcesGlobalContainer.innerHTML = `
-          <div style="text-align:center; padding:30px 16px; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle);">
-            <p style="font-size:13px; font-weight:700; color:var(--text-muted);">لا توجد مقررات في جدولك حالياً 📚</p>
-            <p style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">أضف موادك في صفحة "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</p>
+          <div style="text-align:center; padding:24px 14px; background:var(--card-bg); border-radius:12px; border:1px solid var(--border-subtle);">
+            <p style="font-size:12.5px; font-weight:700; color:var(--text-muted);">لا توجد مقررات في جدولك حالياً 📚</p>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:3px;">أضف موادك في صفحة "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</p>
           </div>
         `;
         return;
@@ -4020,11 +4011,11 @@
         groupDiv.innerHTML = `
           <div class="resource-group-header">
             <span>📖 ${sub.name} (${sub.code})</span>
-            <span style="font-size:11px; font-weight:700; color:var(--text-muted);">${items.length} روابط</span>
+            <span style="font-size:10.5px; font-weight:700; color:var(--text-muted);">${items.length} روابط</span>
           </div>
           <div class="resource-items-list">
             ${items.length === 0 ? `
-              <p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0;">
+              <p style="font-size:11.5px; color:var(--text-muted); text-align:center; padding:8px 0;">
                 لا توجد روابط مضافة بعد لهذه المادة.
               </p>
             ` : items.map(item => `
@@ -4037,17 +4028,17 @@
                     ${item.contributorName ? `<span class="contributor-credit">مساهمة من: ${item.contributorName} (+15 نقطة ⭐)</span>` : ''}
                   </div>
                 </a>
-                <div style="display:flex; align-items:center; gap:8px;">
+                <div style="display:flex; align-items:center; gap:6px;">
                   <button class="btn-upvote" data-id="${item.id}">👍 ${item.upvotes || 0}</button>
-                  <a href="${item.url}" target="_blank" style="color:var(--primary-teal); font-size:12px; font-weight:800; text-decoration:none;">فتح ↗</a>
-                  ${isAdmin ? `<button class="btn-del-resource" data-id="${item.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:12px;" title="حذف الرابط">🗑️</button>` : ''}
+                  <a href="${item.url}" target="_blank" style="color:var(--primary-teal); font-size:11.5px; font-weight:800; text-decoration:none;">فتح ↗</a>
+                  ${isAdmin ? `<button class="btn-del-resource" data-id="${item.id}" style="background:none; border:none; color:red; cursor:pointer; font-size:11.5px;" title="حذف الرابط">🗑️</button>` : ''}
                 </div>
               </div>
             `).join('')}
           </div>
         `;
 
-        // نظام التقييم 👍 مفيد مع منع تكرار التصويت
+        // نظام التقييم 👍 مفيد
         groupDiv.querySelectorAll(".btn-upvote").forEach(btn => {
           btn.addEventListener("click", async () => {
             const id = btn.getAttribute("data-id");
@@ -4083,38 +4074,19 @@
       });
     }
 
-    // إرسال الملخص والتجميعة (يدعم الرابط ورفع الملف)
+    // إرسال الملخص والتجميعة
     studentResourceForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const courseCode = document.getElementById("sub-res-course").value;
       const title = document.getElementById("sub-res-title").value.trim();
       const type = document.getElementById("sub-res-type").value;
+      const url = document.getElementById("sub-res-url").value.trim();
 
-      let finalUrl = "";
-
-      if (studentShareMode === "file") {
-        const file = subResFile.files[0];
-        if (!file) {
-          alert("الرجاء اختيار ملف PDF أو صورة من جهازك أولاً.");
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = async (ev) => {
-          finalUrl = ev.target.result;
-          await sendResourcePayload(courseCode, title, "ملف", finalUrl);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        finalUrl = subResUrl.value.trim();
-        if (!finalUrl) {
-          alert("الرجاء إدخال رابط الملف.");
-          return;
-        }
-        await sendResourcePayload(courseCode, title, type, finalUrl);
+      if (!url) {
+        alert("الرجاء إدخال رابط الملف أو التجميعة.");
+        return;
       }
-    });
 
-    async function sendResourcePayload(courseCode, title, type, url) {
       await addDoc(collection(db, "public_resources"), {
         courseCode,
         title,
@@ -4129,8 +4101,8 @@
       });
       studentResourceForm.reset();
       studentSubmitResourceModal.classList.remove("open");
-      alert("شكراً لمساهمتك! تم إرسال الملف وسيتم نشره للدفعة فور اعتماده من المشرف مع +15 نقطة مساهمة ⭐");
-    }
+      alert("شكراً لمساهمتك! تم إرسال الرابط وسيتم نشره للدفعة فور اعتماده من المشرف مع +15 نقطة مساهمة ⭐");
+    });
 
     adminResourceForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -4210,7 +4182,7 @@
         const listDiv = document.getElementById("leaderboard-list");
         listDiv.innerHTML = "";
         if (snapshot.empty) {
-          listDiv.innerHTML = `<p style="font-size:12px; color:var(--text-muted); text-align:center;">ابدأ المذاكرة بالمؤقت لتتصدر القائمة!</p>`;
+          listDiv.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">ابدأ المذاكرة بالمؤقت لتتصدر القائمة!</p>`;
           return;
         }
         let rank = 1;
@@ -4220,9 +4192,9 @@
           const item = document.createElement("div");
           item.className = "leaderboard-row";
           item.innerHTML = `
-            <div style="display:flex; align-items:center; gap:8px;">
+            <div style="display:flex; align-items:center; gap:6px;">
               <span class="leaderboard-rank">${medals[rank - 1] || rank}</span>
-              <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:24px; height:24px; border-radius:50%;">
+              <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:22px; height:22px; border-radius:50%;">
               <span>${u.displayName || 'طالب/ـة'}</span>
             </div>
             <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
@@ -4299,6 +4271,7 @@
       courseModal.classList.remove("open");
     });
 
+    // عرض المقررات مع تثبيت البطاقة المفتوحة وإعادة الترتيب (المحاضرات أولاً ثم الغيابات بشكل أصغر)
     function renderCoursesUI() {
       coursesContainer.innerHTML = "";
       let totalLecAll = 0;
@@ -4335,34 +4308,36 @@
 
         let statusTextClass = "dn-safe";
         let statusPillClass = "dn-safe-pill";
-        let statusMessage = `المسموح: ${maxAllowedAbsences} غيابات (باقي لك ${remainingAbsences} قبل الحرمان)`;
+        let statusMessage = `المسموح: ${maxAllowedAbsences} غيابات (باقي ${remainingAbsences} قبل الحرمان)`;
 
         if (absences >= dnAbsenceThreshold) {
           statusTextClass = "dn-danger";
           statusPillClass = "dn-danger-pill";
-          statusMessage = `🚨 تم تجاوز نسبة 25%! وقع الحرمان (DN) برصيد ${absences} غياب`;
+          statusMessage = `🚨 تجاوزت 25%! وقع الحرمان برصيد ${absences} غياب`;
         } else if (absences === maxAllowedAbsences) {
           statusTextClass = "dn-warn";
           statusPillClass = "dn-warn-pill";
-          statusMessage = `⚠️ تحذير شديد! بلغت الحد الأقصى (${absences}/${maxAllowedAbsences}). الغياب القادم هو الحرمان!`;
+          statusMessage = `⚠️ بلغت الحد الأقصى (${absences}/${maxAllowedAbsences}). الغياب القادم حرمان!`;
         } else if (remainingAbsences === 1) {
           statusTextClass = "dn-warn";
           statusPillClass = "dn-warn-pill";
-          statusMessage = `انتبه! باقي لك غياب واحد فقط قبل بلوغ الحد الأقصى`;
+          statusMessage = `انتبه! باقي لك غياب واحد فقط قبل الحد الأقصى`;
         }
 
         const originTagHtml = course.originLevel 
           ? `<span class="origin-level-tag">${course.originLevel}</span>` 
           : '';
 
+        const isExpanded = (expandedCourseId === course.id);
+
         const card = document.createElement("div");
-        card.className = "course-card";
+        card.className = `course-card ${isExpanded ? 'expanded' : ''}`;
         card.innerHTML = `
           <div class="course-card-header">
             <div>
               ${originTagHtml}
               <span class="course-badge" style="background-color: ${course.color}20; color: ${course.color};">
-                ${course.name} (${course.code}) • ${course.credits} وحدات معتمدة
+                ${course.name} (${course.code}) • ${course.credits} وحدات
               </span>
             </div>
             <span class="course-status-brief">
@@ -4372,26 +4347,12 @@
           </div>
           <div class="course-card-body">
             
-            <div class="dn-calculator-box">
-              <div class="dn-info">
-                <span class="dn-title">نظام الحرمان بجامعة طيبة (المحاضرات: ${totalLec} • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
-                <span class="dn-status ${statusTextClass}">${statusMessage}</span>
-                <div class="dn-percentage-pill ${statusPillClass}">
-                  نسبة الغياب: ${absencePercentage}% (${absences} غيابات من ${totalLec})
-                </div>
-              </div>
-              <div class="stepper-controls">
-                <button class="step-btn btn-dec-abs" title="إنقاص غياب">-</button>
-                <span style="font-size:14px; font-weight:800;">${absences}</span>
-                <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--primary-red); font-weight:900;">+</button>
-              </div>
-            </div>
-
             <div class="quick-actions-bar">
               <button class="btn-quick btn-mark-all-done">إنجاز الكل سريعاً ✨</button>
               <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
             </div>
 
+            <!-- المحاضرات في البداية -->
             <div class="stepper-row">
               <span>المحاضرات التي تم حضورها:</span>
               <div class="stepper-controls">
@@ -4415,17 +4376,43 @@
               `).join('')}
             </div>
 
+            <!-- حساب الغياب والحرمان في الأسفل وبحجم مدمج أصغر -->
+            <div class="dn-calculator-box-compact">
+              <div class="dn-info-compact">
+                <span class="dn-title-compact">نظام الحرمان لجامعة طيبة (25% • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
+                <span class="dn-status-compact ${statusTextClass}">${statusMessage}</span>
+                <div class="dn-percentage-pill-compact ${statusPillClass}">
+                  نسبة الغياب: ${absencePercentage}% (${absences} غيابات من ${totalLec})
+                </div>
+              </div>
+              <div class="stepper-controls">
+                <button class="step-btn btn-dec-abs" title="إنقاص غياب">-</button>
+                <span style="font-size:13px; font-weight:800;">${absences}</span>
+                <button class="step-btn btn-inc-abs" title="رصد غياب" style="color:var(--primary-red); font-weight:900;">+</button>
+              </div>
+            </div>
+
             <div class="course-footer-links">
               <button class="btn-delete-course">حذف المقرر</button>
             </div>
           </div>
         `;
 
-        card.querySelector(".course-card-header").addEventListener("click", () => card.classList.toggle("expanded"));
+        card.querySelector(".course-card-header").addEventListener("click", () => {
+          if (expandedCourseId === course.id) {
+            expandedCourseId = null;
+            card.classList.remove("expanded");
+          } else {
+            expandedCourseId = course.id;
+            document.querySelectorAll(".course-card").forEach(c => c.classList.remove("expanded"));
+            card.classList.add("expanded");
+          }
+        });
 
         card.querySelector(".btn-inc").addEventListener("click", async (e) => {
           e.stopPropagation();
           if (course.attendedLectures < course.totalLectures) {
+            expandedCourseId = course.id;
             await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
               attendedLectures: course.attendedLectures + 1
             });
@@ -4435,6 +4422,7 @@
         card.querySelector(".btn-dec").addEventListener("click", async (e) => {
           e.stopPropagation();
           if (course.attendedLectures > 0) {
+            expandedCourseId = course.id;
             await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
               attendedLectures: course.attendedLectures - 1
             });
@@ -4443,6 +4431,7 @@
 
         card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
           e.stopPropagation();
+          expandedCourseId = course.id;
           await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
             absences: (course.absences || 0) + 1
           });
@@ -4451,6 +4440,7 @@
         card.querySelector(".btn-dec-abs").addEventListener("click", async (e) => {
           e.stopPropagation();
           if ((course.absences || 0) > 0) {
+            expandedCourseId = course.id;
             await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
               absences: course.absences - 1
             });
@@ -4459,6 +4449,7 @@
 
         card.querySelector(".btn-mark-all-done").addEventListener("click", async (e) => {
           e.stopPropagation();
+          expandedCourseId = course.id;
           const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
           await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
             attendedLectures: course.totalLectures,
@@ -4468,6 +4459,7 @@
 
         card.querySelector(".btn-reset-all").addEventListener("click", async (e) => {
           e.stopPropagation();
+          expandedCourseId = course.id;
           const updatedChs = (course.chapters || []).map(c => ({ ...c, done: false }));
           await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
             attendedLectures: 0,
@@ -4479,6 +4471,7 @@
         card.querySelectorAll(".ch-check").forEach((checkbox, idx) => {
           checkbox.addEventListener("change", async (e) => {
             e.stopPropagation();
+            expandedCourseId = course.id;
             const chs = [...course.chapters];
             chs[idx].done = checkbox.checked;
             await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), { chapters: chs });
@@ -4487,6 +4480,7 @@
 
         card.querySelector(".btn-add-chapter-mini").addEventListener("click", async (e) => {
           e.stopPropagation();
+          expandedCourseId = course.id;
           const title = prompt("اسم الشابتر:");
           if (title && title.trim()) {
             const chs = [...(course.chapters || []), { id: `ch_${Date.now()}`, title: title.trim(), done: false }];
@@ -4497,6 +4491,7 @@
         card.querySelector(".btn-delete-course").addEventListener("click", async (e) => {
           e.stopPropagation();
           if (confirm(`هل ترغب بحذف مادة ${course.name}؟`)) {
+            expandedCourseId = null;
             await deleteDoc(doc(db, "users", currentUser.uid, "courses", course.id));
           }
         });
@@ -4544,7 +4539,7 @@
       if (currentTaskFilter === "done") filtered = currentTasks.filter(t => t.completed);
 
       if (filtered.length === 0) {
-        tasksContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:30px; font-size:13px;">لا توجد مهام في هذا القسم 🎉</p>`;
+        tasksContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px; font-size:12px;">لا توجد مهام في هذا القسم 🎉</p>`;
         return;
       }
 
@@ -4560,8 +4555,8 @@
               <span>🏷️ ${task.type}</span>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <input type="checkbox" ${task.completed ? 'checked' : ''} class="task-toggle" style="width:20px; height:20px; cursor:pointer;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <input type="checkbox" ${task.completed ? 'checked' : ''} class="task-toggle" style="width:18px; height:18px; cursor:pointer;">
             <button class="btn-del-task" style="background:none; border:none; color:red; cursor:pointer;">✕</button>
           </div>
         `;
@@ -4603,7 +4598,7 @@
       });
     }
 
-    // مؤقت غرس الإنجاز Pomodoro Focus Tree
+    // مؤقت غرس الإنجاز Pomodoro
     let sessionMinutes = 25;
     let totalFocusSeconds = sessionMinutes * 60;
     let timerDuration = totalFocusSeconds;
@@ -4655,7 +4650,7 @@
       let treeSvg = "";
       if (progressRatio < 0.25) {
         treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
+          <svg viewBox="0 0 100 100" width="90" height="90">
             <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
             <circle cx="50" cy="82" r="5" fill="#5D4037"/>
             <path d="M50 78 Q52 74 50 70" stroke="#84CC16" stroke-width="2.5" fill="none" stroke-linecap="round"/>
@@ -4663,7 +4658,7 @@
         treeStatusText.textContent = "البذرة تُغرس في التربة... ركّز ولا تشتت ذهنك 🌱";
       } else if (progressRatio < 0.60) {
         treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
+          <svg viewBox="0 0 100 100" width="90" height="90">
             <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
             <path d="M50 82 Q50 65 50 55" stroke="#795548" stroke-width="3.5" fill="none" stroke-linecap="round"/>
             <path d="M50 65 Q40 60 42 52 Q48 55 50 62" fill="#84CC16"/>
@@ -4672,7 +4667,7 @@
         treeStatusText.textContent = "شجرتك تكبر وتورق! استمر في التركيز 🌿";
       } else if (progressRatio < 0.95) {
         treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
+          <svg viewBox="0 0 100 100" width="90" height="90">
             <ellipse cx="50" cy="88" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
             <path d="M50 85 L50 48" stroke="#5D4037" stroke-width="5" stroke-linecap="round"/>
             <circle cx="50" cy="40" r="18" fill="#10B981"/>
@@ -4682,7 +4677,7 @@
         treeStatusText.textContent = "أوشكت الشجرة على الإزهار! دقائق قليلة متبقية 🌳";
       } else {
         treeSvg = `
-          <svg viewBox="0 0 100 100" width="100" height="100">
+          <svg viewBox="0 0 100 100" width="90" height="90">
             <ellipse cx="50" cy="88" rx="38" ry="8" fill="#8D6E63" opacity="0.4"/>
             <path d="M50 85 L50 45" stroke="#5D4037" stroke-width="6" stroke-linecap="round"/>
             <circle cx="50" cy="38" r="22" fill="#059669"/>
@@ -4748,23 +4743,23 @@
       const gpaBox = document.getElementById("gpa-calc-container");
       if (!gpaBox) return;
       gpaBox.innerHTML = `
-        <div style="background:var(--subtle-bg); padding:12px; border-radius:10px; margin-bottom:14px; border:1px solid var(--border-subtle);">
-          <span style="font-size:12px; font-weight:700; color:var(--primary-teal);">حساب المعدل التراكمي الجديد (اختياري):</span>
-          <div style="display:flex; gap:10px; margin-top:6px;">
-            <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
-            <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:8px; border:1px solid var(--border-subtle); border-radius:8px; font-size:12px;">
+        <div style="background:var(--subtle-bg); padding:10px; border-radius:10px; margin-bottom:12px; border:1px solid var(--border-subtle);">
+          <span style="font-size:11.5px; font-weight:700; color:var(--primary-teal);">حساب المعدل التراكمي الجديد (اختياري):</span>
+          <div style="display:flex; gap:8px; margin-top:5px;">
+            <input type="number" step="0.01" id="prev-gpa" placeholder="المعدل التراكمي السابق" style="flex:1; padding:6px; border:1px solid var(--border-subtle); border-radius:6px; font-size:11.5px;">
+            <input type="number" id="prev-hours" placeholder="الساعات السابقة المجتازة" style="flex:1; padding:6px; border:1px solid var(--border-subtle); border-radius:6px; font-size:11.5px;">
           </div>
         </div>
 
-        <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:12px;">الدرجات التقديرية بالوزن الفعلي لساعات موادك المسجلة:</p>
+        <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:8px;">الدرجات التقديرية بالوزن الفعلي لساعات موادك المسجلة:</p>
         <div id="gpa-rows">
-          ${currentCourses.length === 0 ? '<p style="font-size:12px; color:var(--text-muted); text-align:center;">أضف مقررات أولاً لحساب معدلها</p>' : currentCourses.map(c => `
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          ${currentCourses.length === 0 ? '<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">أضف مقررات أولاً لحساب معدلها</p>' : currentCourses.map(c => `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
               <div>
-                <span style="font-size:13px; font-weight:700;">${c.code}</span>
-                <span style="font-size:11px; color:var(--text-muted); margin-right:4px;">(${c.credits} وحدات)</span>
+                <span style="font-size:12px; font-weight:700;">${c.code}</span>
+                <span style="font-size:10.5px; color:var(--text-muted); margin-right:3px;">(${c.credits} وحدات)</span>
               </div>
-              <select class="grade-input" data-credits="${c.credits}" style="padding:6px 10px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12.5px;">
+              <select class="grade-input" data-credits="${c.credits}" style="padding:5px 8px; border-radius:6px; border:1px solid var(--border-subtle); font-size:11.5px;">
                 <option value="5.0">A+ (5.00)</option>
                 <option value="4.75">A (4.75)</option>
                 <option value="4.5">B+ (4.50)</option>
@@ -4778,8 +4773,8 @@
             </div>
           `).join('')}
         </div>
-        ${currentCourses.length > 0 ? '<button id="btn-calc-gpa" class="btn-primary" style="margin-top:10px;">احسب المعدل الفصلي والتراكمي</button>' : ''}
-        <div id="gpa-result" style="text-align:center; margin-top:14px; font-weight:800;"></div>
+        ${currentCourses.length > 0 ? '<button id="btn-calc-gpa" class="btn-primary" style="margin-top:8px;">احسب المعدل الفصلي والتراكمي</button>' : ''}
+        <div id="gpa-result" style="text-align:center; margin-top:10px; font-weight:800;"></div>
       `;
 
       const btnCalc = document.getElementById("btn-calc-gpa");
@@ -4806,11 +4801,11 @@
           if (!isNaN(prevGPA) && !isNaN(prevHours) && prevHours > 0) {
             const prevTotalPoints = prevGPA * prevHours;
             const newCumulative = ((prevTotalPoints + totalQualityPoints) / (prevHours + currentSemesterHours)).toFixed(2);
-            cumulativeText = `<br><span style="color:#10B981; font-size:15px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
+            cumulativeText = `<br><span style="color:#10B981; font-size:14px;">المعدل التراكمي الإجمالي المتوقع: ${newCumulative} من 5.00 🌟</span>`;
           }
 
           document.getElementById("gpa-result").innerHTML = `
-            <span style="color:var(--primary-teal); font-size:16px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
+            <span style="color:var(--primary-teal); font-size:15px;">المعدل الفصلي: ${semesterGPA} من 5.00</span> (إجمالي الساعات: ${currentSemesterHours})
             ${cumulativeText}
           `;
         });
