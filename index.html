@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Academic Tracker - كلية علوم وهندسة الحاسب | جامعة طيبة</title>
   
+  <!-- إعدادات PWA للهواتف الذكية -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Academic Tracker">
@@ -12,8 +13,10 @@
   <meta name="theme-color" content="#0F766E">
   <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/bottts/svg?seed=COE&backgroundColor=0f766e">
 
+  <!-- Manifest لتثبيت التطبيق -->
   <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Academic%20Tracker%20-%20%D8%AC%D8%A7%D9%85%D8%B9%D8%A9%20%D8%B7%D9%8A%D8%A8%D8%A9%22%2C%22short_name%22%3A%22Academic%20Tracker%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230F766E%22%2C%22theme_color%22%3A%22%230F766E%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fapi.dicebear.com%2F7.x%2Fbottts%2Fsvg%3Fseed%3DCOE%26backgroundColor%3D0f766e%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 
+  <!-- الخط العربي المعتمد -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -237,6 +240,7 @@
       text-align: center;
     }
 
+    /* الترويسة العلوية المحمية مع مراعاة النوتش والشاشات الحديثة */
     .app-header {
       background-color: var(--primary-dark);
       color: white;
@@ -413,6 +417,7 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
+    /* تحسين المقاس للهاتف */
     .main-content {
       padding: 12px;
       flex: 1;
@@ -1388,6 +1393,7 @@
       letter-spacing: 1px;
     }
 
+    /* شريط التنقل السفلي الكلاسيكي المحسن */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -2088,7 +2094,7 @@
           </div>
         </div>
 
-        <!-- مركز طلبات تعديل البيانات (التصنيف والدفعة) مع التصفية السريعة -->
+        <!-- مركز طلبات تعديل البيانات مع التصفية السريعة -->
         <div class="admin-section-box">
           <h3>📝 مركز طلبات تعديل البيانات (الدفعة والتصنيف)</h3>
           <div class="sort-bar" style="margin-bottom:8px;">
@@ -2160,7 +2166,7 @@
       </div>
     </nav>
 
-    <!-- النوافذ المنبثقة -->
+    <!-- استوديو تصميم وتصدير صورة الجدول HD -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2279,7 +2285,7 @@
       </div>
     </div>
 
-    <!-- استطلاع رأي الدفعة (للأدمن) -->
+    <!-- استطلاع رأي الدفعة -->
     <div id="admin-poll-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2399,7 +2405,7 @@
       </div>
     </div>
 
-    <!-- إضافة رابط مباشر للأدمن مع خيار التثبيت -->
+    <!-- إضافة رابط مباشر للأدمن -->
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2437,7 +2443,7 @@
       </div>
     </div>
 
-    <!-- ضبط الإعلانات والعداد التنازلي للاختبارات -->
+    <!-- ضبط الإعلانات والعداد التنازلي -->
     <div id="admin-alerts-config-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2613,654 +2619,6 @@
       </div>
     </div>
   </div>
-
-  <!-- JavaScript Logic & Firebase Integration -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-    import { 
-      getAuth, 
-      createUserWithEmailAndPassword, 
-      signInWithEmailAndPassword, 
-      signInWithPopup, 
-      GoogleAuthProvider, 
-      signOut, 
-      onAuthStateChanged, 
-      updateProfile, 
-      setPersistence, 
-      browserLocalPersistence, 
-      browserSessionPersistence 
-    } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-    import { 
-      getFirestore, 
-      collection, 
-      doc, 
-      addDoc, 
-      updateDoc, 
-      deleteDoc, 
-      setDoc, 
-      getDoc, 
-      getDocs, 
-      query, 
-      orderBy, 
-      limit, 
-      onSnapshot 
-    } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAuCWmbCIyzUcuhNe4-scxqvGU9mjzhDXg",
-      authDomain: "my-study-tracker-1a084.firebaseapp.com",
-      projectId: "my-study-tracker-1a084",
-      storageBucket: "my-study-tracker-1a084.firebasestorage.app",
-      messagingSenderId: "439333538406",
-      appId: "1:439333538406:web:1bd730409d890753f43ba7",
-      measurementId: "G-PPGDXQD5XM"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const googleProvider = new GoogleAuthProvider();
-
-    const INITIAL_ADMIN_UID = "85B0Qw38nrYzpS5wwcXA5CvJNcC3";
-    let adminUIDs = [INITIAL_ADMIN_UID];
-
-    const TRANSITION_UNLOCK_DATE = new Date("2027-01-07T00:00:00");
-
-    const CURRICULUM_PLAN = {
-      5: [
-        { name: "تنظيم وبناء الحاسب الآلي (2)", code: "COE 225", credits: 3, totalLectures: 30, color: "#8B5CF6" },
-        { name: "قواعد البيانات للمهندسين", code: "COE 295", credits: 2, totalLectures: 15, color: "#0D9488" },
-        { name: "نظم التشغيل", code: "CS 226", credits: 4, totalLectures: 45, color: "#F43F5E" },
-        { name: "دوائر كهربائية (1)", code: "EE 201", credits: 4, totalLectures: 45, color: "#10B981" },
-        { name: "التخطيط المهني", code: "GS 311", credits: 2, totalLectures: 15, color: "#0284C7" },
-        { name: "الاحتمالات والإحصاء للمهندسين", code: "STAT 301", credits: 3, totalLectures: 30, color: "#F59E0B" }
-      ],
-      6: [
-        { name: "مقرر متطلب جامعة اختياري (2)", code: "GSE 2", credits: 2, totalLectures: 15, color: "#8B5CF6" },
-        { name: "شبكات الحاسب", code: "COE 236", credits: 4, totalLectures: 45, color: "#0EA5E9" },
-        { name: "إلكترونيات (1)", code: "EE 222", credits: 4, totalLectures: 45, color: "#10B981" },
-        { name: "التصميم الهندسي", code: "COE 286", credits: 3, totalLectures: 30, color: "#F59E0B" },
-        { name: "النظم المضمنة (1)", code: "COE 246", credits: 4, totalLectures: 45, color: "#6366F1" }
-      ],
-      7: [
-        { name: "مقرر متطلب جامعة اختياري (3)", code: "GSE 3", credits: 2, totalLectures: 15, color: "#F43F5E" },
-        { name: "النظم المضمنة (2)", code: "COE 347", credits: 4, totalLectures: 45, color: "#6366F1" },
-        { name: "اساسيات انترنت الاشياء", code: "COE 337", credits: 4, totalLectures: 45, color: "#0D9488" },
-        { name: "تصميم النظم الرقمية", code: "COE 317", credits: 4, totalLectures: 45, color: "#8B5CF6" },
-        { name: "الطرق العددية في هندسة الحاسب", code: "COE 377", credits: 3, totalLectures: 30, color: "#0284C7" }
-      ],
-      8: [
-        { name: "البصريات", code: "PHYS 246", credits: 3, totalLectures: 30, color: "#D97706" },
-        { name: "مقرر اختياري برنامج (1)", code: "COE 1", credits: 3, totalLectures: 30, color: "#2563EB" },
-        { name: "أمن الحاسب والشبكات", code: "COE 368", credits: 4, totalLectures: 45, color: "#DC2626" },
-        { name: "معالجة الإشارات الرقمية", code: "COE 358", credits: 4, totalLectures: 45, color: "#059669" },
-        { name: "مشروع التخرج (1)", code: "COE 398", credits: 2, totalLectures: 15, color: "#7C3AED" }
-      ],
-      9: [
-        { name: "الحوسبة و أخلاقيات المهنة والمجتمع", code: "IS 275", credits: 2, totalLectures: 15, color: "#059669" },
-        { name: "الابتكار وريادة الاعمال في مجال الحوسبة", code: "IS 377", credits: 2, totalLectures: 15, color: "#D97706" },
-        { name: "الشبكات المعرفة بالبرمجيات", code: "COE 439", credits: 3, totalLectures: 30, color: "#0284C7" },
-        { name: "مقرر اختياري برنامج (3)", code: "COE 3", credits: 3, totalLectures: 30, color: "#4F46E5" },
-        { name: "مقرر اختياري برنامج (2)", code: "COE 2", credits: 3, totalLectures: 30, color: "#2563EB" },
-        { name: "مشروع التخرج (2)", code: "COE 499", credits: 3, totalLectures: 30, color: "#7C3AED" }
-      ],
-      10: [
-        { name: "التدريب التعاوني", code: "COE 490", credits: 6, totalLectures: 60, color: "#0F766E" }
-      ]
-    };
-
-    let currentUser = null;
-    let currentCourses = [];
-    let currentTasks = [];
-    let currentScheduleSlots = [];
-    let publicResources = [];
-    let pendingResources = [];
-    let profileChangeRequests = [];
-    let activePoll = null;
-    let selectedColor = "#8B5CF6";
-    let isRegisterMode = false;
-    let currentTaskFilter = "all";
-    let currentResFilter = "all";
-    let currentLevel = 5;
-    let currentSort = "default";
-    let isAdmin = false;
-    let countdownInterval = null;
-    let expandedCourseId = null;
-
-    let exportOrientation = "portrait";
-    let exportTheme = "dark";
-
-    let userWidgetPrefs = {
-      showStats: true,
-      showTasks: true,
-      showNews: true
-    };
-
-    const authScreen = document.getElementById("auth-screen");
-    const mainApp = document.getElementById("main-app");
-    const authForm = document.getElementById("auth-form");
-    const tabLogin = document.getElementById("tab-login");
-    const tabRegister = document.getElementById("tab-register");
-    const groupName = document.getElementById("group-name");
-    const groupAcademic = document.getElementById("group-academic");
-    const groupLevel = document.getElementById("group-level");
-    const groupGenderSection = document.getElementById("group-gender-section");
-    const authName = document.getElementById("auth-name");
-    const authGender = document.getElementById("auth-gender");
-    const authSection = document.getElementById("auth-section");
-    const authEmail = document.getElementById("auth-email");
-    const authPass = document.getElementById("auth-pass");
-    const authRemember = document.getElementById("auth-remember");
-    const authSubmitBtn = document.getElementById("auth-submit-btn");
-    const authError = document.getElementById("auth-error");
-    const btnLogout = document.getElementById("btn-logout");
-    const userGreeting = document.getElementById("user-greeting");
-    const btnGoogleLogin = document.getElementById("btn-google-login");
-    const btnToggleTheme = document.getElementById("btn-toggle-theme");
-    const adminBadge = document.getElementById("admin-badge");
-
-    const btnOpenProfile = document.getElementById("btn-open-profile");
-    const profileModal = document.getElementById("profile-modal");
-    const profileEditForm = document.getElementById("profile-edit-form");
-    const headerAvatar = document.getElementById("header-avatar");
-    const headerNameDisplay = document.getElementById("header-name-display");
-    const profileAvatarPreview = document.getElementById("profile-avatar-preview");
-    const profileNameInput = document.getElementById("profile-name-input");
-    const profileGenderInput = document.getElementById("profile-gender-input");
-    const profileSectionInput = document.getElementById("profile-section-input");
-    const profileBioInput = document.getElementById("profile-bio-input");
-    const profileAvatarUrl = document.getElementById("profile-avatar-url");
-    const profileAvatarFile = document.getElementById("profile-avatar-file");
-    const btnOpenRequestChange = document.getElementById("btn-open-request-change");
-    const requestChangeModal = document.getElementById("request-change-modal");
-    const requestChangeForm = document.getElementById("request-change-form");
-
-    const prefShowStats = document.getElementById("pref-show-stats");
-    const prefShowTasks = document.getElementById("pref-show-tasks");
-    const prefShowNews = document.getElementById("pref-show-news");
-
-    const homeHeroAvatarImg = document.getElementById("home-hero-avatar-img");
-    const homeGreetingName = document.getElementById("home-greeting-name");
-    const homeTodayDateText = document.getElementById("home-today-date-text");
-    const newUserWelcomeBox = document.getElementById("new-user-welcome-box");
-    const homeWidgetStats = document.getElementById("home-widget-stats");
-    const homeQuickAttendance = document.getElementById("home-quick-attendance");
-    const homeQuickPoints = document.getElementById("home-quick-points");
-    const homeTodayClassesHeading = document.getElementById("home-today-classes-heading");
-    const homeTodayClassesCount = document.getElementById("home-today-classes-count");
-    const homeTodayLecturesList = document.getElementById("home-today-lectures-list");
-    const homeWidgetTasks = document.getElementById("home-widget-tasks");
-    const homeUrgentTasksList = document.getElementById("home-urgent-tasks-list");
-    const homeWidgetNews = document.getElementById("home-widget-news");
-    const homeLatestResourcesList = document.getElementById("home-latest-resources-list");
-    const homeActivePollBox = document.getElementById("home-active-poll-box");
-    const pollQuestionTitle = document.getElementById("poll-question-title");
-    const pollTargetBadge = document.getElementById("poll-target-badge");
-    const pollOptionsContainer = document.getElementById("poll-options-container");
-
-    const coursesContainer = document.getElementById("courses-container");
-    const tasksContainer = document.getElementById("tasks-container");
-    const courseModal = document.getElementById("course-modal");
-    const taskModal = document.getElementById("task-modal");
-    const feedbackModal = document.getElementById("feedback-modal");
-    const adminResourceModal = document.getElementById("admin-resource-modal");
-    const adminResourceForm = document.getElementById("admin-resource-form");
-    const btnAdminAddResource = document.getElementById("btn-admin-add-resource");
-    const resourcesGlobalContainer = document.getElementById("resources-global-container");
-    const searchResourcesInput = document.getElementById("search-resources-input");
-
-    const newAdminUidInput = document.getElementById("new-admin-uid-input");
-    const btnAddAdminSubmit = document.getElementById("btn-add-admin-submit");
-    const adminProfileRequestsList = document.getElementById("admin-profile-requests-list");
-    const adminPendingResourcesList = document.getElementById("admin-pending-resources-list");
-    const adminPollModal = document.getElementById("admin-poll-modal");
-    const adminPollForm = document.getElementById("admin-poll-form");
-    const btnAdminCreatePoll = document.getElementById("btn-admin-create-poll");
-    const btnAdminExportExcel = document.getElementById("btn-admin-export-excel");
-
-    const scheduleDaysContainer = document.getElementById("schedule-days-container");
-    const slotModal = document.getElementById("slot-modal");
-    const slotForm = document.getElementById("slot-form");
-    const slotCourseSelect = document.getElementById("slot-course-select");
-    const btnOpenSlotModal = document.getElementById("btn-open-slot-modal");
-    const btnOpenExportStudio = document.getElementById("btn-open-export-studio");
-    const exportStudioModal = document.getElementById("export-studio-modal");
-    const btnOptPortrait = document.getElementById("btn-opt-portrait");
-    const btnOptLandscape = document.getElementById("btn-opt-landscape");
-    const btnOptDark = document.getElementById("btn-opt-dark");
-    const btnOptLight = document.getElementById("btn-opt-light");
-    const btnExecuteDownload = document.getElementById("btn-execute-download");
-
-    const globalBroadcastBanner = document.getElementById("global-broadcast-banner");
-    const broadcastText = document.getElementById("broadcast-text");
-    const examCountdownBox = document.getElementById("exam-countdown-box");
-    const countdownTitle = document.getElementById("countdown-title");
-    const countdownTargetDate = document.getElementById("countdown-target-date");
-    const countdownTimerDigits = document.getElementById("countdown-timer-digits");
-    const adminAlertsConfigModal = document.getElementById("admin-alerts-config-modal");
-    const adminAlertsForm = document.getElementById("admin-alerts-form");
-    const btnAdminConfigAlerts = document.getElementById("btn-admin-config-alerts");
-
-    const studentSubmitResourceModal = document.getElementById("student-submit-resource-modal");
-    const studentResourceForm = document.getElementById("student-resource-form");
-    const btnStudentSubmitResource = document.getElementById("btn-student-submit-resource");
-    const subResCourse = document.getElementById("sub-res-course");
-    const adminResCourse = document.getElementById("admin-res-course");
-
-    const cramCourseSelect = document.getElementById("cram-course-select");
-    const cramExamDate = document.getElementById("cram-exam-date");
-    const btnGenerateCramPlan = document.getElementById("btn-generate-cram-plan");
-    const cramResultBox = document.getElementById("cram-result-box");
-
-    const btnOpenCourseModal = document.getElementById("btn-open-course-modal");
-    const btnOpenTaskModal = document.getElementById("btn-open-task-modal");
-    const btnOpenFeedback = document.getElementById("btn-open-feedback");
-    const addCourseForm = document.getElementById("add-course-form");
-    const addTaskForm = document.getElementById("add-task-form");
-    const feedbackForm = document.getElementById("feedback-form");
-    const taskCourseSelect = document.getElementById("task-course-select");
-    const quickCoursePreset = document.getElementById("quick-course-preset");
-
-    const levelDisplayHeading = document.getElementById("level-display-heading");
-
-    window.switchTab = function(target) {
-      document.querySelectorAll(".nav-item").forEach(n => {
-        if (n.getAttribute("data-target") === target) n.classList.add("active");
-        else n.classList.remove("active");
-      });
-
-      document.getElementById("tab-content-home").style.display = target === "home" ? "block" : "none";
-      document.getElementById("tab-content-courses").style.display = target === "courses" ? "block" : "none";
-      document.getElementById("tab-content-schedule").style.display = target === "schedule" ? "block" : "none";
-      document.getElementById("tab-content-resources").style.display = target === "resources" ? "block" : "none";
-      document.getElementById("tab-content-tasks").style.display = target === "tasks" ? "block" : "none";
-      document.getElementById("tab-content-admin").style.display = target === "admin" ? "block" : "none";
-
-      if (target === "home") renderHomeDashboardUI();
-      if (target === "admin" && isAdmin) updateAdminDashboardAnalytics();
-    };
-
-    btnOpenProfile.addEventListener("click", () => profileModal.classList.add("open"));
-    btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
-    btnOpenTaskModal.addEventListener("click", () => taskModal.classList.add("open"));
-    btnOpenSlotModal.addEventListener("click", () => {
-      if (currentCourses.length === 0) {
-        alert("الرجاء إضافة موادك أولاً في صفحة المقررات لتتمكن من جدولتها.");
-        return;
-      }
-      slotModal.classList.add("open");
-    });
-    btnOpenExportStudio.addEventListener("click", () => {
-      if (currentScheduleSlots.length === 0) {
-        alert("الجدول فارغ حالياً! أضف محاضراتك أولاً لتتمكن من تنزيل الصورة.");
-        return;
-      }
-      exportStudioModal.classList.add("open");
-    });
-    btnStudentSubmitResource.addEventListener("click", () => studentSubmitResourceModal.classList.add("open"));
-    btnAdminAddResource.addEventListener("click", () => adminResourceModal.classList.add("open"));
-    btnAdminConfigAlerts.addEventListener("click", async () => {
-      const snap = await getDoc(doc(db, "system_configs", "alerts"));
-      if (snap.exists()) {
-        const c = snap.data();
-        document.getElementById("cfg-broadcast-text").value = c.broadcastText || "";
-        document.getElementById("cfg-broadcast-active").checked = c.broadcastActive || false;
-        document.getElementById("cfg-countdown-title").value = c.countdownTitle || "";
-        document.getElementById("cfg-countdown-date").value = c.countdownDate || "";
-        document.getElementById("cfg-countdown-active").checked = c.countdownActive || false;
-      }
-      adminAlertsConfigModal.classList.add("open");
-    });
-    btnAdminCreatePoll.addEventListener("click", () => adminPollModal.classList.add("open"));
-    btnOpenFeedback.addEventListener("click", () => {
-      if (currentUser) {
-        document.getElementById("fb-sender-name").value = currentUser.displayName || "طالب/ـة";
-        document.getElementById("fb-sender-email").value = currentUser.email || "student@taibahu.edu.sa";
-      }
-      feedbackModal.classList.add("open");
-    });
-    btnOpenRequestChange.addEventListener("click", () => {
-      profileModal.classList.remove("open");
-      requestChangeModal.classList.add("open");
-    });
-
-    document.querySelectorAll(".modal-overlay").forEach(overlay => {
-      overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) overlay.classList.remove("open");
-      });
-    });
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        document.querySelectorAll(".modal-overlay.open").forEach(o => o.classList.remove("open"));
-      }
-    });
-    document.querySelectorAll(".close-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".modal-overlay.open").forEach(o => o.classList.remove("open"));
-      });
-    });
-
-    // تحديث تحليلات ومؤشرات لوحة المشرف (Admin Analytics & Heatmap)
-    async function updateAdminDashboardAnalytics() {
-      const usersSnap = await getDocs(collection(db, "users"));
-      document.getElementById("kpi-total-students").textContent = usersSnap.size;
-      
-      let totalPts = 0;
-      usersSnap.forEach(d => {
-        totalPts += (d.data().contributionPoints || 0);
-      });
-      document.getElementById("kpi-total-points").textContent = totalPts;
-
-      const approvedRes = publicResources.filter(r => r.status === "approved");
-      document.getElementById("kpi-total-resources").textContent = approvedRes.length;
-      document.getElementById("kpi-pending-reqs").textContent = profileChangeRequests.filter(r => r.status === "pending").length;
-
-      // رادار كشف التعثر والغيابات القريبة من الحرمان 25%
-      const riskList = document.getElementById("admin-dn-risk-list");
-      riskList.innerHTML = "";
-      let riskCount = 0;
-
-      for (const uDoc of usersSnap.docs) {
-        const u = uDoc.data();
-        const cSnap = await getDocs(collection(db, "users", uDoc.id, "courses"));
-        cSnap.forEach(cDoc => {
-          const c = cDoc.data();
-          const totalLec = c.totalLectures || 30;
-          const maxAbs = Math.floor(totalLec / 4);
-          const absences = c.absences || 0;
-          if (absences >= maxAbs - 1 && absences > 0) {
-            riskCount++;
-            const row = document.createElement("div");
-            row.className = "request-item-card";
-            row.style.border = "1px solid #FECACA";
-            row.innerHTML = `
-              <div style="font-size:11px;">
-                <strong>${u.displayName || 'طالب/ـة'}</strong> (${u.section || 'دفعة عامة'}) - مقرر: <strong>${c.name} (${c.code})</strong><br>
-                <span style="color:#DC2626; font-weight:bold;">الغيابات: ${absences} من أصل ${maxAbs} مسموحة</span> (نسبة الغياب: ${((absences/totalLec)*100).toFixed(1)}%)
-              </div>
-            `;
-            riskList.appendChild(row);
-          }
-        });
-      }
-
-      if (riskCount === 0) {
-        riskList.innerHTML = `<p style="font-size:11px; color:var(--text-muted); text-align:center;">لا يوجد طلاب في مرحلة الخطر حالياً 🌟</p>`;
-      }
-
-      // تحليل نتائج الاستطلاع النشط
-      const pollBox = document.getElementById("admin-poll-analysis-box");
-      if (activePoll && activePoll.active) {
-        const votes = activePoll.votes || {};
-        const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
-        let html = `<strong style="font-size:12px; display:block; margin-bottom:6px;">السؤال: ${activePoll.title} (إجمالي الأصوات: ${totalVotes})</strong>`;
-        
-        activePoll.options.forEach((opt, idx) => {
-          const count = votes[idx] || 0;
-          const pct = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
-          html += `
-            <div style="margin-bottom:6px;">
-              <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:bold;">
-                <span>${opt}</span>
-                <span>${count} أصوات (${pct}%)</span>
-              </div>
-              <div style="width:100%; height:6px; background:#E2E8F0; border-radius:6px; overflow:hidden; margin-top:2px;">
-                <div style="width:${pct}%; height:100%; background:var(--primary-teal); border-radius:6px;"></div>
-              </div>
-            </div>
-          `;
-        });
-        pollBox.innerHTML = html;
-      } else {
-        pollBox.innerHTML = `<p style="font-size:11px; color:var(--text-muted); text-align:center;">لا يوجد استطلاع نشط حالياً للتحليل.</p>`;
-      }
-
-      // سجل العمليات الإشرافية
-      const auditBox = document.getElementById("admin-audit-log-list");
-      auditBox.innerHTML = `
-        <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• جاهزية النظام متصلة بقاعدة البيانات السحابية (Firestore).</div>
-        <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• تم مزامنة طلبات التعديل والتجميعات لحظياً.</div>
-        <div style="padding:4px 0;">• آخر فحص للنظام: ${new Date().toLocaleTimeString('ar-SA')}</div>
-      `;
-    }
-
-    // تصفية طلبات التعديل
-    document.getElementById("filter-req-pending")?.addEventListener("click", () => {
-      document.getElementById("filter-req-pending").classList.add("active");
-      document.getElementById("filter-req-all").classList.remove("active");
-      renderAdminProfileRequestsUI("pending");
-    });
-    document.getElementById("filter-req-all")?.addEventListener("click", () => {
-      document.getElementById("filter-req-all").classList.add("active");
-      document.getElementById("filter-req-pending").classList.remove("active");
-      renderAdminProfileRequestsUI("all");
-    });
-
-    // إدارة طلبات تعديل البيانات
-    function renderAdminProfileRequestsUI(filter = "pending") {
-      let list = profileChangeRequests;
-      if (filter === "pending") list = list.filter(r => r.status === "pending");
-
-      if (list.length === 0) {
-        adminProfileRequestsList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد طلبات معلقة حالياً 🎉</p>`;
-        return;
-      }
-      adminProfileRequestsList.innerHTML = "";
-      list.forEach(req => {
-        const row = document.createElement("div");
-        row.className = "request-item-card";
-        row.innerHTML = `
-          <div style="font-size:11.5px; margin-bottom:5px;">
-            <strong>الطالب:</strong> ${req.studentName} (${req.studentEmail})<br>
-            <strong>التعديل المطلوب:</strong> تصنيف [${req.requestedGender}] • [${req.requestedSection}]<br>
-            <span style="color:var(--text-muted);">السبب: ${req.reason}</span><br>
-            <span style="font-size:10px; color:var(--primary-teal);">الحالة: ${req.status === 'pending' ? 'بانتظار المراجعة' : req.status}</span>
-          </div>
-          ${req.status === 'pending' ? `
-            <div style="display:flex; gap:6px;">
-              <button class="btn-approve-req" style="background:#10B981; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">قبول وتعديل ✅</button>
-              <button class="btn-reject-req" style="background:#EF4444; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">رفض ❌</button>
-            </div>
-          ` : ''}
-        `;
-        if (req.status === 'pending') {
-          row.querySelector(".btn-approve-req").addEventListener("click", async () => {
-            await updateDoc(doc(db, "users", req.uid), {
-              gender: req.requestedGender,
-              section: req.requestedSection
-            });
-            await updateDoc(doc(db, "profile_change_requests", req.id), { status: "approved" });
-            alert(`تم قبول الطلب وتحديث بيانات ${req.studentName} بنجاح!`);
-          });
-          row.querySelector(".btn-reject-req").addEventListener("click", async () => {
-            await updateDoc(doc(db, "profile_change_requests", req.id), { status: "rejected" });
-            alert("تم رفض طلب التعديل.");
-          });
-        }
-        adminProfileRequestsList.appendChild(row);
-      });
-    }
-
-    // إدارة واعتماد تجميعات وملخصات الطلاب
-    function renderAdminPendingResourcesUI() {
-      if (pendingResources.length === 0) {
-        adminPendingResourcesList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>`;
-        return;
-      }
-      adminPendingResourcesList.innerHTML = "";
-      pendingResources.forEach(item => {
-        const row = document.createElement("div");
-        row.className = "request-item-card";
-        row.innerHTML = `
-          <div style="font-size:11.5px; margin-bottom:5px;">
-            <strong style="color:var(--text-main);">${item.title}</strong>
-            <span style="display:block; font-size:10.5px; color:#92400E;">مقرر: ${item.courseCode} • مساهمة: ${item.contributorName}</span>
-            <a href="${item.url}" target="_blank" style="font-size:10.5px; color:#0284C7;">معاينة الرابط ↗</a>
-          </div>
-          <div style="display:flex; gap:6px;">
-            <button class="btn-approve-res" style="background:#10B981; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">اعتماد ونشر (+15 نقطة) ✅</button>
-            <button class="btn-reject-res" style="background:#EF4444; color:white; border:none; padding:4px 8px; border-radius:6px; font-size:10.5px; font-weight:bold; cursor:pointer;">رفض وحذف ❌</button>
-          </div>
-        `;
-        row.querySelector(".btn-approve-res").addEventListener("click", async () => {
-          if (!item.rewardGranted && item.contributorUid) {
-            const authorRef = doc(db, "users", item.contributorUid);
-            const authorSnap = await getDoc(authorRef);
-            if (authorSnap.exists()) {
-              const currentPts = authorSnap.data().points || 0;
-              const currentContrib = authorSnap.data().contributionPoints || 0;
-              await updateDoc(authorRef, { 
-                points: currentPts + 15,
-                contributionPoints: currentContrib + 15
-              });
-            }
-          }
-          await updateDoc(doc(db, "public_resources", item.id), { 
-            status: "approved",
-            rewardGranted: true
-          });
-          alert("تم اعتماد الملخص بنجاح وإضافة +15 نقطة لرصيد الطالب المساهم ⭐");
-        });
-        row.querySelector(".btn-reject-res").addEventListener("click", async () => {
-          if (confirm("هل ترغب برفض وحذف هذا الرابط؟")) {
-            await deleteDoc(doc(db, "public_resources", item.id));
-          }
-        });
-        adminPendingResourcesList.appendChild(row);
-      });
-    }
-
-    // إرسال طلب تعديل التصنيف أو الدفعة
-    requestChangeForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      await addDoc(collection(db, "profile_change_requests"), {
-        uid: currentUser.uid,
-        studentName: currentUser.displayName || "طالب/ـة",
-        studentEmail: currentUser.email,
-        requestedGender: document.getElementById("req-gender-select").value,
-        requestedSection: document.getElementById("req-section-input").value.trim(),
-        reason: document.getElementById("req-reason-input").value.trim(),
-        status: "pending",
-        createdAt: new Date().toISOString()
-      });
-      requestChangeForm.reset();
-      requestChangeModal.classList.remove("open");
-      alert("تم إرسال طلب التعديل إلى المشرف بنجاح وسيقوم بمراجعته واعتماده مباشرة! 🚀");
-    });
-
-    function updateAdminNotificationCard() {
-      const notifCard = document.getElementById("admin-dashboard-notif-card");
-      if (isAdmin && (profileChangeRequests.length > 0 || pendingResources.length > 0)) {
-        document.getElementById("notif-req-count").textContent = profileChangeRequests.filter(r => r.status === "pending").length;
-        document.getElementById("notif-res-count").textContent = pendingResources.length;
-        notifCard.style.display = "block";
-      } else {
-        notifCard.style.display = "none";
-      }
-    }
-
-    function checkLiveCurrentClass() {
-      const now = new Date();
-      const daysMap = { 0: "الأحد", 1: "الإثنين", 2: "الثلاثاء", 3: "الأربعاء", 4: "الخميس" };
-      const currentDayArabic = daysMap[now.getDay()];
-      const liveBanner = document.getElementById("live-class-banner");
-
-      if (!currentDayArabic || currentScheduleSlots.length === 0) {
-        liveBanner.style.display = "none";
-        return;
-      }
-
-      const currentMinutes = now.getHours() * 60 + now.getMinutes();
-      const todaySlots = currentScheduleSlots.filter(s => s.day === currentDayArabic);
-
-      let activeSlot = null;
-      for (const slot of todaySlots) {
-        const [sh, sm] = slot.startTime.split(":").map(Number);
-        const [eh, em] = slot.endTime.split(":").map(Number);
-        const startTotal = sh * 60 + sm;
-        const endTotal = eh * 60 + em;
-
-        if (currentMinutes >= startTotal && currentMinutes <= endTotal) {
-          activeSlot = slot;
-          break;
-        }
-      }
-
-      if (activeSlot) {
-        document.getElementById("live-class-title").textContent = `أنت الآن في محاضرة: ${activeSlot.courseName} (${activeSlot.courseCode})`;
-        document.getElementById("live-class-room").textContent = `قاعة: ${activeSlot.room} • ${activeSlot.building} (تنتهي الساعة ${activeSlot.endTime})`;
-        liveBanner.style.display = "flex";
-      } else {
-        liveBanner.style.display = "none";
-      }
-    }
-    setInterval(checkLiveCurrentClass, 30000);
-
-    // تصدير Google Sheets المباشر والمنظم
-    btnAdminExportExcel.addEventListener("click", async () => {
-      if (!isAdmin) return;
-      const snap = await getDocs(collection(db, "users"));
-      let csvContent = "\uFEFFالاسم الكامل,البريد الإلكتروني,التصنيف,رقم الدفعة,المستوى,رصيد النقاط,نقاط المساهمة,تاريخ التسجيل,وقت آخر دخول\n";
-      
-      snap.forEach(d => {
-        const u = d.data();
-        const regDate = u.createdAt ? new Date(u.createdAt).toLocaleString('ar-SA') : 'غير متوفر';
-        const loginDate = u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString('ar-SA') : 'غير متوفر';
-        csvContent += `"${u.displayName || ''}","${u.email || ''}","${u.gender || 'طالبة'}","${u.section || 'دفعة عامة'}","المستوى ${u.currentLevel || 5}","${u.points || 0}","${u.contributionPoints || 0}","${regDate}","${loginDate}"\n`;
-      });
-
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.setAttribute("href", url);
-      link.setAttribute("download", `سجل_طلاب_Academic_Tracker_${new Date().toISOString().slice(0,10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // فتح صفحة Google Sheets لإنشاء جدول واستيراد الملف فوراً
-      setTimeout(() => {
-        if (confirm("تم تحميل الملف المنظم بنجاح! هل ترغب في فتح Google Sheets الآن لرفع وعرض البيانات مباشرة؟")) {
-          window.open("https://sheets.new", "_blank");
-        }
-      }, 500);
-    });
-
-    // لوحة الشرف مع نظام الشارات التلقائي (🎖️ مساهم معتمد)
-    function listenToLeaderboard() {
-      const q = query(collection(db, "users"), orderBy("points", "desc"), limit(5));
-      onSnapshot(q, (snapshot) => {
-        const listDiv = document.getElementById("leaderboard-list");
-        listDiv.innerHTML = "";
-        if (snapshot.empty) {
-          listDiv.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">ابدأ المذاكرة بالمؤقت لتتصدر القائمة!</p>`;
-          return;
-        }
-        let rank = 1;
-        snapshot.forEach(docSnap => {
-          const u = docSnap.data();
-          const medals = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
-          const isCertified = (u.contributionPoints || 0) >= 45; // 3 ملخصات معتمدة أو أكثر
-          const item = document.createElement("div");
-          item.className = "leaderboard-row";
-          item.innerHTML = `
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span class="leaderboard-rank">${medals[rank - 1] || rank}</span>
-              <img src="${u.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + docSnap.id}" style="width:22px; height:22px; border-radius:50%;">
-              <span>${u.displayName || 'طالب/ـة'} ${isCertified ? '<span title="مساهم معتمد" style="font-size:11px;">🎖️</span>' : ''}</span>
-            </div>
-            <span style="color:var(--primary-teal); font-weight:800;">⭐ ${u.points || 0} نقطة (${u.treesGrown || 0} 🌳)</span>
-          `;
-          listDiv.appendChild(item);
-          rank++;
-        });
-      });
-    }
-
-    function updateLevelUIState() {
-      levelDisplayHeading.textContent = `إنجاز المقررات الدراسية`;
-    }
-  </script>
 
   <!-- Formspree Ajax SDK -->
   <script>
