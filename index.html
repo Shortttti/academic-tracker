@@ -65,6 +65,7 @@
       display: flex;
       justify-content: center;
       min-height: 100vh;
+      min-height: 100dvh;
     }
 
     .app-container, .auth-wrapper {
@@ -72,6 +73,7 @@
       max-width: 480px;
       background-color: var(--bg-page);
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -238,7 +240,7 @@
     .app-header {
       background-color: var(--primary-dark);
       color: white;
-      padding: 10px 14px;
+      padding: calc(10px + env(safe-area-inset-top, 0px)) 14px 12px 14px;
       position: sticky;
       top: 0;
       z-index: 20;
@@ -252,7 +254,7 @@
 
     .header-actions {
       display: flex;
-      gap: 5px;
+      gap: 6px;
       align-items: center;
     }
 
@@ -260,14 +262,15 @@
       background: rgba(255, 255, 255, 0.2);
       color: white;
       border: none;
-      padding: 4px 8px;
+      padding: 6px 10px;
+      min-height: 32px;
       border-radius: 12px;
-      font-size: 11px;
+      font-size: 11.5px;
       cursor: pointer;
       font-weight: bold;
       display: flex;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
     }
 
     .btn-header-action:active { transform: scale(0.95); }
@@ -278,7 +281,8 @@
       gap: 6px;
       cursor: pointer;
       background: rgba(255, 255, 255, 0.15);
-      padding: 3px 8px 3px 4px;
+      padding: 4px 9px 4px 5px;
+      min-height: 32px;
       border-radius: 20px;
     }
 
@@ -409,11 +413,10 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    /* تحسين المقاس للهاتف لتقليل الطول */
     .main-content {
       padding: 12px;
       flex: 1;
-      margin-bottom: 70px;
+      margin-bottom: calc(65px + env(safe-area-inset-bottom, 0px));
       animation: fadeIn 0.2s ease-out;
     }
 
@@ -735,7 +738,6 @@
       display: block;
     }
 
-    /* تصميم مدمج وأصغر لنظام الحرمان والغيابات */
     .dn-calculator-box-compact {
       background: var(--subtle-bg);
       border-radius: 10px;
@@ -1361,14 +1363,15 @@
       bottom: 0;
       width: 100%;
       max-width: 480px;
-      height: 58px;
+      height: calc(58px + env(safe-area-inset-bottom, 0px));
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: space-around;
-      align-items: center;
+      align-items: flex-start;
+      padding-top: 6px;
+      padding-bottom: env(safe-area-inset-bottom, 2px);
       z-index: 30;
-      padding-bottom: 2px;
       box-shadow: 0 -3px 12px rgba(0,0,0,0.03);
     }
 
@@ -1506,7 +1509,6 @@
       font-weight: 700;
     }
 
-    /* شبكة خيارات أفتارات الروبوتات الموسعة */
     .robot-avatar-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -1654,7 +1656,7 @@
     <!-- تبويب الصفحة الرئيسية (Home) في المنتصف -->
     <main class="main-content" id="tab-content-home">
       
-      <!-- إعلانات المشرف والعد التنازلي (تم نقله إلى الرئيسية) -->
+      <!-- إعلانات المشرف والعد التنازلي -->
       <div id="exam-countdown-box" class="countdown-widget">
         <div class="countdown-info">
           <h4 id="countdown-title">⏳ اقتراب موعد الاختبارات</h4>
@@ -1859,7 +1861,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات (Dynamic Resource Binding) -->
+    <!-- تبويب التجميعات والملخصات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -2079,7 +2081,7 @@
       </div>
     </nav>
 
-    <!-- استوديو تصميم وتصدير صورة الجدول HD -->
+    <!-- النوافذ المنبثقة -->
     <div id="export-studio-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2101,7 +2103,7 @@
       </div>
     </div>
 
-    <!-- الملف الشخصي (مع خيارات أفتارات روبوتات موسعة) -->
+    <!-- الملف الشخصي -->
     <div id="profile-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
@@ -2297,7 +2299,7 @@
             <select id="sub-res-course" required></select>
           </div>
           <div class="form-group">
-            <label>عنوان التجميعة أو الملخص</label>
+            <label>عنوان الرابط أو التجميعة</label>
             <input type="text" id="sub-res-title" required placeholder="مثال: مراجعة شاملة لقوانين الميد">
           </div>
           <div class="form-group">
@@ -2644,7 +2646,7 @@
     let currentSort = "default";
     let isAdmin = false;
     let countdownInterval = null;
-    let expandedCourseId = null; // متغير لحفظ حالة المادة المفتوحة لكي لا تغلق عند الضغط
+    let expandedCourseId = null;
 
     let exportOrientation = "portrait";
     let exportTheme = "dark";
@@ -2655,7 +2657,6 @@
       showNews: true
     };
 
-    // عناصر الواجهة
     const authScreen = document.getElementById("auth-screen");
     const mainApp = document.getElementById("main-app");
     const authForm = document.getElementById("auth-form");
@@ -2783,7 +2784,6 @@
 
     const levelDisplayHeading = document.getElementById("level-display-heading");
 
-    // وظيفة تبديل التبويبات العامة
     window.switchTab = function(target) {
       document.querySelectorAll(".nav-item").forEach(n => {
         if (n.getAttribute("data-target") === target) n.classList.add("active");
@@ -2800,7 +2800,6 @@
       if (target === "home") renderHomeDashboardUI();
     };
 
-    // ربط النقر للأزرار والمودالات
     btnOpenProfile.addEventListener("click", () => profileModal.classList.add("open"));
     btnOpenCourseModal.addEventListener("click", () => courseModal.classList.add("open"));
     btnOpenTaskModal.addEventListener("click", () => taskModal.classList.add("open"));
@@ -2845,7 +2844,6 @@
       requestChangeModal.classList.add("open");
     });
 
-    // إغلاق النوافذ بالضغط خارجها أو Esc أو زر ×
     document.querySelectorAll(".modal-overlay").forEach(overlay => {
       overlay.addEventListener("click", (e) => {
         if (e.target === overlay) overlay.classList.remove("open");
@@ -3165,7 +3163,6 @@
       }
     });
 
-    // إضافة مشرف جديد
     btnAddAdminSubmit.addEventListener("click", async () => {
       const newUid = newAdminUidInput.value.trim();
       if (!newUid) {
@@ -3193,7 +3190,6 @@
       }
     });
 
-    // إدارة طلبات تعديل البيانات
     function renderAdminProfileRequestsUI() {
       if (profileChangeRequests.length === 0) {
         adminProfileRequestsList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>`;
@@ -3230,7 +3226,6 @@
       });
     }
 
-    // إدارة واعتماد تجميعات وملخصات الطلاب
     function renderAdminPendingResourcesUI() {
       if (pendingResources.length === 0) {
         adminPendingResourcesList.innerHTML = `<p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>`;
@@ -3279,7 +3274,6 @@
       });
     }
 
-    // إرسال طلب تعديل التصنيف أو الدفعة
     requestChangeForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       await addDoc(collection(db, "profile_change_requests"), {
@@ -3971,7 +3965,6 @@
       });
     });
 
-    // Dynamic Resource Binding: تظهر مواد الطالب المسجلة فقط وتختفي عند حذفها
     function renderPublicResourcesUI() {
       resourcesGlobalContainer.innerHTML = "";
       const queryText = searchResourcesInput.value.trim().toLowerCase();
@@ -4038,7 +4031,6 @@
           </div>
         `;
 
-        // نظام التقييم 👍 مفيد
         groupDiv.querySelectorAll(".btn-upvote").forEach(btn => {
           btn.addEventListener("click", async () => {
             const id = btn.getAttribute("data-id");
@@ -4074,7 +4066,6 @@
       });
     }
 
-    // إرسال الملخص والتجميعة
     studentResourceForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const courseCode = document.getElementById("sub-res-course").value;
@@ -4271,7 +4262,6 @@
       courseModal.classList.remove("open");
     });
 
-    // عرض المقررات مع تثبيت البطاقة المفتوحة وإعادة الترتيب (المحاضرات أولاً ثم الغيابات بشكل أصغر)
     function renderCoursesUI() {
       coursesContainer.innerHTML = "";
       let totalLecAll = 0;
@@ -4352,7 +4342,6 @@
               <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
             </div>
 
-            <!-- المحاضرات في البداية -->
             <div class="stepper-row">
               <span>المحاضرات التي تم حضورها:</span>
               <div class="stepper-controls">
@@ -4376,7 +4365,6 @@
               `).join('')}
             </div>
 
-            <!-- حساب الغياب والحرمان في الأسفل وبحجم مدمج أصغر -->
             <div class="dn-calculator-box-compact">
               <div class="dn-info-compact">
                 <span class="dn-title-compact">نظام الحرمان لجامعة طيبة (25% • الغياب رقم ${dnAbsenceThreshold} حرمان):</span>
@@ -4598,7 +4586,6 @@
       });
     }
 
-    // مؤقت غرس الإنجاز Pomodoro
     let sessionMinutes = 25;
     let totalFocusSeconds = sessionMinutes * 60;
     let timerDuration = totalFocusSeconds;
@@ -4738,7 +4725,6 @@
       renderTreeStage(totalFocusSeconds);
     });
 
-    // حاسبة المعدل الفصلي والتراكمي بسلم 5.00
     function renderGPACalculator() {
       const gpaBox = document.getElementById("gpa-calc-container");
       if (!gpaBox) return;
