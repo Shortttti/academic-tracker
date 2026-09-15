@@ -2874,6 +2874,7 @@
       document.getElementById("tab-content-admin").style.display = target === "admin" ? "block" : "none";
 
       if (target === "home") renderHomeDashboardUI();
+      if (target === "admin" && isAdmin) updateAdminDashboardAnalytics();
     };
 
     btnOpenProfile.addEventListener("click", () => profileModal.classList.add("open"));
