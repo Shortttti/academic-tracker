@@ -70,7 +70,7 @@
 
     .app-container, .auth-wrapper {
       width: 100%;
-      max-width: 480px;
+      max-width: 600px;
       background-color: var(--bg-page);
       min-height: 100vh;
       min-height: 100dvh;
@@ -1193,6 +1193,101 @@
       margin-bottom: 14px;
     }
 
+    .cram-planner-card.beta-feature {
+      background: linear-gradient(135deg, var(--card-bg), rgba(13,148,136,0.06));
+      border: 1.5px solid var(--primary-teal);
+      box-shadow: 0 5px 18px rgba(13,148,136,0.10);
+    }
+
+    .cram-hours-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .cram-plan-day {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 9px;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    .cram-plan-day strong {
+      color: var(--primary-teal);
+      font-size: 11.5px;
+    }
+
+    .official-assignment-card {
+      background: linear-gradient(135deg, var(--card-bg), rgba(245,158,11,0.07));
+      border: 1.5px solid #F59E0B;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .official-assignment-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #FEF3C7;
+      color: #92400E;
+      border-radius: 7px;
+      padding: 3px 7px;
+      font-size: 9.5px;
+      font-weight: 900;
+    }
+
+    .assignment-completion-count {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      font-weight: 700;
+    }
+
+    .tour-focus {
+      position: relative !important;
+      z-index: 202 !important;
+      box-shadow: 0 0 0 4px var(--primary-teal), 0 0 0 9999px rgba(0,0,0,0.55) !important;
+      border-radius: 12px !important;
+    }
+
+    #onboarding-tour-modal {
+      z-index: 200 !important;
+      align-items: center;
+    }
+
+    #onboarding-tour-modal .modal-content {
+      max-width: 430px;
+      border-radius: 20px;
+      max-height: 78vh;
+    }
+
+    .tour-step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin: 10px 0;
+    }
+
+    .tour-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--border-subtle);
+    }
+
+    .tour-dot.active {
+      background: var(--primary-teal);
+      transform: scale(1.25);
+    }
+
+    @media (max-width: 520px) {
+      .cram-hours-row { grid-template-columns: 1fr; }
+    }
+
+
     .cram-planner-header {
       display: flex;
       justify-content: space-between;
@@ -1423,7 +1518,7 @@
       position: fixed;
       bottom: 0;
       width: 100%;
-      max-width: 480px;
+      max-width: 600px;
       height: calc(58px + env(safe-area-inset-bottom, 0px));
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
@@ -1484,7 +1579,7 @@
       background: var(--card-bg);
       color: var(--text-main);
       width: 100%;
-      max-width: 480px;
+      max-width: 600px;
       border-radius: 22px 22px 0 0;
       padding: 20px;
       animation: slideUp 0.25s ease-out;
@@ -1769,7 +1864,7 @@
             مراجعة الطلبات 📝
           </button>
           <button class="btn-primary" style="background:#D97706; font-size:11px; padding:5px; margin:0;" onclick="switchTab('admin')">
-            مراجعة التجميعات 📚
+            مراجعة المكتبة 📚
           </button>
         </div>
       </div>
@@ -1785,7 +1880,8 @@
 
       <div id="new-user-welcome-box" class="poll-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
         <strong>مرحباً بك في منصة Academic Tracker!</strong>
-        <span style="font-size:11px; display:block; opacity:0.9; margin-top:2px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</span>
+        <span style="font-size:11px; display:block; opacity:0.9; margin-top:2px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك محتواها وروابطها هنا تلقائياً.</span>
+        <button type="button" onclick="startOnboardingTour(true)" style="margin-top:8px; background:#1D4ED8; color:white; border:none; border-radius:8px; padding:5px 9px; font-size:10.5px; font-weight:800; cursor:pointer;">ابدأ الجولة الشاملة 🧭</button>
       </div>
 
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
@@ -1838,9 +1934,9 @@
         <div class="home-widget-header">
           <div class="home-widget-title">
             <span>✨</span>
-            <span>الجديد في التجميعات</span>
+            <span>الجديد في المكتبة الأكاديمية 📚</span>
           </div>
-          <span style="font-size:10.5px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('resources')">تصفح ↗</span>
+          <span style="font-size:10.5px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('resources')">تصفح المكتبة ↗</span>
         </div>
         <div id="home-latest-resources-list">
           <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">جلب أحدث الملخصات...</p>
@@ -1937,21 +2033,21 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات -->
+    <!-- تبويب المكتبة الأكاديمية 📚 -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
-          <h2>التجميعات والملخصات</h2>
-          <p>تجميعات وسلايدات مخصصة للمواد المسجلة في جدولك فقط (تُضاف وتُحذف ديناميكياً)</p>
+          <h2>المكتبة الأكاديمية 📚</h2>
+          <p>محتوى أكاديمي وسلايدات مخصصة للمواد المسجلة في جدولك فقط (تُضاف وتُحذف ديناميكياً)</p>
         </div>
       </div>
 
       <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:10px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
-        📤 مشاركة رابط تجميعة جديدة (+15 نقطة ⭐)
+        📤 مشاركة مورد جديد من المكتبة (+15 نقطة ⭐)
       </button>
 
       <div class="search-resources-bar">
-        <input type="text" id="search-resources-input" placeholder="🔍 ابحث في تجميعات موادك الحالية...">
+        <input type="text" id="search-resources-input" placeholder="🔍 ابحث في المكتبة الأكاديمية لموادك الحالية...">
         <div class="sort-bar" style="margin:0;">
           <button class="sort-pill active" data-res-filter="all">الكل</button>
           <button class="sort-pill" data-res-filter="تجميعات">تجميعات</button>
@@ -1968,17 +2064,17 @@
       </footer>
     </main>
 
-    <!-- تبويب المهام، المؤقت، وحاسبة المعدل -->
+    <!-- تبويب المهام: مولد المذاكرة ثم التكاليف ثم المؤقت ثم لوحة الشرف ثم المعدل -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
-      
-      <!-- Cram Planner -->
-      <div class="cram-planner-card">
+
+      <!-- Cram Planner — Beta -->
+      <div class="cram-planner-card beta-feature">
         <div class="cram-planner-header">
-          <span style="font-size:12px; font-weight:800;">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
-          <span class="cram-pill-tag">خاصية ذكية 🧪</span>
+          <span style="font-size:12.5px; font-weight:900;">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
+          <span class="cram-pill-tag">ميزة تجريبية 🧪 Beta</span>
         </div>
         <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">
-          حددي موعد الاختبار والشباتر المتبقية لحساب معدل الإنجاز اليومي لختم المنهج:
+          حددي المادة وموعد الاختبار وعدد ساعات المذاكرة اليومية، وسيتم تقسيم الشباتر المتبقية إلى خطة يومية عملية.
         </p>
         <div class="form-row">
           <div class="form-group" style="margin:0;">
@@ -1988,38 +2084,63 @@
             <input type="date" id="cram-exam-date" style="font-size:11.5px; padding:7px;">
           </div>
         </div>
-        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:6px; padding:7px; font-size:11.5px;">
-          احسب وتوليد الخطة الذكية 📊
+        <div class="form-group" style="margin:7px 0 0 0;">
+          <label>كم ساعة تستطيعين المذاكرة يومياً؟</label>
+          <input type="number" id="cram-daily-hours" min="0.5" max="16" step="0.5" value="3" placeholder="مثال: 3">
+        </div>
+        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:6px; padding:8px; font-size:11.5px;">
+          احسب وولّد جدول المذاكرة 📊
         </button>
         <div id="cram-result-box" style="margin-top:8px; font-size:11.5px; display:none; background:var(--subtle-bg); padding:8px; border-radius:8px;"></div>
       </div>
 
-      <!-- Pomodoro Focus Tree Timer -->
-      <div class="tree-timer-box">
-        <div class="tree-timer-header">
-          <span style="font-size:12.5px; font-weight:800;">🌱 مؤقت غرس الإنجاز (Pomodoro)</span>
-          <div class="tree-points-badge">
-            <span>⭐</span>
-            <span id="user-points-display">0 نقطة</span>
-            <span style="font-size:10.5px; opacity:0.8;">(<span id="trees-grown-count">0</span> شجرة)</span>
+      <!-- التكاليف الرسمية + المهام الشخصية -->
+      <div id="official-assignments-section" class="home-widget-box" style="margin-bottom:12px;">
+        <div class="home-widget-header">
+          <div class="home-widget-title">
+            <span>📢</span>
+            <span>التكاليف المشتركة والرسمية</span>
           </div>
+          <span id="official-assignments-count" class="resource-type-badge">0</span>
+        </div>
+        <div id="official-assignments-container">
+          <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد تكاليف رسمية حالياً.</p>
+        </div>
+      </div>
+
+      <div class="content-header" style="margin-top: 2px;">
+        <div>
+          <h2>المهام الشخصية والتكاليف</h2>
+          <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
+        </div>
+      </div>
+
+      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة أو تكليف شخصي جديد</button>
+
+      <div class="task-filter-bar">
+        <div class="filter-chip active" data-filter="all">الكل</div>
+        <div class="filter-chip" data-filter="pending">المتبقية</div>
+        <div class="filter-chip" data-filter="done">المكتملة</div>
+      </div>
+
+      <div id="tasks-container"></div>
+
+      <!-- مؤقت البومودورو -->
+      <div class="tree-timer-box" style="margin-top:14px;">
+        <div class="tree-timer-header">
+          <span style="font-size:12.5px; font-weight:800;">🌱 مؤقت البومودورو والتركيز</span>
+          <span class="tree-points-badge">⭐ نقاط التركيز</span>
         </div>
 
-        <div class="timer-time-presets" id="timer-presets-container">
-          <span style="font-size:10.5px; color:var(--text-muted); width:100%; margin-bottom:3px; font-weight:700;">اختر مدة الجلسة:</span>
-          <button class="preset-chip" data-time="15">15 د</button>
-          <button class="preset-chip active" data-time="25">25 د (افتراضي)</button>
-          <button class="preset-chip" data-time="45">45 د</button>
-          <button class="preset-chip" data-time="60">60 د</button>
+        <div class="timer-time-presets">
+          <button class="preset-chip active" data-time="25">25 دقيقة</button>
+          <button class="preset-chip" data-time="50">50 دقيقة</button>
+          <button class="preset-chip" data-time="90">90 دقيقة</button>
           <button class="preset-chip" id="btn-custom-timer">مخصص ⏱️</button>
         </div>
 
-        <div class="tree-illustration-container" id="tree-svg-container">
-          <svg viewBox="0 0 100 100" width="90" height="90">
-            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
-            <circle cx="50" cy="82" r="5" fill="#5D4037"/>
-            <path d="M50 78 Q52 74 50 70" stroke="#84CC16" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          </svg>
+        <div class="tree-illustration-container">
+          <div id="tree-svg-container"></div>
         </div>
 
         <div class="timer-display" id="pomodoro-timer">25:00</div>
@@ -2032,7 +2153,7 @@
         </div>
       </div>
 
-      <!-- لوحة الشرف للمتصدرين -->
+      <!-- لوحة الشرف -->
       <div class="leaderboard-card">
         <div class="leaderboard-header">
           <span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span>
@@ -2042,7 +2163,7 @@
         </div>
       </div>
 
-      <!-- حاسبة المعدل الفصلي والتراكمي بسلم 5.00 -->
+      <!-- حاسبة المعدل -->
       <div class="home-widget-box" style="margin-top: 12px;">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -2052,24 +2173,6 @@
         </div>
         <div id="gpa-calc-container"></div>
       </div>
-
-      <!-- المهام والتكاليف -->
-      <div class="content-header" style="margin-top: 16px;">
-        <div>
-          <h2>المهام والتكاليف</h2>
-          <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
-        </div>
-      </div>
-
-      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة أو تكليف جديد</button>
-
-      <div class="task-filter-bar">
-        <div class="filter-chip active" data-filter="all">الكل</div>
-        <div class="filter-chip" data-filter="pending">المتبقية</div>
-        <div class="filter-chip" data-filter="done">المكتملة</div>
-      </div>
-
-      <div id="tasks-container"></div>
 
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
@@ -2081,7 +2184,7 @@
       <div class="content-header">
         <div>
           <h2>👑 لوحة الإشراف وإدارة النظام</h2>
-          <p>إدارة الطلبات، التجميعات، الطلاب، وإضافة مشرفين جدد</p>
+          <p>إدارة الطلبات، المكتبة الأكاديمية، الطلاب، وإضافة مشرفين جدد</p>
         </div>
       </div>
 
@@ -2099,7 +2202,7 @@
           </div>
           <div class="admin-kpi-card">
             <span class="num" id="kpi-total-resources" style="color:#0D9488;">0</span>
-            <span class="label">التجميعات المعتمدة</span>
+            <span class="label">موارد المكتبة المعتمدة</span>
           </div>
           <div class="admin-kpi-card">
             <span class="num" id="kpi-total-points" style="color:#D97706;">0</span>
@@ -2186,9 +2289,58 @@
 
         <!-- مراجعة واعتماد ملخصات وتجميعات الطلاب (+15 نقطة) -->
         <div class="admin-section-box">
-          <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة مساهمة)</h3>
+          <h3>📚 📚 مراجعة واعتماد محتوى المكتبة (+15 نقطة مساهمة)</h3>
           <div id="admin-pending-resources-list">
             <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>
+          </div>
+        </div>
+
+        <!-- نظام التكاليف الرسمية المشتركة -->
+        <div class="admin-section-box" style="border:1.5px solid #F59E0B;">
+          <h3 style="color:#D97706;">📢 التكاليف الرسمية المشتركة للطلاب</h3>
+          <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">
+            ينزل التكليف لجميع الطلاب المطابقين للفئة والدفعة، ويمكن لكل طالب تأكيد الإنجاز، مع عدّاد إنجاز فوري للمشرف.
+          </p>
+          <form id="admin-assignment-form">
+            <div class="form-group">
+              <label>عنوان التكليف</label>
+              <input type="text" id="admin-assignment-title" required placeholder="مثال: تسليم تقرير COE 225">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>المقرر</label>
+                <select id="admin-assignment-course"></select>
+              </div>
+              <div class="form-group">
+                <label>تاريخ التسليم</label>
+                <input type="date" id="admin-assignment-due-date">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>الفئة المستهدفة</label>
+                <select id="admin-assignment-gender">
+                  <option value="الكل">الجميع</option>
+                  <option value="طالبة">الطالبات فقط</option>
+                  <option value="طالب">الطلاب فقط</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>الدفعة المستهدفة</label>
+                <input type="text" id="admin-assignment-section" placeholder="الكل أو دفعة 22">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>التفاصيل</label>
+              <textarea id="admin-assignment-details" rows="2" placeholder="تفاصيل التكليف أو رابط التسليم..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="background:#D97706;">نشر التكليف لجميع الطلاب المستهدفين 📢</button>
+          </form>
+          <div style="margin-top:12px;">
+            <h4 style="font-size:12px; margin-bottom:6px;">التكاليف المنشورة ومتابعة الإنجاز</h4>
+            <div id="admin-assignments-list">
+              <p style="font-size:11px; color:var(--text-muted); text-align:center;">لا توجد تكاليف منشورة.</p>
+            </div>
           </div>
         </div>
 
@@ -2196,7 +2348,7 @@
         <div class="admin-section-box">
           <h3>⚡ الإجراءات والأدوات السريعة</h3>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
-            <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:11.5px; padding:8px; margin:0;">➕ إضافة تجميعة</button>
+            <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:11.5px; padding:8px; margin:0;">➕ إضافة مورد للمكتبة</button>
             <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:11.5px; padding:8px; margin:0;">⚙️ إعلانات وعدّاد</button>
             <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:11.5px; padding:8px; margin:0;">📊 استطلاع رأي</button>
             <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:11.5px; padding:8px; margin:0;">📊 فتح وتصدير Google Sheet</button>
@@ -2236,13 +2388,34 @@
 
       <div class="nav-item" data-target="resources" onclick="switchTab('resources')">
         <span class="icon">📚</span>
-        <span>التجميعات</span>
+        <span>المكتبة الأكاديمية 📚</span>
       </div>
       <div class="nav-item" data-target="tasks" onclick="switchTab('tasks')">
         <span class="icon">🌳</span>
         <span>المهام</span>
       </div>
     </nav>
+
+    <!-- جولة المستخدم الجديد الشاملة -->
+    <div id="onboarding-tour-modal" class="modal-overlay" style="display:none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <span style="font-size:10px; color:var(--primary-teal); font-weight:900;">ACADEMIC TRACKER • TOUR</span>
+            <h3 id="tour-title" style="margin-top:2px;">مرحباً بك! 👋</h3>
+          </div>
+          <button id="btn-close-tour" class="close-btn">&times;</button>
+        </div>
+        <div id="tour-icon" style="font-size:42px; text-align:center; margin:4px 0;">🎓</div>
+        <p id="tour-description" style="font-size:12px; line-height:1.8; color:var(--text-main); text-align:center;"></p>
+        <div class="tour-step-indicator" id="tour-dots"></div>
+        <div style="display:flex; gap:7px; margin-top:10px;">
+          <button id="btn-tour-prev" class="btn-timer" style="flex:1; background:var(--subtle-bg); color:var(--text-main);">السابق</button>
+          <button id="btn-tour-next" class="btn-primary" style="flex:1; margin:0;">التالي ↗</button>
+        </div>
+        <button id="btn-tour-skip" style="width:100%; margin-top:8px; background:none; border:none; color:var(--text-muted); font-size:10.5px; cursor:pointer;">تخطي الجولة</button>
+      </div>
+    </div>
 
     <!-- النوافذ المنبثقة -->
     <div id="export-studio-modal" class="modal-overlay">
@@ -2344,7 +2517,7 @@
             <span style="font-size:11.5px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:4px;">⚙️ تخصيص بطاقات الرئيسية:</span>
             <div class="pref-switch-row"><span>إظهار إحصائيات الحضور ونقاط التركيز 📊</span><input type="checkbox" id="pref-show-stats" checked></div>
             <div class="pref-switch-row"><span>إظهار المهام والتكاليف القريبة 📝</span><input type="checkbox" id="pref-show-tasks" checked></div>
-            <div class="pref-switch-row"><span>إظهار الجديد في التجميعات والإعلانات ✨</span><input type="checkbox" id="pref-show-news" checked></div>
+            <div class="pref-switch-row"><span>إظهار الجديد في المكتبة الأكاديمية 📚 والإعلانات ✨</span><input type="checkbox" id="pref-show-news" checked></div>
           </div>
           <button type="submit" class="btn-primary">حفظ وتطبيق التحديثات ✅</button>
         </form>
@@ -2469,7 +2642,7 @@
     <div id="student-submit-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>📤 مشاركة رابط تجميعة</h3>
+          <h3>📤 📤 مشاركة مورد من المكتبة</h3>
           <button id="btn-close-submit-res-modal" class="close-btn">&times;</button>
         </div>
         <form id="student-resource-form">
@@ -2503,7 +2676,7 @@
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>➕ إضافة رابط تجميعة مباشر (للأدمن)</h3>
+          <h3>➕ ➕ إضافة مورد مباشر للمكتبة (للأدمن)</h3>
           <button id="btn-close-admin-res-modal" class="close-btn">&times;</button>
         </div>
         <form id="admin-resource-form">
@@ -2795,6 +2968,8 @@
     let currentUser = null;
     let currentCourses = [];
     let currentTasks = [];
+    let officialAssignments = [];
+    let assignmentCompletionUnsubs = {};
     let currentScheduleSlots = [];
     let publicResources = [];
     let pendingResources = [];
@@ -2933,6 +3108,11 @@
     const cramExamDate = document.getElementById("cram-exam-date");
     const btnGenerateCramPlan = document.getElementById("btn-generate-cram-plan");
     const cramResultBox = document.getElementById("cram-result-box");
+    const cramDailyHours = document.getElementById("cram-daily-hours");
+    const officialAssignmentsContainer = document.getElementById("official-assignments-container");
+    const officialAssignmentsCount = document.getElementById("official-assignments-count");
+    const adminAssignmentForm = document.getElementById("admin-assignment-form");
+    const adminAssignmentsList = document.getElementById("admin-assignments-list");
 
     const btnOpenCourseModal = document.getElementById("btn-open-course-modal");
     const btnOpenTaskModal = document.getElementById("btn-open-task-modal");
@@ -2960,6 +3140,9 @@
 
       if (target === "home") renderHomeDashboardUI();
       if (target === "admin" && isAdmin) updateAdminDashboardAnalytics();
+      if (target === "tasks") {
+        renderOfficialAssignmentsUI();
+      }
     };
 
     btnOpenProfile.addEventListener("click", () => profileModal.classList.add("open"));
@@ -3220,6 +3403,8 @@
             profileGenderInput.value = data.gender || "طالبة";
             profileSectionInput.value = data.section || "";
             profileBioInput.value = data.bio || "";
+            currentUser._profileGender = data.gender || "";
+            currentUser._profileSection = data.section || "";
             profileAvatarUrl.value = data.photoURL || "";
 
             userGreeting.textContent = data.displayName ? `${data.displayName} | كلية علوم وهندسة الحاسب` : "جامعة طيبة | كلية علوم وهندسة الحاسب";
@@ -3231,12 +3416,14 @@
 
             if (data.isNewUser) {
               newUserWelcomeBox.style.display = "flex";
+              setTimeout(() => startOnboardingTour(false), 450);
             } else {
               newUserWelcomeBox.style.display = "none";
             }
 
             updateLevelUIState();
             renderHomeDashboardUI();
+            renderOfficialAssignmentsUI();
           }
         });
 
@@ -3282,6 +3469,20 @@
             updateAdminNotificationCard();
           }
           renderHomeDashboardUI();
+        });
+
+        onSnapshot(collection(db, "supervisor_assignments"), (snapshot) => {
+          officialAssignments = [];
+          snapshot.forEach(d => officialAssignments.push({ id: d.id, ...d.data() }));
+          officialAssignments.sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+
+          renderOfficialAssignmentsUI();
+          if (isAdmin) {
+            renderAdminAssignmentsUI();
+          }
+          if (document.getElementById("tab-content-tasks")?.style.display !== "none") {
+            renderOfficialAssignmentsUI();
+          }
         });
 
         onSnapshot(collection(db, "general_exams"), (snapshot) => {
@@ -3603,7 +3804,7 @@
       const auditBox = document.getElementById("admin-audit-log-list");
       auditBox.innerHTML = `
         <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• جاهزية النظام متصلة بقاعدة البيانات السحابية (Firestore).</div>
-        <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• تم مزامنة طلبات التعديل والتجميعات لحظياً.</div>
+        <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• تم مزامنة طلبات التعديل والمكتبة الأكاديمية لحظياً.</div>
         <div style="padding:4px 0;">• آخر فحص للنظام: ${new Date().toLocaleTimeString('ar-SA')}</div>
       `;
     }
@@ -3710,6 +3911,173 @@
         adminPendingResourcesList.appendChild(row);
       });
     }
+
+    function assignmentTargetsCurrentUser(assignment) {
+      if (!currentUser) return false;
+      const gender = currentUser._profileGender || currentUser.gender || "";
+      const section = currentUser._profileSection || currentUser.section || "";
+      const targetGender = assignment.targetGender || "الكل";
+      const targetSection = (assignment.targetSection || "").trim();
+
+      const genderOk = targetGender === "الكل" || targetGender === gender;
+      const sectionOk = !targetSection || targetSection === "الكل" || targetSection === section;
+      return genderOk && sectionOk;
+    }
+
+    function clearAssignmentCompletionListeners() {
+      Object.values(assignmentCompletionUnsubs).forEach(unsub => {
+        try { unsub(); } catch (e) {}
+      });
+      assignmentCompletionUnsubs = {};
+    }
+
+    async function renderOfficialAssignmentsUI() {
+      if (!officialAssignmentsContainer) return;
+
+      const visible = officialAssignments.filter(assignmentTargetsCurrentUser);
+      officialAssignmentsCount.textContent = visible.length;
+
+      if (visible.length === 0) {
+        officialAssignmentsContainer.innerHTML = `
+          <p style="font-size:11.5px; color:var(--text-muted); text-align:center; padding:6px;">
+            لا توجد تكاليف رسمية موجهة لك حالياً 🎉
+          </p>`;
+        return;
+      }
+
+      officialAssignmentsContainer.innerHTML = "";
+      for (const assignment of visible) {
+        const card = document.createElement("div");
+        card.className = "official-assignment-card";
+        card.innerHTML = `
+          <span class="official-assignment-badge">📢 تكليف رسمي من المشرف</span>
+          <h4 style="font-size:13px; font-weight:900; margin-top:6px;">${assignment.title}</h4>
+          <div style="font-size:10.5px; color:var(--text-muted); margin-top:3px;">
+            ${assignment.courseCode ? `📚 ${assignment.courseCode}` : "📚 تكليف عام"}
+            ${assignment.dueDate ? ` • 📅 التسليم: ${assignment.dueDate}` : ""}
+          </div>
+          ${assignment.details ? `<p style="font-size:11px; margin-top:6px; line-height:1.6;">${assignment.details}</p>` : ""}
+          <div class="assignment-completion-count" id="assignment-count-${assignment.id}">جاري تحديث عدد المنجزين...</div>
+          <button class="btn-primary assignment-complete-btn" style="background:#D97706; margin-top:8px; padding:8px;">
+            تم الإنجاز ✅
+          </button>
+        `;
+
+        const completionRef = doc(db, "supervisor_assignments", assignment.id, "completions", currentUser.uid);
+        const completionSnap = await getDoc(completionRef);
+        const btn = card.querySelector(".assignment-complete-btn");
+
+        if (completionSnap.exists()) {
+          btn.textContent = "تم الإنجاز بالفعل ✓";
+          btn.style.background = "#10B981";
+          btn.disabled = true;
+          btn.style.cursor = "default";
+        }
+
+        btn.addEventListener("click", async () => {
+          try {
+            const current = await getDoc(completionRef);
+            if (current.exists()) return;
+
+            await setDoc(completionRef, {
+              uid: currentUser.uid,
+              studentName: currentUser.displayName || "طالب/ـة",
+              completedAt: new Date().toISOString()
+            });
+            btn.textContent = "تم الإنجاز بالفعل ✓";
+            btn.style.background = "#10B981";
+            btn.disabled = true;
+            btn.style.cursor = "default";
+          } catch (err) {
+            console.error("Assignment completion error:", err);
+            alert("تعذر تحديث حالة الإنجاز. تأكدي من صلاحيات Firestore.");
+          }
+        });
+
+        officialAssignmentsContainer.appendChild(card);
+      }
+    }
+
+    function renderAdminAssignmentsUI() {
+      if (!adminAssignmentsList) return;
+      clearAssignmentCompletionListeners();
+
+      if (officialAssignments.length === 0) {
+        adminAssignmentsList.innerHTML = `<p style="font-size:11px; color:var(--text-muted); text-align:center;">لا توجد تكاليف منشورة.</p>`;
+        return;
+      }
+
+      adminAssignmentsList.innerHTML = "";
+      officialAssignments.forEach(assignment => {
+        const row = document.createElement("div");
+        row.className = "request-item-card";
+        row.innerHTML = `
+          <div style="font-size:11.5px;">
+            <strong>${assignment.title}</strong>
+            <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">
+              ${assignment.courseCode || "عام"} ${assignment.dueDate ? `• التسليم ${assignment.dueDate}` : ""}
+              • الفئة: ${assignment.targetGender || "الكل"}
+              • الدفعة: ${assignment.targetSection || "الكل"}
+            </div>
+            <div id="admin-assignment-count-${assignment.id}" class="assignment-completion-count">جاري حساب المنجزين...</div>
+          </div>
+          <button class="btn-del-official-assignment" style="margin-top:6px; background:none; border:none; color:#DC2626; font-size:10.5px; font-weight:800; cursor:pointer;">حذف التكليف ✕</button>
+        `;
+
+        row.querySelector(".btn-del-official-assignment").addEventListener("click", async () => {
+          if (confirm(`هل تريدين حذف التكليف "${assignment.title}" نهائياً؟`)) {
+            await deleteDoc(doc(db, "supervisor_assignments", assignment.id));
+          }
+        });
+
+        adminAssignmentsList.appendChild(row);
+
+        const completionsRef = collection(db, "supervisor_assignments", assignment.id, "completions");
+        const oldUnsub = assignmentCompletionUnsubs[`admin_${assignment.id}`];
+        if (oldUnsub) oldUnsub();
+
+        assignmentCompletionUnsubs[`admin_${assignment.id}`] = onSnapshot(completionsRef, snap => {
+          const countEl = document.getElementById(`admin-assignment-count-${assignment.id}`);
+          if (countEl) {
+            countEl.textContent = `✅ تم الإنجاز: ${snap.size} طالب/ـة`;
+          }
+        });
+      });
+    }
+
+    adminAssignmentForm?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!isAdmin) {
+        alert("عذراً، هذه الصلاحية مخصصة للمشرف فقط.");
+        return;
+      }
+
+      const title = document.getElementById("admin-assignment-title").value.trim();
+      const courseCode = document.getElementById("admin-assignment-course").value || "عام";
+      const dueDate = document.getElementById("admin-assignment-due-date").value;
+      const targetGender = document.getElementById("admin-assignment-gender").value;
+      const targetSection = document.getElementById("admin-assignment-section").value.trim();
+      const details = document.getElementById("admin-assignment-details").value.trim();
+
+      if (!title) {
+        alert("الرجاء كتابة عنوان التكليف.");
+        return;
+      }
+
+      await addDoc(collection(db, "supervisor_assignments"), {
+        title,
+        courseCode,
+        dueDate,
+        targetGender,
+        targetSection,
+        details,
+        createdBy: currentUser.uid,
+        createdAt: new Date().toISOString()
+      });
+
+      adminAssignmentForm.reset();
+      alert("تم نشر التكليف الرسمي لجميع الطلاب المستهدفين بنجاح 📢");
+    });
 
     requestChangeForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -4334,6 +4702,7 @@
     btnGenerateCramPlan.addEventListener("click", () => {
       const courseId = cramCourseSelect.value;
       const examDateStr = cramExamDate.value;
+      const dailyHours = parseFloat(cramDailyHours.value);
       const course = currentCourses.find(c => c.id === courseId);
 
       if (!course) {
@@ -4344,36 +4713,89 @@
         alert("الرجاء تحديد تاريخ الاختبار.");
         return;
       }
+      if (!dailyHours || dailyHours <= 0) {
+        alert("الرجاء إدخال عدد ساعات مذاكرة يومية صحيح.");
+        return;
+      }
 
-      const examDate = new Date(examDateStr);
+      const examDate = new Date(`${examDateStr}T23:59:59`);
       const today = new Date();
-      const diffTime = examDate.getTime() - today.getTime();
-      const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      today.setHours(0,0,0,0);
+      const examDay = new Date(examDate);
+      examDay.setHours(0,0,0,0);
+      const daysRemaining = Math.ceil((examDay.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
       if (daysRemaining <= 0) {
         alert("تاريخ الاختبار يجب أن يكون في تاريخ قادم.");
         return;
       }
 
-      const unstudiedChapters = (course.chapters || []).filter(c => !c.done).length;
+      const unstudiedChapters = (course.chapters || []).filter(c => !c.done);
       const totalCh = (course.chapters || []).length;
-      const dailyChapters = (unstudiedChapters / daysRemaining).toFixed(1);
+      const totalStudyHours = daysRemaining * dailyHours;
+      const dailyChapterRate = unstudiedChapters.length / daysRemaining;
+      const hoursPerChapter = unstudiedChapters.length ? (totalStudyHours / unstudiedChapters.length) : 0;
+
+      let planRows = "";
+      if (unstudiedChapters.length === 0) {
+        planRows = `<div class="cram-plan-day"><strong>🎉 المنهج مكتمل</strong><div style="margin-top:3px;">لا توجد شباتر متبقية للمذاكرة.</div></div>`;
+      } else {
+        let cursor = 0;
+        for (let day = 1; day <= daysRemaining; day++) {
+          const target = Math.min(
+            unstudiedChapters.length - cursor,
+            Math.max(0, Math.round(dailyChapterRate * day) - Math.round(dailyChapterRate * (day - 1)))
+          );
+          const take = day === daysRemaining
+            ? unstudiedChapters.length - cursor
+            : target;
+
+          const dayChapters = unstudiedChapters.slice(cursor, cursor + take);
+          cursor += take;
+
+          const chapterText = dayChapters.length
+            ? dayChapters.map(ch => ch.title).join("، ")
+            : "مراجعة وتثبيت ما سبق";
+
+          planRows += `
+            <div class="cram-plan-day">
+              <strong>اليوم ${day}</strong>
+              <span style="float:left; color:var(--text-muted); font-size:10px;">${dailyHours} ساعة</span>
+              <div style="margin-top:3px;">📚 ${chapterText}</div>
+              <div style="margin-top:2px; color:var(--text-muted); font-size:10px;">
+                ${dayChapters.length} شابتر • تقريباً ${dayChapters.length ? (dailyHours / dayChapters.length).toFixed(1) : "0"} ساعة/شابتر
+              </div>
+            </div>
+          `;
+        }
+      }
 
       cramResultBox.style.display = "block";
       cramResultBox.innerHTML = `
-        <div style="font-weight:800; color:var(--text-main); margin-bottom:3px;">
-          📊 الخطة الذكية لمقرر ${course.name}:
+        <div style="font-weight:900; color:var(--text-main); margin-bottom:5px;">
+          📊 خطة ${course.name} (${course.code})
         </div>
-        <p>• الأيام المتبقية حتى الاختبار: <strong>${daysRemaining} يوم</strong></p>
-        <p>• الشباتر المتبقية للمذاكرة: <strong>${unstudiedChapters} من أصل ${totalCh} شباتر</strong></p>
-        <p style="color:var(--primary-teal); font-weight:800; margin-top:3px;">
-          🎯 معدل الإنجاز المطلوب: مذاكرة <strong>${dailyChapters} شابتر يومياً</strong> لختم المادة قبل موعد الاختبار بكل راحة!
-        </p>
+        <div class="cram-hours-row">
+          <div style="background:var(--card-bg); padding:6px; border-radius:7px; text-align:center;">
+            <strong style="display:block; color:var(--primary-teal);">${daysRemaining}</strong><span style="font-size:9.5px;">يوم متبقٍ</span>
+          </div>
+          <div style="background:var(--card-bg); padding:6px; border-radius:7px; text-align:center;">
+            <strong style="display:block; color:var(--primary-teal);">${dailyHours}</strong><span style="font-size:9.5px;">ساعة/يوم</span>
+          </div>
+          <div style="background:var(--card-bg); padding:6px; border-radius:7px; text-align:center;">
+            <strong style="display:block; color:var(--primary-teal);">${dailyChapterRate.toFixed(1)}</strong><span style="font-size:9.5px;">شابتر/يوم</span>
+          </div>
+        </div>
+        <p>• الشباتر المتبقية: <strong>${unstudiedChapters.length} من أصل ${totalCh}</strong></p>
+        <p>• إجمالي وقت المذاكرة المتاح: <strong>${totalStudyHours.toFixed(1)} ساعة</strong></p>
+        <p>• المتوسط التقريبي: <strong>${hoursPerChapter.toFixed(1)} ساعة لكل شابتر</strong></p>
+        <div style="margin-top:7px; font-weight:900; color:var(--primary-teal);">🗓️ الجدول اليومي</div>
+        ${planRows}
       `;
     });
 
     function updateAllCourseDropdowns() {
-      const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse, examCourseSelect];
+      const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse, examCourseSelect, document.getElementById("admin-assignment-course")];
       selects.forEach(sel => {
         if (!sel) return;
         const prevVal = sel.value;
@@ -4419,7 +4841,7 @@
         resourcesGlobalContainer.innerHTML = `
           <div style="text-align:center; padding:24px 14px; background:var(--card-bg); border-radius:12px; border:1px solid var(--border-subtle);">
             <p style="font-size:12.5px; font-weight:700; color:var(--text-muted);">لا توجد مقررات في جدولك حالياً 📚</p>
-            <p style="font-size:11px; color:var(--text-muted); margin-top:3px;">أضف موادك في صفحة "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</p>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:3px;">أضف موادك في صفحة "المقررات" لتظهر لك محتواها وروابطها هنا تلقائياً.</p>
           </div>
         `;
         return;
@@ -5213,6 +5635,143 @@
         });
       }
     }
+
+    const onboardingSteps = [
+      {
+        title: "أهلاً بك في Academic Tracker 👋",
+        icon: "🎓",
+        target: null,
+        tab: "home",
+        description: "هذه جولة سريعة وشاملة على التطبيق. سنعرّفك على الرئيسية، المقررات، الجدول، المكتبة الأكاديمية، المهام، الملف الشخصي والروبوتات، ثم الشكاوى والاقتراحات."
+      },
+      {
+        title: "الرئيسية 🏠",
+        icon: "🏠",
+        target: ".nav-item[data-target='home']",
+        tab: "home",
+        description: "من الرئيسية تتابعين محاضرات اليوم، الاختبارات القادمة، التنبيهات، الإحصائيات، النقاط، وآخر المحتوى الأكاديمي بسرعة."
+      },
+      {
+        title: "المقررات 📊",
+        icon: "📊",
+        target: ".nav-item[data-target='courses']",
+        tab: "courses",
+        description: "هنا تتابعين إنجاز كل مقرر، المحاضرات، الغياب، والشباتر. يمكنك إضافة مادة وتحديث إنجازك منها."
+      },
+      {
+        title: "الجدول 🗓️",
+        icon: "🗓️",
+        target: ".nav-item[data-target='schedule']",
+        tab: "schedule",
+        description: "أضيفي محاضراتك مع اليوم والوقت والقاعة والمبنى، ثم استخدمي استوديو التصدير لإنشاء صورة للجدول."
+      },
+      {
+        title: "المكتبة الأكاديمية 📚",
+        icon: "📚",
+        target: ".nav-item[data-target='resources']",
+        tab: "resources",
+        description: "المكتبة تجمع الموارد المرتبطة بموادك الحالية: ملخصات، سلايدات، تجميعات، وقنوات. يمكنك البحث والمشاركة والمساهمة."
+      },
+      {
+        title: "المهام والتكاليف 📝",
+        icon: "📝",
+        target: ".nav-item[data-target='tasks']",
+        tab: "tasks",
+        description: "ابدئي بمولّد المذاكرة التجريبي، ثم التكاليف الرسمية التي ينشرها المشرف والمهام الشخصية، وبعدها مؤقت البومودورو، لوحة الشرف، وحاسبة المعدل 5.00."
+      },
+      {
+        title: "الملف الشخصي والروبوتات 🤖",
+        icon: "🤖",
+        target: "#btn-open-profile",
+        tab: "home",
+        description: "من زر حسابك في أعلى الشاشة يمكنك تعديل الاسم والنبذة والصورة، اختيار روبوتك المفضل، وتخصيص بطاقات الرئيسية. التصنيف والدفعة محميان."
+      },
+      {
+        title: "الشكاوى والاقتراحات 📩",
+        icon: "📩",
+        target: "#btn-open-feedback",
+        tab: "home",
+        description: "استخدمي زر الرسائل أعلى الشاشة لإرسال اقتراح ميزة، بلاغ عن خلل، أو استفسار عام إلى الإدارة."
+      }
+    ];
+
+    let onboardingStepIndex = 0;
+
+    function clearTourFocus() {
+      document.querySelectorAll(".tour-focus").forEach(el => el.classList.remove("tour-focus"));
+    }
+
+    function renderOnboardingStep() {
+      const step = onboardingSteps[onboardingStepIndex];
+      clearTourFocus();
+
+      if (step.tab) switchTab(step.tab);
+
+      if (step.target) {
+        const target = document.querySelector(step.target);
+        if (target) {
+          target.classList.add("tour-focus");
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }
+
+      document.getElementById("tour-title").textContent = step.title;
+      document.getElementById("tour-icon").textContent = step.icon;
+      document.getElementById("tour-description").textContent = step.description;
+
+      const dots = document.getElementById("tour-dots");
+      dots.innerHTML = onboardingSteps.map((_, i) =>
+        `<span class="tour-dot ${i === onboardingStepIndex ? "active" : ""}"></span>`
+      ).join("");
+
+      document.getElementById("btn-tour-prev").style.visibility = onboardingStepIndex === 0 ? "hidden" : "visible";
+      document.getElementById("btn-tour-next").textContent =
+        onboardingStepIndex === onboardingSteps.length - 1 ? "إنهاء الجولة ✓" : "التالي ↗";
+    }
+
+    function finishOnboardingTour() {
+      clearTourFocus();
+      document.getElementById("onboarding-tour-modal").classList.remove("open");
+      document.getElementById("onboarding-tour-modal").style.display = "none";
+      if (currentUser) {
+        localStorage.setItem(`academicTrackerTourDone_${currentUser.uid}`, "1");
+        // تحديث حالة isNewUser دون تغيير أي بيانات أخرى.
+        updateDoc(doc(db, "users", currentUser.uid), { isNewUser: false }).catch(() => {});
+      }
+    }
+
+    function startOnboardingTour(force = false) {
+      if (!currentUser) return;
+      const key = `academicTrackerTourDone_${currentUser.uid}`;
+      if (!force && localStorage.getItem(key) === "1") return;
+
+      onboardingStepIndex = 0;
+      const modal = document.getElementById("onboarding-tour-modal");
+      modal.style.display = "flex";
+      modal.classList.add("open");
+      renderOnboardingStep();
+    }
+
+    window.startOnboardingTour = startOnboardingTour;
+
+    document.getElementById("btn-tour-next")?.addEventListener("click", () => {
+      if (onboardingStepIndex >= onboardingSteps.length - 1) {
+        finishOnboardingTour();
+      } else {
+        onboardingStepIndex++;
+        renderOnboardingStep();
+      }
+    });
+
+    document.getElementById("btn-tour-prev")?.addEventListener("click", () => {
+      if (onboardingStepIndex > 0) {
+        onboardingStepIndex--;
+        renderOnboardingStep();
+      }
+    });
+
+    document.getElementById("btn-tour-skip")?.addEventListener("click", finishOnboardingTour);
+    document.getElementById("btn-close-tour")?.addEventListener("click", finishOnboardingTour);
 
     function updateLevelUIState() {
       levelDisplayHeading.textContent = `إنجاز المقررات الدراسية`;
