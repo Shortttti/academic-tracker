@@ -85,6 +85,25 @@
       padding: 20px;
     }
 
+    .trial-banner {
+      margin: 0 auto 14px;
+      padding: 10px 12px;
+      border: 1.5px solid #F59E0B;
+      background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
+      color: #92400E;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.7;
+      font-weight: 800;
+    }
+
+    .trial-banner strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
     .auth-card {
       background: var(--card-bg);
       padding: 24px 20px;
@@ -1254,7 +1273,9 @@
     }
 
     #onboarding-tour-modal {
-      z-index: 200 !important;
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 99999 !important;
       align-items: center;
     }
 
@@ -1699,6 +1720,11 @@
         <div class="logo-icon">💻</div>
         <h2>بوابة Academic Tracker</h2>
         <p>جامعة طيبة - كلية علوم وهندسة الحاسب الآلي</p>
+      </div>
+
+      <div class="trial-banner">
+        <strong>🧪 نسخة تجريبية</strong>
+        نطوّر Academic Tracker باستمرار، ويسعدنا استقبال اقتراحاتكم وملاحظاتكم وبلاغات الأعطال لتحسين التجربة. 💡
       </div>
 
       <div class="social-auth-btns">
@@ -2978,6 +3004,7 @@
     let examsList = []; // مصفوفة الاختبارات الشاملة (كويز، ميد، فاينل)
     let selectedColor = "#8B5CF6";
     let isRegisterMode = false;
+    let pendingRegistrationProfile = null;
     let currentTaskFilter = "all";
     let currentResFilter = "all";
     let currentLevel = 5;
@@ -3287,10 +3314,10 @@
         await setDoc(userDocRef, {
           displayName: user.displayName || "مهندس/ـة",
           email: user.email,
-          gender: "طالبة",
-          section: "دفعة 22",
+          gender: "",
+          section: "",
           photoURL: user.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`,
-          bio: "مهندسة حاسب آلي - جامعة طيبة",
+          bio: "",
           university: "جامعة طيبة",
           major: "هندسة الحاسب",
           currentLevel: 5,
@@ -3329,10 +3356,9 @@
           if (!section) throw new Error("الرجاء إدخال رقم الدفعة إجبارياً.");
           
           const defaultAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${Date.now()}`;
-          const userCred = await createUserWithEmailAndPassword(auth, email, pass);
-          await updateProfile(userCred.user, { displayName: name, photoURL: defaultAvatar });
-          
-          await setDoc(doc(db, "users", userCred.user.uid), {
+
+          // نحتفظ ببيانات التسجيل مؤقتاً حتى لا تضيع إذا سبق onAuthStateChanged إنشاء ملف Firestore.
+          pendingRegistrationProfile = {
             displayName: name,
             email: email,
             gender: gender,
@@ -3345,11 +3371,20 @@
             points: 0,
             contributionPoints: 0,
             treesGrown: 0,
-            widgetPrefs: userWidgetPrefs,
+            widgetPrefs: { ...userWidgetPrefs },
             isNewUser: true,
             createdAt: new Date().toISOString(),
             lastLoginAt: new Date().toISOString()
-          });
+          };
+
+          sessionStorage.setItem("academicTrackerPendingProfile", JSON.stringify(pendingRegistrationProfile));
+
+          const userCred = await createUserWithEmailAndPassword(auth, email, pass);
+          await updateProfile(userCred.user, { displayName: name, photoURL: defaultAvatar });
+
+          await setDoc(doc(db, "users", userCred.user.uid), pendingRegistrationProfile);
+          pendingRegistrationProfile = null;
+          sessionStorage.removeItem("academicTrackerPendingProfile");
         } else {
           const cred = await signInWithEmailAndPassword(auth, email, pass);
           await updateDoc(doc(db, "users", cred.user.uid), { lastLoginAt: new Date().toISOString() });
@@ -3369,6 +3404,10 @@
         authScreen.style.display = "none";
         mainApp.style.display = "flex";
 
+        // عند تسجيل الدخول/التسجيل، ابدأ دائماً من الصفحة الرئيسية.
+        // هذا يمنع بقاء آخر تبويب كان مفتوحاً في الواجهة.
+        switchTab("home");
+
         const adminDoc = await getDoc(doc(db, "system_configs", "admins"));
         if (adminDoc.exists() && adminDoc.data().uids) {
           adminUIDs = [...new Set([...adminUIDs, ...adminDoc.data().uids])];
@@ -3381,9 +3420,32 @@
           adminBadge.style.display = "none";
         }
 
-        onSnapshot(doc(db, "users", user.uid), (snap) => {
-          if (snap.exists()) {
-            const data = snap.data();
+        onSnapshot(doc(db, "users", user.uid), async (snap) => {
+          // في الحساب الجديد قد يصل onAuthStateChanged قبل كتابة ملف Firestore.
+          // نعيد إنشاء الملف من بيانات التسجيل المؤقتة بدلاً من ترك الملف الشخصي فارغاً.
+          if (!snap.exists()) {
+            let pending = pendingRegistrationProfile;
+            if (!pending) {
+              try {
+                const rawPending = sessionStorage.getItem("academicTrackerPendingProfile");
+                if (rawPending) pending = JSON.parse(rawPending);
+              } catch (_) {}
+            }
+            if (pending && pending.email === user.email) {
+              try {
+                await setDoc(doc(db, "users", user.uid), {
+                  ...pending,
+                  lastLoginAt: new Date().toISOString(),
+                  isNewUser: true
+                }, { merge: true });
+                pendingRegistrationProfile = null;
+                sessionStorage.removeItem("academicTrackerPendingProfile");
+              } catch (_) {}
+            }
+            return;
+          }
+
+          const data = snap.data();
             currentLevel = data.currentLevel || 5;
             document.getElementById("user-points-display").textContent = `${data.points || 0} نقطة`;
             document.getElementById("trees-grown-count").textContent = `${data.treesGrown || 0}`;
@@ -3400,11 +3462,12 @@
               : `أهلاً بك يا مهندس ${data.displayName || ''} ✨`;
             
             profileNameInput.value = data.displayName || "";
-            profileGenderInput.value = data.gender || "طالبة";
+            profileGenderInput.value = data.gender || "غير محدد";
             profileSectionInput.value = data.section || "";
             profileBioInput.value = data.bio || "";
             currentUser._profileGender = data.gender || "";
             currentUser._profileSection = data.section || "";
+            currentUser._isNewUser = data.isNewUser === true;
             profileAvatarUrl.value = data.photoURL || "";
 
             userGreeting.textContent = data.displayName ? `${data.displayName} | كلية علوم وهندسة الحاسب` : "جامعة طيبة | كلية علوم وهندسة الحاسب";
@@ -3414,9 +3477,18 @@
             }
             applyUserWidgetPrefsUI();
 
-            if (data.isNewUser) {
+            if (data.isNewUser === true) {
+              // المستخدم الجديد يبدأ دائماً من الرئيسية ثم تظهر الجولة فوق التطبيق.
               newUserWelcomeBox.style.display = "flex";
-              setTimeout(() => startOnboardingTour(false), 450);
+              switchTab("home");
+
+              // ننتظر حتى تكتمل عملية رسم الصفحة وإخفاء شاشة الدخول.
+              setTimeout(() => {
+                if (currentUser && currentUser.uid === user.uid) {
+                  switchTab("home");
+                  startOnboardingTour(true);
+                }
+              }, 1000);
             } else {
               newUserWelcomeBox.style.display = "none";
             }
@@ -5742,13 +5814,23 @@
 
     function startOnboardingTour(force = false) {
       if (!currentUser) return;
+
       const key = `academicTrackerTourDone_${currentUser.uid}`;
-      if (!force && localStorage.getItem(key) === "1") return;
+      const isNewUser = currentUser._isNewUser === true;
+
+      // للمستخدم الجديد: isNewUser هو المصدر الأساسي ولا نمنعه بسبب localStorage قديم.
+      if (!force && !isNewUser && localStorage.getItem(key) === "1") return;
 
       onboardingStepIndex = 0;
+      switchTab("home");
+
       const modal = document.getElementById("onboarding-tour-modal");
+      if (!modal) return;
+
+      // نضمن إظهار الجولة فعلياً فوق التطبيق حتى لو كان modal-overlay مخفياً افتراضياً.
       modal.style.display = "flex";
       modal.classList.add("open");
+      modal.style.zIndex = "99999";
       renderOnboardingStep();
     }
 
