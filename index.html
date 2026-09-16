@@ -389,19 +389,17 @@
       box-shadow: 0 3px 10px rgba(8, 95, 86, 0.15);
     }
 
-    /* تنسيقات بطاقة الميدات التحذيرية الجديدة */
-    .midterm-alert-card {
-      background: linear-gradient(135deg, #7F1D1D, #991B1B);
-      border: 2px solid #F87171;
+    /* تنسيقات بطاقة الاختبارات الذكية والمتدرجة ألوانها */
+    .exam-alert-card {
       border-radius: 16px;
       color: white;
       padding: 14px;
       margin-bottom: 12px;
-      box-shadow: 0 4px 15px rgba(153, 27, 27, 0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       cursor: pointer;
     }
 
-    .midterm-item-row {
+    .exam-item-row {
       background: var(--subtle-bg);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
@@ -411,6 +409,18 @@
       justify-content: space-between;
       align-items: center;
     }
+
+    .exam-badge-type {
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 3px;
+    }
+    .badge-quiz { background: #10B981; color: white; }
+    .badge-mid { background: #3B82F6; color: white; }
+    .badge-final { background: #EF4444; color: white; }
 
     .countdown-info h4 {
       font-size: 12.5px;
@@ -422,12 +432,13 @@
 
     .countdown-info p {
       font-size: 10.5px;
-      color: #CCFBF1;
+      color: #F8FAFC;
+      opacity: 0.9;
       margin-top: 1px;
     }
 
     .countdown-timer-digits {
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.25);
       padding: 5px 10px;
       border-radius: 10px;
       font-size: 13px;
@@ -1715,17 +1726,17 @@
         <div class="countdown-timer-digits" id="countdown-timer-digits">-- ي -- س</div>
       </div>
 
-      <!-- بطاقة الميدتيرم البارزة في الرئيسية (تدعم العد التنازلي المتعدد والتلوين التحذيري) -->
-      <div id="home-urgent-midterm-box" class="midterm-alert-card" style="display: none;" onclick="openMidtermModal()">
+      <!-- بطاقة الاختبارات القادمة البارزة في الرئيسية (تدعم التدرج اللوني الذكي) -->
+      <div id="home-urgent-exam-box" class="exam-alert-card" style="display: none;" onclick="openExamModal()">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
-            <span style="font-size: 10px; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-weight: 900;">⚠️ تنبيه اختبار ميدتيرم</span>
-            <h4 id="home-urgent-midterm-title" style="font-size: 14px; font-weight: 900; margin-top: 4px;">الميد القادم: --</h4>
-            <p id="home-urgent-midterm-details" style="font-size: 11.5px; opacity: 0.95; margin-top: 2px;">الوقت والقاعة: --</p>
+            <span id="home-urgent-exam-type-badge" class="exam-badge-type badge-mid">⚠️ اختبار قادم</span>
+            <h4 id="home-urgent-exam-title" style="font-size: 14px; font-weight: 900; margin-top: 4px;">الاختبار القادم: --</h4>
+            <p id="home-urgent-exam-details" style="font-size: 11.5px; opacity: 0.95; margin-top: 2px;">المادة والقاعة: --</p>
           </div>
           <div style="text-align: center;">
-            <div id="home-urgent-midterm-timer" class="countdown-timer-digits" style="background: rgba(0,0,0,0.35); font-size: 12px;">-- ي -- س</div>
-            <span style="font-size: 10px; text-decoration: underline; margin-top: 3px; display: block;">عرض كل الميدات ↗</span>
+            <div id="home-urgent-exam-timer" class="countdown-timer-digits" style="font-size: 12px;">-- ي -- س</div>
+            <span style="font-size: 10px; text-decoration: underline; margin-top: 3px; display: block;">عرض كل الاختبارات ↗</span>
           </div>
         </div>
       </div>
@@ -2113,33 +2124,41 @@
           </div>
         </div>
 
-        <!-- إضافة مواعيد اختبارات الميدتيرم (للمشرفين) -->
-        <div class="admin-section-box" style="border: 1.5px solid #F59E0B;">
-          <h3 style="color:#D97706;">📅 إضافة موعد اختبار ميدتيرم (للطلاب أو الطالبات)</h3>
-          <form id="admin-add-midterm-form">
+        <!-- إضافة موعد اختبار شامل (كويز، ميد، فاينل) مع ربطه بالمادة -->
+        <div class="admin-section-box" style="border: 1.5px solid #0D9488;">
+          <h3 style="color:var(--primary-teal);">📅 إضافة موعد اختبار عام (كويز / ميد / فاينل)</h3>
+          <form id="admin-add-exam-form">
             <div class="form-group">
-              <label>عنوان الاختبار أو المادة</label>
-              <input type="text" id="mid-title" required placeholder="مثال: نظم التشغيل - ميدتيرم">
+              <label>نوع الاختبار</label>
+              <select id="exam-type-select" required>
+                <option value="كويز">🟢 كويز (Quiz)</option>
+                <option value="ميدتيرم">🔵 ميدتيرم (Midterm)</option>
+                <option value="فاينل">🔴 اختبار نهائي (Final)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>المقرر المرتبط:</label>
+              <select id="exam-course-select" required></select>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label>تاريخ ووقت الاختبار</label>
-                <input type="datetime-local" id="mid-datetime" required>
+                <input type="datetime-local" id="exam-datetime" required>
               </div>
               <div class="form-group">
                 <label>القاعة المخصصة</label>
-                <input type="text" id="mid-room" required placeholder="مثال: قاعة 228 (طالبات)">
+                <input type="text" id="exam-room" required placeholder="مثال: قاعة 228 (طالبات)">
               </div>
             </div>
             <div class="form-group">
               <label>الفئة المستهدفة:</label>
-              <select id="mid-target">
+              <select id="exam-target">
                 <option value="الكل">الجميع (طلاب وطالبات) 🌐</option>
                 <option value="طالبة">الطالبات فقط 👩‍🎓</option>
                 <option value="طالب">الطلاب فقط 👨‍🎓</option>
               </select>
             </div>
-            <button type="submit" class="btn-primary" style="background:#D97706;">نشر موعد الميدتيرم 🚀</button>
+            <button type="submit" class="btn-primary" style="background:var(--primary-teal);">نشر الاختبار في جدول الدفعة 🚀</button>
           </form>
         </div>
 
@@ -2247,18 +2266,18 @@
       </div>
     </div>
 
-    <!-- نافذة عرض جميع مواعيد الميدات والاختبارات المعتمدة -->
-    <div id="midterms-modal" class="modal-overlay">
+    <!-- نافذة عرض جدول الاختبارات الشاملة (كويز، ميد، فاينل) -->
+    <div id="exams-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>📅 جدول مواعيد اختبارات الميدتيرم</h3>
-          <button class="close-btn" onclick="document.getElementById('midterms-modal').classList.remove('open')">&times;</button>
+          <h3>📅 جدول مواعيد الاختبارات الشاملة</h3>
+          <button class="close-btn" onclick="document.getElementById('exams-modal').classList.remove('open')">&times;</button>
         </div>
         <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 12px;">
-          المواعيد مرتبة تصاعدياً. استخدم زر تقويم جوجل لتسجيل الموعد في جوالك مباشرة!
+          مواعيد الكويزات، الميدات، والفاينلات مرتبة تصاعدياً مع إمكانية إضافتها لتقويم Google.
         </p>
-        <div id="modal-midterms-list-container">
-          <p style="font-size: 11.5px; color: var(--text-muted); text-align: center; padding: 10px;">جاري جلب مواعيد الميدات...</p>
+        <div id="modal-exams-list-container">
+          <p style="font-size: 11.5px; color: var(--text-muted); text-align: center; padding: 10px;">جاري جلب الاختبارات...</p>
         </div>
       </div>
     </div>
@@ -2781,7 +2800,7 @@
     let pendingResources = [];
     let profileChangeRequests = [];
     let activePoll = null;
-    let midtermsList = []; // مصفوفة تخزين الميدات
+    let examsList = []; // مصفوفة الاختبارات الشاملة (كويز، ميد، فاينل)
     let selectedColor = "#8B5CF6";
     let isRegisterMode = false;
     let currentTaskFilter = "all";
@@ -2882,7 +2901,8 @@
     const adminPollForm = document.getElementById("admin-poll-form");
     const btnAdminCreatePoll = document.getElementById("btn-admin-create-poll");
     const btnAdminExportExcel = document.getElementById("btn-admin-export-excel");
-    const adminAddMidtermForm = document.getElementById("admin-add-midterm-form");
+    const adminAddExamForm = document.getElementById("admin-add-exam-form");
+    const examCourseSelect = document.getElementById("exam-course-select");
 
     const scheduleDaysContainer = document.getElementById("schedule-days-container");
     const slotModal = document.getElementById("slot-modal");
@@ -3264,10 +3284,10 @@
           renderHomeDashboardUI();
         });
 
-        onSnapshot(collection(db, "midterm_exams"), (snapshot) => {
-          midtermsList = [];
-          snapshot.forEach(d => midtermsList.push({ id: d.id, ...d.data() }));
-          renderMidtermWidgetAndModal();
+        onSnapshot(collection(db, "general_exams"), (snapshot) => {
+          examsList = [];
+          snapshot.forEach(d => examsList.push({ id: d.id, ...d.data() }));
+          renderExamWidgetAndModal();
         });
 
         onSnapshot(doc(db, "system_configs", "alerts"), (snap) => {
@@ -3335,40 +3355,76 @@
       }
     });
 
-    // معالج إضافة موعد ميدتيرم من لوحة المشرف
-    adminAddMidtermForm?.addEventListener("submit", async (e) => {
+    // معالج إضافة اختبار عام (كويز، ميد، فاينل) من المشرف
+    adminAddExamForm?.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!isAdmin) return;
       
-      const title = document.getElementById("mid-title").value.trim();
-      const datetime = document.getElementById("mid-datetime").value;
-      const room = document.getElementById("mid-room").value.trim();
-      const targetGroup = document.getElementById("mid-target").value;
+      const type = document.getElementById("exam-type-select").value;
+      const courseId = examCourseSelect.value;
+      const selectedC = currentCourses.find(c => c.id === courseId);
+      const datetime = document.getElementById("exam-datetime").value;
+      const room = document.getElementById("exam-room").value.trim();
+      const targetGroup = document.getElementById("exam-target").value;
 
-      await addDoc(collection(db, "midterm_exams"), {
-        title,
+      await addDoc(collection(db, "general_exams"), {
+        type,
+        courseName: selectedC ? selectedC.name : "مادة عامة",
+        courseCode: selectedC ? selectedC.code : "GEN",
         dateTime: datetime,
         room,
         targetGroup,
         createdAt: new Date().toISOString()
       });
 
-      adminAddMidtermForm.reset();
-      alert("تم نشر موعد الاختبار بنجاح لجميع الطلاب المستهدفين! 🎯");
+      adminAddExamForm.reset();
+      alert("تم نشر موعد الاختبار بنجاح في جدول الدفعة! 🎯");
     });
 
-    // منطق العد التنازلي الذكي المتعدد للميدات (مع تغيير اللون للأحمر عند الاقتراب)
-    function renderMidtermWidgetAndModal() {
-      const box = document.getElementById("home-urgent-midterm-box");
-      const titleEl = document.getElementById("home-urgent-midterm-title");
-      const detailsEl = document.getElementById("home-urgent-midterm-details");
-      const timerEl = document.getElementById("home-urgent-midterm-timer");
+    // دالة لتحديث قائمة مواد الاختبارات في لوحة المشرف تلقائياً
+    function updateExamCourseDropdown() {
+      if (!examCourseSelect) return;
+      examCourseSelect.innerHTML = "";
+      if (currentCourses.length === 0) {
+        examCourseSelect.innerHTML = `<option value="">-- أضف مقررات أولاً --</option>`;
+        return;
+      }
+      currentCourses.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c.id;
+        opt.textContent = `${c.code} - ${c.name}`;
+        examCourseSelect.appendChild(opt);
+      });
+    }
+
+    // محرك الألوان المتدرجة الذكي للعدادات (أخضر/أزرق/أحمر مع التدرج حسب البعد والاقتراب)
+    function getExamGradientStyle(type, daysLeft) {
+      if (type === "كويز") {
+        if (daysLeft <= 1) return "linear-gradient(135deg, #065F46, #047857)"; // أخضر غامق جداً
+        if (daysLeft <= 3) return "linear-gradient(135deg, #059669, #10B981)"; // أخضر متوسط
+        return "linear-gradient(135deg, #34D399, #6EE7B7)"; // أخضر فاتح
+      } else if (type === "ميدتيرم") {
+        if (daysLeft <= 1) return "linear-gradient(135deg, #1E3A8A, #1D4ED8)"; // أزرق غامق جداً
+        if (daysLeft <= 3) return "linear-gradient(135deg, #2563EB, #3B82F6)"; // أزرق متوسط
+        return "linear-gradient(135deg, #60A5FA, #93C5FD)"; // أزرق فاتح
+      } else { // فاينل
+        if (daysLeft <= 1) return "linear-gradient(135deg, #7F1D1D, #991B1B)"; // أحمر قاني غامق جداً
+        if (daysLeft <= 3) return "linear-gradient(135deg, #DC2626, #EF4444)"; // أحمر فاقع
+        return "linear-gradient(135deg, #F87171, #FCA5A5)"; // أحمر فاتح
+      }
+    }
+
+    function renderExamWidgetAndModal() {
+      const box = document.getElementById("home-urgent-exam-box");
+      const typeBadge = document.getElementById("home-urgent-exam-type-badge");
+      const titleEl = document.getElementById("home-urgent-exam-title");
+      const detailsEl = document.getElementById("home-urgent-exam-details");
+      const timerEl = document.getElementById("home-urgent-exam-timer");
 
       if (!box) return;
 
       const now = new Date().getTime();
-      // فلترة وترتيب الاختبارات القادمة تصاعدياً
-      const upcoming = midtermsList.filter(m => new Date(m.dateTime).getTime() > now);
+      const upcoming = examsList.filter(e => new Date(e.dateTime).getTime() > now);
       upcoming.sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
 
       if (upcoming.length === 0) {
@@ -3376,11 +3432,15 @@
         return;
       }
 
-      const nextMid = upcoming[0];
-      const targetTime = new Date(nextMid.dateTime).getTime();
+      const nextExam = upcoming[0];
+      const targetTime = new Date(nextExam.dateTime).getTime();
       box.style.display = "block";
-      titleEl.textContent = `الميد القادم: ${nextMid.title}`;
-      detailsEl.textContent = `القاعة: ${nextMid.room} (${nextMid.targetGroup})`;
+
+      // تحديد الشارة واللون
+      typeBadge.textContent = `⚠️ اختبار ${nextExam.type} قادم`;
+      typeBadge.className = `exam-badge-type ${nextExam.type === 'كويز' ? 'badge-quiz' : (nextExam.type === 'ميدتيرم' ? 'badge-mid' : 'badge-final')}`;
+      titleEl.textContent = `${nextExam.courseName} (${nextExam.courseCode})`;
+      detailsEl.textContent = `القاعة: ${nextExam.room} • ${nextExam.targetGroup}`;
 
       if (globalTimerInterval) clearInterval(globalTimerInterval);
 
@@ -3390,7 +3450,6 @@
 
         if (diff <= 0) {
           timerEl.textContent = "انطلق الاختبار الآن!";
-          box.style.background = "linear-gradient(135deg, #450A0A, #7F1D1D)";
           return;
         }
 
@@ -3399,81 +3458,75 @@
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         
         timerEl.textContent = `${days} ي • ${hours} س • ${minutes} د`;
-
-        // تغيير اللون للأحمر الفاقع إذا بقي أقل من 3 أيام
-        if (days <= 2) {
-          box.style.background = "linear-gradient(135deg, #DC2626, #991B1B)";
-          timerEl.style.background = "rgba(0,0,0,0.5)";
-        } else {
-          box.style.background = "linear-gradient(135deg, #7F1D1D, #991B1B)";
-        }
+        box.style.background = getExamGradientStyle(nextExam.type, days);
       };
 
       updateMultiTimer();
       globalTimerInterval = setInterval(updateMultiTimer, 30000);
 
-      // تحديث محتوى نافذة جميع الميدات المنبثقة
-      renderMidtermsModalList(upcoming);
+      renderExamsModalList(upcoming);
+      updateExamCourseDropdown();
     }
 
-    function openMidtermModal() {
-      document.getElementById("midterms-modal").classList.add("open");
+    function openExamModal() {
+      document.getElementById("exams-modal").classList.add("open");
     }
-    window.openMidtermModal = openMidtermModal;
+    window.openExamModal = openExamModal;
 
-    // توليد رابط تقويم جوجل لاختبارات الميدتيرم
-    function generateGoogleCalendarLink(midterm) {
-      const title = encodeURIComponent(`اختبار ميد: ${midterm.title}`);
-      const details = encodeURIComponent(`كلية علوم وهندسة الحاسب - جامعة طيبة\nالقاعة: ${midterm.room || 'غير محددة'}`);
-      const location = encodeURIComponent(`جامعة طيبة - قاعة ${midterm.room || 'الحرم الجامعي'}`);
+    function generateGoogleCalendarLink(exam) {
+      const title = encodeURIComponent(`اختبار ${exam.type}: ${exam.courseName} (${exam.courseCode})`);
+      const details = encodeURIComponent(`كلية علوم وهندسة الحاسب - جامعة طيبة\nالقاعة: ${exam.room}`);
+      const location = encodeURIComponent(`جامعة طيبة - قاعة ${exam.room}`);
       
-      const startDate = new Date(midterm.dateTime);
-      const endDate = new Date(startDate.getTime() + (2 * 60 * 60 * 1000)); // مدة افتراضية ساعتان
+      const startDate = new Date(exam.dateTime);
+      const endDate = new Date(startDate.getTime() + (2 * 60 * 60 * 1000));
       
       const formatTime = (date) => date.toISOString().replace(/-|:|\.\d\d\d/g,"");
       
       return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${formatTime(startDate)}/${formatTime(endDate)}&details=${details}&location=${location}`;
     }
 
-    function renderMidtermsModalList(list) {
-      const container = document.getElementById("modal-midterms-list-container");
+    function renderExamsModalList(list) {
+      const container = document.getElementById("modal-exams-list-container");
       if (!container) return;
 
       if (list.length === 0) {
-        container.innerHTML = `<p style="font-size: 11.5px; color: var(--text-muted); text-align: center; padding: 10px;">لا توجد مواعيد اختبارات ميدتيرم مضافة حالياً.</p>`;
+        container.innerHTML = `<p style="font-size: 11.5px; color: var(--text-muted); text-align: center; padding: 10px;">لا توجد مواعيد اختبارات مضافة حالياً.</p>`;
         return;
       }
 
       container.innerHTML = "";
-      list.forEach(m => {
-        const d = new Date(m.dateTime);
+      list.forEach(e => {
+        const d = new Date(e.dateTime);
         const formattedDate = d.toLocaleString('ar-SA', { dateStyle: 'full', timeStyle: 'short' });
-        
+        const badgeClass = e.type === 'كويز' ? 'badge-quiz' : (e.type === 'ميدتيرم' ? 'badge-mid' : 'badge-final');
+
         const row = document.createElement("div");
-        row.className = "midterm-item-row";
+        row.className = "exam-item-row";
         row.innerHTML = `
           <div>
-            <strong style="font-size: 13px; color: var(--text-main); display: block;">${m.title}</strong>
+            <span class="exam-badge-type ${badgeClass}">${e.type}</span>
+            <strong style="font-size: 13px; color: var(--text-main); display: block;">${e.courseName} (${e.courseCode})</strong>
             <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 2px;">📅 ${formattedDate}</span>
-            <span style="font-size: 11px; color: var(--primary-teal); font-weight: bold; display: block;">📍 القاعة: ${m.room} (${m.targetGroup})</span>
+            <span style="font-size: 11px; color: var(--primary-teal); font-weight: bold; display: block;">📍 القاعة: ${e.room} (${e.targetGroup})</span>
           </div>
           <div style="display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
-            <a href="${generateGoogleCalendarLink(m)}" target="_blank" class="btn-primary" style="background:#2563EB; font-size:10px; padding:5px 10px; text-decoration:none; display:inline-block; width:fit-content; margin:0;">
+            <a href="${generateGoogleCalendarLink(e)}" target="_blank" class="btn-primary" style="background:#2563EB; font-size:10px; padding:5px 10px; text-decoration:none; display:inline-block; width:fit-content; margin:0;">
               📅 تقويم Google
             </a>
-            ${isAdmin ? `<button onclick="deleteMidterm('${m.id}')" style="background:none; border:none; color:red; cursor:pointer; font-size:11px;">حذف ✕</button>` : ''}
+            ${isAdmin ? `<button onclick="deleteExam('${e.id}')" style="background:none; border:none; color:red; cursor:pointer; font-size:11px;">حذف ✕</button>` : ''}
           </div>
         `;
         container.appendChild(row);
       });
     }
 
-    async function deleteMidterm(id) {
+    async function deleteExam(id) {
       if (confirm("هل ترغب بحذف موعد هذا الاختبار نهائياً؟")) {
-        await deleteDoc(doc(db, "midterm_exams", id));
+        await deleteDoc(doc(db, "general_exams", id));
       }
     }
-    window.deleteMidterm = deleteMidterm;
+    window.deleteExam = deleteExam;
 
     async function updateAdminDashboardAnalytics() {
       const usersSnap = await getDocs(collection(db, "users"));
@@ -4320,7 +4373,7 @@
     });
 
     function updateAllCourseDropdowns() {
-      const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse];
+      const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse, examCourseSelect];
       selects.forEach(sel => {
         if (!sel) return;
         const prevVal = sel.value;
@@ -4331,7 +4384,7 @@
         }
         currentCourses.forEach(c => {
           const opt = document.createElement("option");
-          opt.value = (sel === slotCourseSelect || sel === cramCourseSelect) ? c.id : c.code;
+          opt.value = (sel === slotCourseSelect || sel === cramCourseSelect || sel === examCourseSelect) ? c.id : c.code;
           opt.textContent = `${c.code} - ${c.name}`;
           sel.appendChild(opt);
         });
