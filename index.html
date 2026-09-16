@@ -1946,6 +1946,20 @@
           عدد التكاليف الموجهة لك: <strong id="official-assignments-count">0</strong>
         </div>
       </div>
+      <!-- المهام والتكاليف -->
+      <div class="content-header" style="margin-top: 16px;">
+        <div>
+          <h2>المهام والتكاليف</h2>
+          <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
+        </div>
+      </div>
+      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة أو تكليف جديد</button>
+      <div class="task-filter-bar">
+        <div class="filter-chip active" data-filter="all">الكل</div>
+        <div class="filter-chip" data-filter="pending">المتبقية</div>
+        <div class="filter-chip" data-filter="done">المكتملة</div>
+      </div>
+      <div id="tasks-container"></div>
       <!-- Pomodoro Focus Tree Timer -->
       <div class="tree-timer-box">
         <div class="tree-timer-header">
@@ -1998,20 +2012,6 @@
         </div>
         <div id="gpa-calc-container"></div>
       </div>
-      <!-- المهام والتكاليف -->
-      <div class="content-header" style="margin-top: 16px;">
-        <div>
-          <h2>المهام والتكاليف</h2>
-          <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
-        </div>
-      </div>
-      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة أو تكليف جديد</button>
-      <div class="task-filter-bar">
-        <div class="filter-chip active" data-filter="all">الكل</div>
-        <div class="filter-chip" data-filter="pending">المتبقية</div>
-        <div class="filter-chip" data-filter="done">المكتملة</div>
-      </div>
-      <div id="tasks-container"></div>
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
       </footer>
@@ -4878,6 +4878,7 @@
       courseModal.classList.remove("open");
     });
     const SEMESTER_START_DATE = "2026-08-22";
+    const SEMESTER_END_DATE = "2026-12-31";
     const SCHEDULE_DAYS = {
       "الأحد": 0,
       "الإثنين": 1,
@@ -4885,48 +4886,88 @@
       "الثلاثاء": 2,
       "الأربعاء": 3,
       "الخميس": 4,
-      "السبت": 6
+      "السبت": 6,
+      "Sunday": 0,
+      "Monday": 1,
+      "Tuesday": 2,
+      "Wednesday": 3,
+      "Thursday": 4,
+      "Saturday": 6
     };
 
     function normalizeScheduleDay(day) {
-      return String(day || "").trim().replace(/\s+/g, " ");
+      const value = String(day || "").trim().replace(/\s+/g, " ");
+      const aliases = {
+        "الاحد": "الأحد",
+        "الأثنين": "الإثنين",
+        "الاثنين": "الإثنين",
+        "الاثنين ": "الإثنين",
+        "السبت": "السبت",
+        "Sunday": "الأحد",
+        "Monday": "الإثنين",
+        "Tuesday": "الثلاثاء",
+        "Wednesday": "الأربعاء",
+        "Thursday": "الخميس",
+        "Saturday": "السبت"
+      };
+      return aliases[value] || value;
+    }
+
+    function normalizeCourseCode(code) {
+      return String(code || "")
+        .trim()
+        .toUpperCase()
+        .replace(/\s+/g, "");
+    }
+
+    function dateOnlyLocal(dateValue) {
+      const d = new Date(dateValue);
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate());
     }
 
     function countScheduledLectureOccurrences(courseId, courseCode, startDateStr = SEMESTER_START_DATE, endDate = new Date()) {
       if (!Array.isArray(currentScheduleSlots) || currentScheduleSlots.length === 0) return 0;
 
-      // نستخدم التاريخ المحلي فقط حتى لا يتغير اليوم بسبب UTC أو المنطقة الزمنية.
       const startParts = String(startDateStr).split("-").map(Number);
       if (startParts.length !== 3 || startParts.some(Number.isNaN)) return 0;
+
       const start = new Date(startParts[0], startParts[1] - 1, startParts[2]);
       start.setHours(0, 0, 0, 0);
 
-      const end = new Date(endDate);
-      end.setHours(0, 0, 0, 0);
-      if (end < start) return 0;
+      const today = dateOnlyLocal(endDate);
+      if (today < start) return 0;
 
-      // نطابق المقرر بالـ ID أولاً، وبالكود كحل احتياطي أيضاً.
-      // هذا يمنع اختلاف الـ ID بين الجدول والمقرر من جعل العداد = 0.
-      const slots = currentScheduleSlots.filter(slot => {
-        const slotCourseId = String(slot.courseId || "").trim();
-        const slotCourseCode = String(slot.courseCode || "").trim();
-        return (courseId && slotCourseId === String(courseId).trim()) ||
-               (courseCode && slotCourseCode === String(courseCode).trim());
+      // لا نعتمد على courseId فقط؛ لأن بعض الجداول القديمة قد تحتوي المقرر بالكود فقط.
+      const wantedId = String(courseId || "").trim();
+      const wantedCode = normalizeCourseCode(courseCode);
+
+      const courseSlots = currentScheduleSlots.filter(slot => {
+        const slotId = String(slot.courseId || "").trim();
+        const slotCode = normalizeCourseCode(slot.courseCode);
+        const sameId = wantedId && slotId && slotId === wantedId;
+        const sameCode = wantedCode && slotCode && slotCode === wantedCode;
+        return sameId || sameCode;
       });
 
-      if (slots.length === 0) return 0;
+      if (courseSlots.length === 0) return 0;
 
+      // كل سجل في الجدول يمثل محاضرة أسبوعية مستقلة.
+      // نحسب فقط التكرارات الواقعة بين 22 أغسطس 2026 واليوم.
       let count = 0;
-      const dayIndexes = new Map(Object.entries(SCHEDULE_DAYS));
+      const countedSlotDays = courseSlots.map(slot => SCHEDULE_DAYS[normalizeScheduleDay(slot.day)])
+        .filter(day => Number.isInteger(day));
 
-      for (let cursor = new Date(start); cursor <= end; cursor.setDate(cursor.getDate() + 1)) {
-        const dayIndex = cursor.getDay();
-        slots.forEach(slot => {
-          const normalizedDay = normalizeScheduleDay(slot.day);
-          if (dayIndexes.get(normalizedDay) === dayIndex) {
-            count += 1;
-          }
-        });
+      if (countedSlotDays.length === 0) return 0;
+
+      for (const dayIndex of countedSlotDays) {
+        const first = new Date(start);
+        const offset = (dayIndex - first.getDay() + 7) % 7;
+        first.setDate(first.getDate() + offset);
+
+        if (first > today) continue;
+
+        const diffDays = Math.floor((today - first) / 86400000);
+        count += Math.floor(diffDays / 7) + 1;
       }
 
       return count;
@@ -4938,7 +4979,12 @@
 
     function getAutoLectureCount(course, endDate = new Date()) {
       const total = getCourseTotalLectures(course);
-      const scheduledOccurrences = countScheduledLectureOccurrences(course.id, course.code, SEMESTER_START_DATE, endDate);
+      const scheduledOccurrences = countScheduledLectureOccurrences(
+        course.id,
+        course.code,
+        SEMESTER_START_DATE,
+        endDate
+      );
       return Math.max(0, Math.min(total, scheduledOccurrences));
     }
 
@@ -5560,3 +5606,33 @@
   <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
+-----
+بدون لمس الكود نهائيا 
+ابغاك تعدل لي كم شغله فيه فقط اللي اقولك عليها 
+ اضافة خاصية للمشرف فيه صفحة بالمستخدمين يشوفهم ويحذف منهم عادي لان احيان في ناس تسجل بمعلومات غير صحيحة 
+اضافة الى 
+ان المشرف يقدر يرسل تنبيه على الصفحةالرئيسية للطالب انه قرب من الحرمان 
+إعادة ترتيب تبويب "المهام" (وجعل المولد في الأعلى وبشكل تجريبي مميز):
+الرأي: ترتيب منطقي جداً لأن المولد الذكي هو الأداة الأقوى للتخطيط قبل البدء بتنفيذ المهام اليومية.
+التحسين المقترح: سنجعل بطاقة المولد بلون مختلف قليلاً (مثلاً تدرج بنفسجي أو رصاصي فاتح هادئ) مع كتابة تاج (ميزة تجريبية 🧪 Beta) عليها لتمييزها بصرياً عن باقي الودجات.
+تطوير "مولّد خطة المذاكرة السريعة (Cram Planner)":
+الرأي: فكرتك في محلها؛ المولد البسيط قد لا يكفي إذا كانت الشباتر دسمة.
+التحسين المقترح: يمكننا إضافة خانة اختيار تفاعلية تسأل الطالبة: (كم ساعة تستطيعين المذاكرة يومياً؟)، وبناءً عليها يقوم المولد بتقسيم الساعات والشباتر وتوليد جدول مذاكرة مقسم بالساعة أو اليوم يوضح لها بالضبط ماذا تذاكر ومتى تستريح.
+إضافة التكاليف من قِبل المشرف ونظام إنجاز المهام للطلاب:
+الرأي: هذه أقوى فكرة طرحتِها؛ لأنها تضمن أن جميع الطلاب يتابعون الواجبات المشتركة ولا يضيع عليهم أي تسليم، مع إعطاء المشرف مؤشرات أداء دقيقة عن الملتزمين وغير الملتزمين.
+آلية العمل المقترحة:
+المشرف ينشر تكليفاً عاماً أو خاصاً بدفعة معينة مع تحديد وقت التسليم (Deadline).
+يظهر التكليف تلقائياً في قائمة مهام كل طالب مع زر "تأكيد الإنجاز ✅".
+لوحة المشرف تعرض له تقريراً فورياً: (عدد من أنجزوا التكليف في الوقت المحدد مقابل المتأخرين).
+-- كمان حاجة 
+طريقة حساب المحاضرات غلط 
+يعني اوك مثلا هي توتل 30 او 45 او 15 افهم الموضوع لكن 
+من الطبيعي انه ماختمها كلها فهي مفروض تصير عداد مربوط بالجدول الدراسي 
+بمعنى 
+من يوم مابدينا دراسة من الاسبوع الاول 22 اغسطس 2026
+بعد مايحط جدولة يصير يحسب من 22 اغسطس كم مرت محاضرة و يحطها 
+ومع كل يوم هذي المادة تنأخذ يزيد العداد عرفت كيف 
+--مع التاكيد على انه لايحق لك التعديل على اي من اجزاء الكود غير مطلوب منك تعديلة 
+فقط اريد ترسل لي الكود الشامل في النهاية 
+
+بامكانك فصل الكود مثلا الستايل و الجافاسكريبت و المين لحال المهم تشتغل على قيت هب بشكل صحيح 
