@@ -4145,8 +4145,8 @@
       let totalLecAll = 0;
       let attendedLecAll = 0;
       currentCourses.forEach(c => {
-        totalLecAll += (c.totalLectures || 0);
-        attendedLecAll += (c.attendedLectures || 0);
+        totalLecAll += getCourseTotalLectures(c);
+        attendedLecAll += getAutoLectureCount(c, now);
       });
       const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
       homeQuickAttendance.textContent = `${pct}%`;
@@ -4878,34 +4878,68 @@
       courseModal.classList.remove("open");
     });
     const SEMESTER_START_DATE = "2026-08-22";
-    const SCHEDULE_DAYS = { "الأحد": 0, "الإثنين": 1, "الثلاثاء": 2, "الأربعاء": 3, "الخميس": 4 };
+    const SCHEDULE_DAYS = {
+      "الأحد": 0,
+      "الإثنين": 1,
+      "الاثنين": 1,
+      "الثلاثاء": 2,
+      "الأربعاء": 3,
+      "الخميس": 4,
+      "السبت": 6
+    };
+
+    function normalizeScheduleDay(day) {
+      return String(day || "").trim().replace(/\s+/g, " ");
+    }
 
     function countScheduledLectureOccurrences(courseId, courseCode, startDateStr = SEMESTER_START_DATE, endDate = new Date()) {
-      if (!currentScheduleSlots.length) return 0;
-      const start = new Date(`${startDateStr}T00:00:00`);
-      const end = new Date(endDate);
+      if (!Array.isArray(currentScheduleSlots) || currentScheduleSlots.length === 0) return 0;
+
+      // نستخدم التاريخ المحلي فقط حتى لا يتغير اليوم بسبب UTC أو المنطقة الزمنية.
+      const startParts = String(startDateStr).split("-").map(Number);
+      if (startParts.length !== 3 || startParts.some(Number.isNaN)) return 0;
+      const start = new Date(startParts[0], startParts[1] - 1, startParts[2]);
       start.setHours(0, 0, 0, 0);
-      end.setHours(23, 59, 59, 999);
+
+      const end = new Date(endDate);
+      end.setHours(0, 0, 0, 0);
       if (end < start) return 0;
 
+      // نطابق المقرر بالـ ID أولاً، وبالكود كحل احتياطي أيضاً.
+      // هذا يمنع اختلاف الـ ID بين الجدول والمقرر من جعل العداد = 0.
+      const slots = currentScheduleSlots.filter(slot => {
+        const slotCourseId = String(slot.courseId || "").trim();
+        const slotCourseCode = String(slot.courseCode || "").trim();
+        return (courseId && slotCourseId === String(courseId).trim()) ||
+               (courseCode && slotCourseCode === String(courseCode).trim());
+      });
+
+      if (slots.length === 0) return 0;
+
       let count = 0;
-      const slots = currentScheduleSlots.filter(s =>
-        (courseId && s.courseId === courseId) ||
-        (!s.courseId && courseCode && s.courseCode === courseCode)
-      );
+      const dayIndexes = new Map(Object.entries(SCHEDULE_DAYS));
 
       for (let cursor = new Date(start); cursor <= end; cursor.setDate(cursor.getDate() + 1)) {
-        const dayName = Object.keys(SCHEDULE_DAYS).find(name => SCHEDULE_DAYS[name] === cursor.getDay());
-        if (!dayName) continue;
-        count += slots.filter(s => s.day === dayName).length;
+        const dayIndex = cursor.getDay();
+        slots.forEach(slot => {
+          const normalizedDay = normalizeScheduleDay(slot.day);
+          if (dayIndexes.get(normalizedDay) === dayIndex) {
+            count += 1;
+          }
+        });
       }
+
       return count;
     }
 
-    function getAutoLectureCount(course) {
-      const scheduledOccurrences = countScheduledLectureOccurrences(course.id, course.code);
-      const total = Number(course.totalLectures || (course.credits === 4 ? 45 : (course.credits === 3 ? 30 : 15)));
-      return Math.min(total, scheduledOccurrences);
+    function getCourseTotalLectures(course) {
+      return Number(course.totalLectures || (course.credits === 4 ? 45 : (course.credits === 3 ? 30 : 15)));
+    }
+
+    function getAutoLectureCount(course, endDate = new Date()) {
+      const total = getCourseTotalLectures(course);
+      const scheduledOccurrences = countScheduledLectureOccurrences(course.id, course.code, SEMESTER_START_DATE, endDate);
+      return Math.max(0, Math.min(total, scheduledOccurrences));
     }
 
     function renderCoursesUI() {
@@ -4917,8 +4951,8 @@
         sorted.sort((a, b) => (b.credits || 3) - (a.credits || 3));
       } else if (currentSort === "missed") {
         sorted.sort((a, b) => {
-          const remA = (a.totalLectures || 0) - (a.attendedLectures || 0);
-          const remB = (b.totalLectures || 0) - (b.attendedLectures || 0);
+          const remA = getCourseTotalLectures(a) - getAutoLectureCount(a);
+          const remB = getCourseTotalLectures(b) - getAutoLectureCount(b);
           return remB - remA;
         });
       } else if (currentSort === "name") {
@@ -4926,12 +4960,13 @@
       }
       sorted.forEach((course) => {
         const autoAttendedLectures = getAutoLectureCount(course);
-        totalLecAll += (course.totalLectures || 0);
+        const courseTotalLectures = getCourseTotalLectures(course);
+        totalLecAll += courseTotalLectures;
         attendedLecAll += autoAttendedLectures;
-        const remainingLec = Math.max(0, (course.totalLectures || 0) - autoAttendedLectures);
+        const remainingLec = Math.max(0, courseTotalLectures - autoAttendedLectures);
         const completedChapters = (course.chapters || []).filter(c => c.done).length;
         const totalChapters = (course.chapters || []).length;
-        const totalLec = course.totalLectures || (course.credits === 4 ? 45 : (course.credits === 3 ? 30 : 15));
+        const totalLec = courseTotalLectures;
         const maxAllowedAbsences = Math.floor(totalLec / 4);
         const dnAbsenceThreshold = maxAllowedAbsences + 1;
         const absences = course.absences || 0;
@@ -4968,7 +5003,7 @@
               </span>
             </div>
             <span class="course-status-brief">
-              أُنجز ${course.attendedLectures}/${course.totalLectures} • باقي ${remainingLec}
+              أُنجز ${autoAttendedLectures}/${courseTotalLectures} • باقي ${remainingLec}
             </span>
             <span class="course-expand-icon">▼</span>
           </div>
@@ -4982,7 +5017,7 @@
               <span>المحاضرات التي تم حضورها:</span>
               <div class="stepper-controls">
                 <button class="step-btn btn-dec">-</button>
-                <strong>${autoAttendedLectures} / ${course.totalLectures}</strong>
+                <strong>${autoAttendedLectures} / ${courseTotalLectures}</strong>
                 <button class="step-btn btn-inc">+</button>
               </div>
             </div>
