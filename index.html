@@ -3685,7 +3685,19 @@
       if (!box) return;
 
       const now = new Date().getTime();
-      const upcoming = examsList.filter(e => new Date(e.dateTime).getTime() > now);
+
+      // عرض الاختبارات حسب التصنيف المحفوظ في الملف الشخصي:
+      // الطالبات لا يشاهدن اختبارات الطلاب، والطلاب لا يشاهدون اختبارات الطالبات.
+      // الاختبار المخصص للجميع يظهر للطرفين. المشرف يرى جميع الاختبارات.
+      const userGender = currentUser?._profileGender || "";
+      const visibleExams = isAdmin
+        ? examsList
+        : examsList.filter(e => {
+            const target = e.targetGroup || "الكل";
+            return target === "الكل" || !target || target === userGender;
+          });
+
+      const upcoming = visibleExams.filter(e => new Date(e.dateTime).getTime() > now);
       upcoming.sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
 
       if (upcoming.length === 0) {
@@ -5643,64 +5655,74 @@
       }
     }
 
-    const onboardingSteps = [
-      {
-        title: "أهلاً بك في Academic Tracker 👋",
-        icon: "🎓",
-        target: null,
-        tab: "home",
-        description: "هذه جولة سريعة وشاملة على التطبيق. سنعرّفك على الرئيسية، المقررات، الجدول، المكتبة الأكاديمية، المهام، الملف الشخصي والروبوتات، ثم الشكاوى والاقتراحات."
-      },
-      {
-        title: "الرئيسية 🏠",
-        icon: "🏠",
-        target: ".nav-item[data-target='home']",
-        tab: "home",
-        description: "من الرئيسية تتابعين محاضرات اليوم، الاختبارات القادمة، التنبيهات، الإحصائيات، النقاط، وآخر المحتوى الأكاديمي بسرعة."
-      },
-      {
-        title: "المقررات 📊",
-        icon: "📊",
-        target: ".nav-item[data-target='courses']",
-        tab: "courses",
-        description: "هنا تتابعين إنجاز كل مقرر، المحاضرات، الغياب، والشباتر. يمكنك إضافة مادة وتحديث إنجازك منها."
-      },
-      {
-        title: "الجدول 🗓️",
-        icon: "🗓️",
-        target: ".nav-item[data-target='schedule']",
-        tab: "schedule",
-        description: "أضيفي محاضراتك مع اليوم والوقت والقاعة والمبنى، ثم استخدمي استوديو التصدير لإنشاء صورة للجدول."
-      },
-      {
-        title: "المكتبة الأكاديمية 📚",
-        icon: "📚",
-        target: ".nav-item[data-target='resources']",
-        tab: "resources",
-        description: "المكتبة تجمع الموارد المرتبطة بموادك الحالية: ملخصات، سلايدات، تجميعات، وقنوات. يمكنك البحث والمشاركة والمساهمة."
-      },
-      {
-        title: "المهام والتكاليف 📝",
-        icon: "📝",
-        target: ".nav-item[data-target='tasks']",
-        tab: "tasks",
-        description: "ابدئي بمولّد المذاكرة التجريبي، ثم التكاليف الرسمية التي ينشرها المشرف والمهام الشخصية، وبعدها مؤقت البومودورو، لوحة الشرف، وحاسبة المعدل 5.00."
-      },
-      {
-        title: "الملف الشخصي والروبوتات 🤖",
-        icon: "🤖",
-        target: "#btn-open-profile",
-        tab: "home",
-        description: "من زر حسابك في أعلى الشاشة يمكنك تعديل الاسم والنبذة والصورة، اختيار روبوتك المفضل، وتخصيص بطاقات الرئيسية. التصنيف والدفعة محميان."
-      },
-      {
-        title: "الشكاوى والاقتراحات 📩",
-        icon: "📩",
-        target: "#btn-open-feedback",
-        tab: "home",
-        description: "استخدمي زر الرسائل أعلى الشاشة لإرسال اقتراح ميزة، بلاغ عن خلل، أو استفسار عام إلى الإدارة."
-      }
-    ];
+    function getOnboardingSteps() {
+      const isFemale = currentUser?._profileGender === "طالبة";
+      const titlePrefix = isFemale ? "المهندسة" : "المهندس";
+      const verbs = isFemale
+        ? { follow: "تتابعين", add: "أضيفي", use: "استخدمي", start: "ابدئي", send: "أرسلي" }
+        : { follow: "تتابع", add: "أضف", use: "استخدم", start: "ابدأ", send: "أرسل" };
+
+      return [
+        {
+          title: `أهلاً بك ${titlePrefix} في Academic Tracker 👋`,
+          icon: "🎓",
+          target: null,
+          tab: "home",
+          description: isFemale
+            ? "هذه جولة سريعة وشاملة على التطبيق. سنعرّفك على الرئيسية، المقررات، الجدول، المكتبة الأكاديمية، المهام، الملف الشخصي والروبوتات، ثم الشكاوى والاقتراحات."
+            : "هذه جولة سريعة وشاملة على التطبيق. سنعرّفك على الرئيسية، المقررات، الجدول، المكتبة الأكاديمية، المهام، الملف الشخصي والروبوتات، ثم الشكاوى والاقتراحات."
+        },
+        {
+          title: "الرئيسية 🏠",
+          icon: "🏠",
+          target: ".nav-item[data-target='home']",
+          tab: "home",
+          description: `من الرئيسية ${verbs.follow} محاضرات اليوم، الاختبارات القادمة، التنبيهات، الإحصائيات، النقاط، وآخر المحتوى الأكاديمي بسرعة.`
+        },
+        {
+          title: "المقررات 📊",
+          icon: "📊",
+          target: ".nav-item[data-target='courses']",
+          tab: "courses",
+          description: `هنا ${verbs.follow} إنجاز كل مقرر، المحاضرات، الغياب، والشباتر. يمكنك إضافة مادة وتحديث إنجازك منها.`
+        },
+        {
+          title: "الجدول 🗓️",
+          icon: "🗓️",
+          target: ".nav-item[data-target='schedule']",
+          tab: "schedule",
+          description: `هنا ${verbs.add} محاضراتك مع اليوم والوقت والقاعة والمبنى، ثم ${verbs.use} استوديو التصدير لإنشاء صورة للجدول.`
+        },
+        {
+          title: "المكتبة الأكاديمية 📚",
+          icon: "📚",
+          target: ".nav-item[data-target='resources']",
+          tab: "resources",
+          description: `المكتبة تجمع الموارد المرتبطة بموادك الحالية: ملخصات، سلايدات، تجميعات، وقنوات. يمكنك البحث والمشاركة والمساهمة.`
+        },
+        {
+          title: "المهام والتكاليف 📝",
+          icon: "📝",
+          target: ".nav-item[data-target='tasks']",
+          tab: "tasks",
+          description: `${verbs.start} بمولّد المذاكرة التجريبي، ثم التكاليف الرسمية التي ينشرها المشرف والمهام الشخصية، وبعدها مؤقت البومودورو، لوحة الشرف، وحاسبة المعدل 5.00.`
+        },
+        {
+          title: "الملف الشخصي والروبوتات 🤖",
+          icon: "🤖",
+          target: "#btn-open-profile",
+          tab: "home",
+          description: `من زر حسابك في أعلى الشاشة يمكنك تعديل الاسم والنبذة والصورة، اختيار روبوتك المفضل، وتخصيص بطاقات الرئيسية. التصنيف والدفعة محميان.`
+        },
+        {
+          title: "الشكاوى والاقتراحات 📩",
+          icon: "📩",
+          target: "#btn-open-feedback",
+          tab: "home",
+          description: `استخدم زر الرسائل أعلى الشاشة لإرسال اقتراح ميزة، بلاغ عن خلل، أو استفسار عام إلى الإدارة.`
+        }
+      ];
+    }
 
     let onboardingStepIndex = 0;
 
@@ -5709,6 +5731,7 @@
     }
 
     function renderOnboardingStep() {
+      const onboardingSteps = getOnboardingSteps();
       const step = onboardingSteps[onboardingStepIndex];
       clearTourFocus();
 
@@ -5772,6 +5795,7 @@
     window.startOnboardingTour = startOnboardingTour;
 
     document.getElementById("btn-tour-next")?.addEventListener("click", () => {
+      const onboardingSteps = getOnboardingSteps();
       if (onboardingStepIndex >= onboardingSteps.length - 1) {
         finishOnboardingTour();
       } else {
