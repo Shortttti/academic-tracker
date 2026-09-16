@@ -1254,7 +1254,7 @@
     }
 
     #onboarding-tour-modal {
-      z-index: 9999 !important;
+      z-index: 200 !important;
       align-items: center;
     }
 
@@ -3369,10 +3369,6 @@
         authScreen.style.display = "none";
         mainApp.style.display = "flex";
 
-        // عند تسجيل الدخول/التسجيل، ابدأ دائماً من الصفحة الرئيسية.
-        // هذا يمنع بقاء آخر تبويب كان مفتوحاً في الواجهة.
-        switchTab("home");
-
         const adminDoc = await getDoc(doc(db, "system_configs", "admins"));
         if (adminDoc.exists() && adminDoc.data().uids) {
           adminUIDs = [...new Set([...adminUIDs, ...adminDoc.data().uids])];
@@ -3418,16 +3414,9 @@
             }
             applyUserWidgetPrefsUI();
 
-            if (data.isNewUser === true) {
-              // المستخدم الجديد يجب أن يبقى على الرئيسية قبل فتح الجولة.
-              switchTab("home");
+            if (data.isNewUser) {
               newUserWelcomeBox.style.display = "flex";
-
-              // نعطي الواجهة وقتاً للظهور واكتمال أول رسم للبيانات قبل فتح الجولة.
-              setTimeout(() => {
-                switchTab("home");
-                startOnboardingTour(true);
-              }, 700);
+              setTimeout(() => startOnboardingTour(false), 450);
             } else {
               newUserWelcomeBox.style.display = "none";
             }
@@ -5753,20 +5742,11 @@
 
     function startOnboardingTour(force = false) {
       if (!currentUser) return;
-
       const key = `academicTrackerTourDone_${currentUser.uid}`;
-
-      // الجولة التلقائية للمستخدم الجديد لا تعتمد على localStorage؛
-      // حتى لو كان المتصفح مستخدماً للاختبار سابقاً، isNewUser هو المصدر الأساسي.
       if (!force && localStorage.getItem(key) === "1") return;
 
       onboardingStepIndex = 0;
-      switchTab("home");
-
       const modal = document.getElementById("onboarding-tour-modal");
-      if (!modal) return;
-
-      // ارفع الجولة فوق جميع عناصر التطبيق والنوافذ الأخرى.
       modal.style.display = "flex";
       modal.classList.add("open");
       renderOnboardingStep();
