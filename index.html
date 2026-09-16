@@ -70,7 +70,7 @@
 
     .app-container, .auth-wrapper {
       width: 100%;
-      max-width: 600px;
+      max-width: 480px;
       background-color: var(--bg-page);
       min-height: 100vh;
       min-height: 100dvh;
@@ -1539,7 +1539,7 @@
       position: fixed;
       bottom: 0;
       width: 100%;
-      max-width: 600px;
+      max-width: 480px;
       height: calc(58px + env(safe-area-inset-bottom, 0px));
       background: var(--card-bg);
       border-top: 1px solid var(--border-subtle);
@@ -1600,7 +1600,7 @@
       background: var(--card-bg);
       color: var(--text-main);
       width: 100%;
-      max-width: 600px;
+      max-width: 480px;
       border-radius: 22px 22px 0 0;
       padding: 20px;
       animation: slideUp 0.25s ease-out;
@@ -1890,7 +1890,7 @@
             مراجعة الطلبات 📝
           </button>
           <button class="btn-primary" style="background:#D97706; font-size:11px; padding:5px; margin:0;" onclick="switchTab('admin')">
-            مراجعة المكتبة 📚
+            مراجعة التجميعات 📚
           </button>
         </div>
       </div>
@@ -1906,8 +1906,7 @@
 
       <div id="new-user-welcome-box" class="poll-card" style="display:none; background:#EFF6FF; border-color:#93C5FD; color:#1D4ED8;">
         <strong>مرحباً بك في منصة Academic Tracker!</strong>
-        <span style="font-size:11px; display:block; opacity:0.9; margin-top:2px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك محتواها وروابطها هنا تلقائياً.</span>
-        <button type="button" onclick="startOnboardingTour(true)" style="margin-top:8px; background:#1D4ED8; color:white; border:none; border-radius:8px; padding:5px 9px; font-size:10.5px; font-weight:800; cursor:pointer;">ابدأ الجولة الشاملة 🧭</button>
+        <span style="font-size:11px; display:block; opacity:0.9; margin-top:2px;">قم بإضافة موادك الدراسية في تبويب "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</span>
       </div>
 
       <div id="home-active-poll-box" class="poll-card" style="display:none;">
@@ -1960,9 +1959,9 @@
         <div class="home-widget-header">
           <div class="home-widget-title">
             <span>✨</span>
-            <span>الجديد في المكتبة الأكاديمية 📚</span>
+            <span>الجديد في التجميعات</span>
           </div>
-          <span style="font-size:10.5px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('resources')">تصفح المكتبة ↗</span>
+          <span style="font-size:10.5px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('resources')">تصفح ↗</span>
         </div>
         <div id="home-latest-resources-list">
           <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">جلب أحدث الملخصات...</p>
@@ -2059,21 +2058,21 @@
       </footer>
     </main>
 
-    <!-- تبويب المكتبة الأكاديمية 📚 -->
+    <!-- تبويب التجميعات والملخصات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
-          <h2>المكتبة الأكاديمية 📚</h2>
-          <p>محتوى أكاديمي وسلايدات مخصصة للمواد المسجلة في جدولك فقط (تُضاف وتُحذف ديناميكياً)</p>
+          <h2>التجميعات والملخصات</h2>
+          <p>تجميعات وسلايدات مخصصة للمواد المسجلة في جدولك فقط (تُضاف وتُحذف ديناميكياً)</p>
         </div>
       </div>
 
       <button id="btn-student-submit-resource" class="btn-add-course" style="margin-bottom:10px; background:rgba(13, 148, 136, 0.08); border-style:solid;">
-        📤 مشاركة مورد جديد من المكتبة (+15 نقطة ⭐)
+        📤 مشاركة رابط تجميعة جديدة (+15 نقطة ⭐)
       </button>
 
       <div class="search-resources-bar">
-        <input type="text" id="search-resources-input" placeholder="🔍 ابحث في المكتبة الأكاديمية لموادك الحالية...">
+        <input type="text" id="search-resources-input" placeholder="🔍 ابحث في تجميعات موادك الحالية...">
         <div class="sort-bar" style="margin:0;">
           <button class="sort-pill active" data-res-filter="all">الكل</button>
           <button class="sort-pill" data-res-filter="تجميعات">تجميعات</button>
@@ -2090,17 +2089,17 @@
       </footer>
     </main>
 
-    <!-- تبويب المهام: مولد المذاكرة ثم التكاليف ثم المؤقت ثم لوحة الشرف ثم المعدل -->
+    <!-- تبويب المهام، المؤقت، وحاسبة المعدل -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
-
-      <!-- Cram Planner — Beta -->
-      <div class="cram-planner-card beta-feature">
+      
+      <!-- Cram Planner -->
+      <div class="cram-planner-card">
         <div class="cram-planner-header">
-          <span style="font-size:12.5px; font-weight:900;">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
-          <span class="cram-pill-tag">ميزة تجريبية 🧪 Beta</span>
+          <span style="font-size:12px; font-weight:800;">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
+          <span class="cram-pill-tag">خاصية ذكية 🧪</span>
         </div>
         <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">
-          حددي المادة وموعد الاختبار وعدد ساعات المذاكرة اليومية، وسيتم تقسيم الشباتر المتبقية إلى خطة يومية عملية.
+          حددي موعد الاختبار والشباتر المتبقية لحساب معدل الإنجاز اليومي لختم المنهج:
         </p>
         <div class="form-row">
           <div class="form-group" style="margin:0;">
@@ -2110,63 +2109,38 @@
             <input type="date" id="cram-exam-date" style="font-size:11.5px; padding:7px;">
           </div>
         </div>
-        <div class="form-group" style="margin:7px 0 0 0;">
-          <label>كم ساعة تستطيعين المذاكرة يومياً؟</label>
-          <input type="number" id="cram-daily-hours" min="0.5" max="16" step="0.5" value="3" placeholder="مثال: 3">
-        </div>
-        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:6px; padding:8px; font-size:11.5px;">
-          احسب وولّد جدول المذاكرة 📊
+        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:6px; padding:7px; font-size:11.5px;">
+          احسب وتوليد الخطة الذكية 📊
         </button>
         <div id="cram-result-box" style="margin-top:8px; font-size:11.5px; display:none; background:var(--subtle-bg); padding:8px; border-radius:8px;"></div>
       </div>
 
-      <!-- التكاليف الرسمية + المهام الشخصية -->
-      <div id="official-assignments-section" class="home-widget-box" style="margin-bottom:12px;">
-        <div class="home-widget-header">
-          <div class="home-widget-title">
-            <span>📢</span>
-            <span>التكاليف المشتركة والرسمية</span>
-          </div>
-          <span id="official-assignments-count" class="resource-type-badge">0</span>
-        </div>
-        <div id="official-assignments-container">
-          <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد تكاليف رسمية حالياً.</p>
-        </div>
-      </div>
-
-      <div class="content-header" style="margin-top: 2px;">
-        <div>
-          <h2>المهام الشخصية والتكاليف</h2>
-          <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
-        </div>
-      </div>
-
-      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة أو تكليف شخصي جديد</button>
-
-      <div class="task-filter-bar">
-        <div class="filter-chip active" data-filter="all">الكل</div>
-        <div class="filter-chip" data-filter="pending">المتبقية</div>
-        <div class="filter-chip" data-filter="done">المكتملة</div>
-      </div>
-
-      <div id="tasks-container"></div>
-
-      <!-- مؤقت البومودورو -->
-      <div class="tree-timer-box" style="margin-top:14px;">
+      <!-- Pomodoro Focus Tree Timer -->
+      <div class="tree-timer-box">
         <div class="tree-timer-header">
-          <span style="font-size:12.5px; font-weight:800;">🌱 مؤقت البومودورو والتركيز</span>
-          <span class="tree-points-badge">⭐ نقاط التركيز</span>
+          <span style="font-size:12.5px; font-weight:800;">🌱 مؤقت غرس الإنجاز (Pomodoro)</span>
+          <div class="tree-points-badge">
+            <span>⭐</span>
+            <span id="user-points-display">0 نقطة</span>
+            <span style="font-size:10.5px; opacity:0.8;">(<span id="trees-grown-count">0</span> شجرة)</span>
+          </div>
         </div>
 
-        <div class="timer-time-presets">
-          <button class="preset-chip active" data-time="25">25 دقيقة</button>
-          <button class="preset-chip" data-time="50">50 دقيقة</button>
-          <button class="preset-chip" data-time="90">90 دقيقة</button>
+        <div class="timer-time-presets" id="timer-presets-container">
+          <span style="font-size:10.5px; color:var(--text-muted); width:100%; margin-bottom:3px; font-weight:700;">اختر مدة الجلسة:</span>
+          <button class="preset-chip" data-time="15">15 د</button>
+          <button class="preset-chip active" data-time="25">25 د (افتراضي)</button>
+          <button class="preset-chip" data-time="45">45 د</button>
+          <button class="preset-chip" data-time="60">60 د</button>
           <button class="preset-chip" id="btn-custom-timer">مخصص ⏱️</button>
         </div>
 
-        <div class="tree-illustration-container">
-          <div id="tree-svg-container"></div>
+        <div class="tree-illustration-container" id="tree-svg-container">
+          <svg viewBox="0 0 100 100" width="90" height="90">
+            <ellipse cx="50" cy="85" rx="36" ry="7" fill="#8D6E63" opacity="0.4"/>
+            <circle cx="50" cy="82" r="5" fill="#5D4037"/>
+            <path d="M50 78 Q52 74 50 70" stroke="#84CC16" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
         </div>
 
         <div class="timer-display" id="pomodoro-timer">25:00</div>
@@ -2179,7 +2153,7 @@
         </div>
       </div>
 
-      <!-- لوحة الشرف -->
+      <!-- لوحة الشرف للمتصدرين -->
       <div class="leaderboard-card">
         <div class="leaderboard-header">
           <span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span>
@@ -2189,7 +2163,7 @@
         </div>
       </div>
 
-      <!-- حاسبة المعدل -->
+      <!-- حاسبة المعدل الفصلي والتراكمي بسلم 5.00 -->
       <div class="home-widget-box" style="margin-top: 12px;">
         <div class="home-widget-header">
           <div class="home-widget-title">
@@ -2199,6 +2173,24 @@
         </div>
         <div id="gpa-calc-container"></div>
       </div>
+
+      <!-- المهام والتكاليف -->
+      <div class="content-header" style="margin-top: 16px;">
+        <div>
+          <h2>المهام والتكاليف</h2>
+          <p>متابعة الواجبات، الكويزات، ومشاريع المقررات</p>
+        </div>
+      </div>
+
+      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة أو تكليف جديد</button>
+
+      <div class="task-filter-bar">
+        <div class="filter-chip active" data-filter="all">الكل</div>
+        <div class="filter-chip" data-filter="pending">المتبقية</div>
+        <div class="filter-chip" data-filter="done">المكتملة</div>
+      </div>
+
+      <div id="tasks-container"></div>
 
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
@@ -2210,7 +2202,7 @@
       <div class="content-header">
         <div>
           <h2>👑 لوحة الإشراف وإدارة النظام</h2>
-          <p>إدارة الطلبات، المكتبة الأكاديمية، الطلاب، وإضافة مشرفين جدد</p>
+          <p>إدارة الطلبات، التجميعات، الطلاب، وإضافة مشرفين جدد</p>
         </div>
       </div>
 
@@ -2228,7 +2220,7 @@
           </div>
           <div class="admin-kpi-card">
             <span class="num" id="kpi-total-resources" style="color:#0D9488;">0</span>
-            <span class="label">موارد المكتبة المعتمدة</span>
+            <span class="label">التجميعات المعتمدة</span>
           </div>
           <div class="admin-kpi-card">
             <span class="num" id="kpi-total-points" style="color:#D97706;">0</span>
@@ -2315,7 +2307,7 @@
 
         <!-- مراجعة واعتماد ملخصات وتجميعات الطلاب (+15 نقطة) -->
         <div class="admin-section-box">
-          <h3>📚 📚 مراجعة واعتماد محتوى المكتبة (+15 نقطة مساهمة)</h3>
+          <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة مساهمة)</h3>
           <div id="admin-pending-resources-list">
             <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>
           </div>
@@ -2374,7 +2366,7 @@
         <div class="admin-section-box">
           <h3>⚡ الإجراءات والأدوات السريعة</h3>
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
-            <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:11.5px; padding:8px; margin:0;">➕ إضافة مورد للمكتبة</button>
+            <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:11.5px; padding:8px; margin:0;">➕ إضافة تجميعة</button>
             <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:11.5px; padding:8px; margin:0;">⚙️ إعلانات وعدّاد</button>
             <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:11.5px; padding:8px; margin:0;">📊 استطلاع رأي</button>
             <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:11.5px; padding:8px; margin:0;">📊 فتح وتصدير Google Sheet</button>
@@ -2414,7 +2406,7 @@
 
       <div class="nav-item" data-target="resources" onclick="switchTab('resources')">
         <span class="icon">📚</span>
-        <span>المكتبة الأكاديمية 📚</span>
+        <span>التجميعات</span>
       </div>
       <div class="nav-item" data-target="tasks" onclick="switchTab('tasks')">
         <span class="icon">🌳</span>
@@ -2543,7 +2535,7 @@
             <span style="font-size:11.5px; font-weight:800; color:var(--primary-teal); display:block; margin-bottom:4px;">⚙️ تخصيص بطاقات الرئيسية:</span>
             <div class="pref-switch-row"><span>إظهار إحصائيات الحضور ونقاط التركيز 📊</span><input type="checkbox" id="pref-show-stats" checked></div>
             <div class="pref-switch-row"><span>إظهار المهام والتكاليف القريبة 📝</span><input type="checkbox" id="pref-show-tasks" checked></div>
-            <div class="pref-switch-row"><span>إظهار الجديد في المكتبة الأكاديمية 📚 والإعلانات ✨</span><input type="checkbox" id="pref-show-news" checked></div>
+            <div class="pref-switch-row"><span>إظهار الجديد في التجميعات والإعلانات ✨</span><input type="checkbox" id="pref-show-news" checked></div>
           </div>
           <button type="submit" class="btn-primary">حفظ وتطبيق التحديثات ✅</button>
         </form>
@@ -2668,7 +2660,7 @@
     <div id="student-submit-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>📤 📤 مشاركة مورد من المكتبة</h3>
+          <h3>📤 مشاركة رابط تجميعة</h3>
           <button id="btn-close-submit-res-modal" class="close-btn">&times;</button>
         </div>
         <form id="student-resource-form">
@@ -2702,7 +2694,7 @@
     <div id="admin-resource-modal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>➕ ➕ إضافة مورد مباشر للمكتبة (للأدمن)</h3>
+          <h3>➕ إضافة رابط تجميعة مباشر (للأدمن)</h3>
           <button id="btn-close-admin-res-modal" class="close-btn">&times;</button>
         </div>
         <form id="admin-resource-form">
@@ -3446,57 +3438,53 @@
           }
 
           const data = snap.data();
-            currentLevel = data.currentLevel || 5;
-            document.getElementById("user-points-display").textContent = `${data.points || 0} نقطة`;
-            document.getElementById("trees-grown-count").textContent = `${data.treesGrown || 0}`;
-            
-            const avatarUrl = data.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`;
-            headerAvatar.src = avatarUrl;
-            homeHeroAvatarImg.src = avatarUrl;
-            profileAvatarPreview.src = avatarUrl;
-            headerNameDisplay.textContent = (data.displayName || "حسابي").split(" ")[0];
-            
-            const isFemale = (data.gender === 'طالبة');
-            homeGreetingName.textContent = isFemale 
-              ? `أهلاً بكِ يا مهندسة ${data.displayName || ''} ✨` 
-              : `أهلاً بك يا مهندس ${data.displayName || ''} ✨`;
-            
-            profileNameInput.value = data.displayName || "";
-            profileGenderInput.value = data.gender || "غير محدد";
-            profileSectionInput.value = data.section || "";
-            profileBioInput.value = data.bio || "";
-            currentUser._profileGender = data.gender || "";
-            currentUser._profileSection = data.section || "";
-            currentUser._isNewUser = data.isNewUser === true;
-            profileAvatarUrl.value = data.photoURL || "";
+          currentLevel = data.currentLevel || 5;
+          document.getElementById("user-points-display").textContent = `${data.points || 0} نقطة`;
+          document.getElementById("trees-grown-count").textContent = `${data.treesGrown || 0}`;
+          
+          const avatarUrl = data.photoURL || `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`;
+          headerAvatar.src = avatarUrl;
+          homeHeroAvatarImg.src = avatarUrl;
+          profileAvatarPreview.src = avatarUrl;
+          headerNameDisplay.textContent = (data.displayName || "حسابي").split(" ")[0];
+          
+          const isFemale = (data.gender === 'طالبة');
+          homeGreetingName.textContent = isFemale 
+            ? `أهلاً بكِ يا مهندسة ${data.displayName || ''} ✨` 
+            : `أهلاً بك يا مهندس ${data.displayName || ''} ✨`;
+          
+          profileNameInput.value = data.displayName || "";
+          profileGenderInput.value = data.gender || "غير محدد";
+          profileSectionInput.value = data.section || "";
+          profileBioInput.value = data.bio || "";
+          currentUser._profileGender = data.gender || "";
+          currentUser._profileSection = data.section || "";
+          currentUser._isNewUser = data.isNewUser === true;
+          profileAvatarUrl.value = data.photoURL || "";
 
-            userGreeting.textContent = data.displayName ? `${data.displayName} | كلية علوم وهندسة الحاسب` : "جامعة طيبة | كلية علوم وهندسة الحاسب";
+          userGreeting.textContent = data.displayName ? `${data.displayName} | كلية علوم وهندسة الحاسب` : "جامعة طيبة | كلية علوم وهندسة الحاسب";
 
-            if (data.widgetPrefs) {
-              userWidgetPrefs = { ...userWidgetPrefs, ...data.widgetPrefs };
-            }
-            applyUserWidgetPrefsUI();
-
-            if (data.isNewUser === true) {
-              // المستخدم الجديد يبدأ دائماً من الرئيسية ثم تظهر الجولة فوق التطبيق.
-              newUserWelcomeBox.style.display = "flex";
-              switchTab("home");
-
-              // ننتظر حتى تكتمل عملية رسم الصفحة وإخفاء شاشة الدخول.
-              setTimeout(() => {
-                if (currentUser && currentUser.uid === user.uid) {
-                  switchTab("home");
-                  startOnboardingTour(true);
-                }
-              }, 1000);
-            } else {
-              newUserWelcomeBox.style.display = "none";
-            }
-
-            updateLevelUIState();
-            renderHomeDashboardUI();
-            renderOfficialAssignmentsUI();
+          if (data.widgetPrefs) {
+            userWidgetPrefs = { ...userWidgetPrefs, ...data.widgetPrefs };
           }
+          applyUserWidgetPrefsUI();
+
+          if (data.isNewUser === true) {
+            newUserWelcomeBox.style.display = "flex";
+            switchTab("home");
+            setTimeout(() => {
+              if (currentUser && currentUser.uid === user.uid) {
+                switchTab("home");
+                startOnboardingTour(true);
+              }
+            }, 1000);
+          } else {
+            newUserWelcomeBox.style.display = "none";
+          }
+
+          updateLevelUIState();
+          renderHomeDashboardUI();
+          renderOfficialAssignmentsUI();
         });
 
         onSnapshot(collection(db, "users", user.uid, "courses"), (snapshot) => {
@@ -3876,7 +3864,7 @@
       const auditBox = document.getElementById("admin-audit-log-list");
       auditBox.innerHTML = `
         <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• جاهزية النظام متصلة بقاعدة البيانات السحابية (Firestore).</div>
-        <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• تم مزامنة طلبات التعديل والمكتبة الأكاديمية لحظياً.</div>
+        <div style="padding:4px 0; border-bottom:1px dashed var(--border-subtle);">• تم مزامنة طلبات التعديل والتجميعات لحظياً.</div>
         <div style="padding:4px 0;">• آخر فحص للنظام: ${new Date().toLocaleTimeString('ar-SA')}</div>
       `;
     }
@@ -4785,89 +4773,36 @@
         alert("الرجاء تحديد تاريخ الاختبار.");
         return;
       }
-      if (!dailyHours || dailyHours <= 0) {
-        alert("الرجاء إدخال عدد ساعات مذاكرة يومية صحيح.");
-        return;
-      }
 
-      const examDate = new Date(`${examDateStr}T23:59:59`);
+      const examDate = new Date(examDateStr);
       const today = new Date();
-      today.setHours(0,0,0,0);
-      const examDay = new Date(examDate);
-      examDay.setHours(0,0,0,0);
-      const daysRemaining = Math.ceil((examDay.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      const diffTime = examDate.getTime() - today.getTime();
+      const daysRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
       if (daysRemaining <= 0) {
         alert("تاريخ الاختبار يجب أن يكون في تاريخ قادم.");
         return;
       }
 
-      const unstudiedChapters = (course.chapters || []).filter(c => !c.done);
+      const unstudiedChapters = (course.chapters || []).filter(c => !c.done).length;
       const totalCh = (course.chapters || []).length;
-      const totalStudyHours = daysRemaining * dailyHours;
-      const dailyChapterRate = unstudiedChapters.length / daysRemaining;
-      const hoursPerChapter = unstudiedChapters.length ? (totalStudyHours / unstudiedChapters.length) : 0;
-
-      let planRows = "";
-      if (unstudiedChapters.length === 0) {
-        planRows = `<div class="cram-plan-day"><strong>🎉 المنهج مكتمل</strong><div style="margin-top:3px;">لا توجد شباتر متبقية للمذاكرة.</div></div>`;
-      } else {
-        let cursor = 0;
-        for (let day = 1; day <= daysRemaining; day++) {
-          const target = Math.min(
-            unstudiedChapters.length - cursor,
-            Math.max(0, Math.round(dailyChapterRate * day) - Math.round(dailyChapterRate * (day - 1)))
-          );
-          const take = day === daysRemaining
-            ? unstudiedChapters.length - cursor
-            : target;
-
-          const dayChapters = unstudiedChapters.slice(cursor, cursor + take);
-          cursor += take;
-
-          const chapterText = dayChapters.length
-            ? dayChapters.map(ch => ch.title).join("، ")
-            : "مراجعة وتثبيت ما سبق";
-
-          planRows += `
-            <div class="cram-plan-day">
-              <strong>اليوم ${day}</strong>
-              <span style="float:left; color:var(--text-muted); font-size:10px;">${dailyHours} ساعة</span>
-              <div style="margin-top:3px;">📚 ${chapterText}</div>
-              <div style="margin-top:2px; color:var(--text-muted); font-size:10px;">
-                ${dayChapters.length} شابتر • تقريباً ${dayChapters.length ? (dailyHours / dayChapters.length).toFixed(1) : "0"} ساعة/شابتر
-              </div>
-            </div>
-          `;
-        }
-      }
+      const dailyChapters = (unstudiedChapters / daysRemaining).toFixed(1);
 
       cramResultBox.style.display = "block";
       cramResultBox.innerHTML = `
-        <div style="font-weight:900; color:var(--text-main); margin-bottom:5px;">
-          📊 خطة ${course.name} (${course.code})
+        <div style="font-weight:800; color:var(--text-main); margin-bottom:3px;">
+          📊 الخطة الذكية لمقرر ${course.name}:
         </div>
-        <div class="cram-hours-row">
-          <div style="background:var(--card-bg); padding:6px; border-radius:7px; text-align:center;">
-            <strong style="display:block; color:var(--primary-teal);">${daysRemaining}</strong><span style="font-size:9.5px;">يوم متبقٍ</span>
-          </div>
-          <div style="background:var(--card-bg); padding:6px; border-radius:7px; text-align:center;">
-            <strong style="display:block; color:var(--primary-teal);">${dailyHours}</strong><span style="font-size:9.5px;">ساعة/يوم</span>
-          </div>
-          <div style="background:var(--card-bg); padding:6px; border-radius:7px; text-align:center;">
-            <strong style="display:block; color:var(--primary-teal);">${dailyChapterRate.toFixed(1)}</strong><span style="font-size:9.5px;">شابتر/يوم</span>
-          </div>
-        </div>
-        <p>• الشباتر المتبقية: <strong>${unstudiedChapters.length} من أصل ${totalCh}</strong></p>
-        <p>• إجمالي وقت المذاكرة المتاح: <strong>${totalStudyHours.toFixed(1)} ساعة</strong></p>
-        <p>• المتوسط التقريبي: <strong>${hoursPerChapter.toFixed(1)} ساعة لكل شابتر</strong></p>
-        <div style="margin-top:7px; font-weight:900; color:var(--primary-teal);">🗓️ الجدول اليومي</div>
-        ${planRows}
+        <p>• الأيام المتبقية حتى الاختبار: <strong>${daysRemaining} يوم</strong></p>
+        <p>• الشباتر المتبقية للمذاكرة: <strong>${unstudiedChapters} من أصل ${totalCh} شباتر</strong></p>
+        <p style="color:var(--primary-teal); font-weight:800; margin-top:3px;">
+          🎯 معدل الإنجاز المطلوب: مذاكرة <strong>${dailyChapters} شابتر يومياً</strong> لختم المادة قبل موعد الاختبار بكل راحة!
+        </p>
       `;
     });
 
     function updateAllCourseDropdowns() {
-      const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse, examCourseSelect, document.getElementById("admin-assignment-course")];
+      const selects = [taskCourseSelect, slotCourseSelect, cramCourseSelect, subResCourse, adminResCourse, examCourseSelect];
       selects.forEach(sel => {
         if (!sel) return;
         const prevVal = sel.value;
@@ -4913,7 +4848,7 @@
         resourcesGlobalContainer.innerHTML = `
           <div style="text-align:center; padding:24px 14px; background:var(--card-bg); border-radius:12px; border:1px solid var(--border-subtle);">
             <p style="font-size:12.5px; font-weight:700; color:var(--text-muted);">لا توجد مقررات في جدولك حالياً 📚</p>
-            <p style="font-size:11px; color:var(--text-muted); margin-top:3px;">أضف موادك في صفحة "المقررات" لتظهر لك محتواها وروابطها هنا تلقائياً.</p>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:3px;">أضف موادك في صفحة "المقررات" لتظهر لك تجميعاتها وروابطها هنا تلقائياً.</p>
           </div>
         `;
         return;
