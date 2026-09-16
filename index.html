@@ -8,7 +8,6 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Academic Tracker">
-  <meta name="application-name" content="Academic Tracker">
   <meta name="theme-color" content="#0F766E">
   <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/bottts/svg?seed=COE&backgroundColor=0f766e">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,23 +125,19 @@
       </div>
     </header>
 
-    <!-- تبويب الصفحة الرئيسية (Home) -->
+    <!-- تبويب الرئيسية (Home) -->
     <main class="main-content" id="tab-content-home">
-      <!-- تنبيه الحرمان المباشر من المشرف للطالب -->
-      <div id="student-urgent-dn-alert" class="dn-warning-banner" style="display: none;">
+      <!-- إنذار أكاديمي مباشر من المشرف باقتراب الحرمان -->
+      <div id="student-dn-urgent-alert" class="dn-urgent-banner" style="display: none;">
         <div>
-          <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 16px;">🚨</span>
-            <strong style="font-size: 13px;">إنذار أكاديمي رسمي: اقتراب من الحرمان</strong>
-          </div>
-          <p id="student-urgent-dn-msg" style="font-size: 11.5px; margin-top: 4px; line-height: 1.5;"></p>
+          <span class="dn-urgent-badge">🚨 إنذار أكاديمي رسمي عاجل</span>
+          <h4 id="student-dn-alert-course" style="font-size: 13.5px; font-weight: 900; margin-top: 4px;">تنبيه حرمان: --</h4>
+          <p id="student-dn-alert-msg" style="font-size: 11px; opacity: 0.95; margin-top: 2px; line-height: 1.5;">--</p>
         </div>
-        <button id="btn-ack-dn-alert" class="btn-timer" style="background: white; color: #DC2626; margin-top: 8px; font-size: 11px;">
-          اطلعت على التنبيه ✓
-        </button>
+        <button id="btn-dismiss-dn-alert" class="btn-dismiss-dn">اطلعت عليه ✓</button>
       </div>
 
-      <!-- بطاقة الاختبارات القادمة -->
+      <!-- بطاقة الاختبارات القادمة البارزة -->
       <div id="home-urgent-exam-box" class="exam-alert-card" style="display: none;" onclick="openExamModal()">
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <div>
@@ -157,7 +152,7 @@
         </div>
       </div>
 
-      <!-- بطاقة المحاضرة الحالية -->
+      <!-- بطاقة المحاضرة الآن -->
       <div id="live-class-banner" class="live-class-banner">
         <div>
           <span style="font-size: 9.5px; background: rgba(0,0,0,0.25); padding: 2px 6px; border-radius: 6px; font-weight: 900;">المحاضرة الآن 🟢</span>
@@ -167,7 +162,7 @@
         <span style="font-size: 22px;">🏫</span>
       </div>
 
-      <!-- تنبيهات المشرف اللحظية -->
+      <!-- إشعارات المشرف -->
       <div id="admin-dashboard-notif-card" class="admin-dashboard-notification">
         <div class="admin-notif-title">
           <span>🔔 تنبيهات المشرف اللحظية:</span>
@@ -181,16 +176,12 @@
           <strong id="notif-res-count" style="color:#D97706;">0</strong>
         </div>
         <div style="display: flex; gap: 6px; margin-top: 6px;">
-          <button class="btn-primary" style="background:#DC2626; font-size:11px; padding:5px; margin:0;" onclick="switchTab('admin')">
-            مراجعة الطلبات 📝
-          </button>
-          <button class="btn-primary" style="background:#D97706; font-size:11px; padding:5px; margin:0;" onclick="switchTab('admin')">
-            مراجعة التجميعات 📚
-          </button>
+          <button class="btn-primary" style="background:#DC2626; font-size:11px; padding:5px; margin:0;" onclick="switchTab('admin')">مراجعة الطلبات 📝</button>
+          <button class="btn-primary" style="background:#D97706; font-size:11px; padding:5px; margin:0;" onclick="switchTab('admin')">مراجعة التجميعات 📚</button>
         </div>
       </div>
 
-      <!-- بطاقة الترحيب -->
+      <!-- الترحيب والإحصائيات -->
       <div class="home-hero-card">
         <img id="home-hero-avatar-img" class="home-hero-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" alt="Avatar">
         <div class="home-hero-info">
@@ -211,7 +202,7 @@
       <div id="home-widget-stats" class="home-quick-stat-grid">
         <div class="home-stat-card">
           <span class="stat-num" id="home-quick-attendance">0%</span>
-          <span class="stat-label">نسبة المواكبة الفعلية للمحاضرات</span>
+          <span class="stat-label">نسبة المواكبة للمحاضرات المنعقدة</span>
         </div>
         <div class="home-stat-card">
           <span class="stat-num" id="home-quick-points">0</span>
@@ -221,10 +212,7 @@
 
       <div class="home-widget-box">
         <div class="home-widget-header">
-          <div class="home-widget-title">
-            <span>📍</span>
-            <span id="home-today-classes-heading">محاضرات اليوم</span>
-          </div>
+          <div class="home-widget-title"><span>📍</span><span id="home-today-classes-heading">محاضرات اليوم</span></div>
           <span id="home-today-classes-count" style="font-size:10.5px; font-weight:700; color:var(--text-muted);">0 محاضرات</span>
         </div>
         <div id="home-today-lectures-list">
@@ -234,10 +222,7 @@
 
       <div id="home-widget-tasks" class="home-widget-box">
         <div class="home-widget-header">
-          <div class="home-widget-title">
-            <span>📝</span>
-            <span>المهام والتكاليف القريبة</span>
-          </div>
+          <div class="home-widget-title"><span>📝</span><span>المهام والتكاليف القريبة</span></div>
           <span style="font-size:10.5px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('tasks')">عرض الكل ↗</span>
         </div>
         <div id="home-urgent-tasks-list">
@@ -247,10 +232,7 @@
 
       <div id="home-widget-news" class="home-widget-box">
         <div class="home-widget-header">
-          <div class="home-widget-title">
-            <span>✨</span>
-            <span>الجديد في التجميعات</span>
-          </div>
+          <div class="home-widget-title"><span>✨</span><span>الجديد في التجميعات</span></div>
           <span style="font-size:10.5px; color:var(--primary-teal); font-weight:800; cursor:pointer;" onclick="switchTab('resources')">تصفح ↗</span>
         </div>
         <div id="home-latest-resources-list">
@@ -268,9 +250,10 @@
       <div class="content-header">
         <div>
           <h2 id="level-display-heading">إنجاز المقررات الدراسية</h2>
-          <p>محسوبة بدقة وفق المحاضرات المنعقدة فعلياً منذ بدء الترم (22 أغسطس 2026)</p>
+          <p>محسوبة بالمحاضرات المنعقدة فعلياً من بداية الفصل (22 أغسطس 2026) وفق جدولك</p>
         </div>
       </div>
+
       <section class="summary-card">
         <div class="summary-top">
           <div class="summary-info">
@@ -297,6 +280,7 @@
         <button class="sort-pill" data-sort="missed">الأكثر تأخراً</button>
         <button class="sort-pill" data-sort="name">أبجدياً</button>
       </div>
+
       <button id="btn-open-course-modal" class="btn-add-course">+ إضافة مقرر دراسي جديد (من المستوى الخامس فما فوق)</button>
       <section class="courses-list" id="courses-container"></section>
 
@@ -305,7 +289,7 @@
       </footer>
     </main>
 
-    <!-- تبويب الجدول الدراسي الأسبوعي -->
+    <!-- تبويب الجدول الأسبوعي -->
     <main class="main-content" id="tab-content-schedule" style="display: none;">
       <div class="content-header">
         <div>
@@ -314,12 +298,8 @@
         </div>
       </div>
       <div class="timetable-controls-bar">
-        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 11.5px; padding: 9px;">
-          ➕ إضافة محاضرة للجدول
-        </button>
-        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 11.5px; padding: 9px;">
-          📥 استوديو تصدير صورة HD
-        </button>
+        <button id="btn-open-slot-modal" class="btn-primary" style="flex: 1.1; font-size: 11.5px; padding: 9px;">➕ إضافة محاضرة للجدول</button>
+        <button id="btn-open-export-studio" class="btn-primary" style="flex: 1.1; background: #0F766E; font-size: 11.5px; padding: 9px;">📥 استوديو تصدير صورة HD</button>
       </div>
       <div id="schedule-days-container"></div>
       <footer class="site-footer">
@@ -327,7 +307,7 @@
       </footer>
     </main>
 
-    <!-- تبويب التجميعات والملخصات -->
+    <!-- تبويب التجميعات -->
     <main class="main-content" id="tab-content-resources" style="display: none;">
       <div class="content-header">
         <div>
@@ -354,16 +334,17 @@
       </footer>
     </main>
 
-    <!-- تبويب المهام (مع إعادة الترتيب والمولد المتطور في الأعلى) -->
+    <!-- تبويب المهام (المولد التجريبي في الأعلى + التكاليف الرسمية المشتركة) -->
     <main class="main-content" id="tab-content-tasks" style="display: none;">
-      <!-- Cram Planner - في أعلى الصفحة كخاصية تجريبية مميزة -->
+      
+      <!-- Cram Planner المتطور في أعلى التبويب -->
       <div class="cram-planner-card beta-feature">
         <div class="cram-planner-header">
-          <span style="font-size:13px; font-weight:900; color:var(--primary-teal);">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
+          <span style="font-size:12.5px; font-weight:900; color:var(--primary-teal);">⚡ مولّد خطة المذاكرة السريعة (Cram Planner)</span>
           <span class="cram-pill-tag">ميزة تجريبية 🧪 Beta</span>
         </div>
-        <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px; line-height: 1.5;">
-          حددي موعد الاختبار وساعات الفراغ اليومية لتوليد خطة مذاكرة دقيقة ومقسمة بالساعات لختم المنهج بكل راحة:
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px; line-height:1.5;">
+          حددي موعد الاختبار وعدد الساعات اليومية المتاحة لتوليد خطة مذاكرة دقيقة ومقسمة لختم المنهج بكل راحة:
         </p>
         <div class="form-row">
           <div class="form-group" style="margin:0;">
@@ -371,27 +352,24 @@
             <select id="cram-course-select" style="font-size:11.5px; padding:7px;"></select>
           </div>
           <div class="form-group" style="margin:0;">
-            <label>موعد الاختبار</label>
+            <label>تاريخ الاختبار</label>
             <input type="date" id="cram-exam-date" style="font-size:11.5px; padding:7px;">
           </div>
         </div>
-        <div class="form-group" style="margin-top: 8px;">
+        <div class="form-group" style="margin-top:8px;">
           <label>كم ساعة تستطيعين المذاكرة يومياً؟ ⏱️</label>
-          <input type="number" id="cram-daily-hours" min="1" max="16" value="4" style="font-size:12px; padding:8px;" placeholder="عدد الساعات اليومية">
+          <input type="number" id="cram-daily-hours" min="1" max="16" value="4" style="font-size:11.5px; padding:7px;" placeholder="عدد الساعات المتاحة يومياً">
         </div>
-        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:6px; padding:9px; font-size:12px; background: #0D9488;">
-          توليد خطة المذاكرة الذكية بالجدول 📊
+        <button id="btn-generate-cram-plan" class="btn-primary" style="margin-top:6px; padding:8px; font-size:12px; background:var(--primary-teal);">
+          احسب وتوليد الخطة الذكية 📊
         </button>
-        <div id="cram-result-box" style="margin-top:10px; font-size:11.5px; display:none; background:var(--subtle-bg); padding:10px; border-radius:10px; border: 1px solid var(--border-subtle);"></div>
+        <div id="cram-result-box" style="margin-top:8px; font-size:11.5px; display:none; background:var(--subtle-bg); padding:10px; border-radius:10px; border:1px solid var(--border-subtle);"></div>
       </div>
 
-      <!-- قسم التكاليف الرسمية المشتركة من المشرف -->
-      <div class="home-widget-box" style="margin-top: 14px;">
+      <!-- التكاليف الرسمية المشتركة من المشرف -->
+      <div class="home-widget-box" style="margin-bottom:14px;">
         <div class="home-widget-header">
-          <div class="home-widget-title">
-            <span>📢</span>
-            <span>التكاليف الرسمية المشتركة من المشرف</span>
-          </div>
+          <div class="home-widget-title"><span>📢</span><span>التكاليف الرسمية المشتركة من المشرف</span></div>
           <span id="official-assignments-count" class="resource-type-badge">0</span>
         </div>
         <div id="official-assignments-container">
@@ -399,8 +377,8 @@
         </div>
       </div>
 
-      <!-- مؤقت التركيز (Pomodoro) -->
-      <div class="tree-timer-box" style="margin-top: 14px;">
+      <!-- مؤقت غرس الإنجاز -->
+      <div class="tree-timer-box">
         <div class="tree-timer-header">
           <span style="font-size:12.5px; font-weight:800;">🌱 مؤقت غرس الإنجاز (Pomodoro)</span>
           <div class="tree-points-badge">
@@ -433,91 +411,73 @@
         </div>
       </div>
 
-      <!-- لوحة المتصدرين -->
+      <!-- لوحة الشرف -->
       <div class="leaderboard-card">
-        <div class="leaderboard-header">
-          <span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span>
-        </div>
+        <div class="leaderboard-header"><span>🏆 لوحة الشرف لمهندسي الدفعة (أبطال التركيز)</span></div>
         <div id="leaderboard-list">
           <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">جاري تحميل المتصدرين...</p>
         </div>
       </div>
 
-      <!-- حاسبة المعدل -->
+      <!-- حاسبة المعدل سلم 5.00 -->
       <div class="home-widget-box" style="margin-top: 12px;">
         <div class="home-widget-header">
-          <div class="home-widget-title">
-            <span>🧮</span>
-            <span>حاسبة المعدل المعتمدة (سلم 5.00)</span>
-          </div>
+          <div class="home-widget-title"><span>🧮</span><span>حاسبة المعدل المعتمدة (سلم 5.00)</span></div>
         </div>
         <div id="gpa-calc-container"></div>
       </div>
 
-      <!-- المهام الشخصية -->
+      <!-- المهام والتكاليف الشخصية -->
       <div class="content-header" style="margin-top: 16px;">
         <div>
           <h2>المهام والتكاليف الشخصية</h2>
-          <p>متابعة واجباتك ومشاريعك الخاصة</p>
+          <p>متابعة واجباتك الفردية ومشاريعك الخاصة</p>
         </div>
       </div>
-      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة أو تكليف شخصي جديد</button>
+      <button id="btn-open-task-modal" class="btn-add-course" style="margin-top: 4px;">+ إضافة مهمة شخصية جديدة</button>
       <div class="task-filter-bar">
         <div class="filter-chip active" data-filter="all">الكل</div>
         <div class="filter-chip" data-filter="pending">المتبقية</div>
         <div class="filter-chip" data-filter="done">المكتملة</div>
       </div>
       <div id="tasks-container"></div>
-
       <footer class="site-footer">
         <span class="footer-brand">COE • J</span> © 2026 جميع الحقوق محفوظة
       </footer>
     </main>
 
-    <!-- لوحة المشرف الشاملة والمحمية بالكامل -->
+    <!-- صفحة الإشراف (Admin Dashboard) -->
     <main class="main-content" id="tab-content-admin" style="display: none;">
       <div class="content-header">
         <div>
           <h2>👑 لوحة الإشراف وإدارة النظام</h2>
-          <p>إدارة الطلاب، رادار الحرمان، التكاليف، والتحكم بالحسابات</p>
+          <p>إدارة الطلاب، التكاليف، التجميعات، وإرسال تنبيهات الحرمان المباشرة</p>
         </div>
       </div>
       <div class="admin-dashboard-panel">
         <div class="admin-kpi-grid">
-          <div class="admin-kpi-card">
-            <span class="num" id="kpi-total-students">0</span>
-            <span class="label">إجمالي الطلاب المسجلين</span>
-          </div>
-          <div class="admin-kpi-card">
-            <span class="num" id="kpi-pending-reqs" style="color:#DC2626;">0</span>
-            <span class="label">طلبات التعديل المعلقة</span>
-          </div>
-          <div class="admin-kpi-card">
-            <span class="num" id="kpi-total-resources" style="color:#0D9488;">0</span>
-            <span class="label">التجميعات المعتمدة</span>
-          </div>
-          <div class="admin-kpi-card">
-            <span class="num" id="kpi-total-points" style="color:#D97706;">0</span>
-            <span class="label">نقاط المساهمة الممنوحة</span>
-          </div>
+          <div class="admin-kpi-card"><span class="num" id="kpi-total-students">0</span><span class="label">إجمالي الطلاب المسجلين</span></div>
+          <div class="admin-kpi-card"><span class="num" id="kpi-pending-reqs" style="color:#DC2626;">0</span><span class="label">طلبات التعديل المعلقة</span></div>
+          <div class="admin-kpi-card"><span class="num" id="kpi-total-resources" style="color:#0D9488;">0</span><span class="label">التجميعات المعتمدة</span></div>
+          <div class="admin-kpi-card"><span class="num" id="kpi-total-points" style="color:#D97706;">0</span><span class="label">نقاط المساهمة الممنوحة</span></div>
         </div>
 
         <!-- جديد: إدارة وحذف حسابات الطلاب المسجلين -->
         <div class="admin-section-box" style="border: 1.5px solid #2563EB;">
-          <h3 style="color: #2563EB;">👥 إدارة وحذف حسابات الطلاب المسجلين</h3>
-          <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
-            تصفح قائمة المسجلين لحذف أي حساب يسجل بمعلومات وهمية أو غير صحيحة:
+          <h3 style="color:#2563EB;">👥 إدارة وحذف حسابات الطلاب المسجلين</h3>
+          <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">
+            قائمة المسجلين لمراجعة الحسابات والتخلص من البيانات الوهمية أو غير الصحيحة:
           </p>
-          <input type="text" id="admin-search-users" placeholder="🔍 ابحث بالاسم أو البريد أو الدفعة..." style="width: 100%; padding: 8px; border: 1px solid var(--border-subtle); border-radius: 8px; font-size: 11.5px; margin-bottom: 8px;">
-          <div id="admin-users-manage-list" style="max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;">
-            <p style="font-size: 11px; color: var(--text-muted); text-align: center;">جاري جلب قائمة الطلاب...</p>
+          <input type="text" id="admin-search-users-input" placeholder="🔍 بحث باسم الطالب أو البريد أو الدفعة..." style="width:100%; padding:8px 10px; border:1.5px solid var(--border-subtle); border-radius:10px; font-size:11.5px; margin-bottom:8px;">
+          <div id="admin-users-list" style="max-height:280px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;">
+            <p style="font-size:11px; color:var(--text-muted); text-align:center;">جاري جلب بيانات الطلاب...</p>
           </div>
         </div>
 
-        <!-- رادار كشف الحرمان مع خاصية إرسال إنذار مباشر لشاشة الطالب -->
+        <!-- رادار كشف التعثر والغيابات مع الإنذار الفوري -->
         <div class="admin-section-box" style="border: 1.5px solid #FECACA;">
           <h3 style="color:#DC2626;">🚨 رادار كشف الطلاب المهددين بالحرمان (DN Alerts)</h3>
-          <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">الطلاب المقتربون من نسبة 25% مع إمكانية إرسال إنذار فوري لشاشاتهم الرئيسية:</p>
+          <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">الطلاب الذين اقتربوا من نسبة الحرمان 25% مع إمكانية إرسال إنذار فوري لشاشتهم الرئيسية:</p>
           <div id="admin-dn-risk-list">
             <p style="font-size:11px; color:var(--text-muted); text-align:center;">لا يوجد طلاب في مرحلة الخطر حالياً 🌟</p>
           </div>
@@ -525,22 +485,22 @@
 
         <!-- نشر تكليف رسمي مشترك للدفعة -->
         <div class="admin-section-box" style="border:1.5px solid #F59E0B;">
-          <h3 style="color:#D97706;">📢 نشر تكليف رسمي مشترك للطلاب</h3>
+          <h3 style="color:#D97706;">📢 التكاليف الرسمية المشتركة للطلاب</h3>
           <p style="font-size:11px; color:var(--text-muted); margin-bottom:8px;">
-            يظهر التكليف في تبويب المهام لجميع الطلاب المستهدفين مع إمكانية متابعة عدد من أنجزوه لحظياً.
+            ينزل التكليف لجميع الطلاب المطابقين للفئة والدفعة، مع إمكانية متابعة مؤشرات الإنجاز فورياً.
           </p>
           <form id="admin-assignment-form">
             <div class="form-group">
               <label>عنوان التكليف</label>
-              <input type="text" id="admin-assignment-title" required placeholder="مثال: تسليم تقرير اللاب الثاني COE 225">
+              <input type="text" id="admin-assignment-title" required placeholder="مثال: تسليم تقرير COE 225">
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label>المقرر</label>
-                <input type="text" id="admin-assignment-course" placeholder="مثال: COE 225 أو عام">
+                <select id="admin-assignment-course"></select>
               </div>
               <div class="form-group">
-                <label>تاريخ التسليم الأخير</label>
+                <label>تاريخ التسليم</label>
                 <input type="date" id="admin-assignment-due-date">
               </div>
             </div>
@@ -559,20 +519,20 @@
               </div>
             </div>
             <div class="form-group">
-              <label>التفاصيل والملاحظات</label>
-              <textarea id="admin-assignment-details" rows="2" placeholder="تفاصيل التسليم..."></textarea>
+              <label>التفاصيل</label>
+              <textarea id="admin-assignment-details" rows="2" placeholder="تفاصيل التكليف أو رابط التسليم..."></textarea>
             </div>
-            <button type="submit" class="btn-primary" style="background:#D97706;">نشر التكليف للدفعة فوراً 📢</button>
+            <button type="submit" class="btn-primary" style="background:#D97706;">نشر التكليف لجميع الطلاب المستهدفين 📢</button>
           </form>
           <div style="margin-top:12px;">
-            <h4 style="font-size:12px; margin-bottom:6px;">التكاليف المنشورة ومؤشرات الإنجاز:</h4>
+            <h4 style="font-size:12px; margin-bottom:6px;">التكاليف المنشورة ومتابعة الإنجاز</h4>
             <div id="admin-assignments-list">
               <p style="font-size:11px; color:var(--text-muted); text-align:center;">لا توجد تكاليف منشورة.</p>
             </div>
           </div>
         </div>
 
-        <!-- إضافة اختبار عام -->
+        <!-- إضافة موعد اختبار عام -->
         <div class="admin-section-box" style="border: 1.5px solid #0D9488;">
           <h3 style="color:var(--primary-teal);">📅 إضافة موعد اختبار عام (كويز / ميد / فاينل)</h3>
           <form id="admin-add-exam-form">
@@ -613,16 +573,20 @@
         <!-- إضافة مشرف جديد بالـ UID -->
         <div class="admin-section-box">
           <h3>👥 إضافة مشرف جديد للنظام</h3>
-          <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:8px;">أدخلي User ID (UID) لمنحه صلاحيات الإشراف:</p>
+          <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:8px;">أدخلي User ID (UID) الخاص بالطالب لمنحه صلاحيات المشرف تلقائياً:</p>
           <div style="display:flex; gap:6px;">
             <input type="text" id="new-admin-uid-input" placeholder="ألصقي الـ UID هنا..." style="flex:1; font-size:12px; padding:8px;">
             <button id="btn-add-admin-submit" class="btn-primary" style="width:auto; padding:8px 14px; margin:0; font-size:12px;">إضافة مشرف ➕</button>
           </div>
         </div>
 
-        <!-- مراجعة التعديلات -->
+        <!-- مركز طلبات تعديل البيانات -->
         <div class="admin-section-box">
           <h3>📝 مركز طلبات تعديل البيانات (الدفعة والتصنيف)</h3>
+          <div class="sort-bar" style="margin-bottom:8px;">
+            <button class="sort-pill active" id="filter-req-pending">المعلقة ⏳</button>
+            <button class="sort-pill" id="filter-req-all">الكل 📋</button>
+          </div>
           <div id="admin-profile-requests-list">
             <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد طلبات تعديل معلقة حالياً 🎉</p>
           </div>
@@ -630,7 +594,7 @@
 
         <!-- مراجعة التجميعات -->
         <div class="admin-section-box">
-          <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة)</h3>
+          <h3>📚 مراجعة واعتماد ملخصات الطلاب (+15 نقطة مساهمة)</h3>
           <div id="admin-pending-resources-list">
             <p style="font-size:11.5px; color:var(--text-muted); text-align:center;">لا توجد ملخصات بانتظار الاعتماد.</p>
           </div>
@@ -643,7 +607,7 @@
             <button id="btn-admin-add-resource" class="btn-primary" style="background:#0F766E; font-size:11.5px; padding:8px; margin:0;">➕ إضافة تجميعة</button>
             <button id="btn-admin-config-alerts" class="btn-primary" style="background:#D97706; font-size:11.5px; padding:8px; margin:0;">⚙️ إعلانات وعدّاد</button>
             <button id="btn-admin-create-poll" class="btn-primary" style="background:#7C3AED; font-size:11.5px; padding:8px; margin:0;">📊 استطلاع رأي</button>
-            <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:11.5px; padding:8px; margin:0;">📊 تصدير Excel / Sheets</button>
+            <button id="btn-admin-export-excel" class="btn-primary" style="background:#2563EB; font-size:11.5px; padding:8px; margin:0;">📊 فتح وتصدير Google Sheet</button>
           </div>
         </div>
       </div>
@@ -654,30 +618,15 @@
 
     <!-- شريط التنقل السفلي -->
     <nav class="bottom-nav">
-      <div class="nav-item" data-target="courses" onclick="switchTab('courses')">
-        <span class="icon">📊</span>
-        <span>المقررات</span>
-      </div>
-      <div class="nav-item" data-target="schedule" onclick="switchTab('schedule')">
-        <span class="icon">🗓️</span>
-        <span>الجدول</span>
-      </div>
-      <div class="nav-item active" data-target="home" onclick="switchTab('home')">
-        <span class="icon">🏠</span>
-        <span>الرئيسية</span>
-      </div>
-      <div class="nav-item" data-target="resources" onclick="switchTab('resources')">
-        <span class="icon">📚</span>
-        <span>التجميعات</span>
-      </div>
-      <div class="nav-item" data-target="tasks" onclick="switchTab('tasks')">
-        <span class="icon">🌳</span>
-        <span>المهام</span>
-      </div>
+      <div class="nav-item" data-target="courses" onclick="switchTab('courses')"><span class="icon">📊</span><span>المقررات</span></div>
+      <div class="nav-item" data-target="schedule" onclick="switchTab('schedule')"><span class="icon">🗓️</span><span>الجدول</span></div>
+      <div class="nav-item active" data-target="home" onclick="switchTab('home')"><span class="icon">🏠</span><span>الرئيسية</span></div>
+      <div class="nav-item" data-target="resources" onclick="switchTab('resources')"><span class="icon">📚</span><span>التجميعات</span></div>
+      <div class="nav-item" data-target="tasks" onclick="switchTab('tasks')"><span class="icon">🌳</span><span>المهام</span></div>
     </nav>
   </div>
 
-  <!-- النوافذ المنبثقة التفاعلية (Modals) -->
+  <!-- النوافذ المنبثقة (Modals) -->
   <div id="course-modal" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-header">
@@ -687,9 +636,7 @@
       <form id="add-course-form">
         <div class="form-group">
           <label>اختر من خطة هندسة الحاسب (اختياري للإضافة السريعة):</label>
-          <select id="quick-course-preset">
-            <option value="">-- كتابة مادة مخصصة يدوياً --</option>
-          </select>
+          <select id="quick-course-preset"><option value="">-- كتابة مادة مخصصة يدوياً --</option></select>
         </div>
         <div class="form-group">
           <label>اسم المادة</label>
@@ -749,10 +696,7 @@
         <button id="btn-close-slot-modal" class="close-btn">&times;</button>
       </div>
       <form id="slot-form">
-        <div class="form-group">
-          <label>المقرر:</label>
-          <select id="slot-course-select" required></select>
-        </div>
+        <div class="form-group"><label>المقرر:</label><select id="slot-course-select" required></select></div>
         <div class="form-group">
           <label>اليوم:</label>
           <select id="slot-day-select" required>
@@ -764,24 +708,12 @@
           </select>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label>وقت البداية</label>
-            <input type="time" id="slot-start-time" required value="08:30">
-          </div>
-          <div class="form-group">
-            <label>وقت النهاية</label>
-            <input type="time" id="slot-end-time" required value="09:45">
-          </div>
+          <div class="form-group"><label>وقت البداية</label><input type="time" id="slot-start-time" required value="08:30"></div>
+          <div class="form-group"><label>وقت النهاية</label><input type="time" id="slot-end-time" required value="09:45"></div>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label>رقم القاعة</label>
-            <input type="text" id="slot-room" placeholder="مثال: 228GC006">
-          </div>
-          <div class="form-group">
-            <label>المبنى / الدور</label>
-            <input type="text" id="slot-building" placeholder="مثال: مبنى 228 الأرضي">
-          </div>
+          <div class="form-group"><label>رقم القاعة</label><input type="text" id="slot-room" placeholder="مثال: 228GC006"></div>
+          <div class="form-group"><label>المبنى / الدور</label><input type="text" id="slot-building" placeholder="مثال: مبنى 228 الأرضي"></div>
         </div>
         <button type="submit" class="btn-primary">إضافة إلى الجدول الأسبوعي 🗓️</button>
       </form>
@@ -795,28 +727,11 @@
         <button id="btn-close-task-modal" class="close-btn">&times;</button>
       </div>
       <form id="add-task-form">
-        <div class="form-group">
-          <label>عنوان المهمة</label>
-          <input type="text" id="task-title-input" required placeholder="مثال: حل شيت التمارين">
-        </div>
-        <div class="form-group">
-          <label>المقرر التابع له:</label>
-          <select id="task-course-select" required></select>
-        </div>
+        <div class="form-group"><label>عنوان المهمة</label><input type="text" id="task-title-input" required placeholder="مثال: تسليم تقرير اللاب"></div>
+        <div class="form-group"><label>المقرر التابع له:</label><select id="task-course-select" required></select></div>
         <div class="form-row">
-          <div class="form-group">
-            <label>تاريخ التسليم</label>
-            <input type="date" id="task-date-input">
-          </div>
-          <div class="form-group">
-            <label>النوع</label>
-            <select id="task-type-select">
-              <option value="واجب">واجب</option>
-              <option value="كويز">كويز / اختبار</option>
-              <option value="مشروع">مشروع</option>
-              <option value="مذاكرة">مذاكرة عامة</option>
-            </select>
-          </div>
+          <div class="form-group"><label>تاريخ التسليم</label><input type="date" id="task-date-input"></div>
+          <div class="form-group"><label>النوع</label><select id="task-type-select"><option value="واجب">واجب</option><option value="كويز">كويز</option><option value="مشروع">مشروع</option><option value="مذاكرة">مذاكرة</option></select></div>
         </div>
         <button type="submit" class="btn-primary">حفظ المهمة</button>
       </form>
@@ -829,78 +744,31 @@
         <h3>📅 جدول مواعيد الاختبارات الشاملة</h3>
         <button class="close-btn" onclick="document.getElementById('exams-modal').classList.remove('open')">&times;</button>
       </div>
-      <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 12px;">
-        مواعيد الكويزات، الميدات، والفاينلات مرتبة تصاعدياً مع إمكانية إضافتها لتقويم Google.
-      </p>
       <div id="modal-exams-list-container">
         <p style="font-size: 11.5px; color: var(--text-muted); text-align: center; padding: 10px;">جاري جلب الاختبارات...</p>
       </div>
     </div>
   </div>
 
-  <div id="feedback-modal" class="modal-overlay">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="fb-modal-heading">📩 صندوق الاقتراحات والشكاوى</h3>
-        <button id="btn-close-feedback-modal" class="close-btn">&times;</button>
-      </div>
-      <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:10px;">رأيك وملاحظاتك تساهم في تطوير وتحديث المنصة.</p>
-      <form id="feedback-form">
-        <div class="form-group">
-          <label>نوع الرسالة</label>
-          <select id="fb-type">
-            <option value="اقتراح ميزة جديدة">اقتراح ميزة جديدة 💡</option>
-            <option value="إبلاغ عن خلل أو مشكلة">إبلاغ عن خلل أو مشكلة 🐛</option>
-            <option value="استفسار عام">استفسار عام 💬</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>الموضوع</label>
-          <input type="text" id="fb-subject" required placeholder="عنوان مختصر">
-        </div>
-        <div class="form-group">
-          <label>الرسالة</label>
-          <textarea id="fb-content" rows="4" required placeholder="اكتب التفاصيل..."></textarea>
-        </div>
-        <button type="submit" class="btn-primary">إرسال للإدارة فوراً 🚀</button>
-      </form>
-    </div>
-  </div>
-
   <div id="profile-modal" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>👤 الملف الشخصي</h3>
+        <h3>👤 الملف الشخصي وتفضيلات الودجات</h3>
         <button id="btn-close-profile-modal" class="close-btn">&times;</button>
       </div>
       <form id="profile-edit-form">
         <div style="text-align:center; margin-bottom:12px;">
           <img id="profile-avatar-preview" src="https://api.dicebear.com/7.x/bottts/svg?seed=student" style="width:62px; height:62px; border-radius:50%; object-fit:cover; border:2.5px solid var(--primary-teal); background:#0F766E; margin-bottom:4px;" alt="Avatar">
         </div>
-        <div class="form-group">
-          <label>الاسم الكامل</label>
-          <input type="text" id="profile-name-input" required placeholder="اسمك الكريم">
-        </div>
+        <div class="form-group"><label>الاسم الكامل</label><input type="text" id="profile-name-input" required placeholder="اسمك الكريم"></div>
         <div class="form-row">
-          <div class="form-group">
-            <label>التصنيف (محمي)</label>
-            <input type="text" id="profile-gender-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
-          </div>
-          <div class="form-group">
-            <label>رقم الدفعة (محمي)</label>
-            <input type="text" id="profile-section-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;">
-          </div>
+          <div class="form-group"><label>التصنيف (محمي)</label><input type="text" id="profile-gender-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;"></div>
+          <div class="form-group"><label>رقم الدفعة (محمي)</label><input type="text" id="profile-section-input" disabled style="background:#F1F5F9; color:#475569; font-weight:bold;"></div>
         </div>
         <button type="button" id="btn-open-request-change" class="btn-primary" style="background:#D97706; padding:7px; font-size:11.5px; margin-bottom:10px;">📝 طلب تعديل التصنيف أو الدفعة من المشرف</button>
-        <div class="form-group">
-          <label>النبذة التعريفية (Bio)</label>
-          <input type="text" id="profile-bio-input" placeholder="مثال: مهندسة حاسب آلي">
-        </div>
-        <div class="form-group">
-          <label>رابط الصورة الشخصية:</label>
-          <input type="url" id="profile-avatar-url" placeholder="https://...">
-        </div>
-        <button type="submit" class="btn-primary">حفظ التعديلات ✅</button>
+        <div class="form-group"><label>النبذة التعريفية (Bio)</label><input type="text" id="profile-bio-input" placeholder="مثال: طالبة هندسة حاسب"></div>
+        <div class="form-group"><label>رابط الصورة الشخصية:</label><input type="url" id="profile-avatar-url" placeholder="https://..."></div>
+        <button type="submit" class="btn-primary">حفظ وتطبيق التحديثات ✅</button>
       </form>
     </div>
   </div>
@@ -912,21 +780,9 @@
         <button id="btn-close-request-modal" class="close-btn">&times;</button>
       </div>
       <form id="request-change-form">
-        <div class="form-group">
-          <label>التصنيف المطلوب:</label>
-          <select id="req-gender-select">
-            <option value="طالب">👨‍🎓 طالب</option>
-            <option value="طالبة">👩‍🎓 طالبة</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>رقم الدفعة المطلوب:</label>
-          <input type="text" id="req-section-input" required placeholder="مثال: دفعة 22">
-        </div>
-        <div class="form-group">
-          <label>سبب طلب التغيير:</label>
-          <textarea id="req-reason-input" rows="3" required placeholder="وضح السبب للمشرف..."></textarea>
-        </div>
+        <div class="form-group"><label>التصنيف المطلوب:</label><select id="req-gender-select"><option value="طالب">👨‍🎓 طالب</option><option value="طالبة">👩‍🎓 طالبة</option></select></div>
+        <div class="form-group"><label>رقم الدفعة المطلوب:</label><input type="text" id="req-section-input" required placeholder="مثال: دفعة 23"></div>
+        <div class="form-group"><label>سبب طلب التغيير:</label><textarea id="req-reason-input" rows="3" required placeholder="يرجى توضيح سبب التعديل..."></textarea></div>
         <button type="submit" class="btn-primary">إرسال الطلب للمشرف 🚀</button>
       </form>
     </div>
