@@ -4146,7 +4146,7 @@
       let attendedLecAll = 0;
       currentCourses.forEach(c => {
         totalLecAll += getCourseTotalLectures(c);
-        attendedLecAll += getAutoLectureCount(c, now);
+        attendedLecAll += getManualLectureCount(c);
       });
       const pct = totalLecAll === 0 ? 0 : Math.round((attendedLecAll / totalLecAll) * 100);
       homeQuickAttendance.textContent = `${pct}%`;
@@ -4994,7 +4994,14 @@
       return Math.max(0, Math.min(total, scheduledOccurrences));
     }
 
-    // تحديث تلقائي للعداد دون انتظار تعديل الجدول أو إعادة تحميل الصفحة.
+    // إنجاز الدراسة منفصل عن مواعيد الجدول؛ لا يتغير إلا بضغط الطالب على أزراره.
+    function getManualLectureCount(course) {
+      const value = Number(course.attendedLectures);
+      const total = getCourseTotalLectures(course);
+      return Number.isFinite(value) ? Math.max(0, Math.min(total, value)) : 0;
+    }
+
+    // تحديث تلقائي للمحاضرات التي مرّت، دون تعديل إنجاز الطالب اليدوي.
     function refreshScheduledLectureCounters() {
       if (!currentUser) return;
       renderCoursesUI();
@@ -5016,8 +5023,8 @@
         sorted.sort((a, b) => (b.credits || 3) - (a.credits || 3));
       } else if (currentSort === "missed") {
         sorted.sort((a, b) => {
-          const remA = getCourseTotalLectures(a) - getAutoLectureCount(a);
-          const remB = getCourseTotalLectures(b) - getAutoLectureCount(b);
+          const remA = getCourseTotalLectures(a) - getManualLectureCount(a);
+          const remB = getCourseTotalLectures(b) - getManualLectureCount(b);
           return remB - remA;
         });
       } else if (currentSort === "name") {
@@ -5025,10 +5032,11 @@
       }
       sorted.forEach((course) => {
         const autoAttendedLectures = getAutoLectureCount(course);
+        const manualCompletedLectures = getManualLectureCount(course);
         const hasCourseSchedule = getCourseScheduleSlots(course.id, course.code).length > 0;
         const courseTotalLectures = getCourseTotalLectures(course);
         totalLecAll += courseTotalLectures;
-        attendedLecAll += autoAttendedLectures;
+        attendedLecAll += manualCompletedLectures;
         const remainingLec = Math.max(0, courseTotalLectures - autoAttendedLectures);
         const completedChapters = (course.chapters || []).filter(c => c.done).length;
         const totalChapters = (course.chapters || []).length;
@@ -5080,10 +5088,10 @@
               <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
             </div>
             <div class="stepper-row">
-              <span>المحاضرات التي مرّت حسب الجدول:</span>
+              <span>المحاضرات التي أنجزت مذاكرتها:</span>
               <div class="stepper-controls">
                 <button class="step-btn btn-dec">-</button>
-                <strong>${autoAttendedLectures} / ${courseTotalLectures}</strong>
+                <strong>${manualCompletedLectures} / ${courseTotalLectures}</strong>
                 <button class="step-btn btn-inc">+</button>
               </div>
             </div>
@@ -5128,13 +5136,21 @@
             card.classList.add("expanded");
           }
         });
-        card.querySelector(".btn-inc").addEventListener("click", (e) => {
+        card.querySelector(".btn-inc").addEventListener("click", async (e) => {
           e.stopPropagation();
-          alert(hasCourseSchedule ? "عداد المحاضرات يُحسب تلقائياً من جدولك منذ 22 أغسطس 2026، ويزيد عند انتهاء المحاضرة المجدولة." : "العداد 0 حتى تضيف جدولك الدراسي. أضف مواعيد هذه المادة من تبويب الجدول الدراسي.");
+          if (manualCompletedLectures >= courseTotalLectures) return;
+          expandedCourseId = course.id;
+          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            attendedLectures: manualCompletedLectures + 1
+          });
         });
-        card.querySelector(".btn-dec").addEventListener("click", (e) => {
+        card.querySelector(".btn-dec").addEventListener("click", async (e) => {
           e.stopPropagation();
-          alert(hasCourseSchedule ? "عداد المحاضرات يُحسب تلقائياً من جدولك منذ 22 أغسطس 2026، ويزيد عند انتهاء المحاضرة المجدولة." : "العداد 0 حتى تضيف جدولك الدراسي. أضف مواعيد هذه المادة من تبويب الجدول الدراسي.");
+          if (manualCompletedLectures <= 0) return;
+          expandedCourseId = course.id;
+          await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            attendedLectures: manualCompletedLectures - 1
+          });
         });
         card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
           e.stopPropagation();
@@ -5157,6 +5173,7 @@
           expandedCourseId = course.id;
           const updatedChs = (course.chapters || []).map(c => ({ ...c, done: true }));
           await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            attendedLectures: courseTotalLectures,
             chapters: updatedChs
           });
         });
@@ -5165,6 +5182,7 @@
           expandedCourseId = course.id;
           const updatedChs = (course.chapters || []).map(c => ({ ...c, done: false }));
           await updateDoc(doc(db, "users", currentUser.uid, "courses", course.id), {
+            attendedLectures: 0,
             absences: 0,
             chapters: updatedChs
           });
