@@ -4925,51 +4925,57 @@
       return new Date(d.getFullYear(), d.getMonth(), d.getDate());
     }
 
+    // لا يرتفع العداد دون تسجيل مواعيد فعلية لهذا المقرر في جدول الطالب.
+    function getCourseScheduleSlots(courseId, courseCode) {
+      if (!Array.isArray(currentScheduleSlots)) return [];
+      const wantedId = String(courseId || "").trim();
+      const wantedCode = normalizeCourseCode(courseCode);
+      return currentScheduleSlots.filter(slot => {
+        const slotId = String(slot.courseId || "").trim();
+        const slotCode = normalizeCourseCode(slot.courseCode);
+        return (wantedId && slotId && slotId === wantedId) ||
+          (wantedCode && slotCode && slotCode === wantedCode);
+      });
+    }
+
     function countScheduledLectureOccurrences(courseId, courseCode, startDateStr = SEMESTER_START_DATE, endDate = new Date()) {
-      if (!Array.isArray(currentScheduleSlots) || currentScheduleSlots.length === 0) return 0;
+      const courseSlots = getCourseScheduleSlots(courseId, courseCode);
+      if (courseSlots.length === 0) return 0;
 
       const startParts = String(startDateStr).split("-").map(Number);
       if (startParts.length !== 3 || startParts.some(Number.isNaN)) return 0;
-
       const start = new Date(startParts[0], startParts[1] - 1, startParts[2]);
+      if (Number.isNaN(start.getTime())) return 0;
       start.setHours(0, 0, 0, 0);
 
-      const today = dateOnlyLocal(endDate);
-      if (today < start) return 0;
+      const requestedEnd = new Date(endDate);
+      const semesterEnd = new Date(`${SEMESTER_END_DATE}T23:59:59.999`);
+      if (Number.isNaN(requestedEnd.getTime())) return 0;
+      // لا نحتسب أسابيع بعد نهاية الفصل حتى لو ظل الطالب يستخدم الموقع.
+      const effectiveEnd = requestedEnd < semesterEnd ? requestedEnd : semesterEnd;
+      const lastDay = dateOnlyLocal(effectiveEnd);
+      if (lastDay < start) return 0;
 
-      // لا نعتمد على courseId فقط؛ لأن بعض الجداول القديمة قد تحتوي المقرر بالكود فقط.
-      const wantedId = String(courseId || "").trim();
-      const wantedCode = normalizeCourseCode(courseCode);
-
-      const courseSlots = currentScheduleSlots.filter(slot => {
-        const slotId = String(slot.courseId || "").trim();
-        const slotCode = normalizeCourseCode(slot.courseCode);
-        const sameId = wantedId && slotId && slotId === wantedId;
-        const sameCode = wantedCode && slotCode && slotCode === wantedCode;
-        return sameId || sameCode;
-      });
-
-      if (courseSlots.length === 0) return 0;
-
-      // كل سجل في الجدول يمثل محاضرة أسبوعية مستقلة.
-      // نحسب فقط التكرارات الواقعة بين 22 أغسطس 2026 واليوم.
+      // كل صف في الجدول محاضرة أسبوعية مستقلة، حتى لو تكرر المقرر في اليوم نفسه.
+      // نحسب المحاضرة بمجرد انقضاء وقت نهايتها، وليس بمجرد بدء اليوم.
       let count = 0;
-      const countedSlotDays = courseSlots.map(slot => SCHEDULE_DAYS[normalizeScheduleDay(slot.day)])
-        .filter(day => Number.isInteger(day));
+      for (const slot of courseSlots) {
+        const dayIndex = SCHEDULE_DAYS[normalizeScheduleDay(slot.day)];
+        if (!Number.isInteger(dayIndex)) continue;
+        const endTime = /^(\d{1,2}):(\d{2})$/.exec(String(slot.endTime || ""));
+        // السجلات القديمة بلا وقت نهاية لا تُحتسب مبكراً خلال اليوم.
+        const endHour = endTime && Number(endTime[1]) < 24 ? Number(endTime[1]) : 23;
+        const endMinute = endTime && Number(endTime[2]) < 60 ? Number(endTime[2]) : 59;
 
-      if (countedSlotDays.length === 0) return 0;
-
-      for (const dayIndex of countedSlotDays) {
-        const first = new Date(start);
-        const offset = (dayIndex - first.getDay() + 7) % 7;
-        first.setDate(first.getDate() + offset);
-
-        if (first > today) continue;
-
-        const diffDays = Math.floor((today - first) / 86400000);
-        count += Math.floor(diffDays / 7) + 1;
+        const occurrence = new Date(start);
+        occurrence.setDate(occurrence.getDate() + (dayIndex - occurrence.getDay() + 7) % 7);
+        while (occurrence <= lastDay) {
+          const lectureEnd = new Date(occurrence);
+          lectureEnd.setHours(endHour, endMinute, 0, 0);
+          if (lectureEnd <= effectiveEnd) count++;
+          occurrence.setDate(occurrence.getDate() + 7);
+        }
       }
-
       return count;
     }
 
@@ -4987,6 +4993,19 @@
       );
       return Math.max(0, Math.min(total, scheduledOccurrences));
     }
+
+    // تحديث تلقائي للعداد دون انتظار تعديل الجدول أو إعادة تحميل الصفحة.
+    function refreshScheduledLectureCounters() {
+      if (!currentUser) return;
+      renderCoursesUI();
+      renderHomeDashboardUI();
+    }
+    setInterval(() => {
+      if (!document.hidden) refreshScheduledLectureCounters();
+    }, 60000);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) refreshScheduledLectureCounters();
+    });
 
     function renderCoursesUI() {
       coursesContainer.innerHTML = "";
@@ -5006,6 +5025,7 @@
       }
       sorted.forEach((course) => {
         const autoAttendedLectures = getAutoLectureCount(course);
+        const hasCourseSchedule = getCourseScheduleSlots(course.id, course.code).length > 0;
         const courseTotalLectures = getCourseTotalLectures(course);
         totalLecAll += courseTotalLectures;
         attendedLecAll += autoAttendedLectures;
@@ -5049,7 +5069,7 @@
               </span>
             </div>
             <span class="course-status-brief">
-              أُنجز ${autoAttendedLectures}/${courseTotalLectures} • باقي ${remainingLec}
+              ${hasCourseSchedule ? `مرّت ${autoAttendedLectures}/${courseTotalLectures} • باقي ${remainingLec}` : `مرّت 0/${courseTotalLectures} • أضف جدولك الدراسي`}
             </span>
             <span class="course-expand-icon">▼</span>
           </div>
@@ -5060,7 +5080,7 @@
               <button class="btn-quick btn-reset-all">تصفير المقرر 🔄</button>
             </div>
             <div class="stepper-row">
-              <span>المحاضرات التي تم حضورها:</span>
+              <span>المحاضرات التي مرّت حسب الجدول:</span>
               <div class="stepper-controls">
                 <button class="step-btn btn-dec">-</button>
                 <strong>${autoAttendedLectures} / ${courseTotalLectures}</strong>
@@ -5110,11 +5130,11 @@
         });
         card.querySelector(".btn-inc").addEventListener("click", (e) => {
           e.stopPropagation();
-          alert("عداد المحاضرات مرتبط بالجدول الدراسي ويُحسب تلقائياً من 22 أغسطس 2026. أضيفي أو عدّلي أيام المحاضرات من تبويب الجدول بدل زيادة العداد يدوياً.");
+          alert(hasCourseSchedule ? "عداد المحاضرات يُحسب تلقائياً من جدولك منذ 22 أغسطس 2026، ويزيد عند انتهاء المحاضرة المجدولة." : "العداد 0 حتى تضيف جدولك الدراسي. أضف مواعيد هذه المادة من تبويب الجدول الدراسي.");
         });
         card.querySelector(".btn-dec").addEventListener("click", (e) => {
           e.stopPropagation();
-          alert("عداد المحاضرات مرتبط بالجدول الدراسي ويُحسب تلقائياً من 22 أغسطس 2026. أضيفي أو عدّلي أيام المحاضرات من تبويب الجدول بدل إنقاص العداد يدوياً.");
+          alert(hasCourseSchedule ? "عداد المحاضرات يُحسب تلقائياً من جدولك منذ 22 أغسطس 2026، ويزيد عند انتهاء المحاضرة المجدولة." : "العداد 0 حتى تضيف جدولك الدراسي. أضف مواعيد هذه المادة من تبويب الجدول الدراسي.");
         });
         card.querySelector(".btn-inc-abs").addEventListener("click", async (e) => {
           e.stopPropagation();
@@ -5182,7 +5202,8 @@
       document.getElementById("overall-progress-bar").style.width = `${pct}%`;
       document.getElementById("overall-percent-label").textContent = `${pct}% نسبة المواكبة`;
       const motiv = document.getElementById("motivational-text");
-      if (pct >= 85) motiv.textContent = "أداء ممتاز جداً! استمر بنفس الحماس 🔥";
+      if (currentCourses.length > 0 && currentScheduleSlots.length === 0) motiv.textContent = "أضف جدولك الدراسي ليبدأ عداد المحاضرات تلقائياً من 22 أغسطس 2026.";
+      else if (pct >= 85) motiv.textContent = "أداء ممتاز جداً! استمر بنفس الحماس 🔥";
       else if (pct >= 50) motiv.textContent = "كأنها هجت شوي 🫣 يبيلك تاخذها وحدة وحدة";
       else motiv.textContent = "بداية موفقة أو تراكم يحتاج شدة حيل! 🚀";
     }
